@@ -13,7 +13,7 @@ namespace custom{
             explicit array <T> (int size) :
                     array_values(new T[size]), length(size){}
 
-            array <T> (array &original) :
+            array <T> (const array &original) :
                     array_values(new T[original.length]), length(original.length){
                 memcpy(array_values, original.array_values, (original.length * sizeof *array_values));
             }
@@ -29,7 +29,7 @@ namespace custom{
 
             friend std::ostream& operator<<(std::ostream& stream, const array<T> &my_array){
                 for(int x1 = 0; x1 < my_array.length; ++x1){
-                    stream << (int) my_array.array_values[x1] << " ";
+                    stream << my_array.array_values[x1] << " ";
                 }
                 return stream;
             }
@@ -49,7 +49,7 @@ namespace custom{
             }
 
             ~array(){
-                std::cout << "memory freed" << std::endl;
+                //std::cout << "memory freed" << std::endl;
                 delete[] array_values;
             }
     };
