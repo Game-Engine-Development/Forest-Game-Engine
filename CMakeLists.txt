@@ -4,7 +4,7 @@ project(opengl_game)
 
 # Source files
 set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/source")
-set(SOURCES "${SRC_DIR}/main.cpp")
+set(SOURCES "${SRC_DIR}/main.cpp" source/Shader.h source/stb_image.h)
 
 # Executable definition and properties
 add_executable(${PROJECT_NAME} ${SOURCES})

@@ -4,5 +4,7 @@
 CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../libraries/glad/include/KHR/khrplatform.h
 CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../libraries/glad/include/glad/glad.h
 CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../libraries/glfw/include/GLFW/glfw3.h
+CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../source/Shader.h
 CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../source/main.cpp
+CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../source/stb_image.h
 

@@ -5,4 +5,6 @@ CMakeFiles/opengl_game.dir/source/main.cpp.obj
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h
  ../libraries/glfw/include/GLFW/glfw3.h
- C:/Users/lsand5108/CLionProjects/opengl_game/source/main.cpp
+ C:/C++/opengl_game/source/Shader.h
+ C:/C++/opengl_game/source/main.cpp
+ C:/C++/opengl_game/source/stb_image.h

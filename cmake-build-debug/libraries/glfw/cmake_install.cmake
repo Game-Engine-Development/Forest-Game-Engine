@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw
+# Install script for directory: C:/C++/opengl_game/libraries/glfw
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/untitled")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/opengl_game")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/lsand5108/CLionProjects/opengl_game/cmake-build-debug/libraries/glfw/src/cmake_install.cmake")
+  include("C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/cmake_install.cmake")
 
 endif()
 

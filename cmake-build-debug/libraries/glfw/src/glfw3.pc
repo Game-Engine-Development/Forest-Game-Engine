@@ -1,7 +1,7 @@
-prefix=C:/Program Files (x86)/untitled
+prefix=C:/Program Files (x86)/opengl_game
 exec_prefix=${prefix}
-includedir=C:/Program Files (x86)/untitled/include
-libdir=C:/Program Files (x86)/untitled/lib
+includedir=C:/Program Files (x86)/opengl_game/include
+libdir=C:/Program Files (x86)/opengl_game/lib
 
 Name: GLFW
 Description: A multi-platform library for OpenGL, window and input
