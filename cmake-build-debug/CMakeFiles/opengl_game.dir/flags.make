@@ -4,7 +4,7 @@
 # compile CXX with C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/g++.exe
 CXX_FLAGS = -g   -std=gnu++17
 
-CXX_DEFINES = -DGLFW_INCLUDE_NONE
+CXX_DEFINES = -DGLFW_INCLUDE_NONE -DGLM_INCLUDE_NONE
 
 CXX_INCLUDES = @CMakeFiles/opengl_game.dir/includes_CXX.rsp
 

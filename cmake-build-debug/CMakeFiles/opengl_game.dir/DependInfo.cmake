@@ -11,13 +11,16 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_CXX
   "GLFW_INCLUDE_NONE"
+  "GLM_INCLUDE_NONE"
   )
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../source"
   "../libraries/glfw/include"
+  "../libraries/glm/include"
   "../libraries/glad/include"
+  "../libraries/glm"
   )
 
 # Targets to which this target links.

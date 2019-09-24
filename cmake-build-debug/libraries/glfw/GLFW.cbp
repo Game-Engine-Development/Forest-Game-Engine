@@ -5,7 +5,7 @@
 		<Option title="GLFW"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\libraries\;CMake Files\libraries\glfw\;CMake Files\libraries\glfw\src\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\libraries\;CMake Files\libraries\glfw\;CMake Files\libraries\glfw\src\;CMake Files\libraries\glm\;CMake Files\libraries\glm\cmake\;CMake Files\libraries\glm\glm\;CMake Files\libraries\glm\test\;CMake Files\libraries\glm\test\bug\;CMake Files\libraries\glm\test\core\;CMake Files\libraries\glm\test\gtc\;CMake Files\libraries\glm\test\gtx\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="C:/C++/opengl_game/cmake-build-debug/libraries/glfw"/>
@@ -164,6 +164,42 @@
 		</Unit>
 		<Unit filename="C:/C++/opengl_game/libraries/glfw/src/glfw_config.h.in">
 			<Option virtualFolder="CMake Files\libraries\glfw\src\"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/libraries/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glm\"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/libraries/glm/cmake/CMakePackageConfigHelpers.cmake">
+			<Option virtualFolder="CMake Files\libraries\glm\cmake\"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/libraries/glm/cmake/GNUInstallDirs.cmake">
+			<Option virtualFolder="CMake Files\libraries\glm\cmake\"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/libraries/glm/cmake/glm.pc.in">
+			<Option virtualFolder="CMake Files\libraries\glm\cmake\"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/libraries/glm/cmake/glmBuildConfig.cmake.in">
+			<Option virtualFolder="CMake Files\libraries\glm\cmake\"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/libraries/glm/cmake/glmConfig.cmake.in">
+			<Option virtualFolder="CMake Files\libraries\glm\cmake\"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/libraries/glm/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glm\glm\"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/libraries/glm/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glm\test\"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/libraries/glm/test/bug/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glm\test\bug\"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/libraries/glm/test/core/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glm\test\core\"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/libraries/glm/test/gtc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glm\test\gtc\"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/libraries/glm/test/gtx/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glm\test\gtx\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

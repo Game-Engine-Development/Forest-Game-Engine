@@ -23,6 +23,18 @@ target_link_libraries(${PROJECT_NAME} "glfw" "${GLFW_LIBRARIES}")
 target_include_directories(${PROJECT_NAME} PRIVATE "${GLFW_DIR}/include")
 target_compile_definitions(${PROJECT_NAME} PRIVATE "GLFW_INCLUDE_NONE")
 
+#GLM
+set(GLM_DIR "${LIB_DIR}/glm")
+set(GLM_BUILD_EXAMPLES OFF CACHE INTERNAL "Build the GLM example programs")
+set(GLM_BUILD_TESTS OFF CACHE INTERNAL "Build the GLM test programs")
+set(GLM_BUILD_DOCS OFF CACHE INTERNAL "Build the GLM documentation")
+set(GLM_INTALL OFF CACHE INTERNAL "Generate installation target")
+add_subdirectory("${GLM_DIR}")
+target_link_libraries(${PROJECT_NAME} "glm" "${GLM_LIBRARIES}")
+target_include_directories(${PROJECT_NAME} PRIVATE "${GLM_DIR}/include")
+target_compile_definitions(${PROJECT_NAME} PRIVATE "GLM_INCLUDE_NONE")
+
+
 #GLAD
 set(GLAD_DIR "${LIB_DIR}/glad")
 add_library("glad" "${GLAD_DIR}/src/glad.c")

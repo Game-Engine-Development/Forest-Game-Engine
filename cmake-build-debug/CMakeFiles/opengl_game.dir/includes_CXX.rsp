@@ -1,1 +1,1 @@
--IC:/C++/opengl_game/source -IC:/C++/opengl_game/libraries/glfw/include -IC:/C++/opengl_game/libraries/glad/include 
+-IC:/C++/opengl_game/source -IC:/C++/opengl_game/libraries/glfw/include -IC:/C++/opengl_game/libraries/glm/include -IC:/C++/opengl_game/libraries/glad/include -IC:/C++/opengl_game/libraries/glm 

@@ -67,11 +67,11 @@ CMAKE_BINARY_DIR = C:\C++\opengl_game\cmake-build-debug
 # Target rules for target CMakeFiles/opengl_game.dir
 
 # All Build rule for target.
-CMakeFiles/opengl_game.dir/all: libraries/glfw/src/CMakeFiles/glfw.dir/all
 CMakeFiles/opengl_game.dir/all: CMakeFiles/glad.dir/all
+CMakeFiles/opengl_game.dir/all: libraries/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/depend
 	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=19,20 "Built target opengl_game"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=22,23 "Built target opengl_game"
 .PHONY : CMakeFiles/opengl_game.dir/all
 
 # Include target in all.
@@ -210,6 +210,181 @@ libraries/glfw/src/CMakeFiles/glfw.dir/clean:
 clean: libraries/glfw/src/CMakeFiles/glfw.dir/clean
 
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory libraries/glm
+
+# Convenience name for "all" pass in the directory.
+libraries/glm/all: libraries/glm/glm/all
+libraries/glm/all: libraries/glm/test/all
+
+.PHONY : libraries/glm/all
+
+# Convenience name for "clean" pass in the directory.
+libraries/glm/clean: libraries/glm/glm/clean
+libraries/glm/clean: libraries/glm/test/clean
+
+.PHONY : libraries/glm/clean
+
+# Convenience name for "preinstall" pass in the directory.
+libraries/glm/preinstall: libraries/glm/glm/preinstall
+libraries/glm/preinstall: libraries/glm/test/preinstall
+
+.PHONY : libraries/glm/preinstall
+
+#=============================================================================
+# Directory level rules for directory libraries/glm/glm
+
+# Convenience name for "all" pass in the directory.
+libraries/glm/glm/all: libraries/glm/glm/CMakeFiles/glm_dummy.dir/all
+
+.PHONY : libraries/glm/glm/all
+
+# Convenience name for "clean" pass in the directory.
+libraries/glm/glm/clean: libraries/glm/glm/CMakeFiles/glm_dummy.dir/clean
+
+.PHONY : libraries/glm/glm/clean
+
+# Convenience name for "preinstall" pass in the directory.
+libraries/glm/glm/preinstall:
+
+.PHONY : libraries/glm/glm/preinstall
+
+#=============================================================================
+# Target rules for target libraries/glm/glm/CMakeFiles/glm_dummy.dir
+
+# All Build rule for target.
+libraries/glm/glm/CMakeFiles/glm_dummy.dir/all:
+	$(MAKE) -f libraries\glm\glm\CMakeFiles\glm_dummy.dir\build.make libraries/glm/glm/CMakeFiles/glm_dummy.dir/depend
+	$(MAKE) -f libraries\glm\glm\CMakeFiles\glm_dummy.dir\build.make libraries/glm/glm/CMakeFiles/glm_dummy.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=19,20,21 "Built target glm_dummy"
+.PHONY : libraries/glm/glm/CMakeFiles/glm_dummy.dir/all
+
+# Include target in all.
+all: libraries/glm/glm/CMakeFiles/glm_dummy.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+libraries/glm/glm/CMakeFiles/glm_dummy.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\C++\opengl_game\cmake-build-debug\CMakeFiles 3
+	$(MAKE) -f CMakeFiles\Makefile2 libraries/glm/glm/CMakeFiles/glm_dummy.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\C++\opengl_game\cmake-build-debug\CMakeFiles 0
+.PHONY : libraries/glm/glm/CMakeFiles/glm_dummy.dir/rule
+
+# Convenience name for target.
+glm_dummy: libraries/glm/glm/CMakeFiles/glm_dummy.dir/rule
+
+.PHONY : glm_dummy
+
+# clean rule for target.
+libraries/glm/glm/CMakeFiles/glm_dummy.dir/clean:
+	$(MAKE) -f libraries\glm\glm\CMakeFiles\glm_dummy.dir\build.make libraries/glm/glm/CMakeFiles/glm_dummy.dir/clean
+.PHONY : libraries/glm/glm/CMakeFiles/glm_dummy.dir/clean
+
+# clean rule for target.
+clean: libraries/glm/glm/CMakeFiles/glm_dummy.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory libraries/glm/test
+
+# Convenience name for "all" pass in the directory.
+libraries/glm/test/all: libraries/glm/test/bug/all
+libraries/glm/test/all: libraries/glm/test/core/all
+libraries/glm/test/all: libraries/glm/test/gtc/all
+libraries/glm/test/all: libraries/glm/test/gtx/all
+
+.PHONY : libraries/glm/test/all
+
+# Convenience name for "clean" pass in the directory.
+libraries/glm/test/clean: libraries/glm/test/bug/clean
+libraries/glm/test/clean: libraries/glm/test/core/clean
+libraries/glm/test/clean: libraries/glm/test/gtc/clean
+libraries/glm/test/clean: libraries/glm/test/gtx/clean
+
+.PHONY : libraries/glm/test/clean
+
+# Convenience name for "preinstall" pass in the directory.
+libraries/glm/test/preinstall: libraries/glm/test/bug/preinstall
+libraries/glm/test/preinstall: libraries/glm/test/core/preinstall
+libraries/glm/test/preinstall: libraries/glm/test/gtc/preinstall
+libraries/glm/test/preinstall: libraries/glm/test/gtx/preinstall
+
+.PHONY : libraries/glm/test/preinstall
+
+#=============================================================================
+# Directory level rules for directory libraries/glm/test/bug
+
+# Convenience name for "all" pass in the directory.
+libraries/glm/test/bug/all:
+
+.PHONY : libraries/glm/test/bug/all
+
+# Convenience name for "clean" pass in the directory.
+libraries/glm/test/bug/clean:
+
+.PHONY : libraries/glm/test/bug/clean
+
+# Convenience name for "preinstall" pass in the directory.
+libraries/glm/test/bug/preinstall:
+
+.PHONY : libraries/glm/test/bug/preinstall
+
+#=============================================================================
+# Directory level rules for directory libraries/glm/test/core
+
+# Convenience name for "all" pass in the directory.
+libraries/glm/test/core/all:
+
+.PHONY : libraries/glm/test/core/all
+
+# Convenience name for "clean" pass in the directory.
+libraries/glm/test/core/clean:
+
+.PHONY : libraries/glm/test/core/clean
+
+# Convenience name for "preinstall" pass in the directory.
+libraries/glm/test/core/preinstall:
+
+.PHONY : libraries/glm/test/core/preinstall
+
+#=============================================================================
+# Directory level rules for directory libraries/glm/test/gtc
+
+# Convenience name for "all" pass in the directory.
+libraries/glm/test/gtc/all:
+
+.PHONY : libraries/glm/test/gtc/all
+
+# Convenience name for "clean" pass in the directory.
+libraries/glm/test/gtc/clean:
+
+.PHONY : libraries/glm/test/gtc/clean
+
+# Convenience name for "preinstall" pass in the directory.
+libraries/glm/test/gtc/preinstall:
+
+.PHONY : libraries/glm/test/gtc/preinstall
+
+#=============================================================================
+# Directory level rules for directory libraries/glm/test/gtx
+
+# Convenience name for "all" pass in the directory.
+libraries/glm/test/gtx/all:
+
+.PHONY : libraries/glm/test/gtx/all
+
+# Convenience name for "clean" pass in the directory.
+libraries/glm/test/gtx/clean:
+
+.PHONY : libraries/glm/test/gtx/clean
+
+# Convenience name for "preinstall" pass in the directory.
+libraries/glm/test/gtx/preinstall:
+
+.PHONY : libraries/glm/test/gtx/preinstall
 
 #=============================================================================
 # Special targets to cleanup operation of make.
