@@ -67,8 +67,8 @@ CMAKE_BINARY_DIR = C:\C++\opengl_game\cmake-build-debug
 # Target rules for target CMakeFiles/opengl_game.dir
 
 # All Build rule for target.
-CMakeFiles/opengl_game.dir/all: CMakeFiles/glad.dir/all
 CMakeFiles/opengl_game.dir/all: libraries/glfw/src/CMakeFiles/glfw.dir/all
+CMakeFiles/opengl_game.dir/all: CMakeFiles/glad.dir/all
 	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/depend
 	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=22,23 "Built target opengl_game"

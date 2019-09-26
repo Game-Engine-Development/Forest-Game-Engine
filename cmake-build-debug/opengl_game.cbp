@@ -1143,6 +1143,9 @@
 		<Unit filename="C:/C++/opengl_game/libraries/glm/util/glm.natvis">
 			<Option target="glm_dummy"/>
 		</Unit>
+		<Unit filename="C:/C++/opengl_game/source/Camera.h">
+			<Option target="opengl_game"/>
+		</Unit>
 		<Unit filename="C:/C++/opengl_game/source/Shader.h">
 			<Option target="opengl_game"/>
 		</Unit>

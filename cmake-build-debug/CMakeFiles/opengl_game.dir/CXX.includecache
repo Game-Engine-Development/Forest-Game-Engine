@@ -862,6 +862,16 @@ detail/type_vec4.hpp
 detail/func_vector_relational.hpp
 ../libraries/glm/glm/detail/func_vector_relational.hpp
 
+C:/C++/opengl_game/source/Camera.h
+glad/glad.h
+-
+glm/glm.hpp
+-
+glm/gtc/matrix_transform.hpp
+-
+vector
+-
+
 C:/C++/opengl_game/source/Shader.h
 glad/glad.h
 -
@@ -883,6 +893,8 @@ GLFW/glfw3.h
 -
 Shader.h
 C:/C++/opengl_game/source/Shader.h
+Camera.h
+C:/C++/opengl_game/source/Camera.h
 glm/glm.hpp
 -
 glm/gtc/matrix_transform.hpp

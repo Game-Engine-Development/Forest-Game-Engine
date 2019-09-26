@@ -105,6 +105,7 @@ CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../libraries/glm/glm/vec2.hpp
 CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../libraries/glm/glm/vec3.hpp
 CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../libraries/glm/glm/vec4.hpp
 CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../libraries/glm/glm/vector_relational.hpp
+CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../source/Camera.h
 CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../source/Shader.h
 CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../source/main.cpp
 CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../source/stb_image.h

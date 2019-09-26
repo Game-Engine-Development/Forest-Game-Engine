@@ -106,6 +106,7 @@ CMakeFiles/opengl_game.dir/source/main.cpp.obj
  ../libraries/glm/glm/vec3.hpp
  ../libraries/glm/glm/vec4.hpp
  ../libraries/glm/glm/vector_relational.hpp
+ C:/C++/opengl_game/source/Camera.h
  C:/C++/opengl_game/source/Shader.h
  C:/C++/opengl_game/source/main.cpp
  C:/C++/opengl_game/source/stb_image.h
