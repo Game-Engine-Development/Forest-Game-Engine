@@ -71,7 +71,7 @@ int main()
     glEnable(GL_DEPTH_TEST);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    Shader shader("../shaders/vertexShader.vs", "../shaders/fragmentShader.fs");
+    Shader shader("../shaders/vertexShader.glsl", "../shaders/fragmentShader.glsl");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
