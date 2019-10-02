@@ -12,7 +12,7 @@
    You can #define STBI_ASSERT(x) before the #include to avoid using assert.h.
    And #define STBI_MALLOC, STBI_REALLOC, and STBI_FREE to avoid using malloc,realloc,free
    QUICK NOTES:
-      Primarily of interest to game developers and other people who can
+      Primarily of interest to Game developers and other people who can
           avoid problematic images and only need the trivial interface
       JPEG baseline & progressive (12 bpc/arithmetic not supported, same as stock IJG lib)
       PNG 1/2/4/8/16-bit-per-channel
@@ -1913,7 +1913,7 @@ stbi_inline static int stbi__jpeg_huff_decode(stbi__jpeg *j, stbi__huffman *h)
    // preshifted maxcode left so that it has (16-k) 0s at the
    // end; in other words, regardless of the number of bits, it
    // wants to be compared against something shifted to have 16;
-   // that way we don't need to shift inside the loop.
+   // that way we don't need to shift inside the Loop.
    temp = j->code_buffer >> 16;
    for (k=FAST_BITS+1 ; ; ++k)
       if (temp < h->maxcode[k])
@@ -2284,7 +2284,7 @@ static void stbi__idct_block(stbi_uc *out, int out_stride, short data[64])
       // no fast case since the first 1D IDCT spread components out
       STBI__IDCT_1D(v[0],v[1],v[2],v[3],v[4],v[5],v[6],v[7])
       // constants scaled things up by 1<<12, plus we had 1<<2 from first
-      // loop, plus horizontal and vertical each scale by sqrt(8) so together
+      // Loop, plus horizontal and vertical each scale by sqrt(8) so together
       // we've got an extra 1<<3, so 1<<17 total we need to remove.
       // so we want to round that, which means adding 0.5 * 1<<17,
       // aka 65536. Also, we'll end up with -128 to 127 that we want
@@ -3293,7 +3293,7 @@ static stbi_uc *stbi__resample_row_hv_2_simd(stbi_uc *out, stbi_uc *in_near, stb
 
    t1 = 3*in_near[0] + in_far[0];
    // process groups of 8 pixels for as long as we can.
-   // note we can't handle the last pixel in a row in this loop
+   // note we can't handle the last pixel in a row in this Loop
    // because we need to handle the filter boundary conditions.
    for (; i < ((w-1) & ~7); i += 8) {
 #if defined(STBI_SSE2)
@@ -3886,7 +3886,7 @@ static int stbi__zbuild_huffman(stbi__zhuffman *z, const stbi_uc *sizelist, int 
       code = (code + sizes[i]);
       if (sizes[i])
          if (code-1 >= (1 << i)) return stbi__err("bad codelengths","Corrupt PNG");
-      z->maxcode[i] = code << (16-i); // preshift for inner loop
+      z->maxcode[i] = code << (16-i); // preshift for inner Loop
       code <<= 1;
       k += sizes[i];
    }
@@ -4485,7 +4485,7 @@ static int stbi__create_png_image_raw(stbi__png *a, stbi_uc *raw, stbi__uint32 r
          }
          #undef STBI__CASE
 
-         // the loop above sets the high byte of the pixels' alpha, but for
+         // the Loop above sets the high byte of the pixels' alpha, but for
          // 16 bit png files we also need the low byte set. we'll do that here.
          if (depth == 16) {
             cur = a->out + stride*j; // start at the beginning of the row again
@@ -4504,7 +4504,7 @@ static int stbi__create_png_image_raw(stbi__png *a, stbi_uc *raw, stbi__uint32 r
          stbi_uc *cur = a->out + stride*j;
          stbi_uc *in  = a->out + stride*j + x*out_n - img_width_bytes;
          // unpack 1/2/4-bit into a 8-bit buffer. allows us to keep the common 8-bit path optimal at minimal cost for 1/2/4-bit
-         // png guarante byte alignment, if width is not multiple of 8/4/2 we'll decode dummy trailing data that will be skipped in the later loop
+         // png guarante byte alignment, if width is not multiple of 8/4/2 we'll decode dummy trailing data that will be skipped in the later Loop
          stbi_uc scale = (color == 0) ? stbi__depth_scale_table[depth] : 1; // scale grayscale values to 0..255 range
 
          // note that the final byte might overshoot and write more data than desired.

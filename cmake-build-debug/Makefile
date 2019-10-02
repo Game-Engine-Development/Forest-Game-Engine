@@ -234,32 +234,86 @@ libraries/glad/src/glad.c.s:
 	$(MAKE) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/libraries/glad/src/glad.c.s
 .PHONY : libraries/glad/src/glad.c.s
 
-source/main.obj: source/main.cpp.obj
+source/Engine/Models/Model.obj: source/Engine/Models/Model.cpp.obj
 
-.PHONY : source/main.obj
+.PHONY : source/Engine/Models/Model.obj
 
 # target to build an object file
-source/main.cpp.obj:
-	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/main.cpp.obj
-.PHONY : source/main.cpp.obj
+source/Engine/Models/Model.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.obj
+.PHONY : source/Engine/Models/Model.cpp.obj
 
-source/main.i: source/main.cpp.i
+source/Engine/Models/Model.i: source/Engine/Models/Model.cpp.i
 
-.PHONY : source/main.i
+.PHONY : source/Engine/Models/Model.i
 
 # target to preprocess a source file
-source/main.cpp.i:
-	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/main.cpp.i
-.PHONY : source/main.cpp.i
+source/Engine/Models/Model.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.i
+.PHONY : source/Engine/Models/Model.cpp.i
 
-source/main.s: source/main.cpp.s
+source/Engine/Models/Model.s: source/Engine/Models/Model.cpp.s
 
-.PHONY : source/main.s
+.PHONY : source/Engine/Models/Model.s
 
 # target to generate assembly for a file
-source/main.cpp.s:
-	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/main.cpp.s
-.PHONY : source/main.cpp.s
+source/Engine/Models/Model.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.s
+.PHONY : source/Engine/Models/Model.cpp.s
+
+source/Engine/Models/Texture.obj: source/Engine/Models/Texture.cpp.obj
+
+.PHONY : source/Engine/Models/Texture.obj
+
+# target to build an object file
+source/Engine/Models/Texture.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj
+.PHONY : source/Engine/Models/Texture.cpp.obj
+
+source/Engine/Models/Texture.i: source/Engine/Models/Texture.cpp.i
+
+.PHONY : source/Engine/Models/Texture.i
+
+# target to preprocess a source file
+source/Engine/Models/Texture.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.i
+.PHONY : source/Engine/Models/Texture.cpp.i
+
+source/Engine/Models/Texture.s: source/Engine/Models/Texture.cpp.s
+
+.PHONY : source/Engine/Models/Texture.s
+
+# target to generate assembly for a file
+source/Engine/Models/Texture.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.s
+.PHONY : source/Engine/Models/Texture.cpp.s
+
+source/Game/Loop/main.obj: source/Game/Loop/main.cpp.obj
+
+.PHONY : source/Game/Loop/main.obj
+
+# target to build an object file
+source/Game/Loop/main.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj
+.PHONY : source/Game/Loop/main.cpp.obj
+
+source/Game/Loop/main.i: source/Game/Loop/main.cpp.i
+
+.PHONY : source/Game/Loop/main.i
+
+# target to preprocess a source file
+source/Game/Loop/main.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.i
+.PHONY : source/Game/Loop/main.cpp.i
+
+source/Game/Loop/main.s: source/Game/Loop/main.cpp.s
+
+.PHONY : source/Game/Loop/main.s
+
+# target to generate assembly for a file
+source/Game/Loop/main.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.s
+.PHONY : source/Game/Loop/main.cpp.s
 
 # Help Target
 help:
@@ -280,9 +334,15 @@ help:
 	@echo ... libraries/glad/src/glad.obj
 	@echo ... libraries/glad/src/glad.i
 	@echo ... libraries/glad/src/glad.s
-	@echo ... source/main.obj
-	@echo ... source/main.i
-	@echo ... source/main.s
+	@echo ... source/Engine/Models/Model.obj
+	@echo ... source/Engine/Models/Model.i
+	@echo ... source/Engine/Models/Model.s
+	@echo ... source/Engine/Models/Texture.obj
+	@echo ... source/Engine/Models/Texture.i
+	@echo ... source/Engine/Models/Texture.s
+	@echo ... source/Game/Loop/main.obj
+	@echo ... source/Game/Loop/main.i
+	@echo ... source/Game/Loop/main.s
 .PHONY : help
 
 

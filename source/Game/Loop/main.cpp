@@ -1,10 +1,11 @@
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "headers/stb_image.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "Shader.h"
-#include "Camera.h"
+#include "Headers/Shader.h"
+#include "Headers/Camera.h"
+#include "Headers/Engine/Models/Texture.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -118,12 +119,10 @@ int main()
             -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
             -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
-    int width, height, nrchannels;
-    unsigned char* data = stbi_load("../res/container.jpg", &width, &height, &nrchannels, 0);
-    unsigned int VBO, VAO, texture;
+    Texture texture("../res/container.jpg");
+    unsigned int VBO, VAO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
-    glGenTextures(1, &texture);
     // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
     glBindVertexArray(VAO);
 
@@ -141,19 +140,6 @@ int main()
     // remember: do NOT unbind the EBO while a VAO is active as the bound element buffer object IS stored in the VAO; keep the EBO bound.
     //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    if(data){
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    } else {
-        std::cout << "FAILED TO LOAD IMAGE" << std::endl;
-    }
-    stbi_image_free(data);
-
     // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
     // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
     glBindVertexArray(0);
@@ -162,7 +148,7 @@ int main()
     // uncomment this call to draw in wireframe polygons.
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    // render loop
+    // render Loop
     // -----------
     while (!glfwWindowShouldClose(window))
     {
@@ -180,7 +166,7 @@ int main()
         // draw our first triangle
         shader.use();
         setMatrices(shader);
-        glBindTexture(GL_TEXTURE_2D, texture);
+        glBindTexture(GL_TEXTURE_2D, texture.get_ID());
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         //glDrawArrays(GL_TRIANGLES, 0, 6);
         glDrawArrays(GL_TRIANGLES, 0, 36);

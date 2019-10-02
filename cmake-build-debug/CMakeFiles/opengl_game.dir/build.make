@@ -56,35 +56,67 @@ include CMakeFiles/opengl_game.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/opengl_game.dir/flags.make
 
-CMakeFiles/opengl_game.dir/source/main.cpp.obj: CMakeFiles/opengl_game.dir/flags.make
-CMakeFiles/opengl_game.dir/source/main.cpp.obj: CMakeFiles/opengl_game.dir/includes_CXX.rsp
-CMakeFiles/opengl_game.dir/source/main.cpp.obj: ../source/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/opengl_game.dir/source/main.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\opengl_game.dir\source\main.cpp.obj -c C:\C++\opengl_game\source\main.cpp
+CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: CMakeFiles/opengl_game.dir/flags.make
+CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: CMakeFiles/opengl_game.dir/includes_CXX.rsp
+CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Game/Loop/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\opengl_game.dir\source\Game\Loop\main.cpp.obj -c C:\C++\opengl_game\source\Game\Loop\main.cpp
 
-CMakeFiles/opengl_game.dir/source/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opengl_game.dir/source/main.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\C++\opengl_game\source\main.cpp > CMakeFiles\opengl_game.dir\source\main.cpp.i
+CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\C++\opengl_game\source\Game\Loop\main.cpp > CMakeFiles\opengl_game.dir\source\Game\Loop\main.cpp.i
 
-CMakeFiles/opengl_game.dir/source/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opengl_game.dir/source/main.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\C++\opengl_game\source\main.cpp -o CMakeFiles\opengl_game.dir\source\main.cpp.s
+CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\C++\opengl_game\source\Game\Loop\main.cpp -o CMakeFiles\opengl_game.dir\source\Game\Loop\main.cpp.s
+
+CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj: CMakeFiles/opengl_game.dir/flags.make
+CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj: CMakeFiles/opengl_game.dir/includes_CXX.rsp
+CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj: ../source/Engine/Models/Texture.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\opengl_game.dir\source\Engine\Models\Texture.cpp.obj -c C:\C++\opengl_game\source\Engine\Models\Texture.cpp
+
+CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\C++\opengl_game\source\Engine\Models\Texture.cpp > CMakeFiles\opengl_game.dir\source\Engine\Models\Texture.cpp.i
+
+CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\C++\opengl_game\source\Engine\Models\Texture.cpp -o CMakeFiles\opengl_game.dir\source\Engine\Models\Texture.cpp.s
+
+CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.obj: CMakeFiles/opengl_game.dir/flags.make
+CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.obj: CMakeFiles/opengl_game.dir/includes_CXX.rsp
+CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.obj: ../source/Engine/Models/Model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\opengl_game.dir\source\Engine\Models\Model.cpp.obj -c C:\C++\opengl_game\source\Engine\Models\Model.cpp
+
+CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\C++\opengl_game\source\Engine\Models\Model.cpp > CMakeFiles\opengl_game.dir\source\Engine\Models\Model.cpp.i
+
+CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\C++\opengl_game\source\Engine\Models\Model.cpp -o CMakeFiles\opengl_game.dir\source\Engine\Models\Model.cpp.s
 
 # Object files for target opengl_game
 opengl_game_OBJECTS = \
-"CMakeFiles/opengl_game.dir/source/main.cpp.obj"
+"CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj" \
+"CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj" \
+"CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.obj"
 
 # External object files for target opengl_game
 opengl_game_EXTERNAL_OBJECTS =
 
-opengl_game.exe: CMakeFiles/opengl_game.dir/source/main.cpp.obj
+opengl_game.exe: CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj
+opengl_game.exe: CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj
+opengl_game.exe: CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.obj
 opengl_game.exe: CMakeFiles/opengl_game.dir/build.make
 opengl_game.exe: libraries/glfw/src/libglfw3.a
 opengl_game.exe: libglad.a
 opengl_game.exe: CMakeFiles/opengl_game.dir/linklibs.rsp
 opengl_game.exe: CMakeFiles/opengl_game.dir/objects1.rsp
 opengl_game.exe: CMakeFiles/opengl_game.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable opengl_game.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable opengl_game.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\opengl_game.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

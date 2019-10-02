@@ -4,7 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/C++/opengl_game/source/main.cpp" "C:/C++/opengl_game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/main.cpp.obj"
+  "C:/C++/opengl_game/source/Engine/Models/Model.cpp" "C:/C++/opengl_game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.obj"
+  "C:/C++/opengl_game/source/Engine/Models/Texture.cpp" "C:/C++/opengl_game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj"
+  "C:/C++/opengl_game/source/Game/Loop/main.cpp" "C:/C++/opengl_game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

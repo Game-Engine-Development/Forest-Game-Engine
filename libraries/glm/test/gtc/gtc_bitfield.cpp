@@ -104,7 +104,7 @@ namespace mask
 		std::clock_t TimeHalf = Timestamp6 - Timestamp5;
 
 		printf("mask[mix]: %d\n", static_cast<unsigned int>(TimeMix));
-		printf("mask[loop]: %d\n", static_cast<unsigned int>(TimeLoop));
+		printf("mask[Loop]: %d\n", static_cast<unsigned int>(TimeLoop));
 		printf("mask[default]: %d\n", static_cast<unsigned int>(TimeDefault));
 		printf("mask[zero]: %d\n", static_cast<unsigned int>(TimeZero));
 		printf("mask[half]: %d\n", static_cast<unsigned int>(TimeHalf));

@@ -58,7 +58,7 @@ int nlz2(unsigned x) {
    return n - x;
 }
 
-// As above but coded as a loop for compactness:
+// As above but coded as a Loop for compactness:
 // 23 to 33 basic Risc instructions.
 int nlz2a(unsigned x) {
    unsigned y;

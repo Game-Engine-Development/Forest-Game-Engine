@@ -47,7 +47,7 @@ namespace glm
 		T x5 = x4 * x;
 		return T(1) + x + (x2 * T(0.5)) + (x3 * T(0.1666666667)) + (x4 * T(0.041666667)) + (x5 * T(0.008333333333));
 	}
-	/*  // Try to handle all values of float... but often shower than std::exp, glm::floor and the loop kill the performance
+	/*  // Try to handle all values of float... but often shower than std::exp, glm::floor and the Loop kill the performance
 	GLM_FUNC_QUALIFIER float fastExp(float x)
 	{
 		const float e = 2.718281828f;

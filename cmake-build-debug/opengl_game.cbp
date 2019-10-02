@@ -1143,16 +1143,28 @@
 		<Unit filename="C:/C++/opengl_game/libraries/glm/util/glm.natvis">
 			<Option target="glm_dummy"/>
 		</Unit>
-		<Unit filename="C:/C++/opengl_game/source/Camera.h">
+		<Unit filename="C:/C++/opengl_game/source/Engine/Models/Model.cpp">
 			<Option target="opengl_game"/>
 		</Unit>
-		<Unit filename="C:/C++/opengl_game/source/Shader.h">
+		<Unit filename="C:/C++/opengl_game/source/Engine/Models/Model.h">
 			<Option target="opengl_game"/>
 		</Unit>
-		<Unit filename="C:/C++/opengl_game/source/main.cpp">
+		<Unit filename="C:/C++/opengl_game/source/Engine/Models/Texture.cpp">
 			<Option target="opengl_game"/>
 		</Unit>
-		<Unit filename="C:/C++/opengl_game/source/stb_image.h">
+		<Unit filename="C:/C++/opengl_game/source/Game/Loop/main.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/source/Headers/Camera.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/source/Headers/Engine/Models/Texture.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/source/Headers/Shader.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/C++/opengl_game/source/Headers/stb_image.h">
 			<Option target="opengl_game"/>
 		</Unit>
 		<Unit filename="C:/C++/opengl_game/CMakeLists.txt">
