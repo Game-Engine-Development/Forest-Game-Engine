@@ -1,5 +1,4 @@
-#ifndef OPENGL_GAME_CAMERA_H
-#define OPENGL_GAME_CAMERA_H
+#pragma once
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -129,4 +128,3 @@ private:
     }
 };
 
-#endif //OPENGL_GAME_CAMERA_H

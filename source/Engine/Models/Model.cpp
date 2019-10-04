@@ -1,16 +1,11 @@
-//
-// Created by aekstrand7207 on 10/2/2019.
-//
 #include <fstream>
 #include <string>
-#include <cstring>
 #include <iostream>
 #include <vector>
-#include "Headers/array.h""
 #include <glm/glm.hpp>
 #include "Headers/Engine/Models/Model.h"
 
-Model::Model(const std::string filename) {
+Model::Model(const char *filename) {
     std::ifstream file;
     file.open(filename);
     if(file.is_open()) {

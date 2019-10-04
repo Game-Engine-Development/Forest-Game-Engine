@@ -3,8 +3,8 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "Headers/Shader.h"
-#include "Headers/Camera.h"
+#include "Headers/Engine/Shader.h"
+#include "Headers/Engine/Camera.h"
 #include "Headers/Engine/Models/Texture.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

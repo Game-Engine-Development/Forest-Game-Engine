@@ -1,9 +1,4 @@
-//
-// Created by aekstrand7207 on 10/2/2019.
-//
 #include <glad/glad.h>
-#include <glfw/glfw3.h>
-#include <string>
 #include <iostream>
 #include "Headers/stb_image.h"
 #include "Headers/Engine/Models/Texture.h"

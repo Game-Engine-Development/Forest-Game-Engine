@@ -1,10 +1,4 @@
-//
-// Created by aekstrand7207 on 10/2/2019.
-//
-
-#ifndef OPENGL_GAME_TEXTURE_H
-#define OPENGL_GAME_TEXTURE_H
-
+#pragma once
 
 class Texture {
 public:
@@ -16,5 +10,3 @@ private:
     unsigned int ID;
 };
 
-
-#endif //OPENGL_GAME_TEXTURE_H
