@@ -49,7 +49,7 @@ unset(_expectedTargets)
 add_library(glm INTERFACE IMPORTED)
 
 set_target_properties(glm PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "D:/C++/OpenGL_Android_Game/libraries/glm"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/C++/opengl_game/libraries/glm"
 )
 
 # This file does not depend on other imported targets which have

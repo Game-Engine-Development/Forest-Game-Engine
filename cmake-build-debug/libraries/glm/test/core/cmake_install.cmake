@@ -1,4 +1,4 @@
-# Install script for directory: D:/C++/OpenGL_Android_Game/libraries/glm/test/core
+# Install script for directory: C:/C++/opengl_game/libraries/glm/test/core
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

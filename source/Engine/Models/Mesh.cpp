@@ -41,6 +41,29 @@ Mesh::Mesh(const char* filename) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+Mesh::Mesh(std::vector<glm::vec3> &vertices, std::vector<glm::vec3> &normals, std::vector<glm::vec2> &texCoords) {
+    numOfVertices = vertices.size();
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &texCoordBuffer);
+    //glGenBuffers(1, &normalBuffer);
+    bindVAO();
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glBindBuffer(GL_ARRAY_BUFFER, texCoordBuffer);
+    glBufferData(GL_ARRAY_BUFFER, texCoords.size() * sizeof(glm::vec2), &texCoords[0], GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    //glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+    //glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
+    //glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3, NULL);
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    //glEnableVertexAttribArray(2);
+    unbindVAO();
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 void Mesh::loadOBJ(const char* filename, std::vector<glm::vec3>& finalVertices, std::vector<glm::vec2>& finalTextureCoords, std::vector<glm::vec3>& finalNormals) {
     FILE* file = std::fopen(filename, "r");
     if(file != NULL) {

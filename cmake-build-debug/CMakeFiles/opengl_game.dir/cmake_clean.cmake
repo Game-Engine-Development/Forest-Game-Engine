@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj"
   "CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.obj"
   "CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj"
+  "CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj"
   "opengl_game.pdb"
   "opengl_game.exe"
   "opengl_game.exe.manifest"

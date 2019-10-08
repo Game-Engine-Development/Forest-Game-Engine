@@ -18,7 +18,7 @@ stdint.h
 KHR/khrplatform.h
 -
 
-D:/C++/OpenGL_Android_Game/libraries/glad/src/glad.c
+C:/C++/opengl_game/libraries/glad/src/glad.c
 stdio.h
 -
 stdlib.h
