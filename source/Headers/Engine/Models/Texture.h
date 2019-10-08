@@ -1,9 +1,4 @@
-//
-// Created by aekstrand7207 on 10/2/2019.
-//
-
 #pragma once
-
 
 class Texture {
 public:
@@ -17,5 +12,4 @@ public:
 private:
     unsigned int ID;
 };
-
 
