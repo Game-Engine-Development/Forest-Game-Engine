@@ -1,5 +1,11 @@
 #pragma once
 
+#include <fstream>
+#include <string>
+#include <iostream>
+#include <vector>
+#include <glm/glm.hpp>
+
 class Model {
 public:
     Model(const char *filename);
@@ -9,4 +15,3 @@ public:
 private:
     unsigned int VAO, VBO, EBO;
 };
-

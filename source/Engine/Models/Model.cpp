@@ -1,8 +1,3 @@
-#include <fstream>
-#include <string>
-#include <iostream>
-#include <vector>
-#include <glm/glm.hpp>
 #include "Headers/Engine/Models/Model.h"
 
 Model::Model(const char *filename) {
@@ -15,7 +10,7 @@ Model::Model(const char *filename) {
         std::vector<glm::vec3> normals;
         std::vector<int> indices;
         while (std::getline(file, line)){
-            
+
             if(line.rfind("v ", 0) == 0) {
                 vertices.push_back(glm::vec3());
             } else if(line.rfind("vt ", 0) == 0) {
