@@ -2,14 +2,16 @@
 // Created by aekstrand7207 on 10/2/2019.
 //
 
-#ifndef OPENGL_GAME_TEXTURE_H
-#define OPENGL_GAME_TEXTURE_H
+#pragma once
 
 
 class Texture {
 public:
-    Texture(const char* filename);
+    Texture();
+    explicit Texture(const char* filename);
     ~Texture();
+    void bind();
+    void unbind();
 
     unsigned int get_ID();
 private:
@@ -17,4 +19,3 @@ private:
 };
 
 
-#endif //OPENGL_GAME_TEXTURE_H

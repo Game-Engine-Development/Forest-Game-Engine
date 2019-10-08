@@ -1,11 +1,12 @@
-#ifndef OPENGL_GAME_CAMERA_H
-#define OPENGL_GAME_CAMERA_H
+#pragma once
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <vector>
+#include <GLFW/glfw3.h>
 
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
@@ -113,6 +114,17 @@ public:
             Zoom = 45.0f;
     }
 
+    void setMatrices(Shader& shader) {
+        glm::mat4 view = glm::mat4(1.0f);
+        view = GetViewMatrix();
+        glm::mat4 projection = glm::mat4(1.0f);
+        projection = glm::perspective(glm::radians(Zoom), (float)800 / 600, 0.1f, 100.0f);
+        int viewLoc = glGetUniformLocation(shader.ID, "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        int projectionLoc = glGetUniformLocation(shader.ID, "projection");
+        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+    }
+
 private:
     // Calculates the front vector from the Camera's (updated) Euler Angles
     void updateCameraVectors()
@@ -128,5 +140,3 @@ private:
         Up    = glm::normalize(glm::cross(Right, Front));
     }
 };
-
-#endif //OPENGL_GAME_CAMERA_H

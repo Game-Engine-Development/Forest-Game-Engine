@@ -38,19 +38,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -E remove -f
+RM = "C:\Program Files\JetBrains\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\C++\opengl_game
+CMAKE_SOURCE_DIR = D:\C++\OpenGL_Android_Game
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\C++\opengl_game\cmake-build-debug
+CMAKE_BINARY_DIR = D:\C++\OpenGL_Android_Game\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -58,7 +58,7 @@ CMAKE_BINARY_DIR = C:\C++\opengl_game\cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"C:\Program Files\JetBrains\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -69,31 +69,31 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	"C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	"C:\Program Files\JetBrains\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	"C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	"C:\Program Files\JetBrains\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	"C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake
+	"C:\Program Files\JetBrains\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	"C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake
+	"C:\Program Files\JetBrains\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	"C:\Program Files\JetBrains\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -114,20 +114,20 @@ list_install_components/fast: list_install_components
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	"C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	"C:\Program Files\JetBrains\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	"C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	"C:\Program Files\JetBrains\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\C++\opengl_game\cmake-build-debug\CMakeFiles C:\C++\opengl_game\cmake-build-debug\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\C++\OpenGL_Android_Game\cmake-build-debug\CMakeFiles D:\C++\OpenGL_Android_Game\cmake-build-debug\CMakeFiles\progress.marks
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\C++\opengl_game\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\C++\OpenGL_Android_Game\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -234,32 +234,59 @@ libraries/glad/src/glad.c.s:
 	$(MAKE) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/libraries/glad/src/glad.c.s
 .PHONY : libraries/glad/src/glad.c.s
 
-source/Engine/Models/Model.obj: source/Engine/Models/Model.cpp.obj
+source/Engine/Models/Entity.obj: source/Engine/Models/Entity.cpp.obj
 
-.PHONY : source/Engine/Models/Model.obj
+.PHONY : source/Engine/Models/Entity.obj
 
 # target to build an object file
-source/Engine/Models/Model.cpp.obj:
-	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.obj
-.PHONY : source/Engine/Models/Model.cpp.obj
+source/Engine/Models/Entity.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj
+.PHONY : source/Engine/Models/Entity.cpp.obj
 
-source/Engine/Models/Model.i: source/Engine/Models/Model.cpp.i
+source/Engine/Models/Entity.i: source/Engine/Models/Entity.cpp.i
 
-.PHONY : source/Engine/Models/Model.i
+.PHONY : source/Engine/Models/Entity.i
 
 # target to preprocess a source file
-source/Engine/Models/Model.cpp.i:
-	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.i
-.PHONY : source/Engine/Models/Model.cpp.i
+source/Engine/Models/Entity.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.i
+.PHONY : source/Engine/Models/Entity.cpp.i
 
-source/Engine/Models/Model.s: source/Engine/Models/Model.cpp.s
+source/Engine/Models/Entity.s: source/Engine/Models/Entity.cpp.s
 
-.PHONY : source/Engine/Models/Model.s
+.PHONY : source/Engine/Models/Entity.s
 
 # target to generate assembly for a file
-source/Engine/Models/Model.cpp.s:
-	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Model.cpp.s
-.PHONY : source/Engine/Models/Model.cpp.s
+source/Engine/Models/Entity.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.s
+.PHONY : source/Engine/Models/Entity.cpp.s
+
+source/Engine/Models/Mesh.obj: source/Engine/Models/Mesh.cpp.obj
+
+.PHONY : source/Engine/Models/Mesh.obj
+
+# target to build an object file
+source/Engine/Models/Mesh.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.obj
+.PHONY : source/Engine/Models/Mesh.cpp.obj
+
+source/Engine/Models/Mesh.i: source/Engine/Models/Mesh.cpp.i
+
+.PHONY : source/Engine/Models/Mesh.i
+
+# target to preprocess a source file
+source/Engine/Models/Mesh.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.i
+.PHONY : source/Engine/Models/Mesh.cpp.i
+
+source/Engine/Models/Mesh.s: source/Engine/Models/Mesh.cpp.s
+
+.PHONY : source/Engine/Models/Mesh.s
+
+# target to generate assembly for a file
+source/Engine/Models/Mesh.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.s
+.PHONY : source/Engine/Models/Mesh.cpp.s
 
 source/Engine/Models/Texture.obj: source/Engine/Models/Texture.cpp.obj
 
@@ -334,9 +361,12 @@ help:
 	@echo ... libraries/glad/src/glad.obj
 	@echo ... libraries/glad/src/glad.i
 	@echo ... libraries/glad/src/glad.s
-	@echo ... source/Engine/Models/Model.obj
-	@echo ... source/Engine/Models/Model.i
-	@echo ... source/Engine/Models/Model.s
+	@echo ... source/Engine/Models/Entity.obj
+	@echo ... source/Engine/Models/Entity.i
+	@echo ... source/Engine/Models/Entity.s
+	@echo ... source/Engine/Models/Mesh.obj
+	@echo ... source/Engine/Models/Mesh.i
+	@echo ... source/Engine/Models/Mesh.s
 	@echo ... source/Engine/Models/Texture.obj
 	@echo ... source/Engine/Models/Texture.i
 	@echo ... source/Engine/Models/Texture.s
