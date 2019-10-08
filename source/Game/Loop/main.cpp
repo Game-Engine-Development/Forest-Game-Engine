@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Headers/Engine/Shader.h"
-#include "Headers/Engine/Camera.h"
+#include "Headers/Camera.h"
 #include "Headers/Engine/Models/Texture.h"
 #include "Headers/Engine/Models/Mesh.h"
 #include "Headers/Engine/Models/Entity.h"

@@ -5,7 +5,7 @@
 #pragma once
 #include "Headers/Engine/Models/Mesh.h"
 #include "Headers/Engine/Models/Texture.h"
-#include "Headers/Shader.h"
+#include "Headers/Engine/Shader.h"
 #include "Headers/Camera.h"
 
 class Entity {

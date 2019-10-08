@@ -881,8 +881,8 @@ Headers/Engine/Models/Mesh.h
 ../source/Headers/Engine/Models/Headers/Engine/Models/Mesh.h
 Headers/Engine/Models/Texture.h
 ../source/Headers/Engine/Models/Headers/Engine/Models/Texture.h
-Headers/Shader.h
-../source/Headers/Engine/Models/Headers/Shader.h
+Headers/Engine/Shader.h
+../source/Headers/Engine/Models/Headers/Engine/Shader.h
 Headers/Camera.h
 ../source/Headers/Engine/Models/Headers/Camera.h
 
@@ -894,7 +894,7 @@ glm/glm.hpp
 
 ../source/Headers/Engine/Models/Texture.h
 
-../source/Headers/Shader.h
+../source/Headers/Engine/Shader.h
 glad/glad.h
 -
 glm/glm.hpp
@@ -951,8 +951,8 @@ glad/glad.h
 -
 GLFW/glfw3.h
 -
-Headers/Shader.h
-D:/C++/OpenGL_Android_Game/source/Game/Loop/Headers/Shader.h
+Headers/Engine/Shader.h
+D:/C++/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Shader.h
 Headers/Camera.h
 D:/C++/OpenGL_Android_Game/source/Game/Loop/Headers/Camera.h
 Headers/Engine/Models/Texture.h

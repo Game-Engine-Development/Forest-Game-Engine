@@ -109,7 +109,7 @@ CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Header
 CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Headers/Engine/Models/Entity.h
 CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Headers/Engine/Models/Mesh.h
 CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Headers/Engine/Models/Texture.h
-CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Headers/Shader.h
+CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Headers/Engine/Shader.h
 CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Engine/Models/Entity.cpp
 
 CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.obj: ../libraries/glad/include/KHR/khrplatform.h
@@ -212,7 +212,6 @@ CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.obj: ../source/Engine/M
 
 CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj: ../libraries/glad/include/KHR/khrplatform.h
 CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj: ../libraries/glad/include/glad/glad.h
-CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj: ../libraries/glfw/include/glfw/glfw3.h
 CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj: ../source/Headers/Engine/Models/Texture.h
 CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj: ../source/Headers/stb_image.h
 CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj: ../source/Engine/Models/Texture.cpp
@@ -325,7 +324,7 @@ CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Headers/Came
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Headers/Engine/Models/Entity.h
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Headers/Engine/Models/Mesh.h
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Headers/Engine/Models/Texture.h
-CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Headers/Shader.h
+CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Headers/Engine/Shader.h
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/headers/stb_image.h
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Game/Loop/main.cpp
 
