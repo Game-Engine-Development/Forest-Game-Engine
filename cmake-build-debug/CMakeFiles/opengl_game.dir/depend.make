@@ -420,7 +420,7 @@ CMakeFiles/opengl_game.dir/source/Engine/Shader/Shader.cpp.obj: ../source/Engine
 
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../libraries/glad/include/KHR/khrplatform.h
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../libraries/glad/include/glad/glad.h
-CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../libraries/glfw/include/glfw/glfw3.h
+CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../libraries/glfw/include/GLFW/glfw3.h
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../libraries/glm/glm/common.hpp
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../libraries/glm/glm/detail/_fixes.hpp
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../libraries/glm/glm/detail/_swizzle.hpp
@@ -531,7 +531,7 @@ CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../source/Engi
 
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../libraries/glad/include/KHR/khrplatform.h
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../libraries/glad/include/glad/glad.h
-CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../libraries/glfw/include/glfw/glfw3.h
+CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../libraries/glfw/include/GLFW/glfw3.h
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../libraries/glm/glm/common.hpp
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../libraries/glm/glm/detail/_fixes.hpp
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../libraries/glm/glm/detail/_swizzle.hpp
@@ -634,7 +634,6 @@ CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../source/
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../libraries/glad/include/KHR/khrplatform.h
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../libraries/glad/include/glad/glad.h
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../libraries/glfw/include/GLFW/glfw3.h
-CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../libraries/glfw/include/glfw/glfw3.h
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../libraries/glm/glm/common.hpp
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../libraries/glm/glm/detail/_fixes.hpp
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../libraries/glm/glm/detail/_swizzle.hpp

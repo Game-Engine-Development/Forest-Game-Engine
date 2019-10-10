@@ -1,7 +1,3 @@
-//
-// Created by aekstrand7207 on 10/8/2019.
-//
-
 #pragma once
 
 #include <Headers/Engine/Camera.h>

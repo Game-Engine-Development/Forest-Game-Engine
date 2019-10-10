@@ -421,7 +421,7 @@ CMakeFiles/opengl_game.dir/source/Engine/Shader/Shader.cpp.obj
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h
- ../libraries/glfw/include/glfw/glfw3.h
+ ../libraries/glfw/include/GLFW/glfw3.h
  ../libraries/glm/glm/common.hpp
  ../libraries/glm/glm/detail/_fixes.hpp
  ../libraries/glm/glm/detail/_swizzle.hpp
@@ -532,7 +532,7 @@ CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h
- ../libraries/glfw/include/glfw/glfw3.h
+ ../libraries/glfw/include/GLFW/glfw3.h
  ../libraries/glm/glm/common.hpp
  ../libraries/glm/glm/detail/_fixes.hpp
  ../libraries/glm/glm/detail/_swizzle.hpp
@@ -635,7 +635,6 @@ CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h
  ../libraries/glfw/include/GLFW/glfw3.h
- ../libraries/glfw/include/glfw/glfw3.h
  ../libraries/glm/glm/common.hpp
  ../libraries/glm/glm/detail/_fixes.hpp
  ../libraries/glm/glm/detail/_swizzle.hpp
