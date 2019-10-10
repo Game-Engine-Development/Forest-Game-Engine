@@ -4,7 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+<<<<<<< HEAD
   "C:/C++/opengl_game/libraries/glad/src/glad.c" "C:/C++/opengl_game/cmake-build-debug/CMakeFiles/glad.dir/libraries/glad/src/glad.c.obj"
+=======
+  "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glad/src/glad.c" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/glad.dir/libraries/glad/src/glad.c.obj"
+>>>>>>> master
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

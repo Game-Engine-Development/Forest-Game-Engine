@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Install script for directory: C:/C++/opengl_game/libraries/glfw
+=======
+# Install script for directory: C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw
+>>>>>>> master
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +38,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+<<<<<<< HEAD
   include("C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/cmake_install.cmake")
+=======
+  include("C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/cmake_install.cmake")
+>>>>>>> master
 
 endif()
 

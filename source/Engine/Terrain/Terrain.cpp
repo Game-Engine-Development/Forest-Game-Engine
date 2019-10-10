@@ -1,7 +1,3 @@
-//
-// Created by aekstrand7207 on 10/8/2019.
-//
-
 #include "Headers/Engine/Terrain/Terrain.h"
 
 Terrain::Terrain(Texture &texture, int gridX, int gridY) {

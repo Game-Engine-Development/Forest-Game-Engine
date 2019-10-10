@@ -1,12 +1,9 @@
-//
-// Created by Alan on 10/4/2019.
-//
-
 #pragma once
 #include "Headers/Engine/Models/Mesh.h"
 #include "Headers/Engine/Models/Texture.h"
 #include "Headers/Engine/Shader.h"
-#include "Headers/Camera.h"
+#include "Headers/Engine/Camera.h"
+#include <glm/gtc/type_ptr.hpp>
 
 class Entity {
 

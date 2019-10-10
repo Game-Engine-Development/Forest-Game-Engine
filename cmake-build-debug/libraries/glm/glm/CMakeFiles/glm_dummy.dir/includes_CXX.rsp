@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 -IC:/C++/opengl_game/libraries/glm -IC:/C++/opengl_game/libraries/glm/test/external -IC:/C++/opengl_game/libraries/glm/glm/.. 
+=======
+-IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm -IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm/test/external -IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm/glm/.. 
+>>>>>>> master

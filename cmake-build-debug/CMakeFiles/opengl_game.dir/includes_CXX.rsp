@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 -IC:/C++/opengl_game/source -IC:/C++/opengl_game/libraries/glfw/include -IC:/C++/opengl_game/libraries/glm/include -IC:/C++/opengl_game/libraries/glad/include -IC:/C++/opengl_game/libraries/glm 
+=======
+-IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source -IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/include -IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm/include -IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glad/include -IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm 
+>>>>>>> master

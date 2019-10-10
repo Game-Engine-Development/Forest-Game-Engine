@@ -42,10 +42,17 @@ RM = "C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
+<<<<<<< HEAD
 CMAKE_SOURCE_DIR = C:\C++\opengl_game
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = C:\C++\opengl_game\cmake-build-debug
+=======
+CMAKE_SOURCE_DIR = C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game
+
+# The top-level build directory on which CMake was run.
+CMAKE_BINARY_DIR = C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug
+>>>>>>> master
 
 # Include any dependencies generated for this target.
 include libraries/glfw/src/CMakeFiles/glfw.dir/depend.make
@@ -59,6 +66,7 @@ include libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/context.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/context.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/context.c.obj: ../libraries/glfw/src/context.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/context.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\context.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\context.c
 
@@ -69,10 +77,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/context.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/context.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/context.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\context.c -o CMakeFiles\glfw.dir\context.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/context.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\context.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\context.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/context.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/context.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\context.c > CMakeFiles\glfw.dir\context.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/context.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/context.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\context.c -o CMakeFiles\glfw.dir\context.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/init.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/init.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/init.c.obj: ../libraries/glfw/src/init.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/init.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\init.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\init.c
 
@@ -83,10 +104,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/init.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/init.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/init.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\init.c -o CMakeFiles\glfw.dir\init.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/init.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\init.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\init.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/init.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/init.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\init.c > CMakeFiles\glfw.dir\init.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/init.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/init.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\init.c -o CMakeFiles\glfw.dir\init.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/input.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/input.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/input.c.obj: ../libraries/glfw/src/input.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/input.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\input.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\input.c
 
@@ -97,10 +131,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/input.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/input.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/input.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\input.c -o CMakeFiles\glfw.dir\input.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/input.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\input.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\input.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/input.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/input.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\input.c > CMakeFiles\glfw.dir\input.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/input.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/input.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\input.c -o CMakeFiles\glfw.dir\input.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj: ../libraries/glfw/src/monitor.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\monitor.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\monitor.c
 
@@ -111,10 +158,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/monitor.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/monitor.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/monitor.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\monitor.c -o CMakeFiles\glfw.dir\monitor.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\monitor.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\monitor.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/monitor.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/monitor.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\monitor.c > CMakeFiles\glfw.dir\monitor.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/monitor.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/monitor.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\monitor.c -o CMakeFiles\glfw.dir\monitor.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj: ../libraries/glfw/src/vulkan.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\vulkan.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\vulkan.c
 
@@ -125,10 +185,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/vulkan.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/vulkan.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/vulkan.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\vulkan.c -o CMakeFiles\glfw.dir\vulkan.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\vulkan.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\vulkan.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/vulkan.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/vulkan.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\vulkan.c > CMakeFiles\glfw.dir\vulkan.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/vulkan.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/vulkan.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\vulkan.c -o CMakeFiles\glfw.dir\vulkan.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/window.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/window.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/window.c.obj: ../libraries/glfw/src/window.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/window.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\window.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\window.c
 
@@ -139,10 +212,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/window.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/window.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/window.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\window.c -o CMakeFiles\glfw.dir\window.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/window.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\window.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\window.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/window.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/window.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\window.c > CMakeFiles\glfw.dir\window.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/window.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/window.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\window.c -o CMakeFiles\glfw.dir\window.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj: ../libraries/glfw/src/win32_init.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\win32_init.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\win32_init.c
 
@@ -153,10 +239,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/win32_init.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_init.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/win32_init.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\win32_init.c -o CMakeFiles\glfw.dir\win32_init.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\win32_init.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_init.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/win32_init.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/win32_init.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_init.c > CMakeFiles\glfw.dir\win32_init.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/win32_init.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/win32_init.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_init.c -o CMakeFiles\glfw.dir\win32_init.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj: ../libraries/glfw/src/win32_joystick.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\win32_joystick.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\win32_joystick.c
 
@@ -167,10 +266,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/win32_joystick.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\win32_joystick.c -o CMakeFiles\glfw.dir\win32_joystick.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\win32_joystick.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_joystick.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/win32_joystick.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_joystick.c > CMakeFiles\glfw.dir\win32_joystick.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/win32_joystick.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_joystick.c -o CMakeFiles\glfw.dir\win32_joystick.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj: ../libraries/glfw/src/win32_monitor.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\win32_monitor.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\win32_monitor.c
 
@@ -181,10 +293,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/win32_monitor.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\win32_monitor.c -o CMakeFiles\glfw.dir\win32_monitor.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\win32_monitor.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_monitor.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/win32_monitor.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_monitor.c > CMakeFiles\glfw.dir\win32_monitor.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/win32_monitor.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_monitor.c -o CMakeFiles\glfw.dir\win32_monitor.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj: ../libraries/glfw/src/win32_time.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\win32_time.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\win32_time.c
 
@@ -195,10 +320,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/win32_time.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_time.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/win32_time.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\win32_time.c -o CMakeFiles\glfw.dir\win32_time.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\win32_time.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_time.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/win32_time.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/win32_time.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_time.c > CMakeFiles\glfw.dir\win32_time.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/win32_time.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/win32_time.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_time.c -o CMakeFiles\glfw.dir\win32_time.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj: ../libraries/glfw/src/win32_thread.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\win32_thread.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\win32_thread.c
 
@@ -209,10 +347,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/win32_thread.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\win32_thread.c -o CMakeFiles\glfw.dir\win32_thread.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\win32_thread.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_thread.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/win32_thread.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_thread.c > CMakeFiles\glfw.dir\win32_thread.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/win32_thread.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_thread.c -o CMakeFiles\glfw.dir\win32_thread.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj: ../libraries/glfw/src/win32_window.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\win32_window.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\win32_window.c
 
@@ -223,10 +374,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/win32_window.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/win32_window.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/win32_window.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\win32_window.c -o CMakeFiles\glfw.dir\win32_window.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\win32_window.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_window.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/win32_window.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/win32_window.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_window.c > CMakeFiles\glfw.dir\win32_window.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/win32_window.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/win32_window.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\win32_window.c -o CMakeFiles\glfw.dir\win32_window.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj: ../libraries/glfw/src/wgl_context.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\wgl_context.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\wgl_context.c
 
@@ -237,10 +401,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/wgl_context.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\wgl_context.c -o CMakeFiles\glfw.dir\wgl_context.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\wgl_context.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\wgl_context.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/wgl_context.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\wgl_context.c > CMakeFiles\glfw.dir\wgl_context.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/wgl_context.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\wgl_context.c -o CMakeFiles\glfw.dir\wgl_context.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj: ../libraries/glfw/src/egl_context.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\egl_context.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\egl_context.c
 
@@ -251,10 +428,23 @@ libraries/glfw/src/CMakeFiles/glfw.dir/egl_context.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/egl_context.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/egl_context.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\egl_context.c -o CMakeFiles\glfw.dir\egl_context.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\egl_context.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\egl_context.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/egl_context.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/egl_context.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\egl_context.c > CMakeFiles\glfw.dir\egl_context.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/egl_context.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/egl_context.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\egl_context.c -o CMakeFiles\glfw.dir\egl_context.c.s
+>>>>>>> master
 
 libraries/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/flags.make
 libraries/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj: libraries/glfw/src/CMakeFiles/glfw.dir/includes_C.rsp
 libraries/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj: ../libraries/glfw/src/osmesa_context.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\osmesa_context.c.obj   -c C:\C++\opengl_game\libraries\glfw\src\osmesa_context.c
 
@@ -265,6 +455,18 @@ libraries/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.i: cmake_force
 libraries/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/osmesa_context.c.s"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\C++\opengl_game\libraries\glfw\src\osmesa_context.c -o CMakeFiles\glfw.dir\osmesa_context.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object libraries/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -o CMakeFiles\glfw.dir\osmesa_context.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\osmesa_context.c
+
+libraries/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glfw.dir/osmesa_context.c.i"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\osmesa_context.c > CMakeFiles\glfw.dir\osmesa_context.c.i
+
+libraries/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glfw.dir/osmesa_context.c.s"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -Wdeclaration-after-statement -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src\osmesa_context.c -o CMakeFiles\glfw.dir\osmesa_context.c.s
+>>>>>>> master
 
 # Object files for target glfw
 glfw_OBJECTS = \
@@ -304,9 +506,15 @@ libraries/glfw/src/libglfw3.a: libraries/glfw/src/CMakeFiles/glfw.dir/egl_contex
 libraries/glfw/src/libglfw3.a: libraries/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj
 libraries/glfw/src/libglfw3.a: libraries/glfw/src/CMakeFiles/glfw.dir/build.make
 libraries/glfw/src/libglfw3.a: libraries/glfw/src/CMakeFiles/glfw.dir/link.txt
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking C static library libglfw3.a"
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && $(CMAKE_COMMAND) -P CMakeFiles\glfw.dir\cmake_clean_target.cmake
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\glfw.dir\link.txt --verbose=$(VERBOSE)
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking C static library libglfw3.a"
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && $(CMAKE_COMMAND) -P CMakeFiles\glfw.dir\cmake_clean_target.cmake
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\glfw.dir\link.txt --verbose=$(VERBOSE)
+>>>>>>> master
 
 # Rule to build all files generated by this target.
 libraries/glfw/src/CMakeFiles/glfw.dir/build: libraries/glfw/src/libglfw3.a
@@ -314,10 +522,18 @@ libraries/glfw/src/CMakeFiles/glfw.dir/build: libraries/glfw/src/libglfw3.a
 .PHONY : libraries/glfw/src/CMakeFiles/glfw.dir/build
 
 libraries/glfw/src/CMakeFiles/glfw.dir/clean:
+<<<<<<< HEAD
 	cd /d C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src && $(CMAKE_COMMAND) -P CMakeFiles\glfw.dir\cmake_clean.cmake
 .PHONY : libraries/glfw/src/CMakeFiles/glfw.dir/clean
 
 libraries/glfw/src/CMakeFiles/glfw.dir/depend:
 	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\C++\opengl_game C:\C++\opengl_game\libraries\glfw\src C:\C++\opengl_game\cmake-build-debug C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src C:\C++\opengl_game\cmake-build-debug\libraries\glfw\src\CMakeFiles\glfw.dir\DependInfo.cmake --color=$(COLOR)
+=======
+	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src && $(CMAKE_COMMAND) -P CMakeFiles\glfw.dir\cmake_clean.cmake
+.PHONY : libraries/glfw/src/CMakeFiles/glfw.dir/clean
+
+libraries/glfw/src/CMakeFiles/glfw.dir/depend:
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glfw\src C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glfw\src\CMakeFiles\glfw.dir\DependInfo.cmake --color=$(COLOR)
+>>>>>>> master
 .PHONY : libraries/glfw/src/CMakeFiles/glfw.dir/depend
 

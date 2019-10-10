@@ -47,10 +47,17 @@ RM = "C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
+<<<<<<< HEAD
 CMAKE_SOURCE_DIR = C:\C++\opengl_game
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = C:\C++\opengl_game\cmake-build-debug
+=======
+CMAKE_SOURCE_DIR = C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game
+
+# The top-level build directory on which CMake was run.
+CMAKE_BINARY_DIR = C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug
+>>>>>>> master
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -125,9 +132,15 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
+<<<<<<< HEAD
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\C++\opengl_game\cmake-build-debug\CMakeFiles C:\C++\opengl_game\cmake-build-debug\CMakeFiles\progress.marks
 	$(MAKE) -f CMakeFiles\Makefile2 all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\C++\opengl_game\cmake-build-debug\CMakeFiles 0
+=======
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles\progress.marks
+	$(MAKE) -f CMakeFiles\Makefile2 all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles 0
+>>>>>>> master
 .PHONY : all
 
 # The main clean target
@@ -234,6 +247,33 @@ libraries/glad/src/glad.c.s:
 	$(MAKE) -f CMakeFiles\glad.dir\build.make CMakeFiles/glad.dir/libraries/glad/src/glad.c.s
 .PHONY : libraries/glad/src/glad.c.s
 
+source/Engine/Camera/Camera.obj: source/Engine/Camera/Camera.cpp.obj
+
+.PHONY : source/Engine/Camera/Camera.obj
+
+# target to build an object file
+source/Engine/Camera/Camera.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Camera/Camera.cpp.obj
+.PHONY : source/Engine/Camera/Camera.cpp.obj
+
+source/Engine/Camera/Camera.i: source/Engine/Camera/Camera.cpp.i
+
+.PHONY : source/Engine/Camera/Camera.i
+
+# target to preprocess a source file
+source/Engine/Camera/Camera.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Camera/Camera.cpp.i
+.PHONY : source/Engine/Camera/Camera.cpp.i
+
+source/Engine/Camera/Camera.s: source/Engine/Camera/Camera.cpp.s
+
+.PHONY : source/Engine/Camera/Camera.s
+
+# target to generate assembly for a file
+source/Engine/Camera/Camera.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Camera/Camera.cpp.s
+.PHONY : source/Engine/Camera/Camera.cpp.s
+
 source/Engine/Models/Entity.obj: source/Engine/Models/Entity.cpp.obj
 
 .PHONY : source/Engine/Models/Entity.obj
@@ -314,6 +354,33 @@ source/Engine/Models/Texture.s: source/Engine/Models/Texture.cpp.s
 source/Engine/Models/Texture.cpp.s:
 	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.s
 .PHONY : source/Engine/Models/Texture.cpp.s
+
+source/Engine/Shader/Shader.obj: source/Engine/Shader/Shader.cpp.obj
+
+.PHONY : source/Engine/Shader/Shader.obj
+
+# target to build an object file
+source/Engine/Shader/Shader.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Shader/Shader.cpp.obj
+.PHONY : source/Engine/Shader/Shader.cpp.obj
+
+source/Engine/Shader/Shader.i: source/Engine/Shader/Shader.cpp.i
+
+.PHONY : source/Engine/Shader/Shader.i
+
+# target to preprocess a source file
+source/Engine/Shader/Shader.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Shader/Shader.cpp.i
+.PHONY : source/Engine/Shader/Shader.cpp.i
+
+source/Engine/Shader/Shader.s: source/Engine/Shader/Shader.cpp.s
+
+.PHONY : source/Engine/Shader/Shader.s
+
+# target to generate assembly for a file
+source/Engine/Shader/Shader.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Shader/Shader.cpp.s
+.PHONY : source/Engine/Shader/Shader.cpp.s
 
 source/Engine/Terrain/Terrain.obj: source/Engine/Terrain/Terrain.cpp.obj
 
@@ -415,6 +482,9 @@ help:
 	@echo ... libraries/glad/src/glad.obj
 	@echo ... libraries/glad/src/glad.i
 	@echo ... libraries/glad/src/glad.s
+	@echo ... source/Engine/Camera/Camera.obj
+	@echo ... source/Engine/Camera/Camera.i
+	@echo ... source/Engine/Camera/Camera.s
 	@echo ... source/Engine/Models/Entity.obj
 	@echo ... source/Engine/Models/Entity.i
 	@echo ... source/Engine/Models/Entity.s
@@ -424,6 +494,9 @@ help:
 	@echo ... source/Engine/Models/Texture.obj
 	@echo ... source/Engine/Models/Texture.i
 	@echo ... source/Engine/Models/Texture.s
+	@echo ... source/Engine/Shader/Shader.obj
+	@echo ... source/Engine/Shader/Shader.i
+	@echo ... source/Engine/Shader/Shader.s
 	@echo ... source/Engine/Terrain/Terrain.obj
 	@echo ... source/Engine/Terrain/Terrain.i
 	@echo ... source/Engine/Terrain/Terrain.s

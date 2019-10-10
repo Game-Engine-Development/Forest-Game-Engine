@@ -1,15 +1,12 @@
-//
-// Created by aekstrand7207 on 10/8/2019.
-//
-
 #pragma once
 
-#include <Headers/Camera.h>
+#include <Headers/Engine/Camera.h>
 #include "Headers/Engine/Models/Texture.h"
 #include "Headers/Engine/Terrain/TerrainMesh.h"
 #include "Headers/Engine/Shader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <vector>
 
 class Terrain {

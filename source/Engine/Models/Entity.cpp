@@ -1,7 +1,3 @@
-//
-// Created by Alan on 10/4/2019.
-//
-
 #include "Headers/Engine/Models/Entity.h"
 
 Entity::Entity(const Mesh &mesh, const Texture &texture, const glm::vec3 &position = glm::vec3(0,0,0),

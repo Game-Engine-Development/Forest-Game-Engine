@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\C++\opengl_game
 -- The C compiler identification is GNU 8.1.0
 -- The CXX compiler identification is GNU 8.1.0
@@ -28,8 +29,15 @@
 -- Performing Test _GLFW_HAS_ASLR - Success
 -- Performing Test _GLFW_HAS_64ASLR
 -- Performing Test _GLFW_HAS_64ASLR - Failed
+=======
+"C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game
+>>>>>>> master
 -- Using Win32 for window creation
 -- GLM is a header only library, no need to build it. Set the option GLM_TEST_ENABLE with ON to build and run the test bench
 -- Configuring done
 -- Generating done
+<<<<<<< HEAD
 -- Build files have been written to: C:/C++/opengl_game/cmake-build-debug
+=======
+-- Build files have been written to: C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug
+>>>>>>> master

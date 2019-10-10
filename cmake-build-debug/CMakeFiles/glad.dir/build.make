@@ -42,10 +42,17 @@ RM = "C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
+<<<<<<< HEAD
 CMAKE_SOURCE_DIR = C:\C++\opengl_game
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = C:\C++\opengl_game\cmake-build-debug
+=======
+CMAKE_SOURCE_DIR = C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game
+
+# The top-level build directory on which CMake was run.
+CMAKE_BINARY_DIR = C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug
+>>>>>>> master
 
 # Include any dependencies generated for this target.
 include CMakeFiles/glad.dir/depend.make
@@ -59,6 +66,7 @@ include CMakeFiles/glad.dir/flags.make
 CMakeFiles/glad.dir/libraries/glad/src/glad.c.obj: CMakeFiles/glad.dir/flags.make
 CMakeFiles/glad.dir/libraries/glad/src/glad.c.obj: CMakeFiles/glad.dir/includes_C.rsp
 CMakeFiles/glad.dir/libraries/glad/src/glad.c.obj: ../libraries/glad/src/glad.c
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/glad.dir/libraries/glad/src/glad.c.obj"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\glad.dir\libraries\glad\src\glad.c.obj   -c C:\C++\opengl_game\libraries\glad\src\glad.c
 
@@ -69,6 +77,18 @@ CMakeFiles/glad.dir/libraries/glad/src/glad.c.i: cmake_force
 CMakeFiles/glad.dir/libraries/glad/src/glad.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glad.dir/libraries/glad/src/glad.c.s"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\C++\opengl_game\libraries\glad\src\glad.c -o CMakeFiles\glad.dir\libraries\glad\src\glad.c.s
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/glad.dir/libraries/glad/src/glad.c.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\glad.dir\libraries\glad\src\glad.c.obj   -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glad\src\glad.c
+
+CMakeFiles/glad.dir/libraries/glad/src/glad.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/glad.dir/libraries/glad/src/glad.c.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glad\src\glad.c > CMakeFiles\glad.dir\libraries\glad\src\glad.c.i
+
+CMakeFiles/glad.dir/libraries/glad/src/glad.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/glad.dir/libraries/glad/src/glad.c.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glad\src\glad.c -o CMakeFiles\glad.dir\libraries\glad\src\glad.c.s
+>>>>>>> master
 
 # Object files for target glad
 glad_OBJECTS = \
@@ -80,7 +100,11 @@ glad_EXTERNAL_OBJECTS =
 libglad.a: CMakeFiles/glad.dir/libraries/glad/src/glad.c.obj
 libglad.a: CMakeFiles/glad.dir/build.make
 libglad.a: CMakeFiles/glad.dir/link.txt
+<<<<<<< HEAD
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\C++\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library libglad.a"
+=======
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library libglad.a"
+>>>>>>> master
 	$(CMAKE_COMMAND) -P CMakeFiles\glad.dir\cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\glad.dir\link.txt --verbose=$(VERBOSE)
 
@@ -94,6 +118,10 @@ CMakeFiles/glad.dir/clean:
 .PHONY : CMakeFiles/glad.dir/clean
 
 CMakeFiles/glad.dir/depend:
+<<<<<<< HEAD
 	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\C++\opengl_game C:\C++\opengl_game C:\C++\opengl_game\cmake-build-debug C:\C++\opengl_game\cmake-build-debug C:\C++\opengl_game\cmake-build-debug\CMakeFiles\glad.dir\DependInfo.cmake --color=$(COLOR)
+=======
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles\glad.dir\DependInfo.cmake --color=$(COLOR)
+>>>>>>> master
 .PHONY : CMakeFiles/glad.dir/depend
 
