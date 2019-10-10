@@ -1,5 +1,1 @@
-<<<<<<< HEAD
--ID:/C++/OpenGL_Android_Game/libraries/glm -ID:/C++/OpenGL_Android_Game/libraries/glm/test/external -ID:/C++/OpenGL_Android_Game/libraries/glm/glm/.. 
-=======
--IC:/Users/lsand5108/CLionProjects/opengl_game/libraries/glm -IC:/Users/lsand5108/CLionProjects/opengl_game/libraries/glm/test/external -IC:/Users/lsand5108/CLionProjects/opengl_game/libraries/glm/glm/.. 
->>>>>>> new_test
+-IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm -IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm/test/external -IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm/glm/.. 

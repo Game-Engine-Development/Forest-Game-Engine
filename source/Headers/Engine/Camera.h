@@ -1,8 +1,10 @@
 #pragma once
 
+#include "Headers/Engine/Shader.h"
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <vector>
 
@@ -55,6 +57,8 @@ public:
 
     // Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
     void ProcessMouseScroll(float yoffset);
+
+    void setMatrices(Shader& shader);
 
 private:
     // Calculates the front vector from the Camera's (updated) Euler Angles

@@ -19,12 +19,9 @@ KHR/khrplatform.h
 -
 
 ../libraries/glfw/include/GLFW/glfw3.h
-<<<<<<< HEAD
 stddef.h
 -
 stdint.h
--
-vulkan/vulkan.h
 -
 GLES/gl.h
 -
@@ -61,16 +58,14 @@ GL/gl.h
 GL/glext.h
 -
 GL/glu.h
+-
+vulkan/vulkan.h
 -
 
 ../libraries/glfw/include/glfw/glfw3.h
-=======
->>>>>>> new_test
 stddef.h
 -
 stdint.h
--
-vulkan/vulkan.h
 -
 GLES/gl.h
 -
@@ -107,6 +102,8 @@ GL/gl.h
 GL/glext.h
 -
 GL/glu.h
+-
+vulkan/vulkan.h
 -
 
 ../libraries/glm/glm/common.hpp
@@ -909,25 +906,18 @@ detail/type_vec4.hpp
 detail/func_vector_relational.hpp
 ../libraries/glm/glm/detail/func_vector_relational.hpp
 
-<<<<<<< HEAD
-../source/Headers/Camera.h
-=======
 ../source/Headers/Engine/Camera.h
->>>>>>> new_test
+Headers/Engine/Shader.h
+../source/Headers/Engine/Headers/Engine/Shader.h
 glad/glad.h
 -
 glm/glm.hpp
 -
 glm/gtc/matrix_transform.hpp
 -
-<<<<<<< HEAD
 glm/gtc/type_ptr.hpp
 -
-Headers/Engine/Shader.h
-../source/Headers/Headers/Engine/Shader.h
 vector
--
-GLFW/glfw3.h
 -
 
 ../source/Headers/Engine/Models/Entity.h
@@ -937,16 +927,16 @@ Headers/Engine/Models/Texture.h
 ../source/Headers/Engine/Models/Headers/Engine/Models/Texture.h
 Headers/Engine/Shader.h
 ../source/Headers/Engine/Models/Headers/Engine/Shader.h
-Headers/Camera.h
-../source/Headers/Engine/Models/Headers/Camera.h
+Headers/Engine/Camera.h
+../source/Headers/Engine/Models/Headers/Engine/Camera.h
+glm/gtc/type_ptr.hpp
+-
 
 ../source/Headers/Engine/Models/Mesh.h
 vector
 -
 glm/glm.hpp
 -
-=======
->>>>>>> new_test
 vector
 -
 
@@ -970,22 +960,8 @@ sstream
 iostream
 -
 
-../source/Headers/Engine/Shader.h
-glad/glad.h
--
-glm/glm.hpp
--
-string
--
-fstream
--
-sstream
--
-iostream
--
-
 ../source/Headers/Engine/Terrain/Terrain.h
-Headers/Camera.h
+Headers/Engine/Camera.h
 -
 Headers/Engine/Models/Texture.h
 ../source/Headers/Engine/Terrain/Headers/Engine/Models/Texture.h
@@ -996,6 +972,8 @@ Headers/Engine/Shader.h
 glm/glm.hpp
 -
 glm/gtc/matrix_transform.hpp
+-
+glm/gtc/type_ptr.hpp
 -
 vector
 -
@@ -1012,9 +990,9 @@ glad/glad.h
 glfw/glfw3.h
 -
 
-../source/headers/stb_image.h
+../source/Headers/stb_image.h
 stb_image.h
-../source/headers/stb_image.h
+../source/Headers/stb_image.h
 stdio.h
 -
 stdlib.h
@@ -1044,86 +1022,57 @@ intrin.h
 arm_neon.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/source/Game/Loop/main.cpp
-headers/stb_image.h
-D:/C++/OpenGL_Android_Game/source/Game/Loop/headers/stb_image.h
-glad/glad.h
--
-GLFW/glfw3.h
--
-Headers/Engine/Shader.h
-D:/C++/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Shader.h
-Headers/Camera.h
-D:/C++/OpenGL_Android_Game/source/Game/Loop/Headers/Camera.h
-Headers/Engine/Models/Texture.h
-D:/C++/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Models/Texture.h
-Headers/Engine/Models/Mesh.h
-D:/C++/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Models/Mesh.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Models/Entity.cpp
 Headers/Engine/Models/Entity.h
-D:/C++/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Models/Entity.h
-Headers/Engine/Terrain/Terrain.h
-D:/C++/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Terrain/Terrain.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Models/Headers/Engine/Models/Entity.h
+
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Models/Mesh.cpp
+string
+-
+cstring
+-
+iostream
+-
+vector
+-
 glm/glm.hpp
 -
-glm/gtc/matrix_transform.hpp
+glad/glad.h
 -
-glm/gtc/type_ptr.hpp
-=======
-../source/headers/stb_image.h
-stb_image.h
-../source/headers/stb_image.h
-stdio.h
--
-stdlib.h
--
-stdarg.h
--
-stddef.h
->>>>>>> new_test
--
-stdlib.h
--
-string.h
--
-limits.h
--
-math.h
--
-<<<<<<< HEAD
-=======
-stdio.h
--
-assert.h
--
-stdint.h
--
-emmintrin.h
--
-intrin.h
--
-arm_neon.h
--
+Headers/Engine/Models/Mesh.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Models/Headers/Engine/Models/Mesh.h
 
-C:/Users/lsand5108/CLionProjects/opengl_game/source/Engine/Models/Texture.cpp
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Shader/Shader.cpp
+Headers/Engine/Shader.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Shader/Headers/Engine/Shader.h
+
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/Terrain.cpp
+Headers/Engine/Terrain/Terrain.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/Headers/Engine/Terrain/Terrain.h
+
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/TerrainMesh.cpp
+Headers/Engine/Terrain/TerrainMesh.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/Headers/Engine/Terrain/TerrainMesh.h
+
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/main.cpp
 Headers/stb_image.h
-C:/Users/lsand5108/CLionProjects/opengl_game/source/Engine/Models/Headers/stb_image.h
-Headers/Engine/Models/Texture.h
-C:/Users/lsand5108/CLionProjects/opengl_game/source/Engine/Models/Headers/Engine/Models/Texture.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/source/Game/Loop/main.cpp
-headers/stb_image.h
-C:/Users/lsand5108/CLionProjects/opengl_game/source/Game/Loop/headers/stb_image.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/Headers/stb_image.h
 glad/glad.h
 -
 GLFW/glfw3.h
 -
 Headers/Engine/Shader.h
-C:/Users/lsand5108/CLionProjects/opengl_game/source/Game/Loop/Headers/Engine/Shader.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Shader.h
 Headers/Engine/Camera.h
-C:/Users/lsand5108/CLionProjects/opengl_game/source/Game/Loop/Headers/Engine/Camera.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Camera.h
 Headers/Engine/Models/Texture.h
-C:/Users/lsand5108/CLionProjects/opengl_game/source/Game/Loop/Headers/Engine/Models/Texture.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Models/Texture.h
+Headers/Engine/Models/Mesh.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Models/Mesh.h
+Headers/Engine/Models/Entity.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Models/Entity.h
+Headers/Engine/Terrain/Terrain.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Terrain/Terrain.h
 glm/glm.hpp
 -
 glm/gtc/matrix_transform.hpp
@@ -1132,5 +1081,4 @@ glm/gtc/type_ptr.hpp
 -
 iostream
 -
->>>>>>> new_test
 

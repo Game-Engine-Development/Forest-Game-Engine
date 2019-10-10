@@ -6,16 +6,10 @@
 
 #IncludeRegexTransform: 
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/include/GLFW/glfw3.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/include/GLFW/glfw3.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/include/GLFW/glfw3.h
 stddef.h
 -
 stdint.h
--
-vulkan/vulkan.h
 -
 GLES/gl.h
 -
@@ -53,12 +47,10 @@ GL/glext.h
 -
 GL/glu.h
 -
+vulkan/vulkan.h
+-
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/cocoa_joystick.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/cocoa_joystick.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/cocoa_joystick.h
 IOKit/IOKitLib.h
 -
 IOKit/IOCFPlugIn.h
@@ -68,11 +60,7 @@ IOKit/hid/IOHIDLib.h
 IOKit/hid/IOHIDKeys.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/cocoa_platform.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/cocoa_platform.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/cocoa_platform.h
 stdint.h
 -
 dlfcn.h
@@ -86,35 +74,19 @@ CoreVideo/CVDisplayLink.h
 Cocoa/Cocoa.h
 -
 posix_thread.h
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/posix_thread.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/posix_thread.h
 cocoa_joystick.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/cocoa_joystick.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/cocoa_joystick.h
 nsgl_context.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/nsgl_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/nsgl_context.h
 egl_context.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/egl_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/egl_context.h
 osmesa_context.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/context.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/context.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/posix_thread.h
-cocoa_joystick.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/cocoa_joystick.h
-nsgl_context.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/nsgl_context.h
-egl_context.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/egl_context.h
-osmesa_context.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/osmesa_context.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/context.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 assert.h
 -
 stdio.h
@@ -126,15 +98,9 @@ limits.h
 stdio.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/egl_context.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/egl_context.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/egl_context.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 stdio.h
 -
 string.h
@@ -144,31 +110,17 @@ stdlib.h
 assert.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/egl_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/egl_context.h
 EGL/eglplatform.h
 -
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/glx_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/glx_context.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/init.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/init.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 mappings.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/mappings.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/egl_context.h
-EGL/eglplatform.h
--
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/glx_context.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/init.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
-mappings.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/mappings.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/mappings.h
 string.h
 -
 stdlib.h
@@ -180,15 +132,9 @@ stdarg.h
 assert.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/input.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/input.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/input.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 assert.h
 -
 float.h
@@ -200,43 +146,23 @@ stdlib.h
 string.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 glfw_config.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/glfw_config.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/glfw_config.h
 ../include/GLFW/glfw3.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/include/GLFW/glfw3.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/include/GLFW/glfw3.h
 cocoa_platform.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/cocoa_platform.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/cocoa_platform.h
 win32_platform.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/win32_platform.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_platform.h
 x11_platform.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/x11_platform.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/x11_platform.h
 wl_platform.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/wl_platform.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wl_platform.h
 null_platform.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/null_platform.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/null_platform.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/linux_joystick.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
-glfw_config.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/glfw_config.h
-../include/GLFW/glfw3.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/include/GLFW/glfw3.h
-cocoa_platform.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/cocoa_platform.h
-win32_platform.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/win32_platform.h
-x11_platform.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/x11_platform.h
-wl_platform.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/wl_platform.h
-null_platform.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/null_platform.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/linux_joystick.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/linux_joystick.h
 linux/input.h
 -
 linux/limits.h
@@ -244,19 +170,11 @@ linux/limits.h
 regex.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/mappings.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/mappings.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/monitor.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/monitor.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/mappings.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/monitor.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 assert.h
 -
 math.h
@@ -270,47 +188,25 @@ stdlib.h
 limits.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/nsgl_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/nsgl_context.h
 stdatomic.h
 -
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/null_joystick.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/null_joystick.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/null_platform.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/null_platform.h
 dlfcn.h
 -
 osmesa_context.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h
 posix_time.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/posix_time.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/posix_time.h
 posix_thread.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/posix_thread.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/posix_thread.h
 null_joystick.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/null_joystick.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/null_joystick.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.c
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/nsgl_context.h
-stdatomic.h
--
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/null_joystick.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/null_platform.h
-dlfcn.h
--
-osmesa_context.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/osmesa_context.h
-posix_time.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/posix_time.h
-posix_thread.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/posix_thread.h
-null_joystick.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/null_joystick.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/osmesa_context.c
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.c
 stdlib.h
 -
 string.h
@@ -318,39 +214,21 @@ string.h
 assert.h
 -
 internal.h
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/posix_thread.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/posix_thread.h
 pthread.h
 -
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/posix_time.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/posix_time.h
 stdint.h
 -
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/vulkan.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/vulkan.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/osmesa_context.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/posix_thread.h
-pthread.h
--
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/posix_time.h
-stdint.h
--
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/vulkan.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 assert.h
 -
 string.h
@@ -358,15 +236,9 @@ string.h
 stdlib.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/wgl_context.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wgl_context.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/wgl_context.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 stdlib.h
 -
 malloc.h
@@ -374,51 +246,29 @@ malloc.h
 assert.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/wgl_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wgl_context.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/win32_init.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_init.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/wgl_context.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/win32_init.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 stdlib.h
 -
 malloc.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/win32_joystick.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_joystick.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/win32_joystick.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 stdio.h
 -
 math.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/win32_joystick.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_joystick.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/win32_monitor.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_monitor.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/win32_joystick.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/win32_monitor.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 stdlib.h
 -
 string.h
@@ -428,11 +278,7 @@ limits.h
 malloc.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/win32_platform.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/win32_platform.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_platform.h
 wctype.h
 -
 windows.h
@@ -446,51 +292,27 @@ dbt.h
 dwmapi.h
 -
 win32_joystick.h
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/win32_joystick.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_joystick.h
 wgl_context.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/wgl_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wgl_context.h
 egl_context.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/egl_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/egl_context.h
 osmesa_context.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/win32_thread.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_thread.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 assert.h
 -
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/win32_time.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_time.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/win32_window.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_window.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/win32_joystick.h
-wgl_context.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/wgl_context.h
-egl_context.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/egl_context.h
-osmesa_context.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/osmesa_context.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/win32_thread.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
-assert.h
--
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/win32_time.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/win32_window.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 limits.h
 -
 stdlib.h
@@ -504,15 +326,9 @@ windowsx.h
 shellapi.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/window.c
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/window.c
 internal.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/internal.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/window.c
-internal.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/internal.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h
 assert.h
 -
 string.h
@@ -522,11 +338,7 @@ stdlib.h
 float.h
 -
 
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/wl_platform.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/wl_platform.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wl_platform.h
 wayland-client.h
 -
 xkbcommon/xkbcommon.h
@@ -536,63 +348,33 @@ xkbcommon/xkbcommon-compose.h
 dlfcn.h
 -
 posix_thread.h
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/posix_thread.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/posix_thread.h
 posix_time.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/posix_time.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/posix_time.h
 linux_joystick.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/linux_joystick.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/linux_joystick.h
 null_joystick.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/null_joystick.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/null_joystick.h
 xkb_unicode.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/xkb_unicode.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/xkb_unicode.h
 egl_context.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/egl_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/egl_context.h
 osmesa_context.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h
 wayland-xdg-shell-client-protocol.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/wayland-xdg-shell-client-protocol.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wayland-xdg-shell-client-protocol.h
 wayland-xdg-decoration-client-protocol.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/wayland-xdg-decoration-client-protocol.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wayland-xdg-decoration-client-protocol.h
 wayland-viewporter-client-protocol.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/wayland-viewporter-client-protocol.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wayland-viewporter-client-protocol.h
 wayland-relative-pointer-unstable-v1-client-protocol.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/wayland-relative-pointer-unstable-v1-client-protocol.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wayland-relative-pointer-unstable-v1-client-protocol.h
 wayland-pointer-constraints-unstable-v1-client-protocol.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/wayland-pointer-constraints-unstable-v1-client-protocol.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wayland-pointer-constraints-unstable-v1-client-protocol.h
 wayland-idle-inhibit-unstable-v1-client-protocol.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/wayland-idle-inhibit-unstable-v1-client-protocol.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wayland-idle-inhibit-unstable-v1-client-protocol.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/x11_platform.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/posix_thread.h
-posix_time.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/posix_time.h
-linux_joystick.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/linux_joystick.h
-null_joystick.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/null_joystick.h
-xkb_unicode.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/xkb_unicode.h
-egl_context.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/egl_context.h
-osmesa_context.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/osmesa_context.h
-wayland-xdg-shell-client-protocol.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/wayland-xdg-shell-client-protocol.h
-wayland-xdg-decoration-client-protocol.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/wayland-xdg-decoration-client-protocol.h
-wayland-viewporter-client-protocol.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/wayland-viewporter-client-protocol.h
-wayland-relative-pointer-unstable-v1-client-protocol.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/wayland-relative-pointer-unstable-v1-client-protocol.h
-wayland-pointer-constraints-unstable-v1-client-protocol.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/wayland-pointer-constraints-unstable-v1-client-protocol.h
-wayland-idle-inhibit-unstable-v1-client-protocol.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/wayland-idle-inhibit-unstable-v1-client-protocol.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/x11_platform.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/x11_platform.h
 unistd.h
 -
 signal.h
@@ -618,43 +400,23 @@ X11/extensions/Xinerama.h
 X11/extensions/XInput2.h
 -
 posix_thread.h
-<<<<<<< HEAD
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/posix_thread.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/posix_thread.h
 posix_time.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/posix_time.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/posix_time.h
 xkb_unicode.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/xkb_unicode.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/xkb_unicode.h
 glx_context.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/glx_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/glx_context.h
 egl_context.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/egl_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/egl_context.h
 osmesa_context.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h
 linux_joystick.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/linux_joystick.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/linux_joystick.h
 null_joystick.h
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/null_joystick.h
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/null_joystick.h
 
-D:/C++/OpenGL_Android_Game/libraries/glfw/src/xkb_unicode.h
-=======
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/posix_thread.h
-posix_time.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/posix_time.h
-xkb_unicode.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/xkb_unicode.h
-glx_context.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/glx_context.h
-egl_context.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/egl_context.h
-osmesa_context.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/osmesa_context.h
-linux_joystick.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/linux_joystick.h
-null_joystick.h
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/null_joystick.h
-
-C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glfw/src/xkb_unicode.h
->>>>>>> new_test
+C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/xkb_unicode.h
 
 libraries/glfw/src/glfw_config.h
 

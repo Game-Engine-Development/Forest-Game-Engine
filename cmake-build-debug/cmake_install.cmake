@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Install script for directory: D:/C++/OpenGL_Android_Game
-=======
-# Install script for directory: C:/Users/lsand5108/CLionProjects/opengl_game
->>>>>>> new_test
+# Install script for directory: C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,20 +34,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-<<<<<<< HEAD
-  include("D:/C++/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/cmake_install.cmake")
-=======
-  include("C:/Users/lsand5108/CLionProjects/opengl_game/cmake-build-debug/libraries/glfw/cmake_install.cmake")
->>>>>>> new_test
+  include("C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-<<<<<<< HEAD
-  include("D:/C++/OpenGL_Android_Game/cmake-build-debug/libraries/glm/cmake_install.cmake")
-=======
-  include("C:/Users/lsand5108/CLionProjects/opengl_game/cmake-build-debug/libraries/glm/cmake_install.cmake")
->>>>>>> new_test
+  include("C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glm/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -62,9 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-<<<<<<< HEAD
-file(WRITE "D:/C++/OpenGL_Android_Game/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
-=======
-file(WRITE "C:/Users/lsand5108/CLionProjects/opengl_game/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
->>>>>>> new_test
+file(WRITE "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

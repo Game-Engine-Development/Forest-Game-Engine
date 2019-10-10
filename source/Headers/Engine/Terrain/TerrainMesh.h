@@ -1,7 +1,3 @@
-//
-// Created by Alan on 10/8/2019.
-//
-
 #pragma once
 #include <vector>
 #include <glm/glm.hpp>

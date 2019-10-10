@@ -1,7 +1,3 @@
-//
-// Created by aekstrand7207 on 10/8/2019.
-//
-
 #include "Headers/Engine/Terrain/Terrain.h"
 
 Terrain::Terrain(Texture &texture, int gridX, int gridY) {
@@ -31,7 +27,6 @@ Terrain::Terrain(Texture &texture, int gridX, int gridY) {
             indices.push_back(bottomRight);
         }
     }
-    std::cout << indices.size() << std::endl;
     terrainMesh = TerrainMesh(vertices, normals, texCoords, indices);
     this->texture = texture;
     position = glm::vec3(x, 0, z);
