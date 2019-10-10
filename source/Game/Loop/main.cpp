@@ -1,5 +1,5 @@
 #define STB_IMAGE_IMPLEMENTATION
-#include "headers/stb_image.h"
+#include "Headers/stb_image.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -45,7 +45,6 @@ int main()
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
 #endif
-
     // glfw window creation
     // --------------------
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
@@ -71,14 +70,13 @@ int main()
     glEnable(GL_DEPTH_TEST);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    Shader entityShader("C:/C++/opengl_game/source/Engine/Models/Shaders/vertexShader.glsl", "C:/C++/opengl_game/source/Engine/Models/Shaders/fragmentShader.glsl");
-    Shader terrainShader("C:/C++/opengl_game/source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "C:/C++/opengl_game/source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
+    Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
+    Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
     Texture texture("../res/container.jpg");
     Mesh mesh("../res/container.obj");
     Entity container(mesh, texture, glm::vec3(0,0,0), glm::vec3(0,45,0), glm::vec3(1,1,1));
     Texture terrainTexture("../res/grass.png");
     Terrain terrain1(terrainTexture, 0, 0);
-    Terrain terrain2(terrainTexture, 0, 1);
 
     // uncomment this call to draw in wireframe polygons.
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -103,7 +101,6 @@ int main()
         container.rotate(0,10 * deltaTime,0);
 
         terrain1.render(camera, terrainShader);
-        terrain2.render(camera, terrainShader);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

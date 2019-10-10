@@ -1,1 +1,1 @@
--IC:/C++/opengl_game/libraries/glm -IC:/C++/opengl_game/libraries/glm/test/external -IC:/C++/opengl_game/libraries/glm/glm/.. 
+-ID:/C++/OpenGL_Android_Game/libraries/glm -ID:/C++/OpenGL_Android_Game/libraries/glm/test/external -ID:/C++/OpenGL_Android_Game/libraries/glm/glm/.. 

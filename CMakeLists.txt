@@ -4,7 +4,7 @@ project(opengl_game)
 
 # Source files
 set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/source")
-set(SOURCES "${SRC_DIR}/Game/Loop/main.cpp" source/Headers/Engine/Shader.h source/Headers/stb_image.h source/Headers/Camera.h source/Engine/Models/Texture.cpp source/Headers/Engine/Models/Texture.h source/Engine/Models/Mesh.cpp source/Headers/Engine/Models/Mesh.h source/Engine/Models/Entity.cpp source/Headers/Engine/Models/Entity.h source/Engine/Terrain/Terrain.cpp source/Headers/Engine/Terrain/Terrain.h)
+set(SOURCES "${SRC_DIR}/Game/Loop/main.cpp" source/Headers/Engine/Shader.h source/Headers/stb_image.h source/Headers/Camera.h source/Engine/Models/Texture.cpp source/Headers/Engine/Models/Texture.h source/Engine/Models/Mesh.cpp source/Headers/Engine/Models/Mesh.h source/Engine/Models/Entity.cpp source/Headers/Engine/Models/Entity.h source/Engine/Terrain/Terrain.cpp source/Headers/Engine/Terrain/Terrain.h source/Engine/Terrain/TerrainMesh.cpp source/Headers/Engine/Terrain/TerrainMesh.h)
 
 # Executable definition and properties
 add_executable(${PROJECT_NAME} ${SOURCES})

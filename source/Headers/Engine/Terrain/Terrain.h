@@ -6,7 +6,7 @@
 
 #include <Headers/Camera.h>
 #include "Headers/Engine/Models/Texture.h"
-#include "Headers/Engine/Models/Mesh.h"
+#include "Headers/Engine/Terrain/TerrainMesh.h"
 #include "Headers/Engine/Shader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -22,8 +22,8 @@ private:
     const float SIZE = 800;
     const int VERTEX_COUNT = 128;
     Texture texture;
-    Mesh mesh;
-    int x, y;
+    TerrainMesh terrainMesh;
+    int x, z;
     glm::vec3 position;
     glm::mat4 modelMatrix;
     glm::mat4 createModelMatrix();

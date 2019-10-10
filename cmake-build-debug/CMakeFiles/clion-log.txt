@@ -1,6 +1,6 @@
-"C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\C++\opengl_game
+"C:\Program Files\JetBrains\CLion 2019.1.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" D:\C++\OpenGL_Android_Game
 -- Using Win32 for window creation
 -- GLM is a header only library, no need to build it. Set the option GLM_TEST_ENABLE with ON to build and run the test bench
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/C++/opengl_game/cmake-build-debug
+-- Build files have been written to: D:/C++/OpenGL_Android_Game/cmake-build-debug
