@@ -1,5 +1,3 @@
-#include <glad/glad.h>
-#include <iostream>
 #include "Headers/stb_image.h"
 #include "Headers/Engine/Models/Texture.h"
 

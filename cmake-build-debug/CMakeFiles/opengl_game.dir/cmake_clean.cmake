@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj"
+  "CMakeFiles/opengl_game.dir/source/Engine/Shader/Shader.cpp.obj"
+  "CMakeFiles/opengl_game.dir/source/Engine/Camera/Camera.cpp.obj"
   "CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj"
   "CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.obj"
   "CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj"

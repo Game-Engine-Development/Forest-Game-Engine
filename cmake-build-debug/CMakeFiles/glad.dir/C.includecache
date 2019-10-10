@@ -18,7 +18,11 @@ stdint.h
 KHR/khrplatform.h
 -
 
+<<<<<<< HEAD
 D:/C++/OpenGL_Android_Game/libraries/glad/src/glad.c
+=======
+C:/Users/lsand5108/CLionProjects/opengl_game/libraries/glad/src/glad.c
+>>>>>>> new_test
 stdio.h
 -
 stdlib.h

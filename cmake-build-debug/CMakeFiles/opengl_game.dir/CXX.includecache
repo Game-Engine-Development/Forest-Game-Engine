@@ -19,6 +19,7 @@ KHR/khrplatform.h
 -
 
 ../libraries/glfw/include/GLFW/glfw3.h
+<<<<<<< HEAD
 stddef.h
 -
 stdint.h
@@ -63,6 +64,8 @@ GL/glu.h
 -
 
 ../libraries/glfw/include/glfw/glfw3.h
+=======
+>>>>>>> new_test
 stddef.h
 -
 stdint.h
@@ -906,13 +909,18 @@ detail/type_vec4.hpp
 detail/func_vector_relational.hpp
 ../libraries/glm/glm/detail/func_vector_relational.hpp
 
+<<<<<<< HEAD
 ../source/Headers/Camera.h
+=======
+../source/Headers/Engine/Camera.h
+>>>>>>> new_test
 glad/glad.h
 -
 glm/glm.hpp
 -
 glm/gtc/matrix_transform.hpp
 -
+<<<<<<< HEAD
 glm/gtc/type_ptr.hpp
 -
 Headers/Engine/Shader.h
@@ -937,10 +945,30 @@ vector
 -
 glm/glm.hpp
 -
+=======
+>>>>>>> new_test
 vector
 -
 
 ../source/Headers/Engine/Models/Texture.h
+glad/glad.h
+-
+iostream
+-
+
+../source/Headers/Engine/Shader.h
+glad/glad.h
+-
+glm/glm.hpp
+-
+string
+-
+fstream
+-
+sstream
+-
+iostream
+-
 
 ../source/Headers/Engine/Shader.h
 glad/glad.h
@@ -1016,6 +1044,7 @@ intrin.h
 arm_neon.h
 -
 
+<<<<<<< HEAD
 D:/C++/OpenGL_Android_Game/source/Game/Loop/main.cpp
 headers/stb_image.h
 D:/C++/OpenGL_Android_Game/source/Game/Loop/headers/stb_image.h
@@ -1040,7 +1069,68 @@ glm/glm.hpp
 glm/gtc/matrix_transform.hpp
 -
 glm/gtc/type_ptr.hpp
+=======
+../source/headers/stb_image.h
+stb_image.h
+../source/headers/stb_image.h
+stdio.h
+-
+stdlib.h
+-
+stdarg.h
+-
+stddef.h
+>>>>>>> new_test
+-
+stdlib.h
+-
+string.h
+-
+limits.h
+-
+math.h
+-
+<<<<<<< HEAD
+=======
+stdio.h
+-
+assert.h
+-
+stdint.h
+-
+emmintrin.h
+-
+intrin.h
+-
+arm_neon.h
+-
+
+C:/Users/lsand5108/CLionProjects/opengl_game/source/Engine/Models/Texture.cpp
+Headers/stb_image.h
+C:/Users/lsand5108/CLionProjects/opengl_game/source/Engine/Models/Headers/stb_image.h
+Headers/Engine/Models/Texture.h
+C:/Users/lsand5108/CLionProjects/opengl_game/source/Engine/Models/Headers/Engine/Models/Texture.h
+
+C:/Users/lsand5108/CLionProjects/opengl_game/source/Game/Loop/main.cpp
+headers/stb_image.h
+C:/Users/lsand5108/CLionProjects/opengl_game/source/Game/Loop/headers/stb_image.h
+glad/glad.h
+-
+GLFW/glfw3.h
+-
+Headers/Engine/Shader.h
+C:/Users/lsand5108/CLionProjects/opengl_game/source/Game/Loop/Headers/Engine/Shader.h
+Headers/Engine/Camera.h
+C:/Users/lsand5108/CLionProjects/opengl_game/source/Game/Loop/Headers/Engine/Camera.h
+Headers/Engine/Models/Texture.h
+C:/Users/lsand5108/CLionProjects/opengl_game/source/Game/Loop/Headers/Engine/Models/Texture.h
+glm/glm.hpp
+-
+glm/gtc/matrix_transform.hpp
+-
+glm/gtc/type_ptr.hpp
 -
 iostream
 -
+>>>>>>> new_test
 
