@@ -1,1 +1,1 @@
--ID:/C++/OpenGL_Android_Game/libraries/glfw/include -ID:/C++/OpenGL_Android_Game/libraries/glfw/src -ID:/C++/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src 
+-IC:/C++/opengl_game/libraries/glfw/include -IC:/C++/opengl_game/libraries/glfw/src -IC:/C++/opengl_game/cmake-build-debug/libraries/glfw/src 

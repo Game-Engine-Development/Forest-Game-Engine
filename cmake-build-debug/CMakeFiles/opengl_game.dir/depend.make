@@ -542,6 +542,6 @@ CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Headers/Engi
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Headers/Engine/Shader.h
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Headers/Engine/Terrain/Terrain.h
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Headers/Engine/Terrain/TerrainMesh.h
-CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/headers/stb_image.h
+CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Headers/stb_image.h
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj: ../source/Game/Loop/main.cpp
 

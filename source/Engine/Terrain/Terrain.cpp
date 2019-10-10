@@ -11,7 +11,7 @@ Terrain::Terrain(Texture &texture, int gridX, int gridY) {
     std::vector<glm::vec2> texCoords;
     std::vector<unsigned int> indices;
     for(int i = 0; i < VERTEX_COUNT; ++i){
-        for(int j = 0; i < VERTEX_COUNT; ++i){
+        for(int j = 0; j < VERTEX_COUNT; ++j){
             vertices.push_back(glm::vec3((float)j/(float)(VERTEX_COUNT - 1) * SIZE, 0, (float)i/(float)(VERTEX_COUNT - 1) * SIZE));
             normals.push_back(glm::vec3(0,1,0));
             texCoords.push_back(glm::vec2((float)j/(float)(VERTEX_COUNT - 1), (float)i/(float)(VERTEX_COUNT - 1)));
@@ -31,7 +31,6 @@ Terrain::Terrain(Texture &texture, int gridX, int gridY) {
             indices.push_back(bottomRight);
         }
     }
-    std::cout << indices.size() << std::endl;
     terrainMesh = TerrainMesh(vertices, normals, texCoords, indices);
     this->texture = texture;
     position = glm::vec3(x, 0, z);
@@ -39,7 +38,7 @@ Terrain::Terrain(Texture &texture, int gridX, int gridY) {
 
 Terrain::~Terrain() = default;
 
-void Terrain::render(Camera camera, Shader &shader) {
+void Terrain::render(Camera &camera, Shader &shader) {
     shader.use();
     texture.bind();
     terrainMesh.bindVAO();

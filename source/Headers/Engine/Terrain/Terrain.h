@@ -17,7 +17,7 @@ class Terrain {
 public:
     Terrain(Texture& texture, int gridX, int gridY);
     ~Terrain();
-    void render(Camera camera, Shader& shader);
+    void render(Camera& camera, Shader& shader);
 private:
     const float SIZE = 800;
     const int VERTEX_COUNT = 128;

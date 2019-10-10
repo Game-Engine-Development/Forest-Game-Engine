@@ -1,4 +1,4 @@
-# Install script for directory: D:/C++/OpenGL_Android_Game/libraries/glm/test
+# Install script for directory: C:/C++/opengl_game/libraries/glm/test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,10 +34,10 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("D:/C++/OpenGL_Android_Game/cmake-build-debug/libraries/glm/test/bug/cmake_install.cmake")
-  include("D:/C++/OpenGL_Android_Game/cmake-build-debug/libraries/glm/test/core/cmake_install.cmake")
-  include("D:/C++/OpenGL_Android_Game/cmake-build-debug/libraries/glm/test/gtc/cmake_install.cmake")
-  include("D:/C++/OpenGL_Android_Game/cmake-build-debug/libraries/glm/test/gtx/cmake_install.cmake")
+  include("C:/C++/opengl_game/cmake-build-debug/libraries/glm/test/bug/cmake_install.cmake")
+  include("C:/C++/opengl_game/cmake-build-debug/libraries/glm/test/core/cmake_install.cmake")
+  include("C:/C++/opengl_game/cmake-build-debug/libraries/glm/test/gtc/cmake_install.cmake")
+  include("C:/C++/opengl_game/cmake-build-debug/libraries/glm/test/gtx/cmake_install.cmake")
 
 endif()
 
