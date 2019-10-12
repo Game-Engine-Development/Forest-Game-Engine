@@ -1,8 +1,8 @@
 #include "Headers/Engine/Terrain/Terrain.h"
 
-Terrain::Terrain(Texture &texture, int gridX, int gridY) {
+Terrain::Terrain(Texture &texture, int gridX, int gridZ) {
     x = gridX * SIZE;
-    z = gridY * SIZE;
+    z = gridZ * SIZE;
     std::vector<glm::vec3> vertices, normals;
     std::vector<glm::vec2> texCoords;
     std::vector<unsigned int> indices;
@@ -36,8 +36,8 @@ Terrain::~Terrain() = default;
 
 void Terrain::render(Camera &camera, Shader &shader) {
     shader.use();
-    texture.bind();
     terrainMesh.bindVAO();
+    texture.bind();
     camera.setMatrices(shader);
     int modelLoc = glGetUniformLocation(shader.ID, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(createModelMatrix()));
