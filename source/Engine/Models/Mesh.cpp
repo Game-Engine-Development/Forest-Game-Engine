@@ -1,9 +1,3 @@
-#include <string>
-#include <cstring>
-#include <iostream>
-#include <vector>
-#include <glm/glm.hpp>
-#include <glad/glad.h>
 #include "Headers/Engine/Models/Mesh.h"
 
 Mesh::Mesh() {
@@ -20,18 +14,27 @@ Mesh::Mesh(const char* filename) {
     glGenBuffers(1, &texCoordBuffer);
     //glGenBuffers(1, &normalBuffer);
     bindVAO();
+
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
     glBindBuffer(GL_ARRAY_BUFFER, texCoordBuffer);
     glBufferData(GL_ARRAY_BUFFER, textureCoords.size() * sizeof(glm::vec2), &textureCoords[0], GL_STATIC_DRAW);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-    //glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-    //glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
-    //glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3, NULL);
+
+    glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+    glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+    for(int x1 = 0; x1 < vertices.size(); ++x1){
+        std::cout << "vertex: " << vertices.at(x1)[0] << ", " << vertices.at(x1)[1] << ", " << vertices.at(x1)[2]  << ", normal: " << normals.at(x1)[0] << ", " << normals.at(x1)[1] << ", " << normals.at(x1)[2] << std::endl;
+    }
+
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
-    //glEnableVertexAttribArray(2);
+    glEnableVertexAttribArray(2);
+
     unbindVAO();
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
@@ -83,9 +86,11 @@ void Mesh::loadOBJ(const char* filename, std::vector<glm::vec3>& finalVertices, 
             unsigned int vertexIndex = vertexIndices[i];
             glm::vec3 vertex = vertices[vertexIndex - 1];  //obj files are indexed starting at 1 not 0
             finalVertices.push_back(vertex);
+
             unsigned int textureIndex = textureIndices[i];
             glm::vec2 textureCoord = textureCoords[textureIndex - 1];
             finalTextureCoords.push_back(textureCoord);
+
             unsigned int normalIndex = normalIndices[i];
             glm::vec3 normal = normals[normalIndex - 1];
             finalNormals.push_back(normal);
