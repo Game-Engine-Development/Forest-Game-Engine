@@ -12,7 +12,7 @@ Mesh::Mesh(const char* filename) {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &texCoordBuffer);
-    //glGenBuffers(1, &normalBuffer);
+    glGenBuffers(1, &normalBuffer);
     bindVAO();
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -26,10 +26,6 @@ Mesh::Mesh(const char* filename) {
     glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-
-    for(int x1 = 0; x1 < vertices.size(); ++x1){
-        std::cout << "vertex: " << vertices.at(x1)[0] << ", " << vertices.at(x1)[1] << ", " << vertices.at(x1)[2]  << ", normal: " << normals.at(x1)[0] << ", " << normals.at(x1)[1] << ", " << normals.at(x1)[2] << std::endl;
-    }
 
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
