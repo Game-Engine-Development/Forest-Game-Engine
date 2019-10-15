@@ -1,10 +1,12 @@
 #version 330 core
 
 in vec2 texCoord;
+in vec3 Normal;
 
 out vec4 FragColor;
 
 uniform sampler2D sampler;
+uniform vec3 lightPos;
 
 void main()
 {

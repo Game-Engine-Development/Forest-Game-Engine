@@ -12,7 +12,7 @@ public:
 
     ~Entity();
 
-    void render(Camera& camera, Shader& shader);
+    void render(Camera& camera, Shader& shader, glm::vec3& lightPos);
 
     glm::vec3 getPos();
     glm::vec3 getRotation();
