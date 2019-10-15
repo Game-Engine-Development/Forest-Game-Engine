@@ -47,17 +47,10 @@ RM = "C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-<<<<<<< HEAD
-CMAKE_SOURCE_DIR = C:\C++\opengl_game
-
-# The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\C++\opengl_game\cmake-build-debug
-=======
 CMAKE_SOURCE_DIR = C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug
->>>>>>> master
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,15 +125,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-<<<<<<< HEAD
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\C++\opengl_game\cmake-build-debug\CMakeFiles C:\C++\opengl_game\cmake-build-debug\CMakeFiles\progress.marks
-	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\C++\opengl_game\cmake-build-debug\CMakeFiles 0
-=======
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles\progress.marks
 	$(MAKE) -f CMakeFiles\Makefile2 all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles 0
->>>>>>> master
 .PHONY : all
 
 # The main clean target

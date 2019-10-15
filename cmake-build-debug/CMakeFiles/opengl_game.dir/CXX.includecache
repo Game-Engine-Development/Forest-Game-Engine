@@ -945,8 +945,6 @@ glad/glad.h
 -
 GLFW/glfw3.h
 -
-iostream
--
 
 ../source/Headers/stb_image.h
 stb_image.h
@@ -980,41 +978,14 @@ intrin.h
 arm_neon.h
 -
 
-<<<<<<< HEAD
-C:/C++/opengl_game/source/Game/Loop/main.cpp
-Headers/stb_image.h
-C:/C++/opengl_game/source/Game/Loop/Headers/stb_image.h
-=======
-C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/Terrain.cpp
-Headers/Engine/Terrain/Terrain.h
-C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/Headers/Engine/Terrain/Terrain.h
-
-C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/TerrainMesh.cpp
-Headers/Engine/Terrain/TerrainMesh.h
-C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/Headers/Engine/Terrain/TerrainMesh.h
-
 C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/main.cpp
 Headers/stb_image.h
 C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/Headers/stb_image.h
->>>>>>> master
 glad/glad.h
 -
 GLFW/glfw3.h
 -
 Headers/Engine/Shader.h
-<<<<<<< HEAD
-C:/C++/opengl_game/source/Game/Loop/Headers/Engine/Shader.h
-Headers/Camera.h
-C:/C++/opengl_game/source/Game/Loop/Headers/Camera.h
-Headers/Engine/Models/Texture.h
-C:/C++/opengl_game/source/Game/Loop/Headers/Engine/Models/Texture.h
-Headers/Engine/Models/Mesh.h
-C:/C++/opengl_game/source/Game/Loop/Headers/Engine/Models/Mesh.h
-Headers/Engine/Models/Entity.h
-C:/C++/opengl_game/source/Game/Loop/Headers/Engine/Models/Entity.h
-Headers/Engine/Terrain/Terrain.h
-C:/C++/opengl_game/source/Game/Loop/Headers/Engine/Terrain/Terrain.h
-=======
 C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Shader.h
 Headers/Engine/Camera.h
 C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Camera.h
@@ -1026,7 +997,6 @@ Headers/Engine/Models/Entity.h
 C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Models/Entity.h
 Headers/Engine/Terrain/Terrain.h
 C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/Headers/Engine/Terrain/Terrain.h
->>>>>>> master
 glm/glm.hpp
 -
 glm/gtc/matrix_transform.hpp

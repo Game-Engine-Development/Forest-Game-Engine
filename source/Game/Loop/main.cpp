@@ -25,9 +25,6 @@ void setMatrices(Shader shader);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-float deltaTime = 0;
-float lastFrame = 0;
-
 float lastX = 400, lastY = 300;
 bool firstMouse = true;
 
@@ -67,6 +64,8 @@ int main()
         return -1;
     }
 
+    glfwSwapInterval(1);
+
     glEnable(GL_DEPTH_TEST);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -87,9 +86,6 @@ int main()
     {
         // input
         // -----
-        float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
         processInput(window);
         // render
         // ------
@@ -98,7 +94,7 @@ int main()
 
         // draw our first triangle
         container.render(camera, entityShader);
-        container.rotate(0,10 * deltaTime,0);
+        container.rotate(0,1,0);
 
         terrain1.render(camera, terrainShader);
 
@@ -120,13 +116,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
     }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(FORWARD);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(BACKWARD);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(LEFT);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(RIGHT);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

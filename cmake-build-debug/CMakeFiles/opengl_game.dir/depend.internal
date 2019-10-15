@@ -217,11 +217,7 @@ CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj
  ../source/Headers/Engine/Models/Mesh.h
  ../source/Headers/Engine/Models/Texture.h
  ../source/Headers/Engine/Shader.h
-<<<<<<< HEAD
- C:/C++/opengl_game/source/Engine/Models/Entity.cpp
-=======
  C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Models/Entity.cpp
->>>>>>> master
 CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.obj
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h
@@ -318,20 +314,12 @@ CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.obj
  ../libraries/glm/glm/vec4.hpp
  ../libraries/glm/glm/vector_relational.hpp
  ../source/Headers/Engine/Models/Mesh.h
-<<<<<<< HEAD
- ../source/Headers/array.h
- C:/C++/opengl_game/source/Engine/Models/Mesh.cpp
-=======
  C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Models/Mesh.cpp
->>>>>>> master
 CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h
  ../source/Headers/Engine/Models/Texture.h
  ../source/Headers/stb_image.h
-<<<<<<< HEAD
- C:/C++/opengl_game/source/Engine/Models/Texture.cpp
-=======
  C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Models/Texture.cpp
 CMakeFiles/opengl_game.dir/source/Engine/Shader/Shader.cpp.obj
  ../libraries/glad/include/KHR/khrplatform.h
@@ -430,7 +418,6 @@ CMakeFiles/opengl_game.dir/source/Engine/Shader/Shader.cpp.obj
  ../libraries/glm/glm/vector_relational.hpp
  ../source/Headers/Engine/Shader.h
  C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Shader/Shader.cpp
->>>>>>> master
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h
@@ -541,11 +528,7 @@ CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj
  ../source/Headers/Engine/Shader.h
  ../source/Headers/Engine/Terrain/Terrain.h
  ../source/Headers/Engine/Terrain/TerrainMesh.h
-<<<<<<< HEAD
- C:/C++/opengl_game/source/Engine/Terrain/Terrain.cpp
-=======
  C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/Terrain.cpp
->>>>>>> master
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h
@@ -647,11 +630,7 @@ CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj
  ../libraries/glm/glm/vec4.hpp
  ../libraries/glm/glm/vector_relational.hpp
  ../source/Headers/Engine/Terrain/TerrainMesh.h
-<<<<<<< HEAD
- C:/C++/opengl_game/source/Engine/Terrain/TerrainMesh.cpp
-=======
  C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/TerrainMesh.cpp
->>>>>>> master
 CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj
  ../libraries/glad/include/KHR/khrplatform.h
  ../libraries/glad/include/glad/glad.h
@@ -765,8 +744,4 @@ CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj
  ../source/Headers/Engine/Terrain/Terrain.h
  ../source/Headers/Engine/Terrain/TerrainMesh.h
  ../source/Headers/stb_image.h
-<<<<<<< HEAD
- C:/C++/opengl_game/source/Game/Loop/main.cpp
-=======
  C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/main.cpp
->>>>>>> master

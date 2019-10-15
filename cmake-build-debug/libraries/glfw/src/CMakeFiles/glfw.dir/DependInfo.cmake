@@ -4,23 +4,6 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-<<<<<<< HEAD
-  "C:/C++/opengl_game/libraries/glfw/src/context.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/context.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/egl_context.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/init.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/init.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/input.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/input.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/monitor.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/osmesa_context.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/vulkan.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/wgl_context.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/win32_init.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/win32_joystick.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/win32_monitor.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/win32_thread.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/win32_time.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/win32_window.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj"
-  "C:/C++/opengl_game/libraries/glfw/src/window.c" "C:/C++/opengl_game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/window.c.obj"
-=======
   "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/context.c" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/context.c.obj"
   "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/egl_context.c" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj"
   "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/init.c" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/init.c.obj"
@@ -36,7 +19,6 @@ set(CMAKE_DEPENDS_CHECK_C
   "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_time.c" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj"
   "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_window.c" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj"
   "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/window.c" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir/window.c.obj"
->>>>>>> master
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
