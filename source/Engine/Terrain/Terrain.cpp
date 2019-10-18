@@ -40,7 +40,8 @@ void Terrain::render(Camera &camera, Shader &shader) {
     texture.bind();
     camera.setMatrices(shader);
     int modelLoc = glGetUniformLocation(shader.ID, "model");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(createModelMatrix()));
+    glm::mat4 model = glm::mat4(1.0f);
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
     glDrawElements(GL_TRIANGLES, terrainMesh.getNumOfVertices(), GL_UNSIGNED_INT, 0);
     texture.unbind();
     terrainMesh.unbindVAO();

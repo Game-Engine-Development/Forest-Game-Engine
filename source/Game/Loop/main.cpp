@@ -72,7 +72,33 @@ int main()
     Mesh mesh("../res/container.obj");
     Entity container(mesh, texture, glm::vec3(0,0,0), glm::vec3(0,45,0), glm::vec3(1,1,1));
     Texture terrainTexture("../res/grass.png");
-    Terrain terrain1(terrainTexture, 0, 0);
+    Terrain terrain(texture, 0, 0);
+    std::vector<glm::vec3> vertices, normals;
+    std::vector<glm::vec2> texCoords;
+    std::vector<unsigned int> indices;
+    for(int i = 0; i < 128; ++i){
+        for(int j = 0; j < 128; ++j){
+            vertices.push_back(glm::vec3((float)j/(float)(128 - 1) * 800, 0, (float)i/(float)(128 - 1) * 800));
+            normals.push_back(glm::vec3(0,1,0));
+            texCoords.push_back(glm::vec2((float)j/(float)(128 - 1), (float)i/(float)(128 - 1)));
+        }
+    }
+    for(int gz = 0; gz < 128 - 1; ++gz){
+        for(int gx = 0; gx < 128 - 1; ++gx){
+            int topLeft = (gz*128) + gx;
+            int topRight = topLeft + 1;
+            int bottomLeft = ((gz+1)*128)+gx;
+            int bottomRight = bottomLeft + 1;
+            indices.push_back(topLeft);
+            indices.push_back(bottomLeft);
+            indices.push_back(topRight);
+            indices.push_back(topRight);
+            indices.push_back(bottomLeft);
+            indices.push_back(bottomRight);
+        }
+    }
+    TerrainMesh terrainMesh(vertices, normals, texCoords, indices);
+    glm::vec3 sun = glm::vec3(10, 10, 0);
 
     // uncomment this call to draw in wireframe polygons.
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -90,10 +116,19 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // draw our first triangle
-        container.render(camera, entityShader);
-        container.rotate(0,1,0);
-
-        terrain1.render(camera, terrainShader);
+        //container.render(camera, entityShader, sun);
+        //container.rotate(0,1,0);
+        /*terrainShader.use();
+        terrainMesh.bindVAO();
+        texture.bind();
+        camera.setMatrices(terrainShader);
+        int modelLoc = glGetUniformLocation(terrainShader.ID, "model");
+        glm::mat4 model = glm::mat4(1.0f);
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glDrawElements(GL_TRIANGLES, terrainMesh.getNumOfVertices(), GL_UNSIGNED_INT, 0);
+        texture.unbind();
+        terrainMesh.unbindVAO();*/
+        terrain.render(camera, terrainShader);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -149,6 +184,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     camera.ProcessMouseMovement(xoffset, yoffset, true);
 }
 
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset){
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
     camera.ProcessMouseScroll(yoffset);
 }
