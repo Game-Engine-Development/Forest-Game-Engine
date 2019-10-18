@@ -11,7 +11,7 @@ Entity::Entity(const Mesh &mesh, const Texture &texture, const glm::vec3 &positi
 
 Entity::~Entity() = default;
 
-void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor) {
+void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor, glm::vec3& viewPos) {
     shader.use();
 
     mesh.bindVAO();
