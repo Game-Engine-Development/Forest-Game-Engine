@@ -11,16 +11,24 @@ Entity::Entity(const Mesh &mesh, const Texture &texture, const glm::vec3 &positi
 
 Entity::~Entity() = default;
 
-void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos) {
+void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor) {
     shader.use();
+
     mesh.bindVAO();
     texture.bind();
+
     camera.setMatrices(shader);
+
     int modelLoc = glGetUniformLocation(shader.ID, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(createModelMatrix()));
+
     int lightLoc = glGetUniformLocation(shader.ID, "lightPos");
     glUniform3fv(lightLoc, 1, glm::value_ptr(lightPos));
+    int lightCol = glGetUniformLocation(shader.ID, "lightColor");
+    glUniform3fv(lightCol, 1, glm::value_ptr(lightColor));
+
     glDrawArrays(GL_TRIANGLES, 0, mesh.getNumOfVertices());
+
     texture.unbind();
     mesh.unbindVAO();
 }
