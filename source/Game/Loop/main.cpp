@@ -115,6 +115,11 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        
+
+        glm::vec3 lightPos(1, 10, 10);
+        glm::vec3 lightColor(0.3, 0.7, 0.1);
+
         // draw our first triangle
         //container.render(camera, entityShader, sun);
         //container.rotate(0,1,0);
