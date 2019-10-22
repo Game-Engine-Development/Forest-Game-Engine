@@ -12,13 +12,11 @@
 class Terrain {
 
 public:
-    Terrain(Texture& texture, int gridX, int gridY);
+    Terrain(Texture& texture, TerrainMesh& terrainMesh, int gridX, int gridY);
     ~Terrain();
-    void render(Camera& camera, Shader& shader);
+    void render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
 private:
-    const float SIZE = 800;
-    const int VERTEX_COUNT = 128;
-    Texture texture;
+    Texture terrainTexture;
     TerrainMesh terrainMesh;
     int x, z;
     glm::vec3 position;

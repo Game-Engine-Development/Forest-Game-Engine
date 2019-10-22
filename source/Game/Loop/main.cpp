@@ -68,37 +68,19 @@ int main()
 
     Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
     Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
-    Texture texture("../res/container.jpg");
-    Mesh mesh("../res/container.obj");
-    Entity container(mesh, texture, glm::vec3(0,0,0), glm::vec3(0,45,0), glm::vec3(1,1,1));
-    Texture terrainTexture("../res/grass.png");
-    Terrain terrain(texture, 0, 0);
-    std::vector<glm::vec3> vertices, normals;
-    std::vector<glm::vec2> texCoords;
-    std::vector<unsigned int> indices;
-    for(int i = 0; i < 128; ++i){
-        for(int j = 0; j < 128; ++j){
-            vertices.push_back(glm::vec3((float)j/(float)(128 - 1) * 800, 0, (float)i/(float)(128 - 1) * 800));
-            normals.push_back(glm::vec3(0,1,0));
-            texCoords.push_back(glm::vec2((float)j/(float)(128 - 1), (float)i/(float)(128 - 1)));
-        }
-    }
-    for(int gz = 0; gz < 128 - 1; ++gz){
-        for(int gx = 0; gx < 128 - 1; ++gx){
-            int topLeft = (gz*128) + gx;
-            int topRight = topLeft + 1;
-            int bottomLeft = ((gz+1)*128)+gx;
-            int bottomRight = bottomLeft + 1;
-            indices.push_back(topLeft);
-            indices.push_back(bottomLeft);
-            indices.push_back(topRight);
-            indices.push_back(topRight);
-            indices.push_back(bottomLeft);
-            indices.push_back(bottomRight);
-        }
-    }
-    TerrainMesh terrainMesh(vertices, normals, texCoords, indices);
-    glm::vec3 sun = glm::vec3(10, 10, 0);
+    Texture texture("../res/container.jpg", Texture::JPG);
+    Mesh containerMesh("../res/container.obj");
+    Mesh dragonMesh("../res/dragon.obj");
+    Entity container(dragonMesh, texture, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
+    Entity lightExample(containerMesh, texture, glm::vec3(10, 10, 0), glm::vec3(0, 0, 0), glm::vec3(0.1f, 0.1f, 0.1f));
+    Texture terrainTexture("../res/grass.png", Texture::PNG);
+    TerrainMesh terrainMesh(1, "../res/heightmap.png");
+    Terrain terrain1(terrainTexture, terrainMesh, 0, 0);
+    Terrain terrain2(terrainTexture, terrainMesh, -1, 0);
+    Terrain terrain3(terrainTexture, terrainMesh, -1, -1);
+    Terrain terrain4(terrainTexture, terrainMesh, 0, -1);
+    glm::vec3 lightPos(10, 10, 0);
+    glm::vec3 lightColor(0.7, 0.7, 0.7);
 
     // uncomment this call to draw in wireframe polygons.
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -115,25 +97,14 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        
-
-        glm::vec3 lightPos(1, 10, 10);
-        glm::vec3 lightColor(0.3, 0.7, 0.1);
-
         // draw our first triangle
-        //container.render(camera, entityShader, sun);
-        //container.rotate(0,1,0);
-        /*terrainShader.use();
-        terrainMesh.bindVAO();
-        texture.bind();
-        camera.setMatrices(terrainShader);
-        int modelLoc = glGetUniformLocation(terrainShader.ID, "model");
-        glm::mat4 model = glm::mat4(1.0f);
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        glDrawElements(GL_TRIANGLES, terrainMesh.getNumOfVertices(), GL_UNSIGNED_INT, 0);
-        texture.unbind();
-        terrainMesh.unbindVAO();*/
-        terrain.render(camera, terrainShader);
+        container.render(camera, entityShader, lightPos, lightColor);
+        lightExample.render(camera, entityShader, lightPos, lightColor);
+        container.rotate(1,1,0);
+        terrain1.render(camera, terrainShader, lightPos, lightColor);
+        terrain2.render(camera, terrainShader, lightPos, lightColor);
+        terrain3.render(camera, terrainShader, lightPos, lightColor);
+        terrain4.render(camera, terrainShader, lightPos, lightColor);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

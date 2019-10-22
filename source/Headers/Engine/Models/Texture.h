@@ -6,11 +6,12 @@
 class Texture {
 public:
     Texture();
-    explicit Texture(const char* filename);
+    explicit Texture(const char* filename, int type);
     ~Texture();
     void bind();
     void unbind();
-
+    static constexpr int PNG = 0;
+    static constexpr int JPG = 1;
     unsigned int get_ID();
 private:
     unsigned int ID;

@@ -91,9 +91,13 @@ void Camera::setMatrices(Shader &shader) {
     glm::mat4 view = glm::mat4(1.0f);
     view = GetViewMatrix();
     glm::mat4 projection = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(Zoom), (float)800/600, 0.1f, 100.0f);
+    projection = glm::perspective(glm::radians(Zoom), (float)800/600, 0.1f, 1000.0f);
     int viewLoc = glGetUniformLocation(shader.ID, "view");
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
     int projectionLoc = glGetUniformLocation(shader.ID, "projection");
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+}
+
+glm::vec3 Camera::getPos() {
+    return Position;
 }

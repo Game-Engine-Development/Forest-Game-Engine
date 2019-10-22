@@ -11,7 +11,7 @@ Entity::Entity(const Mesh &mesh, const Texture &texture, const glm::vec3 &positi
 
 Entity::~Entity() = default;
 
-void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor, glm::vec3& viewPos) {
+void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor) {
     shader.use();
 
     mesh.bindVAO();
@@ -24,8 +24,12 @@ void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::ve
 
     int lightLoc = glGetUniformLocation(shader.ID, "lightPos");
     glUniform3fv(lightLoc, 1, glm::value_ptr(lightPos));
+
     int lightCol = glGetUniformLocation(shader.ID, "lightColor");
     glUniform3fv(lightCol, 1, glm::value_ptr(lightColor));
+
+    int viewLoc = glGetUniformLocation(shader.ID, "viewPos");
+    glUniform3fv(viewLoc, 1, glm::value_ptr(camera.getPos()));
 
     glDrawArrays(GL_TRIANGLES, 0, mesh.getNumOfVertices());
 
@@ -61,10 +65,12 @@ void Entity::setPos(glm::vec3& newPos) {
 
 void Entity::rotate(glm::vec3& rotation) {
     this->rotation += rotation;
+    limitRotation();
 }
 
 void Entity::rotate(float x, float y, float z) {
     rotation += glm::vec3(x,y,z);
+    limitRotation();
 }
 
 void Entity::translate(glm::vec3 &translation) {
@@ -81,4 +87,25 @@ void Entity::addScale(glm::vec3 &scale) {
 
 void Entity::addScale(float x, float y, float z) {
     this->scale += glm::vec3(x,y,z);
+}
+
+void Entity::limitRotation() {
+    while(rotation.x >= 360) {
+        rotation.x -= 360;
+    }
+    while(rotation.y >= 360) {
+        rotation.y -= 360;
+    }
+    while(rotation.z >= 360) {
+        rotation.z -= 360;
+    }
+    while(rotation.x <= 0) {
+        rotation.x += 360;
+    }
+    while(rotation.y <= 0) {
+        rotation.y += 360;
+    }
+    while(rotation.z <= 0) {
+        rotation.z += 360;
+    }
 }

@@ -1,49 +1,30 @@
 #include "Headers/Engine/Terrain/Terrain.h"
 
-Terrain::Terrain(Texture &texture, int gridX, int gridZ) {
-    x = gridX * SIZE;
-    z = gridZ * SIZE;
-    std::vector<glm::vec3> vertices, normals;
-    std::vector<glm::vec2> texCoords;
-    std::vector<unsigned int> indices;
-    for(int i = 0; i < VERTEX_COUNT; ++i){
-        for(int j = 0; j < VERTEX_COUNT; ++j){
-            vertices.push_back(glm::vec3((float)j/(float)(VERTEX_COUNT - 1) * SIZE, 0, (float)i/(float)(VERTEX_COUNT - 1) * SIZE));
-            normals.push_back(glm::vec3(0,1,0));
-            texCoords.push_back(glm::vec2((float)j/(float)(VERTEX_COUNT - 1), (float)i/(float)(VERTEX_COUNT - 1)));
-        }
-    }
-    for(int gz = 0; gz < VERTEX_COUNT - 1; ++gz){
-        for(int gx = 0; gx < VERTEX_COUNT - 1; ++gx){
-            int topLeft = (gz*VERTEX_COUNT) + gx;
-            int topRight = topLeft + 1;
-            int bottomLeft = ((gz+1)*VERTEX_COUNT)+gx;
-            int bottomRight = bottomLeft + 1;
-            indices.push_back(topLeft);
-            indices.push_back(bottomLeft);
-            indices.push_back(topRight);
-            indices.push_back(topRight);
-            indices.push_back(bottomLeft);
-            indices.push_back(bottomRight);
-        }
-    }
-    terrainMesh = TerrainMesh(vertices, normals, texCoords, indices);
-    this->texture = texture;
+Terrain::Terrain(Texture &texture, TerrainMesh &mesh, int gridX, int gridZ) {
+    x = gridX * TerrainMesh::SIZE;
+    z = gridZ * TerrainMesh::SIZE;
+    terrainMesh = mesh;
+    terrainTexture = texture;
     position = glm::vec3(x, 0, z);
 }
 
 Terrain::~Terrain() = default;
 
-void Terrain::render(Camera &camera, Shader &shader) {
+void Terrain::render(Camera &camera, Shader &shader, glm::vec3& lightPos, glm::vec3& lightColor) {
     shader.use();
     terrainMesh.bindVAO();
-    texture.bind();
+    terrainTexture.bind();
     camera.setMatrices(shader);
     int modelLoc = glGetUniformLocation(shader.ID, "model");
-    glm::mat4 model = glm::mat4(1.0f);
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(createModelMatrix()));
+    int lightPosLoc = glGetUniformLocation(shader.ID, "lightPos");
+    glUniform3fv(lightPosLoc, 1, glm::value_ptr(lightPos));
+    int lightColorLoc = glGetUniformLocation(shader.ID, "lightColor");
+    glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));
+    int viewPosLoc = glGetUniformLocation(shader.ID, "viewPos");
+    glUniform3fv(viewPosLoc, 1, glm::value_ptr(camera.getPos()));
     glDrawElements(GL_TRIANGLES, terrainMesh.getNumOfVertices(), GL_UNSIGNED_INT, 0);
-    texture.unbind();
+    terrainTexture.unbind();
     terrainMesh.unbindVAO();
 }
 

@@ -12,7 +12,7 @@ public:
 
     ~Entity();
 
-    void render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor, glm::vec3& viewPos);
+    void render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
 
     glm::vec3 getPos();
     glm::vec3 getRotation();
@@ -31,6 +31,7 @@ private:
     Texture texture;
     glm::vec3 rotation, position, scale;
     glm::mat4 modelMatrix;
+    void limitRotation();
 };
 
 
