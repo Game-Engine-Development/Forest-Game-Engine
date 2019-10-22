@@ -68,12 +68,12 @@ int main()
 
     Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
     Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
-    Texture texture("../res/container.jpg", Texture::JPG);
+    Texture texture("../res/container.jpg", Texture::JPG, 0);
     Mesh containerMesh("../res/container.obj");
     Mesh dragonMesh("../res/dragon.obj");
     Entity container(dragonMesh, texture, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
     Entity lightExample(containerMesh, texture, glm::vec3(10, 10, 0), glm::vec3(0, 0, 0), glm::vec3(0.1f, 0.1f, 0.1f));
-    Texture terrainTexture("../res/grass.png", Texture::PNG);
+    Texture terrainTexture("../res/grass.png", Texture::PNG, 0);
     TerrainMesh terrainMesh(1, "../res/heightmap.png");
     Terrain terrain1(terrainTexture, terrainMesh, 0, 0);
     Terrain terrain2(terrainTexture, terrainMesh, -1, 0);

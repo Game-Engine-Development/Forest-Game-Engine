@@ -23,8 +23,8 @@ public:
     static constexpr float MAX_HEIGHT = 5;
 private:
     void loadTerrain(std::vector<glm::vec3>& verticies, std::vector<glm::vec3>& normals, std::vector<glm::vec2>& texCoords, std::vector<unsigned int>& indices, const char*);
-    float getHeight(float x, float z);
-    glm::vec3 calculateNormal(float x, float z);
+    float getHeight(float x, float z, unsigned char* data, int height);
+    glm::vec3 calculateNormal(float x, float z, unsigned char* data, int height);
     unsigned int VAO, VBO, EBO, texCoordBuffer, normalBuffer, numOfVertices;
 
 };

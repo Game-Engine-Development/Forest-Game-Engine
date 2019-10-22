@@ -67,12 +67,12 @@ unsigned int TerrainMesh::getNumOfVertices() {
 void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm::vec3> &normals, std::vector<glm::vec2> &texCoords, std::vector<unsigned int> &indices, const char* filename) {
     int width, height, nrchannels;
     unsigned char* data;
-    data = stbi_load(filename, &width, &height, &nrchannels, STBI_rgb_alpha);
+    data = stbi_load(filename, &width, &height, &nrchannels, STBI_rgb);
     float VERTEX_COUNT = height;
     for(int i = 0; i < VERTEX_COUNT; ++i){
         for(int j = 0; j < VERTEX_COUNT; ++j){
-            vertices.push_back(glm::vec3((float)j/(float)(VERTEX_COUNT - 1) * SIZE, getHeight(j, i), (float)i/(float)(VERTEX_COUNT - 1) * SIZE));
-            normals.push_back(calculateNormal(j, i));
+            vertices.push_back(glm::vec3((float)j/(float)(VERTEX_COUNT - 1) * SIZE, getHeight(j, i, data, height), (float)i/(float)(VERTEX_COUNT - 1) * SIZE));
+            normals.push_back(calculateNormal(j, i, data, height));
             texCoords.push_back(glm::vec2((float)j/(float)(VERTEX_COUNT - 1), (float)i/(float)(VERTEX_COUNT - 1)));
         }
     }
@@ -80,7 +80,7 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
         for(int gx = 0; gx < VERTEX_COUNT - 1; ++gx){
             int topLeft = (gz*VERTEX_COUNT) + gx;
             int topRight = topLeft + 1;
-            int bottomLeft = ((gz+1)*VERTEX_COUNT)+gx;
+            int bottomLeft = ((gz+1)*VERTEX_COUNT) + gx;
             int bottomRight = bottomLeft + 1;
             indices.push_back(topLeft);
             indices.push_back(bottomLeft);
@@ -92,20 +92,20 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
     }
 }
 
-float TerrainMesh::getHeight(float x, float z) {
+float TerrainMesh::getHeight(float x, float z, unsigned char* data, int height) {
     if(x < 0 || x >= 256 || z < 0 || z >= 256){
         return 0;
     }
-    float height = std::sin(( x + z) / 5.0f);
-    height *= MAX_HEIGHT;
-    return height;
+    float terrainHeight = std::sin((x + z) / 5.0f);
+    terrainHeight *= MAX_HEIGHT;
+    return terrainHeight;
 }
 
-glm::vec3 TerrainMesh::calculateNormal(float x, float z) {
-    float heightL = getHeight(x - 1, z);
-    float heightR = getHeight(x + 1, z);
-    float heightU = getHeight(x, z + 1);
-    float heightD = getHeight(x, z - 1);
+glm::vec3 TerrainMesh::calculateNormal(float x, float z, unsigned char* data, int height) {
+    float heightL = getHeight(x - 1, z, data, height);
+    float heightR = getHeight(x + 1, z, data, height);
+    float heightU = getHeight(x, z + 1, data, height);
+    float heightD = getHeight(x, z - 1, data, height);
     glm::vec3 normal(heightL - heightR, 2, heightD - heightU);
     normal = glm::normalize(normal);
     return normal;

@@ -5,7 +5,8 @@ Texture::Texture(){
     ID = 5;
 }
 
-Texture::Texture(const char* filename, int type){
+Texture::Texture(const char* filename, int type, int unit){
+    textureUnit = unit;
     glGenTextures(1, &ID);
     int width, height, nrchannels;
     unsigned char* data;
@@ -40,6 +41,7 @@ unsigned int Texture::get_ID(){
 }
 
 void Texture::bind() {
+    glActiveTexture(GL_TEXTURE0 + textureUnit);
     glBindTexture(GL_TEXTURE_2D, ID);
 }
 
