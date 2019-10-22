@@ -67,7 +67,7 @@ unsigned int TerrainMesh::getNumOfVertices() {
 void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm::vec3> &normals, std::vector<glm::vec2> &texCoords, std::vector<unsigned int> &indices, const char* filename) {
     int width, height, nrchannels;
     unsigned char* data;
-    data = stbi_load(filename, &width, &height, &nrchannels, STBI_rgb);
+    data = stbi_load(filename, &width, &height, &nrchannels, 1);
     float VERTEX_COUNT = height;
     for(int i = 0; i < VERTEX_COUNT; ++i){
         for(int j = 0; j < VERTEX_COUNT; ++j){
@@ -96,7 +96,9 @@ float TerrainMesh::getHeight(float x, float z, unsigned char* data, int height) 
     if(x < 0 || x >= 256 || z < 0 || z >= 256){
         return 0;
     }
-    float terrainHeight = std::sin((x + z) / 5.0f);
+    float terrainHeight = data[(int)(z * height + x)];
+    terrainHeight /= 127.5;
+    terrainHeight -= 1;
     terrainHeight *= MAX_HEIGHT;
     return terrainHeight;
 }

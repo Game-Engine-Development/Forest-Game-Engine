@@ -46,5 +46,6 @@ void Texture::bind() {
 }
 
 void Texture::unbind() {
+    glActiveTexture(GL_TEXTURE0 + textureUnit);
     glBindTexture(GL_TEXTURE_2D, 0);
 }
