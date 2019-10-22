@@ -69,8 +69,10 @@ int main()
     Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
     Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
     Texture texture("../res/container.jpg", Texture::JPG, 0);
+    Texture normalMap("../res/NormalMap.jpg", Texture::JPG, 1);
+
     Mesh containerMesh("../res/container.obj");
-    Mesh dragonMesh("../res/dragon.obj");
+    Mesh dragonMesh("../res/container.obj");
     Entity container(dragonMesh, texture, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
     Entity lightExample(containerMesh, texture, glm::vec3(10, 10, 0), glm::vec3(0, 0, 0), glm::vec3(0.1f, 0.1f, 0.1f));
     Texture terrainTexture("../res/grass.png", Texture::PNG, 0);
@@ -98,9 +100,11 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // draw our first triangle
+        normalMap.bind();
         container.render(camera, entityShader, lightPos, lightColor);
+        normalMap.unbind();
         lightExample.render(camera, entityShader, lightPos, lightColor);
-        container.rotate(1,1,0);
+        //container.rotate(1,1,0);
         terrain1.render(camera, terrainShader, lightPos, lightColor);
         terrain2.render(camera, terrainShader, lightPos, lightColor);
         terrain3.render(camera, terrainShader, lightPos, lightColor);
