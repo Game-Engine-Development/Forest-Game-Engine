@@ -42,10 +42,10 @@ RM = "C:\Program Files\JetBrains\CLion 2019.2.1\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game
+CMAKE_SOURCE_DIR = C:\Android\Repos\opengl_game
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Android\Repos\opengl_game\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include libraries/glm/glm/CMakeFiles/glm_dummy.dir/depend.make
@@ -59,30 +59,30 @@ include libraries/glm/glm/CMakeFiles/glm_dummy.dir/flags.make
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/dummy.cpp.obj: libraries/glm/glm/CMakeFiles/glm_dummy.dir/flags.make
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/dummy.cpp.obj: libraries/glm/glm/CMakeFiles/glm_dummy.dir/includes_CXX.rsp
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/dummy.cpp.obj: ../libraries/glm/glm/detail/dummy.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/dummy.cpp.obj"
-	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glm\glm && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\glm_dummy.dir\detail\dummy.cpp.obj -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glm\glm\detail\dummy.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Android\Repos\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/dummy.cpp.obj"
+	cd /d C:\Android\Repos\opengl_game\cmake-build-debug\libraries\glm\glm && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\glm_dummy.dir\detail\dummy.cpp.obj -c C:\Android\Repos\opengl_game\libraries\glm\glm\detail\dummy.cpp
 
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/dummy.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glm_dummy.dir/detail/dummy.cpp.i"
-	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glm\glm && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glm\glm\detail\dummy.cpp > CMakeFiles\glm_dummy.dir\detail\dummy.cpp.i
+	cd /d C:\Android\Repos\opengl_game\cmake-build-debug\libraries\glm\glm && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Android\Repos\opengl_game\libraries\glm\glm\detail\dummy.cpp > CMakeFiles\glm_dummy.dir\detail\dummy.cpp.i
 
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/dummy.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glm_dummy.dir/detail/dummy.cpp.s"
-	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glm\glm && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glm\glm\detail\dummy.cpp -o CMakeFiles\glm_dummy.dir\detail\dummy.cpp.s
+	cd /d C:\Android\Repos\opengl_game\cmake-build-debug\libraries\glm\glm && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Android\Repos\opengl_game\libraries\glm\glm\detail\dummy.cpp -o CMakeFiles\glm_dummy.dir\detail\dummy.cpp.s
 
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/glm.cpp.obj: libraries/glm/glm/CMakeFiles/glm_dummy.dir/flags.make
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/glm.cpp.obj: libraries/glm/glm/CMakeFiles/glm_dummy.dir/includes_CXX.rsp
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/glm.cpp.obj: ../libraries/glm/glm/detail/glm.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/glm.cpp.obj"
-	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glm\glm && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\glm_dummy.dir\detail\glm.cpp.obj -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glm\glm\detail\glm.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Android\Repos\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/glm.cpp.obj"
+	cd /d C:\Android\Repos\opengl_game\cmake-build-debug\libraries\glm\glm && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\glm_dummy.dir\detail\glm.cpp.obj -c C:\Android\Repos\opengl_game\libraries\glm\glm\detail\glm.cpp
 
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/glm.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glm_dummy.dir/detail/glm.cpp.i"
-	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glm\glm && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glm\glm\detail\glm.cpp > CMakeFiles\glm_dummy.dir\detail\glm.cpp.i
+	cd /d C:\Android\Repos\opengl_game\cmake-build-debug\libraries\glm\glm && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Android\Repos\opengl_game\libraries\glm\glm\detail\glm.cpp > CMakeFiles\glm_dummy.dir\detail\glm.cpp.i
 
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/glm.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glm_dummy.dir/detail/glm.cpp.s"
-	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glm\glm && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glm\glm\detail\glm.cpp -o CMakeFiles\glm_dummy.dir\detail\glm.cpp.s
+	cd /d C:\Android\Repos\opengl_game\cmake-build-debug\libraries\glm\glm && C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Android\Repos\opengl_game\libraries\glm\glm\detail\glm.cpp -o CMakeFiles\glm_dummy.dir\detail\glm.cpp.s
 
 # Object files for target glm_dummy
 glm_dummy_OBJECTS = \
@@ -98,8 +98,8 @@ libraries/glm/glm/glm_dummy.exe: libraries/glm/glm/CMakeFiles/glm_dummy.dir/buil
 libraries/glm/glm/glm_dummy.exe: libraries/glm/glm/CMakeFiles/glm_dummy.dir/linklibs.rsp
 libraries/glm/glm/glm_dummy.exe: libraries/glm/glm/CMakeFiles/glm_dummy.dir/objects1.rsp
 libraries/glm/glm/glm_dummy.exe: libraries/glm/glm/CMakeFiles/glm_dummy.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable glm_dummy.exe"
-	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glm\glm && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\glm_dummy.dir\link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Android\Repos\opengl_game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable glm_dummy.exe"
+	cd /d C:\Android\Repos\opengl_game\cmake-build-debug\libraries\glm\glm && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\glm_dummy.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/build: libraries/glm/glm/glm_dummy.exe
@@ -107,10 +107,10 @@ libraries/glm/glm/CMakeFiles/glm_dummy.dir/build: libraries/glm/glm/glm_dummy.ex
 .PHONY : libraries/glm/glm/CMakeFiles/glm_dummy.dir/build
 
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/clean:
-	cd /d C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glm\glm && $(CMAKE_COMMAND) -P CMakeFiles\glm_dummy.dir\cmake_clean.cmake
+	cd /d C:\Android\Repos\opengl_game\cmake-build-debug\libraries\glm\glm && $(CMAKE_COMMAND) -P CMakeFiles\glm_dummy.dir\cmake_clean.cmake
 .PHONY : libraries/glm/glm/CMakeFiles/glm_dummy.dir/clean
 
 libraries/glm/glm/CMakeFiles/glm_dummy.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\libraries\glm\glm C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glm\glm C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\libraries\glm\glm\CMakeFiles\glm_dummy.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Android\Repos\opengl_game C:\Android\Repos\opengl_game\libraries\glm\glm C:\Android\Repos\opengl_game\cmake-build-debug C:\Android\Repos\opengl_game\cmake-build-debug\libraries\glm\glm C:\Android\Repos\opengl_game\cmake-build-debug\libraries\glm\glm\CMakeFiles\glm_dummy.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : libraries/glm/glm/CMakeFiles/glm_dummy.dir/depend
 

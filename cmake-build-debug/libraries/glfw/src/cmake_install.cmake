@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glfw/src
+# Install script for directory: C:/Android/Repos/opengl_game/libraries/glfw/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

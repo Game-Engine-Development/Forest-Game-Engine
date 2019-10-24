@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm/glm/detail/dummy.cpp" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/dummy.cpp.obj"
-  "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm/glm/detail/glm.cpp" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/glm.cpp.obj"
+  "C:/Android/Repos/opengl_game/libraries/glm/glm/detail/dummy.cpp" "C:/Android/Repos/opengl_game/cmake-build-debug/libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/dummy.cpp.obj"
+  "C:/Android/Repos/opengl_game/libraries/glm/glm/detail/glm.cpp" "C:/Android/Repos/opengl_game/cmake-build-debug/libraries/glm/glm/CMakeFiles/glm_dummy.dir/detail/glm.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

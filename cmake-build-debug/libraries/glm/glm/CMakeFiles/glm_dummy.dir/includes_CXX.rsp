@@ -1,1 +1,1 @@
--IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm -IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm/test/external -IC:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm/glm/.. 
+-IC:/Android/Repos/opengl_game/libraries/glm -IC:/Android/Repos/opengl_game/libraries/glm/test/external -IC:/Android/Repos/opengl_game/libraries/glm/glm/.. 

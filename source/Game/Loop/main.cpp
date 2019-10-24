@@ -111,8 +111,8 @@ int main()
         container.render(camera, entityShader, lightPos, lightColor);
         nonMappedContainer.render(camera, normalMappedShader, lightPos, lightColor);
         lightExample.render(camera, entityShader, lightPos, lightColor);
-        container.rotate(1,1,0);
-        nonMappedContainer.rotate(1,1,0);
+        container.rotate(0,0,0);
+        nonMappedContainer.rotate(0,0,0);
         terrain1.render(camera, terrainShader, lightPos, lightColor);
         terrain2.render(camera, terrainShader, lightPos, lightColor);
         terrain3.render(camera, terrainShader, lightPos, lightColor);

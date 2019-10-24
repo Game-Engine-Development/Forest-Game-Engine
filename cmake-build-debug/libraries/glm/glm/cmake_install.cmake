@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/libraries/glm/glm
+# Install script for directory: C:/Android/Repos/opengl_game/libraries/glm/glm
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
