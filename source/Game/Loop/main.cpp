@@ -10,6 +10,7 @@
 #include "Headers/Engine/Models/Entity.h"
 #include "Headers/Engine/Terrain/Terrain.h"
 #include <glm/glm.hpp>
+#include "Headers/Game/Player.h"
 
 #include <iostream>
 
@@ -77,8 +78,10 @@ int main()
     containerTextures.push_back(normalMap);
     containerTextures.push_back(containerMap);
     Mesh containerMesh("../res/container.obj");
+    Mesh containerMesh2("../res/container.obj");
     Mesh dragonMesh("../res/dragon.obj");
     Entity container(containerMesh, containerTextures, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
+    Entity container2(containerMesh2, containerTextures, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
     containerTextures.pop_back();
     Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(-15, 10, -15), glm::vec3(0, 45, 0), glm::vec3(1,1,1));
     containerTextures.pop_back();
@@ -95,6 +98,8 @@ int main()
     // uncomment this call to draw in wireframe polygons.
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+    Player player(&terrain1, &camera, &container2, &entityShader);
+
     // render Loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -107,6 +112,7 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        player.setHeight();
         // draw our first triangle
         container.render(camera, entityShader, lightPos, lightColor);
         nonMappedContainer.render(camera, normalMappedShader, lightPos, lightColor);
@@ -117,6 +123,7 @@ int main()
         terrain2.render(camera, terrainShader, lightPos, lightColor);
         terrain3.render(camera, terrainShader, lightPos, lightColor);
         terrain4.render(camera, terrainShader, lightPos, lightColor);
+        player.setHeight();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

@@ -101,3 +101,7 @@ void Camera::setMatrices(Shader &shader) {
 glm::vec3 Camera::getPos() {
     return Position;
 }
+
+void Camera::setYPos(float newY){
+    Position.y = newY;
+}

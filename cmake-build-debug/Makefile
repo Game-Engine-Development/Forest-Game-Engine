@@ -450,6 +450,33 @@ source/Game/Loop/main.cpp.s:
 	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.s
 .PHONY : source/Game/Loop/main.cpp.s
 
+source/Game/Player.obj: source/Game/Player.cpp.obj
+
+.PHONY : source/Game/Player.obj
+
+# target to build an object file
+source/Game/Player.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Game/Player.cpp.obj
+.PHONY : source/Game/Player.cpp.obj
+
+source/Game/Player.i: source/Game/Player.cpp.i
+
+.PHONY : source/Game/Player.i
+
+# target to preprocess a source file
+source/Game/Player.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Game/Player.cpp.i
+.PHONY : source/Game/Player.cpp.i
+
+source/Game/Player.s: source/Game/Player.cpp.s
+
+.PHONY : source/Game/Player.s
+
+# target to generate assembly for a file
+source/Game/Player.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Game/Player.cpp.s
+.PHONY : source/Game/Player.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -493,6 +520,9 @@ help:
 	@echo ... source/Game/Loop/main.obj
 	@echo ... source/Game/Loop/main.i
 	@echo ... source/Game/Loop/main.s
+	@echo ... source/Game/Player.obj
+	@echo ... source/Game/Player.i
+	@echo ... source/Game/Player.s
 .PHONY : help
 
 

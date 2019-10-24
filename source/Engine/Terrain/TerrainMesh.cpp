@@ -65,14 +65,13 @@ unsigned int TerrainMesh::getNumOfVertices() {
 }
 
 void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm::vec3> &normals, std::vector<glm::vec2> &texCoords, std::vector<unsigned int> &indices, const char* filename) {
-    int width, height, nrchannels;
-    unsigned char* data;
+    int width, nrchannels;
     data = stbi_load(filename, &width, &height, &nrchannels, 1);
     float VERTEX_COUNT = height;
     for(int i = 0; i < VERTEX_COUNT; ++i){
         for(int j = 0; j < VERTEX_COUNT; ++j){
-            vertices.push_back(glm::vec3((float)j/(float)(VERTEX_COUNT - 1) * SIZE, getHeight(j, i, data, height), (float)i/(float)(VERTEX_COUNT - 1) * SIZE));
-            normals.push_back(calculateNormal(j, i, data, height));
+            vertices.push_back(glm::vec3((float)j/(float)(VERTEX_COUNT - 1) * SIZE, getHeight(j, i), (float)i/(float)(VERTEX_COUNT - 1) * SIZE));
+            normals.push_back(calculateNormal(j, i));
             texCoords.push_back(glm::vec2((float)j/(float)(VERTEX_COUNT - 1), (float)i/(float)(VERTEX_COUNT - 1)));
         }
     }
@@ -92,7 +91,7 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
     }
 }
 
-float TerrainMesh::getHeight(float x, float z, unsigned char* data, int height) {
+float TerrainMesh::getHeight(float x, float z) {
     if(x < 0 || x >= 256 || z < 0 || z >= 256){
         return 0;
     }
@@ -103,11 +102,11 @@ float TerrainMesh::getHeight(float x, float z, unsigned char* data, int height) 
     return terrainHeight;
 }
 
-glm::vec3 TerrainMesh::calculateNormal(float x, float z, unsigned char* data, int height) {
-    float heightL = getHeight(x - 1, z, data, height);
-    float heightR = getHeight(x + 1, z, data, height);
-    float heightU = getHeight(x, z + 1, data, height);
-    float heightD = getHeight(x, z - 1, data, height);
+glm::vec3 TerrainMesh::calculateNormal(float x, float z) {
+    float heightL = getHeight(x - 1, z);
+    float heightR = getHeight(x + 1, z);
+    float heightU = getHeight(x, z + 1);
+    float heightD = getHeight(x, z - 1);
     glm::vec3 normal(heightL - heightR, 2, heightD - heightU);
     normal = glm::normalize(normal);
     return normal;

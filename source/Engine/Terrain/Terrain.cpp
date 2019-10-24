@@ -33,3 +33,7 @@ glm::mat4 Terrain::createModelMatrix() {
     modelMatrix = glm::translate(modelMatrix, position);
     return modelMatrix;
 }
+
+float Terrain::getHeight(float playerX, float playerZ){
+    return terrainMesh.getHeight(playerX, playerZ);
+}
