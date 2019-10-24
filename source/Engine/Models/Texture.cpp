@@ -15,6 +15,7 @@ Texture::Texture(const char* filename, int type, int unit){
     } else if(type == JPG) {
         data = stbi_load(filename, &width, &height, &nrchannels, STBI_rgb);
     }
+    glActiveTexture(GL_TEXTURE0 + textureUnit);
     glBindTexture(GL_TEXTURE_2D, ID);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -40,9 +41,13 @@ unsigned int Texture::get_ID(){
     return ID;
 }
 
-void Texture::bind() {
+void Texture::bind(Shader &shader) {
     glActiveTexture(GL_TEXTURE0 + textureUnit);
     glBindTexture(GL_TEXTURE_2D, ID);
+    std::string name("texture");
+    name += std::to_string(textureUnit);
+    int textureLoc = glGetUniformLocation(shader.ID, name.c_str());
+    glUniform1i(textureLoc, textureUnit);
 }
 
 void Texture::unbind() {

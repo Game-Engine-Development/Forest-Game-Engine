@@ -8,7 +8,7 @@
 class Entity {
 
 public:
-    Entity(const Mesh& mesh, const Texture& texture, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale);
+    Entity(const Mesh& mesh, const std::vector<Texture>& textures, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale);
 
     ~Entity();
 
@@ -28,7 +28,7 @@ public:
 
 private:
     Mesh mesh;
-    Texture texture;
+    std::vector<Texture> textures;
     glm::vec3 rotation, position, scale;
     glm::mat4 modelMatrix;
     void limitRotation();

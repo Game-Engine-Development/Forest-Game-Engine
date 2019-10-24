@@ -13,7 +13,7 @@ Terrain::~Terrain() = default;
 void Terrain::render(Camera &camera, Shader &shader, glm::vec3& lightPos, glm::vec3& lightColor) {
     shader.use();
     terrainMesh.bindVAO();
-    terrainTexture.bind();
+    terrainTexture.bind(shader);
     camera.setMatrices(shader);
     int modelLoc = glGetUniformLocation(shader.ID, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(createModelMatrix()));

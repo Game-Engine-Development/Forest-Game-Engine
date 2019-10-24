@@ -16,7 +16,10 @@ uniform vec3 viewPos;
 
 void main()
 {
-    vec3 norm = normalize(normal);
+    // obtain normal from normal map in range [0,1]
+    vec3 norm = texture(texture1, texCoord).rgb;
+    // transform normal vector to range [-1,1]
+    norm = normalize(norm * 2.0 - 1.0);
     vec3 lightDir = normalize(lightPos - fragPos);
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = diff * lightColor;

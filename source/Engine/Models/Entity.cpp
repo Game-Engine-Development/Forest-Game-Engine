@@ -1,9 +1,9 @@
 #include "Headers/Engine/Models/Entity.h"
 
-Entity::Entity(const Mesh &mesh, const Texture &texture, const glm::vec3 &position = glm::vec3(0,0,0),
+Entity::Entity(const Mesh &mesh, const std::vector<Texture> &textures, const glm::vec3 &position = glm::vec3(0,0,0),
                const glm::vec3 &rotation = glm::vec3(0,0,0), const glm::vec3& scale = glm::vec3(1,1,1)) {
     this->mesh = mesh;
-    this->texture = texture;
+    this->textures = textures;
     this->position = position;
     this->rotation = rotation;
     this->scale = scale;
@@ -15,7 +15,9 @@ void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::ve
     shader.use();
 
     mesh.bindVAO();
-    texture.bind();
+    for(Texture texture : textures) {
+        texture.bind(shader);
+    }
 
     camera.setMatrices(shader);
 
@@ -33,7 +35,9 @@ void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::ve
 
     glDrawArrays(GL_TRIANGLES, 0, mesh.getNumOfVertices());
 
-    texture.unbind();
+    for (Texture texture : textures) {
+        texture.unbind();
+    }
     mesh.unbindVAO();
 }
 
