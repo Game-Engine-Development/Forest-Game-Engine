@@ -1,10 +1,10 @@
 #include "Headers/Engine/Terrain/Terrain.h"
 
-Terrain::Terrain(Texture &texture, TerrainMesh &mesh, int gridX, int gridZ) {
+Terrain::Terrain(TerrainTextureMap &textureMap, TerrainMesh &mesh, int gridX, int gridZ) {
     x = gridX * TerrainMesh::SIZE;
     z = gridZ * TerrainMesh::SIZE;
     terrainMesh = mesh;
-    terrainTexture = texture;
+    terrainTextureMap = textureMap;
     position = glm::vec3(x, 0, z);
 }
 
@@ -13,7 +13,7 @@ Terrain::~Terrain() = default;
 void Terrain::render(Camera &camera, Shader &shader, glm::vec3& lightPos, glm::vec3& lightColor) {
     shader.use();
     terrainMesh.bindVAO();
-    terrainTexture.bind(shader);
+    terrainTextureMap.bindTextures(shader);
     camera.setMatrices(shader);
     int modelLoc = glGetUniformLocation(shader.ID, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(createModelMatrix()));
@@ -24,7 +24,7 @@ void Terrain::render(Camera &camera, Shader &shader, glm::vec3& lightPos, glm::v
     int viewPosLoc = glGetUniformLocation(shader.ID, "viewPos");
     glUniform3fv(viewPosLoc, 1, glm::value_ptr(camera.getPos()));
     glDrawElements(GL_TRIANGLES, terrainMesh.getNumOfVertices(), GL_UNSIGNED_INT, 0);
-    terrainTexture.unbind();
+    terrainTextureMap.unBindTextures();
     terrainMesh.unbindVAO();
 }
 

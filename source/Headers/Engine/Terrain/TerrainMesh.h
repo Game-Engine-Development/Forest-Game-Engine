@@ -19,8 +19,8 @@ public:
 
     unsigned int getNumOfVertices();
 
-    static constexpr float SIZE = 800;
-    static constexpr float MAX_HEIGHT = 40;
+    static constexpr float SIZE = 1600;
+    static constexpr float MAX_HEIGHT = 80;
 private:
     void loadTerrain(std::vector<glm::vec3>& verticies, std::vector<glm::vec3>& normals, std::vector<glm::vec2>& texCoords, std::vector<unsigned int>& indices, const char*);
     float getHeight(float x, float z, unsigned char* data, int height);

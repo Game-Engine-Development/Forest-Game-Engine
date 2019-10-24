@@ -83,12 +83,12 @@ int main()
     Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(-15, 10, -15), glm::vec3(0, 45, 0), glm::vec3(1,1,1));
     containerTextures.pop_back();
     Entity lightExample(containerMesh, containerTextures, glm::vec3(10, 10, 0), glm::vec3(0, 0, 0), glm::vec3(0.1f, 0.1f, 0.1f));
-    Texture terrainTexture("../res/grass.png", Texture::PNG, 0);
+    TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
     TerrainMesh terrainMesh(1, "../res/heightmap.png");
-    Terrain terrain1(terrainTexture, terrainMesh, 0, 0);
-    Terrain terrain2(terrainTexture, terrainMesh, -1, 0);
-    Terrain terrain3(terrainTexture, terrainMesh, -1, -1);
-    Terrain terrain4(terrainTexture, terrainMesh, 0, -1);
+    Terrain terrain1(terrainMap, terrainMesh, 0, 0);
+    Terrain terrain2(terrainMap, terrainMesh, -1, 0);
+    Terrain terrain3(terrainMap, terrainMesh, -1, -1);
+    Terrain terrain4(terrainMap, terrainMesh, 0, -1);
     glm::vec3 lightPos(10, 10, 0);
     glm::vec3 lightColor(0.7, 0.7, 0.7);
 

@@ -7,6 +7,10 @@ in vec3 FragPos;
 out vec4 FragColor;
 
 uniform sampler2D texture0;
+uniform sampler2D texture1;
+uniform sampler2D texture2;
+uniform sampler2D texture3;
+uniform sampler2D texture4;
 
 uniform vec3 lightPos;
 uniform vec3 lightColor;
@@ -29,7 +33,16 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
     vec3 specular = specularStrength * spec * lightColor;
 
-    vec4 result = vec4((ambient + diffuse + specular), 1.0) * texture(texture0, texCoord);
+    vec4 color = texture(texture0, texCoord);
+    float backgroundTextureStrength = 1 - (color.r + color.g + color.b);
+    vec2 tiledTexCoord = texCoord * 40;
+    vec4 backgroundTexture = texture(texture1, tiledTexCoord) * backgroundTextureStrength;
+    vec4 rColor = texture(texture2, tiledTexCoord) * color.r;
+    vec4 gColor = texture(texture3, tiledTexCoord) * color.g;
+    vec4 bColor = texture(texture4, tiledTexCoord) * color.b;
+    vec4 totalColor = backgroundTexture + rColor + gColor + bColor;
+
+    vec4 result = vec4((ambient + diffuse + specular), 1.0) * totalColor;
 
     FragColor = result;
 }
