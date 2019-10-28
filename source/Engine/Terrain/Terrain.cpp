@@ -28,6 +28,10 @@ void Terrain::render(Camera &camera, Shader &shader, glm::vec3& lightPos, glm::v
     terrainMesh.unbindVAO();
 }
 
+glm::vec3 Terrain::getPos(){
+    return position;
+}
+
 glm::mat4 Terrain::createModelMatrix() {
     modelMatrix = glm::mat4(1.0f);
     modelMatrix = glm::translate(modelMatrix, position);

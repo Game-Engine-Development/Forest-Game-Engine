@@ -113,3 +113,7 @@ void Entity::limitRotation() {
         rotation.z += 360;
     }
 }
+
+glm::vec3 Entity::getScale() {
+    return scale;
+}
