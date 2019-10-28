@@ -18,7 +18,7 @@ uniform vec3 viewPos;
 void main()
 {
     // obtain normal from normal map in range [0,1]
-    vec3 norm = texture(texture2, texCoord).rgb;
+    vec3 norm = normal;
     // transform normal vector to range [-1,1]
     norm = normalize(norm * 2.0 - 1.0);
     vec3 lightDir = normalize(lightPos - fragPos);
