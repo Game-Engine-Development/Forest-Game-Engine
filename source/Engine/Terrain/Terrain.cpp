@@ -28,8 +28,34 @@ void Terrain::render(Camera &camera, Shader &shader, glm::vec3& lightPos, glm::v
     terrainMesh.unbindVAO();
 }
 
+glm::vec3 Terrain::getPos(){
+    return position;
+}
+
 glm::mat4 Terrain::createModelMatrix() {
     modelMatrix = glm::mat4(1.0f);
     modelMatrix = glm::translate(modelMatrix, position);
     return modelMatrix;
+}
+
+float Terrain::getHeight(float playerX, float playerZ){
+    return terrainMesh.getHeight(playerX, playerZ);
+}
+
+float Terrain::getTerrainHeight(float worldX, float worldZ) {
+    float x = worldX / TerrainMesh::SIZE * terrainMesh.getWidth();
+    while(x > terrainMesh.getWidth()) {
+        x -= terrainMesh.getWidth();
+    }
+    while(x < 0) {
+        x += terrainMesh.getWidth();
+    }
+    float z = worldZ / TerrainMesh::SIZE * terrainMesh.getWidth();
+    while(z > terrainMesh.getWidth()) {
+        z -= terrainMesh.getWidth();
+    }
+    while(z < 0) {
+        z += terrainMesh.getWidth();
+    }
+    return getHeight((int)x, (int)z);
 }
