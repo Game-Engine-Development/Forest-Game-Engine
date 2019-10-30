@@ -9,6 +9,7 @@
 #include "Headers/Engine/Models/Mesh.h"
 #include "Headers/Engine/Models/Entity.h"
 #include "Headers/Engine/Terrain/Terrain.h"
+#include "Headers/Engine/Terrain/TerrainTextureMap.h"
 #include <glm/glm.hpp>
 
 #include <iostream>

@@ -1,8 +1,6 @@
 //
 // Created by Alan on 10/8/2019.
 //
-
-#include <iostream>
 #include "Headers/stb_image.h"
 #include "Headers/Engine/Terrain/TerrainMesh.h"
 
