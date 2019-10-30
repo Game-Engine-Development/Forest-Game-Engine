@@ -99,6 +99,7 @@ int main()
     // -----------
     while (!glfwWindowShouldClose(window))
     {
+        glm::mat3x3 TBN =
         // input
         // -----
         processInput(window);
@@ -109,7 +110,7 @@ int main()
 
         // draw our first triangle
         container.render(camera, entityShader, lightPos, lightColor);
-        nonMappedContainer.render(camera, normalMappedShader, lightPos, lightColor);
+        nonMappedContainer.render(camera, normalMappedShader, lightPos, lightColor, );
         lightExample.render(camera, entityShader, lightPos, lightColor);
         container.rotate(0,0,0);
         nonMappedContainer.rotate(0,0,0);
