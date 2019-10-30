@@ -15,7 +15,7 @@ public:
     Terrain(Texture& texture, TerrainMesh& terrainMesh, int gridX, int gridY);
     ~Terrain();
     void render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
-    float getHeight(float playerX, float playerZ);
+    float getTerrainHeight(float worldX, float worldZ);
     glm::vec3 getPos();
 private:
     Texture terrainTexture;
@@ -24,5 +24,6 @@ private:
     glm::vec3 position;
     glm::mat4 modelMatrix;
     glm::mat4 createModelMatrix();
+    float getHeight(float playerX, float playerZ);
 };
 

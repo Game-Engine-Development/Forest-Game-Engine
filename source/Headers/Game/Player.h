@@ -13,7 +13,6 @@ private:
     Camera *camera;
     Entity *container;
     Shader *shader;
-    float max(std::array<float, 4> terrainHeights);
 
 public:
     explicit Player(Terrain *terrain1, Camera *camera1, Entity *container1, Shader *entityShader) : terrain(terrain1), camera(camera1), container(container1), shader(entityShader){};

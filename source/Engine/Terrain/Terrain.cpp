@@ -41,3 +41,21 @@ glm::mat4 Terrain::createModelMatrix() {
 float Terrain::getHeight(float playerX, float playerZ){
     return terrainMesh.getHeight(playerX, playerZ);
 }
+
+float Terrain::getTerrainHeight(float worldX, float worldZ) {
+    float x = worldX;
+    while(x > TerrainMesh::SIZE) {
+        x -= TerrainMesh::SIZE;
+    }
+    while(x < 0) {
+        x += TerrainMesh::SIZE;
+    }
+    float z = worldZ;
+    while(z > TerrainMesh::SIZE) {
+        z -= TerrainMesh::SIZE;
+    }
+    while(z < 0) {
+        z += TerrainMesh::SIZE;
+    }
+    return getHeight(x, z);
+}

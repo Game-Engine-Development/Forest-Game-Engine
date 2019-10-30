@@ -21,7 +21,7 @@ public:
 
     static constexpr float SIZE = 800;
     static constexpr float MAX_HEIGHT = 40;
-
+    float getWidth();
     float getHeight(float x, float z);
 private:
     unsigned char *data;

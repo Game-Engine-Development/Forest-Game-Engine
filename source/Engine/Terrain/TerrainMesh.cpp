@@ -111,3 +111,7 @@ glm::vec3 TerrainMesh::calculateNormal(float x, float z) {
     normal = glm::normalize(normal);
     return normal;
 }
+
+float TerrainMesh::getWidth() {
+    return height - 1;
+}
