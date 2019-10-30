@@ -43,19 +43,19 @@ float Terrain::getHeight(float playerX, float playerZ){
 }
 
 float Terrain::getTerrainHeight(float worldX, float worldZ) {
-    float x = worldX;
-    while(x > TerrainMesh::SIZE) {
-        x -= TerrainMesh::SIZE;
+    float x = worldX / TerrainMesh::SIZE * terrainMesh.getWidth();
+    while(x > terrainMesh.getWidth()) {
+        x -= terrainMesh.getWidth();
     }
     while(x < 0) {
-        x += TerrainMesh::SIZE;
+        x += terrainMesh.getWidth();
     }
-    float z = worldZ;
-    while(z > TerrainMesh::SIZE) {
-        z -= TerrainMesh::SIZE;
+    float z = worldZ / TerrainMesh::SIZE * terrainMesh.getWidth();
+    while(z > terrainMesh.getWidth()) {
+        z -= terrainMesh.getWidth();
     }
     while(z < 0) {
-        z += TerrainMesh::SIZE;
+        z += terrainMesh.getWidth();
     }
-    return getHeight(x, z);
+    return getHeight((int)x, (int)z);
 }
