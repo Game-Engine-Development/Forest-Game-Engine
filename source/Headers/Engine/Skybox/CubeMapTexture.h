@@ -2,13 +2,12 @@
 
 
 #include <vector>
-#include <Headers/stb_image.h>
 #include <Headers/Engine/Shader.h>
 
 class CubeMapTexture {
 public:
     CubeMapTexture();
-    explicit CubeMapTexture(std::vector<const char*> files);
+    explicit CubeMapTexture(std::vector<const char*>& files, int textureUnit);
 
     ~CubeMapTexture();
 
@@ -17,4 +16,5 @@ public:
     void unBind();
 private:
     unsigned int ID;
+    int texUnit;
 };

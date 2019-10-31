@@ -14,6 +14,7 @@
 #include "Headers/Game/Player.h"
 
 #include <iostream>
+#include <Headers/Engine/Skybox/Skybox.h>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -71,6 +72,7 @@ int main()
     Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
     Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
     Shader normalMappedShader("../source/Engine/Models/Shaders/normalMappedVertex.glsl", "../source/Engine/Models/Shaders/normalMappedFragment.glsl");
+    Shader skyboxShader("../source/Engine/Skybox/Shaders/skyboxVertexShader.glsl", "../source/Engine/Skybox/Shaders/skyboxFragmentShader.glsl");
     Texture texture("../res/container.jpg", Texture::JPG, 0);
     Texture normalMap("../res/grass.png", Texture::PNG, 1);
     Texture containerMap("../res/NormalMap.jpg", Texture::JPG, 2);
@@ -93,7 +95,18 @@ int main()
     Terrain terrain2(terrainMap, terrainMesh, -1, 0);
     Terrain terrain3(terrainMap, terrainMesh, -1, -1);
     Terrain terrain4(terrainMap, terrainMesh, 0, -1);
-    glm::vec3 lightPos(10, 10, 0);
+    std::vector<const char*> textures
+    {
+        "../res/right.jpg",
+        "../res/left.jpg",
+        "../res/top.jpg",
+        "../res/bottom.jpg",
+        "../res/front.jpg",
+        "../res/back.jpg"
+    };
+    CubeMapTexture cubeMapTexture(textures, 0);
+    Skybox skybox(cubeMapTexture);
+    glm::vec3 lightPos(-3200, 3200, -3200);
     glm::vec3 lightColor(0.7, 0.7, 0.7);
 
     // uncomment this call to draw in wireframe polygons.
@@ -112,7 +125,7 @@ int main()
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        skybox.render(skyboxShader, camera);
         player.setHeight();
         // draw our first triangle
         container.render(camera, entityShader, lightPos, lightColor);

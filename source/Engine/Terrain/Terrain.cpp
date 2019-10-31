@@ -38,8 +38,8 @@ glm::mat4 Terrain::createModelMatrix() {
     return modelMatrix;
 }
 
-float Terrain::getHeight(float playerX, float playerZ){
-    return terrainMesh.getHeight(playerX, playerZ);
+float Terrain::getHeight(int vertexX, int vertexZ){
+    return terrainMesh.getHeight(vertexX, vertexZ);
 }
 
 float Terrain::getTerrainHeight(float worldX, float worldZ) {
@@ -57,5 +57,35 @@ float Terrain::getTerrainHeight(float worldX, float worldZ) {
     while(z < 0) {
         z += terrainMesh.getWidth();
     }
-    return getHeight((int)x, (int)z);
+    return getAverageHeight(x, z);
+}
+
+float Terrain::getAverageHeight(float terrainX, float terrainZ) {
+    float bottomLeft = getHeight(terrainX, terrainZ);
+    float bottomRight = getHeight(terrainX, terrainZ + 1);
+    float topLeft = getHeight(terrainX + 1, terrainZ);
+    float topRight = getHeight(terrainX + 1, terrainZ + 1);
+    float x = terrainX;
+    float z = terrainZ;
+    while(x > 1) {
+        --x;
+    }
+    while(z > 1) {
+        --z;
+    }
+    float height;
+    if (x <= (1-z)) {
+        height = barryCentric(glm::vec3(0, bottomLeft, 0), glm::vec3(1, topLeft, 0), glm::vec3(0, bottomRight, 1), glm::vec2(x, z));
+    } else {
+        height = barryCentric(glm::vec3(1, topLeft, 0), glm::vec3(1, topRight, 1), glm::vec3(0, bottomRight, 1), glm::vec2(x, z));
+    }
+    return height;
+}
+
+float Terrain::barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos) {
+    float det = (p2.z - p3.z) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.z - p3.z);
+    float l1 = ((p2.z - p3.z) * (pos.x - p3.x) + (p3.x - p2.x) * (pos.y - p3.z)) / det;
+    float l2 = ((p3.z - p1.z) * (pos.x - p3.x) + (p1.x - p3.x) * (pos.y - p3.z)) / det;
+    float l3 = 1.0f - l1 - l2;
+    return l1 * p1.y + l2 * p2.y + l3 * p3.y;
 }

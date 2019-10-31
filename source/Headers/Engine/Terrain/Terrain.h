@@ -24,6 +24,8 @@ private:
     glm::vec3 position;
     glm::mat4 modelMatrix;
     glm::mat4 createModelMatrix();
-    float getHeight(float playerX, float playerZ);
+    float getHeight(int vertexX, int vertexZ);
+    float getAverageHeight(float terrainX, float terrainZ);
+    float barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos);
 };
 
