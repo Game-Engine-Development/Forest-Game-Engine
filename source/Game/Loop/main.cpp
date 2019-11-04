@@ -99,7 +99,7 @@ int main()
     // -----------
     while (!glfwWindowShouldClose(window))
     {
-        glm::mat3x3 TBN =
+        glm::mat3x3 modelViewMatrix = glm::mat3x3(glm::vec3(0,0,0), glm::vec3(0,0,0), glm::vec3(0,0,0));
         // input
         // -----
         processInput(window);
@@ -109,11 +109,11 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // draw our first triangle
-        container.render(camera, entityShader, lightPos, lightColor);
-        nonMappedContainer.render(camera, normalMappedShader, lightPos, lightColor, );
-        lightExample.render(camera, entityShader, lightPos, lightColor);
+        container.render(camera, entityShader, lightPos, lightColor, modelViewMatrix);
+        nonMappedContainer.render(camera, normalMappedShader, lightPos, lightColor, modelViewMatrix);
+        lightExample.render(camera, entityShader, lightPos, lightColor, modelViewMatrix);
         container.rotate(0,0,0);
-        nonMappedContainer.rotate(0,0,0);
+        nonMappedContainer.rotate(1,0,0);
         terrain1.render(camera, terrainShader, lightPos, lightColor);
         terrain2.render(camera, terrainShader, lightPos, lightColor);
         terrain3.render(camera, terrainShader, lightPos, lightColor);
