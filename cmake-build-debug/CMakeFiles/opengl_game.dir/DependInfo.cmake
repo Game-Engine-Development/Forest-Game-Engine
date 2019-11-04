@@ -9,9 +9,13 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Models/Mesh.cpp" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.obj"
   "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Models/Texture.cpp" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Engine/Models/Texture.cpp.obj"
   "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Shader/Shader.cpp" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Engine/Shader/Shader.cpp.obj"
+  "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Skybox/CubeMapTexture.cpp" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.obj"
+  "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Skybox/Skybox.cpp" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.obj"
   "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/Terrain.cpp" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj"
   "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/TerrainMesh.cpp" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj"
+  "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/TerrainTextureMap.cpp" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.obj"
   "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/main.cpp" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj"
+  "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Player.cpp" "C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/opengl_game.dir/source/Game/Player.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

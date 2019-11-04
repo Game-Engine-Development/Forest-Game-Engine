@@ -168,6 +168,62 @@ CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.s"
 	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Engine\Terrain\TerrainMesh.cpp -o CMakeFiles\opengl_game.dir\source\Engine\Terrain\TerrainMesh.cpp.s
 
+CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.obj: CMakeFiles/opengl_game.dir/flags.make
+CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.obj: CMakeFiles/opengl_game.dir/includes_CXX.rsp
+CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.obj: ../source/Engine/Terrain/TerrainTextureMap.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\opengl_game.dir\source\Engine\Terrain\TerrainTextureMap.cpp.obj -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Engine\Terrain\TerrainTextureMap.cpp
+
+CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Engine\Terrain\TerrainTextureMap.cpp > CMakeFiles\opengl_game.dir\source\Engine\Terrain\TerrainTextureMap.cpp.i
+
+CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Engine\Terrain\TerrainTextureMap.cpp -o CMakeFiles\opengl_game.dir\source\Engine\Terrain\TerrainTextureMap.cpp.s
+
+CMakeFiles/opengl_game.dir/source/Game/Player.cpp.obj: CMakeFiles/opengl_game.dir/flags.make
+CMakeFiles/opengl_game.dir/source/Game/Player.cpp.obj: CMakeFiles/opengl_game.dir/includes_CXX.rsp
+CMakeFiles/opengl_game.dir/source/Game/Player.cpp.obj: ../source/Game/Player.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/opengl_game.dir/source/Game/Player.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\opengl_game.dir\source\Game\Player.cpp.obj -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Game\Player.cpp
+
+CMakeFiles/opengl_game.dir/source/Game/Player.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opengl_game.dir/source/Game/Player.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Game\Player.cpp > CMakeFiles\opengl_game.dir\source\Game\Player.cpp.i
+
+CMakeFiles/opengl_game.dir/source/Game/Player.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opengl_game.dir/source/Game/Player.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Game\Player.cpp -o CMakeFiles\opengl_game.dir\source\Game\Player.cpp.s
+
+CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.obj: CMakeFiles/opengl_game.dir/flags.make
+CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.obj: CMakeFiles/opengl_game.dir/includes_CXX.rsp
+CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.obj: ../source/Engine/Skybox/CubeMapTexture.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\opengl_game.dir\source\Engine\Skybox\CubeMapTexture.cpp.obj -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Engine\Skybox\CubeMapTexture.cpp
+
+CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Engine\Skybox\CubeMapTexture.cpp > CMakeFiles\opengl_game.dir\source\Engine\Skybox\CubeMapTexture.cpp.i
+
+CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Engine\Skybox\CubeMapTexture.cpp -o CMakeFiles\opengl_game.dir\source\Engine\Skybox\CubeMapTexture.cpp.s
+
+CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.obj: CMakeFiles/opengl_game.dir/flags.make
+CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.obj: CMakeFiles/opengl_game.dir/includes_CXX.rsp
+CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.obj: ../source/Engine/Skybox/Skybox.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\opengl_game.dir\source\Engine\Skybox\Skybox.cpp.obj -c C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Engine\Skybox\Skybox.cpp
+
+CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Engine\Skybox\Skybox.cpp > CMakeFiles\opengl_game.dir\source\Engine\Skybox\Skybox.cpp.i
+
+CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\source\Engine\Skybox\Skybox.cpp -o CMakeFiles\opengl_game.dir\source\Engine\Skybox\Skybox.cpp.s
+
 # Object files for target opengl_game
 opengl_game_OBJECTS = \
 "CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.obj" \
@@ -177,7 +233,11 @@ opengl_game_OBJECTS = \
 "CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.obj" \
 "CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj" \
 "CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj" \
-"CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj"
+"CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj" \
+"CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.obj" \
+"CMakeFiles/opengl_game.dir/source/Game/Player.cpp.obj" \
+"CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.obj" \
+"CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.obj"
 
 # External object files for target opengl_game
 opengl_game_EXTERNAL_OBJECTS =
@@ -190,13 +250,17 @@ opengl_game.exe: CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.obj
 opengl_game.exe: CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj
 opengl_game.exe: CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj
 opengl_game.exe: CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj
+opengl_game.exe: CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.obj
+opengl_game.exe: CMakeFiles/opengl_game.dir/source/Game/Player.cpp.obj
+opengl_game.exe: CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.obj
+opengl_game.exe: CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.obj
 opengl_game.exe: CMakeFiles/opengl_game.dir/build.make
 opengl_game.exe: libraries/glfw/src/libglfw3.a
 opengl_game.exe: libglad.a
 opengl_game.exe: CMakeFiles/opengl_game.dir/linklibs.rsp
 opengl_game.exe: CMakeFiles/opengl_game.dir/objects1.rsp
 opengl_game.exe: CMakeFiles/opengl_game.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable opengl_game.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\lsand5108\CLionProjects\OpenGL_Android_Game\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable opengl_game.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\opengl_game.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
