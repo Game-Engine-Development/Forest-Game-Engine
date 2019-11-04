@@ -29,6 +29,7 @@ float lastX = 400, lastY = 300;
 bool firstMouse = true;
 
 Camera camera;
+Player player;
 
 int main()
 {
@@ -112,7 +113,7 @@ int main()
     // uncomment this call to draw in wireframe polygons.
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    Player player(&terrain1, &camera, &container2, &entityShader);
+    player = Player(&terrain1, &camera, &container2, &entityShader);
 
     // render Loop
     // -----------
@@ -126,7 +127,8 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         skybox.render(skyboxShader, camera);
-        player.setHeight();
+        player.move();
+        player.render(entityShader, lightPos, lightColor);
         // draw our first triangle
         container.render(camera, entityShader, lightPos, lightColor);
         nonMappedContainer.render(camera, normalMappedShader, lightPos, lightColor);
@@ -156,14 +158,23 @@ void processInput(GLFWwindow *window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD);
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD);
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT);
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT);
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+        player.setSpeed(Player::SPEED);
+    } else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+        player.setSpeed(-Player::SPEED);
+    } else {
+        player.setSpeed(0);
+    }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+        player.setLateralSpeed(Player::LATERAL_SPEED);
+    } else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+        player.setLateralSpeed(-Player::LATERAL_SPEED);
+    } else {
+        player.setLateralSpeed(0);
+    }
+    if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !player.isInAir()) {
+        player.jump();
+    }
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

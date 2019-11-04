@@ -11,10 +11,24 @@ class Player {
 private:
     Terrain *terrain;
     Camera *camera;
-    Entity *container;
-    Shader *shader;
-
+    Entity *playerEntity;
+    float currentSpeed = 0;
+    float lateralSpeed = 0;
+    float jumpingSpeed = 0;
+    bool inAir = false;
+    static constexpr float GRAVITY = -0.02f;
 public:
-    explicit Player(Terrain *terrain1, Camera *camera1, Entity *container1, Shader *entityShader) : terrain(terrain1), camera(camera1), container(container1), shader(entityShader){};
+    static constexpr float SPEED = 2.0f;
+    static constexpr float LATERAL_SPEED = 1.0f;
+    static constexpr float JUMP_POWER = 1.0f;
+    Player();
+    explicit Player(Terrain *terrain1, Camera *camera1, Entity *container1, Shader *entityShader) : terrain(terrain1), camera(camera1), playerEntity(container1){};
     void setHeight();
+    void move();
+    void render(Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
+    void setSpeed(float speed);
+    void setLateralSpeed(float speed);
+    Entity& getPlayerEntity();
+    bool isInAir();
+    void jump();
 };
