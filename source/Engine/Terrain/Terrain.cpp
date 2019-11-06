@@ -82,6 +82,24 @@ float Terrain::getAverageHeight(float terrainX, float terrainZ) {
     return height;
 }
 
+glm::vec3 Terrain::getTerrainNormal(float worldX, float worldZ) {
+    float x = worldX / TerrainMesh::SIZE * terrainMesh.getWidth();
+    while(x > terrainMesh.getWidth()) {
+        x -= terrainMesh.getWidth();
+    }
+    while(x < 0) {
+        x += terrainMesh.getWidth();
+    }
+    float z = worldZ / TerrainMesh::SIZE * terrainMesh.getWidth();
+    while(z > terrainMesh.getWidth()) {
+        z -= terrainMesh.getWidth();
+    }
+    while(z < 0) {
+        z += terrainMesh.getWidth();
+    }
+    return terrainMesh.calculateNormal(x, z);
+}
+
 float Terrain::barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos) {
     float det = (p2.z - p3.z) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.z - p3.z);
     float l1 = ((p2.z - p3.z) * (pos.x - p3.x) + (p3.x - p2.x) * (pos.y - p3.z)) / det;

@@ -7,6 +7,7 @@ void Player::setHeight(){
         float terrainHeight = 1 + terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z);
         if(playerEntity->getPos().y + jumpingSpeed <= terrainHeight) {
             inAir = false;
+            jumpingSpeed = 0;
             glm::vec3 newPos(playerEntity->getPos().x, terrainHeight, playerEntity->getPos().z);
             playerEntity->setPos(newPos);
         } else {
@@ -14,6 +15,8 @@ void Player::setHeight(){
             playerEntity->setPos(newPos);
         }
         jumpingSpeed += GRAVITY;
+    } else if(playerEntity->getPos().y > 1 + terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z)) {
+        inAir = true;
     } else {
         glm::vec3 terrainHeight(playerEntity->getPos().x, 1 + terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z), playerEntity->getPos().z);
         playerEntity->setPos(terrainHeight);
@@ -23,11 +26,13 @@ void Player::setHeight(){
 void Player::move() {
     glm::vec3 newRotation(0, -camera->Yaw, 0);
     getPlayerEntity().setRotation(newRotation);
-    glm::vec3 forwardMove = currentSpeed * camera->Front;
-    forwardMove.y = 0.0f;
-    playerEntity->translate(forwardMove);
+    glm::vec3 moveDir = camera->Front;
+    moveDir.y = 0;
+    moveDir = glm::normalize(moveDir);
+    glm::vec3 forwardMove = currentSpeed * moveDir;
     glm::vec3 lateralMove = lateralSpeed * camera->Right;
-    playerEntity->translate(lateralMove);
+    glm::vec3 finalMove = forwardMove + lateralMove;
+    playerEntity->translate(finalMove);
     setHeight();
     camera->Position = playerEntity->getPos();
     camera->setYPos(playerEntity->getPos().y + 1.5f);

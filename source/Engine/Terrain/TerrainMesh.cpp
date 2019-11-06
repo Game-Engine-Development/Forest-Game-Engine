@@ -2,6 +2,7 @@
 // Created by Alan on 10/8/2019.
 //
 #include "Headers/stb_image.h"
+#include <iostream>
 #include "Headers/Engine/Terrain/TerrainMesh.h"
 
 TerrainMesh::TerrainMesh() = default;
@@ -90,10 +91,19 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
 }
 
 float TerrainMesh::getHeight(float x, float z) {
-    if(x < 0 || x >= 256 || z < 0 || z >= 256){
-        return 0;
+    float pointX = x;
+    float pointZ = z;
+    if(pointX < 0){
+        pointX = 0;
+    } else if(pointX >= getWidth()) {
+        pointX = getWidth();
     }
-    float terrainHeight = data[(int)(z * height + x)];
+    if(pointZ < 0) {
+        pointZ = 0;
+    } else if(pointZ >= getWidth()) {
+        pointZ = getWidth();
+    }
+    float terrainHeight = data[(int)(pointZ * height + pointX)];
     terrainHeight /= 127.5;
     terrainHeight -= 1;
     terrainHeight *= MAX_HEIGHT;

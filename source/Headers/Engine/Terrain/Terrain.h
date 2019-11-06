@@ -16,6 +16,7 @@ public:
     ~Terrain();
     void render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
     float getTerrainHeight(float worldX, float worldZ);
+    glm::vec3 getTerrainNormal(float worldX, float worldZ);
     glm::vec3 getPos();
 private:
     TerrainTextureMap terrainTextureMap;

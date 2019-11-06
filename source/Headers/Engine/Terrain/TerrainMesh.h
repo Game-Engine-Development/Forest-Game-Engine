@@ -23,12 +23,12 @@ public:
     static constexpr float MAX_HEIGHT = 80;
     float getWidth();
     float getHeight(float x, float z);
+    glm::vec3 calculateNormal(float x, float z);
 private:
     unsigned char *data;
     int height;
 
     void loadTerrain(std::vector<glm::vec3>& verticies, std::vector<glm::vec3>& normals, std::vector<glm::vec2>& texCoords, std::vector<unsigned int>& indices, const char*);
-    glm::vec3 calculateNormal(float x, float z);
     unsigned int VAO, VBO, EBO, texCoordBuffer, normalBuffer, numOfVertices;
 
 };

@@ -91,7 +91,7 @@ int main()
     containerTextures.pop_back();
     Entity lightExample(containerMesh, containerTextures, glm::vec3(10, 10, 0), glm::vec3(0, 0, 0), glm::vec3(0.1f, 0.1f, 0.1f));
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
-    TerrainMesh terrainMesh(1, "../res/heightmap.png");
+    TerrainMesh terrainMesh(1, "../res/heightmap2.png");
     Terrain terrain1(terrainMap, terrainMesh, 0, 0);
     Terrain terrain2(terrainMap, terrainMesh, -1, 0);
     Terrain terrain3(terrainMap, terrainMesh, -1, -1);
