@@ -6,6 +6,7 @@
 #include "Headers/Engine/Models/Entity.h"
 #include "Headers/Engine/Shader.h"
 #include <array>
+#include "Test/Plane.h"
 
 class Player {
 private:

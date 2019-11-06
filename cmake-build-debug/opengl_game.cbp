@@ -1215,6 +1215,12 @@
 		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Headers/stb_image.h">
 			<Option target="opengl_game"/>
 		</Unit>
+		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Test/Plane.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Test/Plane.h">
+			<Option target="opengl_game"/>
+		</Unit>
 		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

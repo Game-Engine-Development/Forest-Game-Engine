@@ -558,6 +558,33 @@ source/Game/Player.cpp.s:
 	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Game/Player.cpp.s
 .PHONY : source/Game/Player.cpp.s
 
+source/Test/Plane.obj: source/Test/Plane.cpp.obj
+
+.PHONY : source/Test/Plane.obj
+
+# target to build an object file
+source/Test/Plane.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Test/Plane.cpp.obj
+.PHONY : source/Test/Plane.cpp.obj
+
+source/Test/Plane.i: source/Test/Plane.cpp.i
+
+.PHONY : source/Test/Plane.i
+
+# target to preprocess a source file
+source/Test/Plane.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Test/Plane.cpp.i
+.PHONY : source/Test/Plane.cpp.i
+
+source/Test/Plane.s: source/Test/Plane.cpp.s
+
+.PHONY : source/Test/Plane.s
+
+# target to generate assembly for a file
+source/Test/Plane.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Test/Plane.cpp.s
+.PHONY : source/Test/Plane.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -613,6 +640,9 @@ help:
 	@echo ... source/Game/Player.obj
 	@echo ... source/Game/Player.i
 	@echo ... source/Game/Player.s
+	@echo ... source/Test/Plane.obj
+	@echo ... source/Test/Plane.i
+	@echo ... source/Test/Plane.s
 .PHONY : help
 
 

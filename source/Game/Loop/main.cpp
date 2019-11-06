@@ -1,6 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "Headers/stb_image.h"
 
+#include "Test/Plane.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Headers/Engine/Shader.h"

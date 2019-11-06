@@ -11,6 +11,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/opengl_game.dir/source/Game/Player.cpp.obj"
   "CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.obj"
   "CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.obj"
+  "CMakeFiles/opengl_game.dir/source/Test/Plane.cpp.obj"
   "opengl_game.pdb"
   "opengl_game.exe"
   "opengl_game.exe.manifest"
