@@ -78,17 +78,20 @@ int main()
     Texture texture("../res/container.jpg", Texture::JPG, 0);
     Texture normalMap("../res/grass.png", Texture::PNG, 1);
     Texture containerMap("../res/NormalMap.jpg", Texture::JPG, 2);
+    Texture specularMap("../res/SpecularMap.jpg", Texture::JPG, 3);
     std::vector<Texture> containerTextures;
     containerTextures.push_back(texture);
     containerTextures.push_back(normalMap);
     containerTextures.push_back(containerMap);
+    containerTextures.push_back(specularMap);
     Mesh containerMesh("../res/container.obj");
     Mesh containerMesh2("../res/container.obj");
     Mesh dragonMesh("../res/dragon.obj");
+    Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(-15, 10, -15), glm::vec3(0, 45, 0), glm::vec3(1,1,1));
+    containerTextures.pop_back();
+    containerTextures.pop_back();
     Entity container(containerMesh, containerTextures, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
     Entity container2(containerMesh2, containerTextures, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
-    containerTextures.pop_back();
-    Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(-15, 10, -15), glm::vec3(0, 45, 0), glm::vec3(1,1,1));
     containerTextures.pop_back();
     Entity lightExample(containerMesh, containerTextures, glm::vec3(10, 10, 0), glm::vec3(0, 0, 0), glm::vec3(0.1f, 0.1f, 0.1f));
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
@@ -120,6 +123,7 @@ int main()
     // -----------
     while (!glfwWindowShouldClose(window))
     {
+        glm::mat3x3 modelViewMatrix = glm::mat3x3(glm::vec3(0,0,0), glm::vec3(0,0,0), glm::vec3(0,0,0));
         // input
         // -----
         processInput(window);
@@ -131,11 +135,11 @@ int main()
         player.move();
         player.render(entityShader, lightPos, lightColor);
         // draw our first triangle
-        container.render(camera, entityShader, lightPos, lightColor);
-        nonMappedContainer.render(camera, normalMappedShader, lightPos, lightColor);
-        lightExample.render(camera, entityShader, lightPos, lightColor);
-        container.rotate(1,1,0);
-        nonMappedContainer.rotate(1,1,0);
+        container.render(camera, entityShader, lightPos, lightColor, modelViewMatrix);
+        nonMappedContainer.render(camera, normalMappedShader, lightPos, lightColor, modelViewMatrix);
+        lightExample.render(camera, entityShader, lightPos, lightColor, modelViewMatrix);
+        container.rotate(0,0,0);
+        nonMappedContainer.rotate(0,0,0);
         terrain1.render(camera, terrainShader, lightPos, lightColor);
         terrain2.render(camera, terrainShader, lightPos, lightColor);
         terrain3.render(camera, terrainShader, lightPos, lightColor);
