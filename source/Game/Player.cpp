@@ -21,33 +21,6 @@ void Player::setHeight(){
         glm::vec3 terrainHeight(playerEntity->getPos().x, 1 + terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z), playerEntity->getPos().z);
         playerEntity->setPos(terrainHeight);
     }
-    glm::vec3 lighting(0, 0, 0);
-
-    Plane plane(container->getPos(), glm::vec3(((camera->getPos().x + 10.0f) - container->getPos().x), ((terrain->getTerrainHeight(camera->getPos().x + 10.0f, camera->getPos().z + 10.0f) + container->getScale().y) - container->getPos().y), ((camera->getPos().z + 10.0f) - container->getPos().z)));
-
-    //radius == container->getScale().y. radius /= container->getScale().y/2.0f
-    //collision:
-    glm::vec3 v(1.0f, 1.0f, 1.0f);
-    float v1 = v.x;
-    float v2 = v.y;
-    float v3 = v.z;
-    glm::vec3 radiusVector(container->getScale().x, container->getScale().y, container->getScale().z);
-    float e1 = (1.0f/container->getPos().x)*v1 + 0.0f*v2 + 0.0f*v3;
-    float e2 = 0.0f*v1 + (1.0f/container->getPos().y)*v2 + 0.0f*v3;
-    float e3 = 0.0f*v1 + 0.0f*v2 + (1.0f/container->getPos().z)*v3;
-    glm::mat3 CBM(glm::vec3((1.0f/container->getPos().x), 0, 0), glm::vec3(0, (1.0f/container->getPos().y), 0), glm::vec3(0, 0, (1.0f/container->getPos().z)));
-    glm::vec3 ve = CBM * v;
-    assert(ve == glm::vec3(e1, e2, e3));
-    bool frontFacing = plane.isFrontFacingTo(container->getRotation());
-    double distance = plane.signedDistanceTo(glm::vec3((camera->getPos().x + 10.0f), (terrain->getTerrainHeight((camera->getPos().x + 10.0f), (camera->getPos().z + 10.0f)) + container->getScale().y), (camera->getPos().z + 10.0f)));
-    //std::cout << "facing: " << plane.isFrontFacingTo(container->getRotation()) << ", distance: " << plane.signedDistanceTo(glm::vec3((camera->getPos().x + 10.0f), (terrain->getTerrainHeight((camera->getPos().x + 10.0f), (camera->getPos().z + 10.0f)) + container->getScale().y), (camera->getPos().z + 10.0f))) << std::endl;
-
-    //rendering
-    glm::vec3 pos(camera->getPos().x + 10.0f, terrain->getTerrainHeight(camera->getPos().x + 10.0f, camera->getPos().z + 10.0f) + container->getScale().y, camera->getPos().z + 10.0f);
-    container->setPos(pos);
-    glm::vec3 rotation = glm::vec3(0, -camera->Yaw, 0);
-    container->setRotation(rotation);
-    container->render(*camera, *shader, lighting, lighting);
 }
 
 void Player::move() {
@@ -88,4 +61,32 @@ bool Player::isInAir() {
 void Player::jump() {
     jumpingSpeed = JUMP_POWER;
     inAir = true;
+}
+
+void Player::calculateCollisions(std::vector<Plane> &planes) {
+    std::vector<Plane> nearbyPlanes = calculateCollidablePlanes(planes);
+    glm::vec3 lighting(0, 0, 0);
+
+    Plane plane(playerEntity->getPos(), glm::vec3(((camera->getPos().x + 10.0f) - playerEntity->getPos().x), ((terrain->getTerrainHeight(camera->getPos().x + 10.0f, camera->getPos().z + 10.0f) + playerEntity->getScale().y) - playerEntity->getPos().y), ((camera->getPos().z + 10.0f) - playerEntity->getPos().z)));
+
+    //radius == container->getScale().y. radius /= container->getScale().y/2.0f
+    //collision:
+    glm::vec3 v(1.0f, 1.0f, 1.0f);
+    float v1 = v.x;
+    float v2 = v.y;
+    float v3 = v.z;
+    glm::vec3 radiusVector(playerEntity->getScale().x, playerEntity->getScale().y, playerEntity->getScale().z);
+    float e1 = (1.0f/playerEntity->getPos().x)*v1 + 0.0f*v2 + 0.0f*v3;
+    float e2 = 0.0f*v1 + (1.0f/playerEntity->getPos().y)*v2 + 0.0f*v3;
+    float e3 = 0.0f*v1 + 0.0f*v2 + (1.0f/playerEntity->getPos().z)*v3;
+    glm::mat3 CBM(glm::vec3((1.0f/playerEntity->getPos().x), 0, 0), glm::vec3(0, (1.0f/playerEntity->getPos().y), 0), glm::vec3(0, 0, (1.0f/playerEntity->getPos().z)));
+    glm::vec3 ve = CBM * v;
+    assert(ve == glm::vec3(e1, e2, e3));
+    bool frontFacing = plane.isFrontFacingTo(playerEntity->getRotation());
+    double distance = plane.signedDistanceTo(glm::vec3((camera->getPos().x + 10.0f), (terrain->getTerrainHeight((camera->getPos().x + 10.0f), (camera->getPos().z + 10.0f)) + playerEntity->getScale().y), (camera->getPos().z + 10.0f)));
+    //std::cout << "facing: " << plane.isFrontFacingTo(container->getRotation()) << ", distance: " << plane.signedDistanceTo(glm::vec3((camera->getPos().x + 10.0f), (terrain->getTerrainHeight((camera->getPos().x + 10.0f), (camera->getPos().z + 10.0f)) + container->getScale().y), (camera->getPos().z + 10.0f))) << std::endl;
+}
+
+std::vector<Plane> Player::calculateCollidablePlanes(std::vector<Plane> &planes) {
+    return planes;
 }

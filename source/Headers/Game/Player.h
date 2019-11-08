@@ -18,6 +18,7 @@ private:
     float jumpingSpeed = 0;
     bool inAir = false;
     static constexpr float GRAVITY = -0.02f;
+    std::vector<Plane> calculateCollidablePlanes(std::vector<Plane>& planes);
 public:
     static constexpr float SPEED = 2.0f;
     static constexpr float LATERAL_SPEED = 1.0f;
@@ -27,6 +28,7 @@ public:
     void setHeight();
     void move();
     void render(Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
+    void calculateCollisions(std::vector<Plane>& planes);
     void setSpeed(float speed);
     void setLateralSpeed(float speed);
     Entity& getPlayerEntity();
