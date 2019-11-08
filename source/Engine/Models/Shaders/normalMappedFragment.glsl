@@ -36,7 +36,7 @@ void main()
     vec3 ambient = ambientStrength * lightColor;
 
     //value is a scaling factor for the specular map
-    float specularStrength = texture(texture3, texCoord).r * 4;
+    float specularStrength = texture(texture3, texCoord).r;  //multiply by material to affect spec str
     vec3 viewDir = normalize(viewPos - fragPos);
     vec3 reflectDir = reflect(-lightDir, normal);
     float spec = pow(max(dot(viewDir, reflectDir), 0), 5);
