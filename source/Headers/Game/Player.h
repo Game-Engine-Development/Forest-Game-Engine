@@ -24,7 +24,7 @@ public:
     static constexpr float LATERAL_SPEED = 1.0f;
     static constexpr float JUMP_POWER = 1.0f;
     Player();
-    explicit Player(Terrain *terrain1, Camera *camera1, Entity *container1, Shader *entityShader) : terrain(terrain1), camera(camera1), playerEntity(container1){};
+    explicit Player(Terrain *terrain1, Camera *camera1, Entity *container1) : terrain(terrain1), camera(camera1), playerEntity(container1){};
     void setHeight();
     void move();
     void render(Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);

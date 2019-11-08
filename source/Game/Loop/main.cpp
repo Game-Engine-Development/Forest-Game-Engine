@@ -84,16 +84,15 @@ int main()
     containerTextures.push_back(normalMap);
     containerTextures.push_back(containerMap);
     containerTextures.push_back(specularMap);
-    Mesh containerMesh("../res/container.obj");
-    Mesh containerMesh2("../res/container.obj");
-    Mesh dragonMesh("../res/dragon.obj");
+    Mesh containerMesh("../res/container.obj", true);
+    Mesh containerMesh2("../res/container.obj", false);
+    Mesh dragonMesh("../res/dragon.obj", false);
     Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(-15, 10, -15), glm::vec3(0, 45, 0), glm::vec3(1,1,1));
     containerTextures.pop_back();
     containerTextures.pop_back();
     Entity container(containerMesh, containerTextures, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
     Entity container2(containerMesh2, containerTextures, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
-    containerTextures.pop_back();
-    Entity lightExample(containerMesh, containerTextures, glm::vec3(10, 10, 0), glm::vec3(0, 0, 0), glm::vec3(0.1f, 0.1f, 0.1f));
+    containerTextures.clear();
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
     TerrainMesh terrainMesh(1, "../res/heightmap2.png");
     Terrain terrain1(terrainMap, terrainMesh, 0, 0);
@@ -117,7 +116,7 @@ int main()
     // uncomment this call to draw in wireframe polygons.
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    player = Player(&terrain1, &camera, &container2, &entityShader);
+    player = Player(&terrain1, &camera, &container);
 
     // render Loop
     // -----------
@@ -135,9 +134,8 @@ int main()
         player.move();
         player.render(entityShader, lightPos, lightColor);
         // draw our first triangle
-        container.render(camera, entityShader, lightPos, lightColor, modelViewMatrix);
-        nonMappedContainer.render(camera, normalMappedShader, lightPos, lightColor, modelViewMatrix);
-        lightExample.render(camera, entityShader, lightPos, lightColor, modelViewMatrix);
+        container2.render(camera, entityShader, lightPos, lightColor);
+        nonMappedContainer.render(camera, normalMappedShader, lightPos, lightColor);
         container.rotate(0,0,0);
         nonMappedContainer.rotate(0,0,0);
         terrain1.render(camera, terrainShader, lightPos, lightColor);

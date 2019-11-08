@@ -11,7 +11,7 @@ Entity::Entity(const Mesh &mesh, const std::vector<Texture> &textures, const glm
 
 Entity::~Entity() = default;
 
-void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor, glm::mat3x3 modelViewMatrix3x3) {
+void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor) {
     shader.use();
 
     mesh.bindVAO();
@@ -34,9 +34,6 @@ void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::ve
 
     int viewLoc = glGetUniformLocation(shader.ID, "viewPos");
     glUniform3fv(viewLoc, 1, glm::value_ptr(camera.getPos()));
-
-    int modelView3x3MatrixLoc = glGetUniformLocation(shader.ID, "MV3x3");
-    glUniformMatrix3fv(modelView3x3MatrixLoc, 1, GL_FALSE, glm::value_ptr(modelViewMatrix3x3));
 
     glDrawArrays(GL_TRIANGLES, 0, mesh.getNumOfVertices());
 

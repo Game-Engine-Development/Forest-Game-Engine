@@ -9,7 +9,7 @@
 class Mesh {
 public:
     Mesh();
-    explicit Mesh(const char* filename);
+    explicit Mesh(const char* filename, bool isNormalMapped);
     ~Mesh();
 
     void bindVAO();
