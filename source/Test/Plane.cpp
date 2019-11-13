@@ -27,9 +27,6 @@ const glm::vec3& p3)
 }
 bool Plane::isFrontFacingTo(const glm::vec3& direction) const {
     double dot = glm::dot(normal, direction);
-    std::cout << "normalX: " << normal.x << ", normalY: " << normal.y << ", normalZ: " << normal.z << std::endl;
-    std::cout << "directionX: " << direction.x << ", directionY: " << direction.y << ", directionZ: " << direction.z << std::endl;
-    std::cout << "dot: " << dot << std::endl;
     return (dot <= 0);
 }
 double Plane::signedDistanceTo(const glm::vec3& point) const {

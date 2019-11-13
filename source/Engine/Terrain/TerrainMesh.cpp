@@ -40,6 +40,7 @@ TerrainMesh::TerrainMesh(int type, const char* filename) {
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     unbindVAO();
+    updateTerrainPlanesList(vertices, indices);
 }
 
 

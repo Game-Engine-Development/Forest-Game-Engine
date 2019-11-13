@@ -2,6 +2,13 @@
 
 Player::Player() = default;
 
+Player::Player(Terrain *terrain1, Camera *camera1, Entity *container1) {
+    terrain = terrain1;
+    camera = camera1;
+    playerEntity = container1;
+    move.eRadius = playerEntity->getScale();
+}
+
 void Player::setHeight(){
     if(inAir) {
         float terrainHeight = 1 + terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z);
@@ -14,7 +21,7 @@ void Player::setHeight(){
             glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y + jumpingSpeed, playerEntity->getPos().z);
             playerEntity->setPos(newPos);
         }
-        jumpingSpeed += GRAVITY;
+        //jumpingSpeed += GRAVITY;
     } else if(playerEntity->getPos().y > 1 + terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z)) {
         inAir = true;
     } else {
@@ -23,7 +30,7 @@ void Player::setHeight(){
     }
 }
 
-void Player::move() {
+void Player::movePlayer() {
     glm::vec3 newRotation(0, -camera->Yaw, 0);
     getPlayerEntity().setRotation(newRotation);
     glm::vec3 moveDir = camera->Front;
@@ -32,8 +39,7 @@ void Player::move() {
     glm::vec3 forwardMove = currentSpeed * moveDir;
     glm::vec3 lateralMove = lateralSpeed * camera->Right;
     glm::vec3 finalMove = forwardMove + lateralMove;
-    Movement move(finalMove, *this);
-    calculateCollisions(terrain->getTerrainMesh().planes, move);
+    collideAndSlide(finalMove, GRAVITY);
     //playerEntity->translate(finalMove);
     //setHeight();
     camera->Position = playerEntity->getPos();
@@ -65,7 +71,7 @@ void Player::jump() {
     inAir = true;
 }
 
-void Player::calculateCollisions(std::vector<Plane> planes, Movement &move) {
+void Player::calculateCollisions(std::vector<Plane> planes) {
     std::vector<Plane> nearbyPlanes = calculateCollidablePlanes(planes);
     //radius == container->getScale().y. radius /= container->getScale().y/2.0f
     //collision:
@@ -81,11 +87,11 @@ void Player::calculateCollisions(std::vector<Plane> planes, Movement &move) {
     glm::vec3 ve = CBM * v;
     assert(ve == glm::vec3(e1, e2, e3));
     for(Plane plane : nearbyPlanes) {
-        checkTriangle(plane, move);
+        checkTriangle(plane);
     }
 }
 
-void Player::checkTriangle(Plane &trianglePlane, Movement &move) {
+void Player::checkTriangle(Plane &trianglePlane) {
 // Is triangle front-facing to the velocity vector?
 // We only check front-facing triangles
 // (your choice of course)
@@ -195,3 +201,86 @@ bool Player::checkPointInTriangle(const glm::vec3& point, const glm::vec3& pa, c
     float z = x+y-ac_bb;
     return (( in(z)& ~(in(x)|in(y)) ) & 0x80000000);
 }
+
+void Player::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity)
+{
+// Do collision detection:
+    move.startingPos = playerEntity->getPos();
+    move.movement = vel;
+// calculate position and velocity in eSpace
+    glm::vec3 eSpacePosition = move.startingPos / move.eRadius;
+    glm::vec3 eSpaceVelocity = move.movement / move.eRadius;
+// Iterate until we have our final position.
+    collisionRecursionDepth = 0;
+    glm::vec3 finalPosition = collideWithWorld(eSpacePosition, eSpaceVelocity);
+// Add gravity pull:
+// To remove gravity uncomment from here .....
+// Set the new R3 position (convert back from eSpace to R3
+    /*move.startingPos = finalPosition * move.eRadius;
+    move.movement = gravity;
+    eSpaceVelocity = gravity / move.eRadius;
+    collisionRecursionDepth = 0;
+    finalPosition = collideWithWorld(finalPosition, eSpaceVelocity);*/
+// ... to here
+// Convert final result back to R3:
+    finalPosition = finalPosition * move.eRadius;
+// Move the entity (application specific function)
+    playerEntity->setPos(finalPosition);
+}
+
+glm::vec3 Player::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel) {
+// All hard-coded distances in this function is
+// scaled to fit the setting above..
+    float unitScale = unitsPerMeter / 100.0f;
+    float veryCloseDistance = 0.005f * unitScale;
+// do we need to worry?
+    if (collisionRecursionDepth>5)
+        return pos;
+// Ok, we need to worry:
+    move.eSpaceMovement = vel;
+    move.eSpaceMovementNormalized = glm::normalize(vel);
+    move.eSpaceStartingPos = pos;
+    move.foundCollision = false;
+// Check for collision (calls the collision routines)
+    calculateCollisions(terrain->getTerrainMesh().planes);
+// If no collision we just move along the velocity
+    if (!move.foundCollision) {
+        return pos + vel;
+    }
+// *** Collision occured ***
+// The original destination point
+    glm::vec3 destinationPoint = pos + vel;
+    glm::vec3 newBasePoint = pos;
+// only update if we are not already very close
+// and if so we only move very close to intersection..not
+// to the exact spot.
+    if (move.nearestDistance>=veryCloseDistance)
+    {
+        glm::vec3 V = vel;
+        V = glm::normalize(V) * (float)(move.nearestDistance - veryCloseDistance);
+        newBasePoint = move.eSpaceStartingPos + V;
+// Adjust polygon intersection point (so sliding
+// plane will be unaffected by the fact that we
+// move slightly less than collision tells us)
+        V = glm::normalize(V);
+        move.intersectionPoint -= veryCloseDistance * V;
+    }
+// Determine the sliding plane
+    glm::vec3 slidePlaneOrigin = move.intersectionPoint;
+    glm::vec3 slidePlaneNormal = newBasePoint-move.intersectionPoint;
+    slidePlaneNormal = glm::normalize(slidePlaneNormal);
+    Plane slidingPlane(slidePlaneOrigin,slidePlaneNormal);
+// Again, sorry about formatting.. but look carefully ;)
+    glm::vec3 newDestinationPoint = destinationPoint - (float)slidingPlane.signedDistanceTo(destinationPoint) * slidePlaneNormal;
+// Generate the slide vector, which will become our new
+// velocity vector for the next iteration
+    glm::vec3 newVelocityVector = newDestinationPoint - move.intersectionPoint;
+// Recurse:
+// dont recurse if the new velocity is very small
+    if (newVelocityVector.length() < veryCloseDistance) {
+        return newBasePoint;
+    }
+    collisionRecursionDepth++;
+    return collideWithWorld(newBasePoint,newVelocityVector);
+}
+
