@@ -120,6 +120,14 @@ glm::vec3 TerrainMesh::calculateNormal(float x, float z) {
     return normal;
 }
 
+void TerrainMesh::updateTerrainPlanesList(std::vector<glm::vec3> &vertices, std::vector<unsigned int> &indices) {
+    int index = 0;
+    while (index < indices.size()) {
+        Plane newPlane(vertices[indices[index++]], vertices[indices[index++]], vertices[indices[index++]]);
+        planes.push_back(newPlane);
+    }
+}
+
 float TerrainMesh::getWidth() {
     return height - 1;
 }
