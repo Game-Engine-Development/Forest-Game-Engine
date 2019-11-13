@@ -8,6 +8,7 @@ public:
     float equation[4];
     glm::vec3 origin;
     glm::vec3 normal;
+    glm::vec3 points[3];
     Plane(const glm::vec3& origin, const glm::vec3& normal);
     Plane(const glm::vec3& p1, const glm::vec3& p2, const glm::vec3& p3);
     [[nodiscard]] bool isFrontFacingTo(const glm::vec3& direction) const;

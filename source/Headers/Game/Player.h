@@ -19,6 +19,26 @@ private:
     bool inAir = false;
     static constexpr float GRAVITY = -0.02f;
     std::vector<Plane> calculateCollidablePlanes(std::vector<Plane>& planes);
+    bool checkPointInTriangle(const glm::vec3& point, const glm::vec3& pa,const glm::vec3& pb, const glm::vec3& pc);
+    struct Movement {
+        Movement(glm::vec3 &mov, Player &player) {
+            movement = mov;
+            startingPos = player.getPlayerEntity().getPos();
+            eSpaceMovement = mov / player.getPlayerEntity().getScale();
+            eSpaceMovementNormalized = glm::normalize(eSpaceMovement);
+            eSpaceStartingPos = startingPos / player.getPlayerEntity().getScale();
+        }
+        glm::vec3 movement;
+        glm::vec3 startingPos;
+        glm::vec3 eSpaceMovement;
+        glm::vec3 eSpaceMovementNormalized;
+        glm::vec3 eSpaceStartingPos;
+
+        bool foundCollision;
+        double nearestDistance;
+        glm::vec3 intersectionPoint;
+    };
+    void checkTriangle(Plane &trianglePlane, Movement &move);
 public:
     static constexpr float SPEED = 2.0f;
     static constexpr float LATERAL_SPEED = 1.0f;
@@ -28,7 +48,7 @@ public:
     void setHeight();
     void move();
     void render(Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
-    void calculateCollisions(std::vector<Plane>& planes);
+    void calculateCollisions(std::vector<Plane> planes, Movement& move);
     void setSpeed(float speed);
     void setLateralSpeed(float speed);
     Entity& getPlayerEntity();
