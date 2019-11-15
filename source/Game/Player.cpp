@@ -32,6 +32,19 @@ void Player::move() {
     glm::vec3 forwardMove = currentSpeed * moveDir;
     glm::vec3 lateralMove = lateralSpeed * camera->Right;
     glm::vec3 finalMove = forwardMove + lateralMove;
+    glm::vec3 move;
+    float currentHeight = playerEntity->getPos().y;
+    float dist = std::sqrt(finalMove.x*finalMove.x + finalMove.z*finalMove.z);
+    for(int i = 0; i < dist; ++i) {
+        move = glm::normalize(finalMove) * (float)i;
+        float height = 1 + terrain->getTerrainHeight(playerEntity->getPos().x + move.x, playerEntity->getPos().z + move.z);
+        if(height > currentHeight + 1) {
+            finalMove = glm::normalize(finalMove) * (float)(i - 1);
+            break;
+        } else {
+            currentHeight = height;
+        }
+    }
     playerEntity->translate(finalMove);
     setHeight();
     camera->Position = playerEntity->getPos();

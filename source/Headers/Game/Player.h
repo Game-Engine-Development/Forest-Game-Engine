@@ -17,12 +17,12 @@ private:
     float lateralSpeed = 0;
     float jumpingSpeed = 0;
     bool inAir = false;
-    static constexpr float GRAVITY = -0.02f;
+    static constexpr float GRAVITY = -0.08f;
     std::vector<Plane> calculateCollidablePlanes(std::vector<Plane>& planes);
 public:
-    static constexpr float SPEED = 2.0f;
-    static constexpr float LATERAL_SPEED = 1.0f;
-    static constexpr float JUMP_POWER = 1.0f;
+    static constexpr float SPEED = 4.0f;
+    static constexpr float LATERAL_SPEED = 2.0f;
+    static constexpr float JUMP_POWER = 2.0f;
     Player();
     explicit Player(Terrain *terrain1, Camera *camera1, Entity *container1) : terrain(terrain1), camera(camera1), playerEntity(container1){};
     void setHeight();
