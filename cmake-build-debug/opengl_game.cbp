@@ -1158,13 +1158,25 @@
 		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Shader/Shader.cpp">
 			<Option target="opengl_game"/>
 		</Unit>
+		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Skybox/CubeMapTexture.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Skybox/Skybox.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
 		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/Terrain.cpp">
 			<Option target="opengl_game"/>
 		</Unit>
 		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/TerrainMesh.cpp">
 			<Option target="opengl_game"/>
 		</Unit>
+		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Engine/Terrain/TerrainTextureMap.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
 		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Loop/main.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Game/Player.cpp">
 			<Option target="opengl_game"/>
 		</Unit>
 		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Camera.h">
@@ -1182,13 +1194,31 @@
 		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Shader.h">
 			<Option target="opengl_game"/>
 		</Unit>
+		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Skybox/CubeMapTexture.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Skybox/Skybox.h">
+			<Option target="opengl_game"/>
+		</Unit>
 		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Terrain/Terrain.h">
 			<Option target="opengl_game"/>
 		</Unit>
 		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Terrain/TerrainMesh.h">
 			<Option target="opengl_game"/>
 		</Unit>
+		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Terrain/TerrainTextureMap.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Headers/Game/Player.h">
+			<Option target="opengl_game"/>
+		</Unit>
 		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Headers/stb_image.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Test/Plane.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/source/Test/Plane.h">
 			<Option target="opengl_game"/>
 		</Unit>
 		<Unit filename="C:/Users/lsand5108/CLionProjects/OpenGL_Android_Game/CMakeLists.txt">

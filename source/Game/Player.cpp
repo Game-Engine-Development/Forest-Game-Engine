@@ -39,7 +39,9 @@ void Player::movePlayer() {
     glm::vec3 forwardMove = currentSpeed * moveDir;
     glm::vec3 lateralMove = lateralSpeed * camera->Right;
     glm::vec3 finalMove = forwardMove + lateralMove;
+    currentGravity += GRAVITY;
     collideAndSlide(finalMove, GRAVITY);
+
     //playerEntity->translate(finalMove);
     //setHeight();
     camera->Position = playerEntity->getPos();
@@ -71,32 +73,19 @@ void Player::jump() {
     inAir = true;
 }
 
-void Player::calculateCollisions(std::vector<Plane> planes) {
-    std::vector<Plane> nearbyPlanes = calculateCollidablePlanes(planes);
-    //radius == container->getScale().y. radius /= container->getScale().y/2.0f
-    //collision:
-    glm::vec3 v(1.0f, 1.0f, 1.0f);
-    float v1 = v.x;
-    float v2 = v.y;
-    float v3 = v.z;
-    glm::vec3 radiusVector(playerEntity->getScale().x, playerEntity->getScale().y, playerEntity->getScale().z);
-    float e1 = (1.0f/playerEntity->getPos().x)*v1 + 0.0f*v2 + 0.0f*v3;
-    float e2 = 0.0f*v1 + (1.0f/playerEntity->getPos().y)*v2 + 0.0f*v3;
-    float e3 = 0.0f*v1 + 0.0f*v2 + (1.0f/playerEntity->getPos().z)*v3;
-    glm::mat3 CBM(glm::vec3((1.0f/playerEntity->getPos().x), 0, 0), glm::vec3(0, (1.0f/playerEntity->getPos().y), 0), glm::vec3(0, 0, (1.0f/playerEntity->getPos().z)));
-    glm::vec3 ve = CBM * v;
-    assert(ve == glm::vec3(e1, e2, e3));
-    for(Plane plane : nearbyPlanes) {
+void Player::calculateCollisions(std::vector<Plane> &planes) {
+    std::vector nearbyPlanes = calculateCollidablePlanes(planes);
+    std::cout << nearbyPlanes.size() << std::endl;
+    for(const Plane& plane : nearbyPlanes) {
         checkTriangle(plane);
     }
 }
 
-void Player::checkTriangle(Plane &trianglePlane) {
+void Player::checkTriangle(const Plane &trianglePlane) {
 // Is triangle front-facing to the velocity vector?
 // We only check front-facing triangles
 // (your choice of course)
-    if (trianglePlane.isFrontFacingTo(
-            move.eSpaceMovementNormalized)) {
+    if (trianglePlane.isFrontFacingTo(move.eSpaceMovementNormalized)) {
 // Get interval of plane intersection:
         double t0, t1;
         bool embeddedInPlane = false;
@@ -154,6 +143,7 @@ void Player::checkTriangle(Plane &trianglePlane) {
 // as this is when the sphere rests on the front side
 // of the triangle plane. Note, this can only happen if
 // the sphere is not embedded in the triangle plane.
+        std::cout << "embeddedInPlane: " << !embeddedInPlane << std::endl;
         if (!embeddedInPlane) {
             glm::vec3 planeIntersectionPoint = (move.eSpaceStartingPos - trianglePlane.normal + (float)t0 * move.eSpaceMovement);
             if (checkPointInTriangle(planeIntersectionPoint, trianglePlane.points[0], trianglePlane.points[1], trianglePlane.points[2])) {
@@ -162,15 +152,16 @@ void Player::checkTriangle(Plane &trianglePlane) {
                 collisionPoint = planeIntersectionPoint;
             }
         }
+        std::cout << "foundCollision: " << foundCollison << std::endl;
 // Set result:
-        if (foundCollison == true) {
+        if (foundCollison) {
 // distance to collision: ’t’ is time of collision
             float distToCollision = t * move.eSpaceMovement.length();
 // Does this triangle qualify for the closest hit?
 // it does if it’s the first hit or the closest
-            if (move.foundCollision == false ||
-                distToCollision < move.nearestDistance) {
+            if (!move.foundCollision || distToCollision < move.nearestDistance) {
 // Collision information nessesary for sliding
+                std::cout << "Collision Found" << std::endl;
                 move.nearestDistance = distToCollision;
                 move.intersectionPoint = collisionPoint;
                 move.foundCollision = true;
@@ -180,7 +171,13 @@ void Player::checkTriangle(Plane &trianglePlane) {
 }
 
 std::vector<Plane> Player::calculateCollidablePlanes(std::vector<Plane> &planes) {
-    return planes;
+    std::vector<Plane> nearbyPlanes;
+    for(const Plane& plane : planes) {
+        if(plane.origin.x < playerEntity->getPos().x + 5 && plane.origin.x > playerEntity->getPos().x - 5 && plane.origin.z < playerEntity->getPos().z + 5 && plane.origin.z > playerEntity->getPos().z - 5) {
+            nearbyPlanes.push_back(plane);
+        }
+    }
+    return nearbyPlanes;
 }
 
 typedef unsigned int uint32;
@@ -216,14 +213,15 @@ void Player::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity)
 // Add gravity pull:
 // To remove gravity uncomment from here .....
 // Set the new R3 position (convert back from eSpace to R3
-    /*move.startingPos = finalPosition * move.eRadius;
+    move.startingPos = finalPosition * move.eRadius;
     move.movement = gravity;
     eSpaceVelocity = gravity / move.eRadius;
     collisionRecursionDepth = 0;
-    finalPosition = collideWithWorld(finalPosition, eSpaceVelocity);*/
+    finalPosition = collideWithWorld(finalPosition, eSpaceVelocity);
+    std::cout << "X: " << finalPosition.x << ", Y: " << finalPosition.y << ", Z: " << finalPosition.z << std::endl;
 // ... to here
 // Convert final result back to R3:
-    finalPosition = finalPosition * move.eRadius;
+    finalPosition *= move.eRadius;
 // Move the entity (application specific function)
     playerEntity->setPos(finalPosition);
 }
@@ -243,8 +241,11 @@ glm::vec3 Player::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel) {
     move.foundCollision = false;
 // Check for collision (calls the collision routines)
     calculateCollisions(terrain->getTerrainMesh().planes);
+
 // If no collision we just move along the velocity
+    std::cout << "move.collision: " << move.foundCollision << std::endl;
     if (!move.foundCollision) {
+        std::cout << "no collision found" << std::endl;
         return pos + vel;
     }
 // *** Collision occured ***
@@ -277,10 +278,10 @@ glm::vec3 Player::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel) {
     glm::vec3 newVelocityVector = newDestinationPoint - move.intersectionPoint;
 // Recurse:
 // dont recurse if the new velocity is very small
-    if (newVelocityVector.length() < veryCloseDistance) {
+    if (std::sqrt(std::pow(newVelocityVector.x, 2) + std::pow(newVelocityVector.y, 2) + std::pow(newVelocityVector.z, 2)) < veryCloseDistance) {
         return newBasePoint;
     }
-    collisionRecursionDepth++;
-    return collideWithWorld(newBasePoint,newVelocityVector);
+    ++collisionRecursionDepth;
+    return collideWithWorld(newBasePoint, newVelocityVector);
 }
 

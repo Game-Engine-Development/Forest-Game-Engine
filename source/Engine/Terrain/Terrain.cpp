@@ -108,6 +108,6 @@ float Terrain::barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 
     return l1 * p1.y + l2 * p2.y + l3 * p3.y;
 }
 
-TerrainMesh Terrain::getTerrainMesh() {
+TerrainMesh &Terrain::getTerrainMesh() {
     return terrainMesh;
 }

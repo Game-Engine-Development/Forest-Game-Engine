@@ -18,6 +18,7 @@ const glm::vec3& p3)
     points[2] = p3;
     normal = glm::cross((p2-p1), (p3-p1));
     normal = glm::normalize(normal);
+    normal = normal * (float)-1;
     origin = p1;
     equation[0] = normal.x;
     equation[1] = normal.y;

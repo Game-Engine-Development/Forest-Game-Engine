@@ -369,6 +369,60 @@ source/Engine/Shader/Shader.cpp.s:
 	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Shader/Shader.cpp.s
 .PHONY : source/Engine/Shader/Shader.cpp.s
 
+source/Engine/Skybox/CubeMapTexture.obj: source/Engine/Skybox/CubeMapTexture.cpp.obj
+
+.PHONY : source/Engine/Skybox/CubeMapTexture.obj
+
+# target to build an object file
+source/Engine/Skybox/CubeMapTexture.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.obj
+.PHONY : source/Engine/Skybox/CubeMapTexture.cpp.obj
+
+source/Engine/Skybox/CubeMapTexture.i: source/Engine/Skybox/CubeMapTexture.cpp.i
+
+.PHONY : source/Engine/Skybox/CubeMapTexture.i
+
+# target to preprocess a source file
+source/Engine/Skybox/CubeMapTexture.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.i
+.PHONY : source/Engine/Skybox/CubeMapTexture.cpp.i
+
+source/Engine/Skybox/CubeMapTexture.s: source/Engine/Skybox/CubeMapTexture.cpp.s
+
+.PHONY : source/Engine/Skybox/CubeMapTexture.s
+
+# target to generate assembly for a file
+source/Engine/Skybox/CubeMapTexture.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Skybox/CubeMapTexture.cpp.s
+.PHONY : source/Engine/Skybox/CubeMapTexture.cpp.s
+
+source/Engine/Skybox/Skybox.obj: source/Engine/Skybox/Skybox.cpp.obj
+
+.PHONY : source/Engine/Skybox/Skybox.obj
+
+# target to build an object file
+source/Engine/Skybox/Skybox.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.obj
+.PHONY : source/Engine/Skybox/Skybox.cpp.obj
+
+source/Engine/Skybox/Skybox.i: source/Engine/Skybox/Skybox.cpp.i
+
+.PHONY : source/Engine/Skybox/Skybox.i
+
+# target to preprocess a source file
+source/Engine/Skybox/Skybox.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.i
+.PHONY : source/Engine/Skybox/Skybox.cpp.i
+
+source/Engine/Skybox/Skybox.s: source/Engine/Skybox/Skybox.cpp.s
+
+.PHONY : source/Engine/Skybox/Skybox.s
+
+# target to generate assembly for a file
+source/Engine/Skybox/Skybox.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Skybox/Skybox.cpp.s
+.PHONY : source/Engine/Skybox/Skybox.cpp.s
+
 source/Engine/Terrain/Terrain.obj: source/Engine/Terrain/Terrain.cpp.obj
 
 .PHONY : source/Engine/Terrain/Terrain.obj
@@ -423,6 +477,33 @@ source/Engine/Terrain/TerrainMesh.cpp.s:
 	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.s
 .PHONY : source/Engine/Terrain/TerrainMesh.cpp.s
 
+source/Engine/Terrain/TerrainTextureMap.obj: source/Engine/Terrain/TerrainTextureMap.cpp.obj
+
+.PHONY : source/Engine/Terrain/TerrainTextureMap.obj
+
+# target to build an object file
+source/Engine/Terrain/TerrainTextureMap.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.obj
+.PHONY : source/Engine/Terrain/TerrainTextureMap.cpp.obj
+
+source/Engine/Terrain/TerrainTextureMap.i: source/Engine/Terrain/TerrainTextureMap.cpp.i
+
+.PHONY : source/Engine/Terrain/TerrainTextureMap.i
+
+# target to preprocess a source file
+source/Engine/Terrain/TerrainTextureMap.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.i
+.PHONY : source/Engine/Terrain/TerrainTextureMap.cpp.i
+
+source/Engine/Terrain/TerrainTextureMap.s: source/Engine/Terrain/TerrainTextureMap.cpp.s
+
+.PHONY : source/Engine/Terrain/TerrainTextureMap.s
+
+# target to generate assembly for a file
+source/Engine/Terrain/TerrainTextureMap.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.s
+.PHONY : source/Engine/Terrain/TerrainTextureMap.cpp.s
+
 source/Game/Loop/main.obj: source/Game/Loop/main.cpp.obj
 
 .PHONY : source/Game/Loop/main.obj
@@ -449,6 +530,60 @@ source/Game/Loop/main.s: source/Game/Loop/main.cpp.s
 source/Game/Loop/main.cpp.s:
 	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Game/Loop/main.cpp.s
 .PHONY : source/Game/Loop/main.cpp.s
+
+source/Game/Player.obj: source/Game/Player.cpp.obj
+
+.PHONY : source/Game/Player.obj
+
+# target to build an object file
+source/Game/Player.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Game/Player.cpp.obj
+.PHONY : source/Game/Player.cpp.obj
+
+source/Game/Player.i: source/Game/Player.cpp.i
+
+.PHONY : source/Game/Player.i
+
+# target to preprocess a source file
+source/Game/Player.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Game/Player.cpp.i
+.PHONY : source/Game/Player.cpp.i
+
+source/Game/Player.s: source/Game/Player.cpp.s
+
+.PHONY : source/Game/Player.s
+
+# target to generate assembly for a file
+source/Game/Player.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Game/Player.cpp.s
+.PHONY : source/Game/Player.cpp.s
+
+source/Test/Plane.obj: source/Test/Plane.cpp.obj
+
+.PHONY : source/Test/Plane.obj
+
+# target to build an object file
+source/Test/Plane.cpp.obj:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Test/Plane.cpp.obj
+.PHONY : source/Test/Plane.cpp.obj
+
+source/Test/Plane.i: source/Test/Plane.cpp.i
+
+.PHONY : source/Test/Plane.i
+
+# target to preprocess a source file
+source/Test/Plane.cpp.i:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Test/Plane.cpp.i
+.PHONY : source/Test/Plane.cpp.i
+
+source/Test/Plane.s: source/Test/Plane.cpp.s
+
+.PHONY : source/Test/Plane.s
+
+# target to generate assembly for a file
+source/Test/Plane.cpp.s:
+	$(MAKE) -f CMakeFiles\opengl_game.dir\build.make CMakeFiles/opengl_game.dir/source/Test/Plane.cpp.s
+.PHONY : source/Test/Plane.cpp.s
 
 # Help Target
 help:
@@ -484,15 +619,30 @@ help:
 	@echo ... source/Engine/Shader/Shader.obj
 	@echo ... source/Engine/Shader/Shader.i
 	@echo ... source/Engine/Shader/Shader.s
+	@echo ... source/Engine/Skybox/CubeMapTexture.obj
+	@echo ... source/Engine/Skybox/CubeMapTexture.i
+	@echo ... source/Engine/Skybox/CubeMapTexture.s
+	@echo ... source/Engine/Skybox/Skybox.obj
+	@echo ... source/Engine/Skybox/Skybox.i
+	@echo ... source/Engine/Skybox/Skybox.s
 	@echo ... source/Engine/Terrain/Terrain.obj
 	@echo ... source/Engine/Terrain/Terrain.i
 	@echo ... source/Engine/Terrain/Terrain.s
 	@echo ... source/Engine/Terrain/TerrainMesh.obj
 	@echo ... source/Engine/Terrain/TerrainMesh.i
 	@echo ... source/Engine/Terrain/TerrainMesh.s
+	@echo ... source/Engine/Terrain/TerrainTextureMap.obj
+	@echo ... source/Engine/Terrain/TerrainTextureMap.i
+	@echo ... source/Engine/Terrain/TerrainTextureMap.s
 	@echo ... source/Game/Loop/main.obj
 	@echo ... source/Game/Loop/main.i
 	@echo ... source/Game/Loop/main.s
+	@echo ... source/Game/Player.obj
+	@echo ... source/Game/Player.i
+	@echo ... source/Game/Player.s
+	@echo ... source/Test/Plane.obj
+	@echo ... source/Test/Plane.i
+	@echo ... source/Test/Plane.s
 .PHONY : help
 
 

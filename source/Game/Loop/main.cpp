@@ -85,7 +85,7 @@ int main()
     containerTextures.push_back(containerMap);
     containerTextures.push_back(specularMap);
     Mesh containerMesh("../res/container.obj", true);
-    Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(-15, 10, -15), glm::vec3(0, 45, 0), glm::vec3(1,1,1));
+    Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(15, 10, 15), glm::vec3(0, 45, 0), glm::vec3(1,1,1));
     Entity container(containerMesh, containerTextures, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
     containerTextures.clear();
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
@@ -126,7 +126,9 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         skybox.render(skyboxShader, camera);
+
         player.movePlayer();
+
         player.render(normalMappedShader, lightPos, lightColor);
         // draw our first triangle
         container.render(camera, normalMappedShader, lightPos, lightColor);
@@ -135,7 +137,6 @@ int main()
         terrain2.render(camera, terrainShader, lightPos, lightColor);
         terrain3.render(camera, terrainShader, lightPos, lightColor);
         terrain4.render(camera, terrainShader, lightPos, lightColor);
-        player.setHeight();
 
         //player.calculateCollisions(insertPlanesListHere);
 
