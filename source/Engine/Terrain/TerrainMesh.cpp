@@ -40,7 +40,6 @@ TerrainMesh::TerrainMesh(int type, const char* filename) {
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     unbindVAO();
-    updateTerrainPlanesList(vertices, indices);
 }
 
 
@@ -119,14 +118,6 @@ glm::vec3 TerrainMesh::calculateNormal(float x, float z) {
     glm::vec3 normal(heightL - heightR, 2, heightD - heightU);
     normal = glm::normalize(normal);
     return normal;
-}
-
-void TerrainMesh::updateTerrainPlanesList(std::vector<glm::vec3> &vertices, std::vector<unsigned int> &indices) {
-    int index = 0;
-    while (index < indices.size()) {
-        Plane newPlane(vertices[indices[index++]], vertices[indices[index++]], vertices[indices[index++]]);
-        planes.push_back(newPlane);
-    }
 }
 
 float TerrainMesh::getWidth() {

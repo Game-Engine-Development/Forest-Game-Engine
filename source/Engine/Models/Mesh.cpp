@@ -5,7 +5,7 @@ Mesh::Mesh() {
 }
 
 Mesh::Mesh(const char* filename, bool isNormalMapped) {
-    std::vector<glm::vec3> vertices, normals, tangents, bitangents;
+    std::vector<glm::vec3> normals, tangents, bitangents;
     std::vector<glm::vec2> textureCoords;
     loadOBJ(filename, vertices, textureCoords, normals);
     numOfVertices = vertices.size();
@@ -183,4 +183,8 @@ void Mesh::unbindVAO() {
 
 unsigned int Mesh::getNumOfVertices() {
     return numOfVertices;
+}
+
+std::vector<glm::vec3>& Mesh::getVertices() {
+    return vertices;
 }

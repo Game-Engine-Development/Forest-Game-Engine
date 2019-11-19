@@ -30,7 +30,7 @@ void Player::setHeight(){
     }
 }
 
-void Player::movePlayer() {
+void Player::movePlayer(std::vector<Entity> &entities) {
     glm::vec3 newRotation(0, -camera->Yaw, 0);
     getPlayerEntity().setRotation(newRotation);
     glm::vec3 moveDir = camera->Front;
@@ -40,7 +40,10 @@ void Player::movePlayer() {
     glm::vec3 lateralMove = lateralSpeed * camera->Right;
     glm::vec3 finalMove = forwardMove + lateralMove;
     currentGravity += GRAVITY;
-    collideAndSlide(finalMove, GRAVITY);
+
+    //shady line: 
+    //collideAndSlide(finalMove, GRAVITY, entities);
+
 
     //playerEntity->translate(finalMove);
     //setHeight();
@@ -153,6 +156,113 @@ void Player::checkTriangle(const Plane &trianglePlane) {
             }
         }
         std::cout << "foundCollision: " << foundCollison << std::endl;
+        // if we haven’t found a collision already we’ll have to
+// sweep sphere against points and edges of the triangle.
+// Note: A collision inside the triangle (the check above)
+// will always happen before a vertex or edge collision!
+// This is why we can skip the swept test if the above
+// gives a collision!
+        if (!foundCollison) {
+// some commonly used terms:
+            glm::vec3 velocity = move.eSpaceMovement;
+            glm::vec3 base = move.eSpaceStartingPos;
+            float velocitySquaredLength = velocity.x * velocity.x + velocity.y * velocity.y + velocity.z * velocity.z;
+            float a,b,c; // Params for equation
+            float newT;
+// For each vertex or edge a quadratic equation have to
+// be solved. We parameterize this equation as
+// a*t^2 + b*t + c = 0 and below we calculate the
+// parameters a,b and c for each test.
+// Check against points:
+            a = velocitySquaredLength;
+// P1
+            b = 2.0*(glm::dot(base-trianglePlane.points[0], velocity));
+            glm::vec3 cTemp = trianglePlane.points[0] - base;
+            c = cTemp.x * cTemp.x + cTemp.y * cTemp.y + cTemp.z * cTemp.z - 1.0;
+            if (getLowestRoot(a,b,c, t, &newT)) {
+                t = newT;
+                foundCollison = true;
+                collisionPoint = trianglePlane.points[0];
+            }
+// P2
+            b = 2.0*(glm::dot(base-trianglePlane.points[1], velocity));
+            cTemp = trianglePlane.points[1] - base;
+            c = cTemp.x * cTemp.x + cTemp.y * cTemp.y + cTemp.z * cTemp.z - 1.0;
+            if (getLowestRoot(a,b,c, t, &newT)) {
+                t = newT;
+                foundCollison = true;
+                collisionPoint = trianglePlane.points[1];
+            }
+// P3
+            b = 2.0*(glm::dot(base-trianglePlane.points[2], velocity));
+            cTemp = trianglePlane.points[2] - base;
+            c = cTemp.x * cTemp.x + cTemp.y * cTemp.y + cTemp.z * cTemp.z - 1.0;
+            if (getLowestRoot(a,b,c, t, &newT)) {
+                t = newT;
+                foundCollison = true;
+                collisionPoint = trianglePlane.points[2];
+            }
+// Check agains edges:
+// p1 -> p2:
+            glm::vec3 edge = trianglePlane.points[1]-trianglePlane.points[0];
+            glm::vec3 baseToVertex = trianglePlane.points[0] - base;
+            float edgeSquaredLength = edge.x * edge.x + edge.y * edge.y + edge.z * edge.z;
+            float edgeDotVelocity = glm::dot(velocity, edge);
+            float edgeDotBaseToVertex = glm::dot(baseToVertex, edge);
+// Calculate parameters for equation
+            a = edgeSquaredLength*-velocitySquaredLength + edgeDotVelocity*edgeDotVelocity;
+            b = edgeSquaredLength*(2 * glm::dot(baseToVertex, velocity)) - 2.0*edgeDotVelocity*edgeDotBaseToVertex;
+            c = edgeSquaredLength*(1 - (baseToVertex.x * baseToVertex.x + baseToVertex.y * baseToVertex.y + baseToVertex.z * baseToVertex.z)) + edgeDotBaseToVertex*edgeDotBaseToVertex;
+// Does the swept sphere collide against infinite edge?
+            if (getLowestRoot(a,b,c, t, &newT)) {
+// Check if intersection is within line segment:
+                float f=(edgeDotVelocity*newT-edgeDotBaseToVertex)/
+                        edgeSquaredLength;
+                if (f >= 0.0 && f <= 1.0) {
+// intersection took place within segment.
+                    t = newT;
+                    foundCollison = true;
+                    collisionPoint = trianglePlane.points[0] + f*edge;
+                }
+            }
+// p2 -> p3:
+            edge = trianglePlane.points[2]-trianglePlane.points[1];
+            baseToVertex = trianglePlane.points[1] - base;
+            edgeSquaredLength = edge.x * edge.x + edge.y * edge.y + edge.z * edge.z;
+            edgeDotVelocity = glm::dot(velocity, edge);
+            edgeDotBaseToVertex = glm::dot(baseToVertex, edge);
+            a = edgeSquaredLength*-velocitySquaredLength +
+                edgeDotVelocity*edgeDotVelocity;
+            b = edgeSquaredLength*(2 * glm::dot(baseToVertex, velocity))-2.0*edgeDotVelocity*edgeDotBaseToVertex;
+            c = edgeSquaredLength*(1-(baseToVertex.x * baseToVertex.x + baseToVertex.y * baseToVertex.y + baseToVertex.z * baseToVertex.z))+edgeDotBaseToVertex*edgeDotBaseToVertex;
+            if (getLowestRoot(a,b,c, t, &newT)) {
+                float f=(edgeDotVelocity*newT-edgeDotBaseToVertex)/
+                        edgeSquaredLength;
+                if (f >= 0.0 && f <= 1.0) {
+                    t = newT;
+                    foundCollison = true;
+                    collisionPoint = trianglePlane.points[1] + f*edge;
+                }
+            }
+// p3 -> p1:
+            edge = trianglePlane.points[0]-trianglePlane.points[2];
+            baseToVertex = trianglePlane.points[2] - base;
+            edgeSquaredLength = edge.x * edge.x + edge.y * edge.y + edge.z * edge.z;
+            edgeDotVelocity = glm::dot(velocity, edge);
+            edgeDotBaseToVertex = glm::dot(baseToVertex, edge);
+            a = edgeSquaredLength*-velocitySquaredLength + edgeDotVelocity*edgeDotVelocity;
+            b = edgeSquaredLength*(2*glm::dot(baseToVertex, velocity)) - 2.0*edgeDotVelocity*edgeDotBaseToVertex;
+            c = edgeSquaredLength*(1-(baseToVertex.x * baseToVertex.x + baseToVertex.y * baseToVertex.y + baseToVertex.z * baseToVertex.z)) + edgeDotBaseToVertex*edgeDotBaseToVertex;
+            if (getLowestRoot(a,b,c, t, &newT)) {
+                float f=(edgeDotVelocity*newT-edgeDotBaseToVertex)/
+                        edgeSquaredLength;
+                if (f >= 0.0 && f <= 1.0) {
+                    t = newT;
+                    foundCollison = true;
+                    collisionPoint = trianglePlane.points[2] + f*edge;
+                }
+            }
+        }
 // Set result:
         if (foundCollison) {
 // distance to collision: ’t’ is time of collision
@@ -199,7 +309,7 @@ bool Player::checkPointInTriangle(const glm::vec3& point, const glm::vec3& pa, c
     return (( in(z)& ~(in(x)|in(y)) ) & 0x80000000);
 }
 
-void Player::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity)
+void Player::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity> &entities)
 {
 // Do collision detection:
     move.startingPos = playerEntity->getPos();
@@ -209,7 +319,7 @@ void Player::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity)
     glm::vec3 eSpaceVelocity = move.movement / move.eRadius;
 // Iterate until we have our final position.
     collisionRecursionDepth = 0;
-    glm::vec3 finalPosition = collideWithWorld(eSpacePosition, eSpaceVelocity);
+    glm::vec3 finalPosition = collideWithWorld(eSpacePosition, eSpaceVelocity, entities);
 // Add gravity pull:
 // To remove gravity uncomment from here .....
 // Set the new R3 position (convert back from eSpace to R3
@@ -217,7 +327,7 @@ void Player::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity)
     move.movement = gravity;
     eSpaceVelocity = gravity / move.eRadius;
     collisionRecursionDepth = 0;
-    finalPosition = collideWithWorld(finalPosition, eSpaceVelocity);
+    finalPosition = collideWithWorld(finalPosition, eSpaceVelocity, entities);
     std::cout << "X: " << finalPosition.x << ", Y: " << finalPosition.y << ", Z: " << finalPosition.z << std::endl;
 // ... to here
 // Convert final result back to R3:
@@ -226,7 +336,7 @@ void Player::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity)
     playerEntity->setPos(finalPosition);
 }
 
-glm::vec3 Player::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel) {
+glm::vec3 Player::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, std::vector<Entity> &entities) {
 // All hard-coded distances in this function is
 // scaled to fit the setting above..
     float unitScale = unitsPerMeter / 100.0f;
@@ -240,7 +350,9 @@ glm::vec3 Player::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel) {
     move.eSpaceStartingPos = pos;
     move.foundCollision = false;
 // Check for collision (calls the collision routines)
-    calculateCollisions(terrain->getTerrainMesh().planes);
+    for(Entity entity : entities) {
+        calculateCollisions(entity.planes);
+    }
 
 // If no collision we just move along the velocity
     std::cout << "move.collision: " << move.foundCollision << std::endl;
@@ -282,6 +394,37 @@ glm::vec3 Player::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel) {
         return newBasePoint;
     }
     ++collisionRecursionDepth;
-    return collideWithWorld(newBasePoint, newVelocityVector);
+    return collideWithWorld(newBasePoint, newVelocityVector, entities);
+}
+
+bool Player::getLowestRoot(float a, float b, float c, float maxR, float* root) {
+// Check if a solution exists
+    float determinant = b * b - 4.0f * a * c;
+// If determinant is negative it means no solutions.
+    if (determinant < 0.0f) return false;
+// calculate the two roots: (if determinant == 0 then
+// x1==x2 but let’s disregard that slight optimization)
+    float sqrtD = sqrt(determinant);
+    float r1 = (-b - sqrtD) / (2 * a);
+    float r2 = (-b + sqrtD) / (2 * a);
+// Sort so x1 <= x2
+    if (r1 > r2) {
+        float temp = r2;
+        r2 = r1;
+        r1 = temp;
+    }
+// Get lowest root:
+    if (r1 > 0 && r1 < maxR) {
+        *root = r1;
+        return true;
+    }
+// It is possible that we want x2 - this can happen
+// if x1 < 0
+    if (r2 > 0 && r2 < maxR) {
+        *root = r2;
+        return true;
+    }
+// No (valid) solutions
+    return false;
 }
 

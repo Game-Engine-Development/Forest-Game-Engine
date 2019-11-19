@@ -216,6 +216,7 @@ CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Header
 CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Headers/Engine/Models/Mesh.h
 CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Headers/Engine/Models/Texture.h
 CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Headers/Engine/Shader.h
+CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Test/Plane.h
 CMakeFiles/opengl_game.dir/source/Engine/Models/Entity.cpp.obj: ../source/Engine/Models/Entity.cpp
 
 CMakeFiles/opengl_game.dir/source/Engine/Models/Mesh.cpp.obj: ../libraries/glad/include/KHR/khrplatform.h
@@ -829,7 +830,6 @@ CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../source/Head
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../source/Headers/Engine/Terrain/Terrain.h
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../source/Headers/Engine/Terrain/TerrainMesh.h
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../source/Headers/Engine/Terrain/TerrainTextureMap.h
-CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../source/Test/Plane.h
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/Terrain.cpp.obj: ../source/Engine/Terrain/Terrain.cpp
 
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../libraries/glad/include/KHR/khrplatform.h
@@ -933,7 +933,6 @@ CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../librari
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../libraries/glm/glm/vector_relational.hpp
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../source/Headers/Engine/Terrain/TerrainMesh.h
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../source/Headers/stb_image.h
-CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../source/Test/Plane.h
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainMesh.cpp.obj: ../source/Engine/Terrain/TerrainMesh.cpp
 
 CMakeFiles/opengl_game.dir/source/Engine/Terrain/TerrainTextureMap.cpp.obj: ../libraries/glad/include/KHR/khrplatform.h

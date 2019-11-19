@@ -1,12 +1,13 @@
 #include "Headers/Engine/Models/Entity.h"
 
-Entity::Entity(const Mesh &mesh, const std::vector<Texture> &textures, const glm::vec3 &position = glm::vec3(0,0,0),
+Entity::Entity(Mesh mesh, const std::vector<Texture> &textures, const glm::vec3 &position = glm::vec3(0, 0, 0),
                const glm::vec3 &rotation = glm::vec3(0,0,0), const glm::vec3& scale = glm::vec3(1,1,1)) {
     this->mesh = mesh;
     this->textures = textures;
     this->position = position;
     this->rotation = rotation;
     this->scale = scale;
+    moveEntityPlanes(mesh.getVertices());
 }
 
 Entity::~Entity() = default;
@@ -118,4 +119,12 @@ void Entity::limitRotation() {
 
 glm::vec3 Entity::getScale() {
     return scale;
+}
+
+void Entity::moveEntityPlanes(std::vector<glm::vec3> &vertices) {
+    planes.clear();
+    int i = 0;
+    while(i < vertices.size()) {
+        planes.push_back(Plane((vertices[i++] + position) * scale, (vertices[i++] + position) * scale, (vertices[i++] + position)  * scale));
+    }
 }
