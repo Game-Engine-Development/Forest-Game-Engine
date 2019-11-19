@@ -18,6 +18,7 @@ public:
     float getTerrainHeight(float worldX, float worldZ);
     glm::vec3 getTerrainNormal(float worldX, float worldZ);
     glm::vec3 getPos();
+    TerrainMesh &getTerrainMesh();
 private:
     TerrainTextureMap terrainTextureMap;
     TerrainMesh terrainMesh;

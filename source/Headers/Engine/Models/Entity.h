@@ -4,11 +4,12 @@
 #include "Headers/Engine/Shader.h"
 #include "Headers/Engine/Camera.h"
 #include <glm/gtc/type_ptr.hpp>
+#include <Test/Plane.h>
 
 class Entity {
 
 public:
-    Entity(const Mesh& mesh, const std::vector<Texture>& textures, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale);
+    Entity(Mesh mesh, const std::vector<Texture>& textures, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale);
 
     ~Entity();
 
@@ -26,13 +27,14 @@ public:
     void addScale(glm::vec3& scale);
     void addScale(float x, float y, float z);
     glm::mat4 createModelMatrix();
-
+    std::vector<Plane> planes;
 private:
     Mesh mesh;
     std::vector<Texture> textures;
     glm::vec3 rotation, position, scale;
     glm::mat4 modelMatrix;
     void limitRotation();
+    void moveEntityPlanes(std::vector<glm::vec3>& vertices);
 };
 
 

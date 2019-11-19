@@ -5,7 +5,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <string>
-#include <Test/Plane.h>
 
 class TerrainMesh {
 public:
@@ -20,16 +19,14 @@ public:
 
     unsigned int getNumOfVertices();
 
-    static constexpr float SIZE = 1600;
+    static constexpr float SIZE = 800;
     static constexpr float MAX_HEIGHT = 80;
     float getWidth();
     float getHeight(float x, float z);
     glm::vec3 calculateNormal(float x, float z);
-    std::vector<Plane> planes;
 private:
     unsigned char *data;
     int height;
-    void updateTerrainPlanesList(std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices);
     void loadTerrain(std::vector<glm::vec3>& verticies, std::vector<glm::vec3>& normals, std::vector<glm::vec2>& texCoords, std::vector<unsigned int>& indices, const char*);
     unsigned int VAO, VBO, EBO, texCoordBuffer, normalBuffer, numOfVertices;
 };

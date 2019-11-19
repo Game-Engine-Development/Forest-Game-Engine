@@ -71,6 +71,7 @@ int main()
     glEnable(GL_DEPTH_TEST);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+    std::vector<Entity> entities;
     Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
     Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
     Shader normalMappedShader("../source/Engine/Models/Shaders/normalMappedVertex.glsl", "../source/Engine/Models/Shaders/normalMappedFragment.glsl");
@@ -85,8 +86,10 @@ int main()
     containerTextures.push_back(containerMap);
     containerTextures.push_back(specularMap);
     Mesh containerMesh("../res/container.obj", true);
-    Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(-15, 10, -15), glm::vec3(0, 45, 0), glm::vec3(1,1,1));
+    Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(15, 10, 15), glm::vec3(0, 45, 0), glm::vec3(1,1,1));
     Entity container(containerMesh, containerTextures, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
+    entities.push_back(nonMappedContainer);
+    entities.push_back(container);
     containerTextures.clear();
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
     TerrainMesh terrainMesh(1, "../res/heightmap.png");
@@ -126,7 +129,9 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         skybox.render(skyboxShader, camera);
-        player.move();
+
+        player.movePlayer(entities);
+
         player.render(normalMappedShader, lightPos, lightColor);
         // draw our first triangle
         container.render(camera, normalMappedShader, lightPos, lightColor);
