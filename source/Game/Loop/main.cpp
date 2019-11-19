@@ -89,7 +89,7 @@ int main()
     Entity container(containerMesh, containerTextures, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
     containerTextures.clear();
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
-    TerrainMesh terrainMesh(1, "../res/heightmap2.png");
+    TerrainMesh terrainMesh(1, "../res/heightmap.png");
     Terrain terrain1(terrainMap, terrainMesh, 0, 0);
     Terrain terrain2(terrainMap, terrainMesh, -1, 0);
     Terrain terrain3(terrainMap, terrainMesh, -1, -1);

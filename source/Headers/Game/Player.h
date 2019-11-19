@@ -20,7 +20,7 @@ private:
     static constexpr float GRAVITY = -0.08f;
     std::vector<Plane> calculateCollidablePlanes(std::vector<Plane>& planes);
 public:
-    static constexpr float SPEED = 4.0f;
+    static constexpr float SPEED = 3.0f;
     static constexpr float LATERAL_SPEED = 2.0f;
     static constexpr float JUMP_POWER = 2.0f;
     Player();
