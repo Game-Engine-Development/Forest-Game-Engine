@@ -18,7 +18,7 @@ private:
     float jumpingSpeed = 0;
     bool inAir = false;
     glm::vec3 currentGravity = glm::vec3(0,0,0);
-    static constexpr glm::vec3 GRAVITY = glm::vec3(0, -0.2f, 0);
+    //static constexpr glm::vec3 GRAVITY = glm::vec3(0, -0.2f, 0);
     static constexpr float unitsPerMeter = 100;
     static constexpr float GRAVITY = -0.08f;
     std::vector<Plane> calculateCollidablePlanes(std::vector<Plane>& planes);

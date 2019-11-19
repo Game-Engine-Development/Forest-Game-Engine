@@ -7,7 +7,7 @@ Entity::Entity(Mesh mesh, const std::vector<Texture> &textures, const glm::vec3 
     this->position = position;
     this->rotation = rotation;
     this->scale = scale;
-    moveEntityPlanes(mesh.getVertices());
+    //moveEntityPlanes(mesh.getVertices());
 }
 
 Entity::~Entity() = default;

@@ -21,7 +21,7 @@ void Player::setHeight(){
             glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y + jumpingSpeed, playerEntity->getPos().z);
             playerEntity->setPos(newPos);
         }
-        //jumpingSpeed += GRAVITY;
+        jumpingSpeed += GRAVITY;
     } else if(playerEntity->getPos().y > 1 + terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z)) {
         inAir = true;
     } else {

@@ -86,8 +86,8 @@ int main()
     containerTextures.push_back(containerMap);
     containerTextures.push_back(specularMap);
     Mesh containerMesh("../res/container.obj", true);
-    Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(15, 10, 15), glm::vec3(0, 45, 0), glm::vec3(1,1,1));
-    Entity container(containerMesh, containerTextures, glm::vec3(0,10,-15), glm::vec3(0,45,0), glm::vec3(1,1,1));
+    Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(0, 10, 0), glm::vec3(0, 0, 0), glm::vec3(1,1,1));
+    Entity container(containerMesh, containerTextures, glm::vec3(0,10,10), glm::vec3(0,0,0), glm::vec3(1,1,1));
     entities.push_back(nonMappedContainer);
     entities.push_back(container);
     containerTextures.clear();

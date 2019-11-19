@@ -19,7 +19,7 @@ public:
 
     unsigned int getNumOfVertices();
 
-    static constexpr float SIZE = 800;
+    static constexpr float SIZE = 1600;
     static constexpr float MAX_HEIGHT = 80;
     float getWidth();
     float getHeight(float x, float z);
