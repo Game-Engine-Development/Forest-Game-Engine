@@ -21,7 +21,7 @@ void Player::setHeight(){
             glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y + jumpingSpeed, playerEntity->getPos().z);
             playerEntity->setPos(newPos);
         }
-        jumpingSpeed += GRAVITY;
+        jumpingSpeed += GRAVITY.y;
     } else if(playerEntity->getPos().y > 1 + terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z)) {
         inAir = true;
     } else {
@@ -52,6 +52,7 @@ void Player::movePlayer(std::vector<Entity> &entities) {
             currentHeight = height;
         }
     }
+    collideAndSlide(finalMove, GRAVITY, entities);
     playerEntity->translate(finalMove);
     setHeight();
     camera->Position = playerEntity->getPos();
@@ -357,7 +358,7 @@ glm::vec3 Player::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, s
     move.eSpaceStartingPos = pos;
     move.foundCollision = false;
 // Check for collision (calls the collision routines)
-    for(Entity entity : entities) {
+    for(Entity& entity : entities) {
         calculateCollisions(entity.planes);
     }
 
