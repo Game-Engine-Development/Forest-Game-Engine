@@ -7,6 +7,7 @@ Entity::Entity(Mesh &mesh, const std::vector<Texture> &textures, const glm::vec3
     this->position = position;
     this->rotation = rotation;
     this->scale = scale;
+    createModelMatrix();
     moveEntityPlanes(mesh.getVertices());
 }
 
@@ -25,7 +26,7 @@ void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::ve
 
 
     int modelLoc = glGetUniformLocation(shader.ID, "model");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(createModelMatrix()));
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
     int lightLoc = glGetUniformLocation(shader.ID, "lightPos");
     glUniform3fv(lightLoc, 1, glm::value_ptr(lightPos));
@@ -64,36 +65,44 @@ glm::vec3 Entity::getRotation() {
 
 void Entity::setRotation(glm::vec3& newRotation) {
     rotation = newRotation;
+    createModelMatrix();
 }
 
 void Entity::setPos(glm::vec3& newPos) {
     position = newPos;
+    createModelMatrix();
 }
 
 void Entity::rotate(glm::vec3& rotation) {
     this->rotation += rotation;
     limitRotation();
+    createModelMatrix();
 }
 
 void Entity::rotate(float x, float y, float z) {
     rotation += glm::vec3(x,y,z);
     limitRotation();
+    createModelMatrix();
 }
 
 void Entity::translate(glm::vec3 &translation) {
     position += translation;
+    createModelMatrix();
 }
 
 void Entity::translate(float x, float y, float z) {
     position += glm::vec3(x,y,z);
+    createModelMatrix();
 }
 
 void Entity::addScale(glm::vec3 &scale) {
     this->scale += scale;
+    createModelMatrix();
 }
 
 void Entity::addScale(float x, float y, float z) {
     this->scale += glm::vec3(x,y,z);
+    createModelMatrix();
 }
 
 void Entity::limitRotation() {
@@ -124,7 +133,11 @@ glm::vec3 Entity::getScale() {
 void Entity::moveEntityPlanes(std::vector<glm::vec3> &vertices) {
     planes.clear();
     int i = 0;
+    glm::vec3 point1, point2, point3;
     while(i < vertices.size()) {
-        planes.push_back(Plane((vertices[i++] + position) * scale, (vertices[i++] + position) * scale, (vertices[i++] + position)  * scale));
+        point1 = modelMatrix * glm::vec4(vertices[i++], 1);
+        point2 = modelMatrix * glm::vec4(vertices[i++], 1);
+        point3 = modelMatrix * glm::vec4(vertices[i++], 1);
+        planes.push_back(Plane(glm::vec3(point1.x, point1.y, point1.z), glm::vec3(point2.x, point2.y, point2.z), glm::vec3(point3.x, point3.y, point3.z)));
     }
 }
