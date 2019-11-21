@@ -53,7 +53,6 @@ void Player::movePlayer(std::vector<Entity*> &entities) {
         }
     }
     collideAndSlide(finalMove, GRAVITY, entities);
-    //playerEntity->translate(finalMove);
     setHeight();
     camera->Position = playerEntity->getPos();
     camera->setYPos(playerEntity->getPos().y + 1.5f);
@@ -278,13 +277,13 @@ void Player::checkTriangle(const Plane &trianglePlane) {
 //shady
 
         if (foundCollison) {
+            std::cout << "Collision Found" << std::endl;
 // distance to collision: ’t’ is time of collision
             float distToCollision = t * move.eSpaceMovement.length();
 // Does this triangle qualify for the closest hit?
 // it does if it’s the first hit or the closest
             if (!move.foundCollision || distToCollision < move.nearestDistance) {
 // Collision information nessesary for sliding
-                std::cout << "Collision Found" << std::endl;
                 move.nearestDistance = distToCollision;
                 move.intersectionPoint = collisionPoint;
                 move.foundCollision = true;
@@ -341,7 +340,6 @@ void Player::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std
     eSpaceVelocity = gravity / move.eRadius;
     collisionRecursionDepth = 0;
     finalPosition = collideWithWorld(finalPosition, eSpaceVelocity, entities);
-    std::cout << "X: " << finalPosition.x << ", Y: " << finalPosition.y << ", Z: " << finalPosition.z << std::endl;
 // ... to here
 // Convert final result back to R3:
     finalPosition *= move.eRadius;
@@ -368,9 +366,7 @@ glm::vec3 Player::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, s
     }
 
 // If no collision we just move along the velocity
-    std::cout << "move.collision: " << move.foundCollision << std::endl;
     if (!move.foundCollision) {
-        std::cout << "no collision found" << std::endl;
         return pos + vel;
     }
 // *** Collision occured ***
