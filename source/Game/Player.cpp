@@ -44,8 +44,8 @@ void Player::movePlayer(std::vector<Entity*> &entities) {
     float dist = std::sqrt(finalMove.x*finalMove.x + finalMove.z*finalMove.z);
     for(int i = 0; i < dist; ++i) {
         move = glm::normalize(finalMove) * (float)i;
-        float height = 1 + terrain->getTerrainHeight(playerEntity->getPos().x + move.x, playerEntity->getPos().z + move.z);
-        if(height > currentHeight + 1) {
+        float height = playerEntity->getScale().y + terrain->getTerrainHeight(playerEntity->getPos().x + move.x, playerEntity->getPos().z + move.z);
+        if(height > currentHeight + playerEntity->getScale().y) {
             finalMove = glm::normalize(finalMove) * (float)(i - 1);
             break;
         } else {
@@ -55,7 +55,7 @@ void Player::movePlayer(std::vector<Entity*> &entities) {
     collideAndSlide(finalMove, GRAVITY, entities);
     setHeight();
     camera->Position = playerEntity->getPos();
-    camera->setYPos(playerEntity->getPos().y + 1.5f);
+    camera->setYPos(playerEntity->getPos().y + playerEntity->getScale().y + 0.5f);
 }
 
 void Player::render(Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor) {
@@ -84,9 +84,9 @@ void Player::jump() {
 }
 
 void Player::calculateCollisions(std::vector<Plane> &planes) {
-    std::vector nearbyPlanes = calculateCollidablePlanes(planes);
-    std::cout << nearbyPlanes.size() << std::endl;
-    for(const Plane& plane : nearbyPlanes) {
+    //std::vector nearbyPlanes = calculateCollidablePlanes(planes);
+    //std::cout << "size: " << nearbyPlanes.size() << std::endl;
+    for(const Plane& plane : planes) {
         checkTriangle(plane);
     }
 }
@@ -95,7 +95,7 @@ void Player::checkTriangle(const Plane &trianglePlane) {
 // Is triangle front-facing to the velocity vector?
 // We only check front-facing triangles
 // (your choice of course)
-    if (trianglePlane.isFrontFacingTo(move.eSpaceMovementNormalized)) {
+    if (!trianglePlane.isFrontFacingTo(move.eSpaceMovementNormalized)) {
 // Get interval of plane intersection:
         double t0, t1;
         bool embeddedInPlane = false;
@@ -290,7 +290,7 @@ void Player::checkTriangle(const Plane &trianglePlane) {
 std::vector<Plane> Player::calculateCollidablePlanes(std::vector<Plane> &planes) {
     std::vector<Plane> nearbyPlanes;
     for(const Plane& plane : planes) {
-        if(plane.origin.x < playerEntity->getPos().x + 5 && plane.origin.x > playerEntity->getPos().x - 5 && plane.origin.z < playerEntity->getPos().z + 5 && plane.origin.z > playerEntity->getPos().z - 5) {
+        if(plane.origin.x < playerEntity->getPos().x + 10 && plane.origin.x > playerEntity->getPos().x - 10 && plane.origin.y < playerEntity->getPos().y + 10 && plane.origin.y > playerEntity->getPos().y - 10 && plane.origin.z < playerEntity->getPos().z + 10 && plane.origin.z > playerEntity->getPos().z - 10) {
             nearbyPlanes.push_back(plane);
         }
     }
