@@ -1,13 +1,13 @@
 #include "Headers/Engine/Models/Entity.h"
 
-Entity::Entity(Mesh mesh, const std::vector<Texture> &textures, const glm::vec3 &position = glm::vec3(0, 0, 0),
+Entity::Entity(Mesh &mesh, const std::vector<Texture> &textures, const glm::vec3 &position = glm::vec3(0, 0, 0),
                const glm::vec3 &rotation = glm::vec3(0,0,0), const glm::vec3& scale = glm::vec3(1,1,1)) {
     this->mesh = mesh;
     this->textures = textures;
     this->position = position;
     this->rotation = rotation;
     this->scale = scale;
-    //moveEntityPlanes(mesh.getVertices());
+    moveEntityPlanes(mesh.getVertices());
 }
 
 Entity::~Entity() = default;

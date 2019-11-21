@@ -30,7 +30,7 @@ void Player::setHeight(){
     }
 }
 
-void Player::movePlayer(std::vector<Entity> &entities) {
+void Player::movePlayer(std::vector<Entity*> &entities) {
     glm::vec3 newRotation(0, -camera->Yaw, 0);
     getPlayerEntity().setRotation(newRotation);
     glm::vec3 moveDir = camera->Front;
@@ -317,7 +317,7 @@ bool Player::checkPointInTriangle(const glm::vec3& point, const glm::vec3& pa, c
     return (( in(z)& ~(in(x)|in(y)) ) & 0x80000000);
 }
 
-void Player::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity> &entities)
+void Player::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity*> &entities)
 {
 // Do collision detection:
     move.startingPos = playerEntity->getPos();
@@ -344,7 +344,7 @@ void Player::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std
     playerEntity->setPos(finalPosition);
 }
 
-glm::vec3 Player::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, std::vector<Entity> &entities) {
+glm::vec3 Player::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, std::vector<Entity*> &entities) {
 // All hard-coded distances in this function is
 // scaled to fit the setting above..
     float unitScale = unitsPerMeter / 100.0f;
@@ -358,8 +358,8 @@ glm::vec3 Player::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, s
     move.eSpaceStartingPos = pos;
     move.foundCollision = false;
 // Check for collision (calls the collision routines)
-    for(Entity& entity : entities) {
-        calculateCollisions(entity.planes);
+    for(Entity *entity : entities) {
+        calculateCollisions(entity->planes);
     }
 
 // If no collision we just move along the velocity

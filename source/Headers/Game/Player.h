@@ -47,8 +47,8 @@ private:
     int collisionRecursionDepth = 0;
     Movement move;
     void checkTriangle(const Plane &trianglePlane);
-    void collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity>& entities);
-    glm::vec3 collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, std::vector<Entity>& entities);
+    void collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity*>& entities);
+    glm::vec3 collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, std::vector<Entity*>& entities);
 public:
     static constexpr float SPEED = 2.0f;
     static constexpr float LATERAL_SPEED = 1.5f;
@@ -56,7 +56,7 @@ public:
     Player();
     explicit Player(Terrain *terrain1, Camera *camera1, Entity *container1);
     void setHeight();
-    void movePlayer(std::vector<Entity>& entities);
+    void movePlayer(std::vector<Entity*>& entities);
     void render(Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
     void calculateCollisions(std::vector<Plane>& planes);
     void setSpeed(float speed);

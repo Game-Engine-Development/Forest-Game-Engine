@@ -71,7 +71,7 @@ int main()
     glEnable(GL_DEPTH_TEST);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    std::vector<Entity> entities;
+    std::vector<Entity*> entities;
     Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
     Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
     Shader normalMappedShader("../source/Engine/Models/Shaders/normalMappedVertex.glsl", "../source/Engine/Models/Shaders/normalMappedFragment.glsl");
@@ -88,8 +88,8 @@ int main()
     Mesh containerMesh("../res/container.obj", true);
     Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(0, 10, 0), glm::vec3(0, 0, 0), glm::vec3(1,1,1));
     Entity container(containerMesh, containerTextures, glm::vec3(0,10,10), glm::vec3(0,0,0), glm::vec3(1,1,1));
-    entities.push_back(nonMappedContainer);
-    entities.push_back(container);
+    entities.push_back(&nonMappedContainer);
+    entities.push_back(&container);
     containerTextures.clear();
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
     TerrainMesh terrainMesh(1, "../res/heightmap.png");
