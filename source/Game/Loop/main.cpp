@@ -112,7 +112,7 @@ int main()
     glm::vec3 lightColor(0.7, 0.7, 0.7);
 
     // uncomment this call to draw in wireframe polygons.
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     player = Player(&terrain1, &camera, &nonMappedContainer);
 
