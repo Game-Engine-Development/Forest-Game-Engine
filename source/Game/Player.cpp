@@ -53,7 +53,7 @@ void Player::movePlayer(std::vector<Entity*> &entities) {
         }
     }
     collideAndSlide(finalMove, GRAVITY, entities);
-    playerEntity->translate(finalMove);
+    //playerEntity->translate(finalMove);
     setHeight();
     camera->Position = playerEntity->getPos();
     camera->setYPos(playerEntity->getPos().y + 1.5f);
