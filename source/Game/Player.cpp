@@ -86,7 +86,7 @@ void Player::jump() {
 
 void Player::calculateCollisions(std::vector<Plane> &planes) {
     std::vector nearbyPlanes = calculateCollidablePlanes(planes);
-    std::cout << nearbyPlanes.size() << std::endl;
+    std::cout << "nearbyPlanes.size(): " << nearbyPlanes.size() << std::endl;
     for(const Plane& plane : nearbyPlanes) {
         checkTriangle(plane);
     }
@@ -272,6 +272,11 @@ void Player::checkTriangle(const Plane &trianglePlane) {
             }
         }
 // Set result:
+
+
+
+//shady
+
         if (foundCollison) {
 // distance to collision: ’t’ is time of collision
             float distToCollision = t * move.eSpaceMovement.length();

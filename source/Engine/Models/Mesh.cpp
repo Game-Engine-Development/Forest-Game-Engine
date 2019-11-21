@@ -84,7 +84,7 @@ void Mesh::loadOBJ(const char* filename, std::vector<glm::vec3>& finalVertices, 
                 unsigned int vertexIndex[3], textureIndex[3], normalIndex[3];
                 int matches = std::fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &textureIndex[0], &normalIndex[0], &vertexIndex[1], &textureIndex[1], &normalIndex[1], &vertexIndex[2], &textureIndex[2], &normalIndex[2]);
                 if(matches != 9){
-                    std::cout << "Failed to load Model data at: " << filename << std::endl;
+                    std::cerr << "Failed to load Model data at: " << filename << std::endl;
                     break;
                 }
                 vertexIndices.push_back(vertexIndex[0]);
@@ -112,7 +112,7 @@ void Mesh::loadOBJ(const char* filename, std::vector<glm::vec3>& finalVertices, 
             finalNormals.push_back(normal);
         }
     } else {
-        std::cout << "Failed to open " << filename << " model file!" << std::endl;
+        std::cerr << "Failed to open " << filename << " model file!" << std::endl;
     }
 }
 

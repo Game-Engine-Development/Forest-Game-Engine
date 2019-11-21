@@ -20,7 +20,7 @@ CubeMapTexture::CubeMapTexture(std::vector<const char *>& files, int textureUnit
             stbi_image_free(data);
         }
         else {
-            std::cout << "Failed to load cubemap!" << std::endl;
+            std::cerr << "Failed to load cubemap!" << std::endl;
             stbi_image_free(data);
         }
     }

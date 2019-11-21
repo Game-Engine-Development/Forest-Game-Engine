@@ -29,7 +29,7 @@ Texture::Texture(const char* filename, int type, int unit){
         }
         glGenerateMipmap(GL_TEXTURE_2D);
     } else {
-        std::cout << "Failed to load " << filename << " texture!" << std::endl;
+        std::cerr << "Failed to load " << filename << " texture!" << std::endl;
     }
     stbi_image_free(data);
     glBindTexture(GL_TEXTURE_2D, 0);
