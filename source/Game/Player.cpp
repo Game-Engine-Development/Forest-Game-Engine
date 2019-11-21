@@ -153,7 +153,6 @@ void Player::checkTriangle(const Plane &trianglePlane) {
 // as this is when the sphere rests on the front side
 // of the triangle plane. Note, this can only happen if
 // the sphere is not embedded in the triangle plane.
-        std::cout << "embeddedInPlane: " << !embeddedInPlane << std::endl;
         if (!embeddedInPlane) {
             glm::vec3 planeIntersectionPoint = (move.eSpaceStartingPos - trianglePlane.normal + (float)t0 * move.eSpaceMovement);
             if (checkPointInTriangle(planeIntersectionPoint, trianglePlane.points[0], trianglePlane.points[1], trianglePlane.points[2])) {
@@ -162,7 +161,6 @@ void Player::checkTriangle(const Plane &trianglePlane) {
                 collisionPoint = planeIntersectionPoint;
             }
         }
-        std::cout << "foundCollision: " << foundCollison << std::endl;
         // if we haven’t found a collision already we’ll have to
 // sweep sphere against points and edges of the triangle.
 // Note: A collision inside the triangle (the check above)
@@ -271,8 +269,12 @@ void Player::checkTriangle(const Plane &trianglePlane) {
             }
         }
 // Set result:
+
+
+
+//shady
+
         if (foundCollison) {
-            std::cout << "Collision Found" << std::endl;
 // distance to collision: ’t’ is time of collision
             float distToCollision = t * move.eSpaceMovement.length();
 // Does this triangle qualify for the closest hit?
