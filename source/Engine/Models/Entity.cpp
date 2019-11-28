@@ -66,43 +66,51 @@ glm::vec3 Entity::getRotation() {
 void Entity::setRotation(glm::vec3& newRotation) {
     rotation = newRotation;
     createModelMatrix();
+    moveEntityPlanes(mesh.getVertices());
 }
 
 void Entity::setPos(glm::vec3& newPos) {
     position = newPos;
     createModelMatrix();
+    moveEntityPlanes(mesh.getVertices());
 }
 
 void Entity::rotate(glm::vec3& rotation) {
     this->rotation += rotation;
     limitRotation();
     createModelMatrix();
+    moveEntityPlanes(mesh.getVertices());
 }
 
 void Entity::rotate(float x, float y, float z) {
     rotation += glm::vec3(x,y,z);
     limitRotation();
     createModelMatrix();
+    moveEntityPlanes(mesh.getVertices());
 }
 
 void Entity::translate(glm::vec3 &translation) {
     position += translation;
     createModelMatrix();
+    moveEntityPlanes(mesh.getVertices());
 }
 
 void Entity::translate(float x, float y, float z) {
     position += glm::vec3(x,y,z);
     createModelMatrix();
+    moveEntityPlanes(mesh.getVertices());
 }
 
 void Entity::addScale(glm::vec3 &scale) {
     this->scale += scale;
     createModelMatrix();
+    moveEntityPlanes(mesh.getVertices());
 }
 
 void Entity::addScale(float x, float y, float z) {
     this->scale += glm::vec3(x,y,z);
     createModelMatrix();
+    moveEntityPlanes(mesh.getVertices());
 }
 
 void Entity::limitRotation() {

@@ -86,9 +86,12 @@ int main()
     containerTextures.push_back(containerMap);
     containerTextures.push_back(specularMap);
     Mesh containerMesh("../res/container.obj", true);
-    Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(0, 10, 0), glm::vec3(0, 0, 0), glm::vec3(1,2,1));
+    Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(0, 10, 0), glm::vec3(0, 0, 0), glm::vec3(1,1,1));
     Entity container(containerMesh, containerTextures, glm::vec3(0,10,100), glm::vec3(0,0,0), glm::vec3(10,10,10));
+    Entity container2(container);
+    container2.translate(0, 20, 25);
     entities.push_back(&container);
+    entities.push_back(&container2);
     containerTextures.clear();
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
     TerrainMesh terrainMesh(1, "../res/heightmap.png");
@@ -133,7 +136,9 @@ int main()
 
         player.render(normalMappedShader, lightPos, lightColor);
         // draw our first triangle
-        container.render(camera, normalMappedShader, lightPos, lightColor);
+        for(Entity* entity : entities) {
+            entity->render(camera, normalMappedShader, lightPos, lightColor);
+        }
         terrain1.render(camera, terrainShader, lightPos, lightColor);
         terrain2.render(camera, terrainShader, lightPos, lightColor);
         terrain3.render(camera, terrainShader, lightPos, lightColor);

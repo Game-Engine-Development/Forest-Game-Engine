@@ -52,8 +52,16 @@ void Player::movePlayer(std::vector<Entity*> &entities) {
             currentHeight = height;
         }
     }
-    collideAndSlide(finalMove, GRAVITY, entities);
-    setHeight();
+    collideAndSlide(finalMove, currentGravity, entities);
+    if(playerEntity->getPos().y <= terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z) + 1) {
+        glm::vec3 newPos(playerEntity->getPos().x, terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z) + 1, playerEntity->getPos().z);
+        playerEntity->setPos(newPos);
+        currentGravity.y = 0;
+        inAir = false;
+    } else {
+        currentGravity.y += GRAVITY.y;
+    }
+    //setHeight();
     camera->Position = playerEntity->getPos();
     camera->setYPos(playerEntity->getPos().y + playerEntity->getScale().y + 0.5f);
 }
@@ -79,7 +87,8 @@ bool Player::isInAir() {
 }
 
 void Player::jump() {
-    jumpingSpeed = JUMP_POWER;
+    //jumpingSpeed = JUMP_POWER;
+    currentGravity.y = JUMP_POWER;
     inAir = true;
 }
 
@@ -332,12 +341,19 @@ void Player::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std
 // Add gravity pull:
 // To remove gravity uncomment from here .....
 // Set the new R3 position (convert back from eSpace to R3
+    float startingPos = finalPosition.y;
     move.startingPos = finalPosition * move.eRadius;
     move.movement = gravity;
     eSpaceVelocity = gravity / move.eRadius;
     collisionRecursionDepth = 0;
     finalPosition = collideWithWorld(finalPosition, eSpaceVelocity, entities);
 // ... to here
+    if(finalPosition.y <= startingPos - gravity.y && move.foundCollision) {
+        currentGravity.y = 0;
+        inAir = false;
+    } else if(finalPosition.y >= startingPos - gravity.y && move.foundCollision) {
+        currentGravity.y = 0;
+    }
 // Convert final result back to R3:
     finalPosition *= move.eRadius;
 // Move the entity (application specific function)
