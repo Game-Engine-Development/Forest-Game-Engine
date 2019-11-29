@@ -2,8 +2,7 @@
 
 Player::Player() = default;
 
-Player::Player(Terrain *terrain1, Camera *camera1, Entity *container1) {
-    terrain = terrain1;
+Player::Player(Camera *camera1, Entity *container1) {
     camera = camera1;
     playerEntity = container1;
     move.eRadius = playerEntity->getScale();
@@ -11,7 +10,7 @@ Player::Player(Terrain *terrain1, Camera *camera1, Entity *container1) {
 
 void Player::setHeight(){
     if(inAir) {
-        float terrainHeight = 1 + terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z);
+        float terrainHeight = 1 + currentTerrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z);
         if(playerEntity->getPos().y + jumpingSpeed <= terrainHeight) {
             inAir = false;
             jumpingSpeed = 0;
@@ -22,15 +21,16 @@ void Player::setHeight(){
             playerEntity->setPos(newPos);
         }
         jumpingSpeed += GRAVITY.y;
-    } else if(playerEntity->getPos().y > 1 + terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z)) {
+    } else if(playerEntity->getPos().y > 1 + currentTerrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z)) {
         inAir = true;
     } else {
-        glm::vec3 terrainHeight(playerEntity->getPos().x, 1 + terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z), playerEntity->getPos().z);
+        glm::vec3 terrainHeight(playerEntity->getPos().x, 1 + currentTerrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z), playerEntity->getPos().z);
         playerEntity->setPos(terrainHeight);
     }
 }
 
-void Player::movePlayer(std::vector<Entity*> &entities) {
+void Player::movePlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains) {
+    setCurrentTerrain(terrains);
     glm::vec3 newRotation(0, -camera->Yaw, 0);
     getPlayerEntity().setRotation(newRotation);
     glm::vec3 moveDir = camera->Front;
@@ -40,12 +40,22 @@ void Player::movePlayer(std::vector<Entity*> &entities) {
     glm::vec3 lateralMove = lateralSpeed * camera->Right;
     glm::vec3 finalMove = forwardMove + lateralMove;
     glm::vec3 move;
+    bool cantGetOver = false;
+    float height;
     float currentHeight = playerEntity->getPos().y;
     float dist = std::sqrt(finalMove.x*finalMove.x + finalMove.z*finalMove.z);
+    for(int i = 0; i < dist * 3; ++i) {
+        move = glm::normalize(finalMove) * (float)i;
+        height = playerEntity->getScale().y + currentTerrain->getTerrainHeight(playerEntity->getPos().x + move.x, playerEntity->getPos().z + move.z);
+        if(height >= playerEntity->getPos().y + simGravity(i) - 1) {
+            cantGetOver = true;
+            break;
+        }
+    }
     for(int i = 0; i < dist; ++i) {
         move = glm::normalize(finalMove) * (float)i;
-        float height = playerEntity->getScale().y + terrain->getTerrainHeight(playerEntity->getPos().x + move.x, playerEntity->getPos().z + move.z);
-        if(height > currentHeight + playerEntity->getScale().y) {
+        height = playerEntity->getScale().y + currentTerrain->getTerrainHeight(playerEntity->getPos().x + move.x, playerEntity->getPos().z + move.z);
+        if(height > currentHeight + playerEntity->getScale().y && cantGetOver) {
             finalMove = glm::normalize(finalMove) * (float)(i - 1);
             break;
         } else {
@@ -53,8 +63,8 @@ void Player::movePlayer(std::vector<Entity*> &entities) {
         }
     }
     collideAndSlide(finalMove, currentGravity, entities);
-    if(playerEntity->getPos().y <= terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z) + 1) {
-        glm::vec3 newPos(playerEntity->getPos().x, terrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z) + 1, playerEntity->getPos().z);
+    if(playerEntity->getPos().y <= currentTerrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z) + 1) {
+        glm::vec3 newPos(playerEntity->getPos().x, currentTerrain->getTerrainHeight(playerEntity->getPos().x, playerEntity->getPos().z) + 1, playerEntity->getPos().z);
         playerEntity->setPos(newPos);
         currentGravity.y = 0;
         inAir = false;
@@ -64,6 +74,15 @@ void Player::movePlayer(std::vector<Entity*> &entities) {
     //setHeight();
     camera->Position = playerEntity->getPos();
     camera->setYPos(playerEntity->getPos().y + playerEntity->getScale().y + 0.5f);
+}
+
+void Player::setCurrentTerrain(std::vector<Terrain *> &terrains) {
+    for(Terrain* terrain : terrains) {
+        if(playerEntity->getPos().x >= terrain->getPos().x && playerEntity->getPos().x <= terrain->getPos().x + TerrainMesh::SIZE && playerEntity->getPos().z >= terrain->getPos().z && playerEntity->getPos().z <= terrain->getPos().z + TerrainMesh::SIZE) {
+            currentTerrain = terrain;
+            break;
+        }
+    }
 }
 
 void Player::render(Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor) {
@@ -90,6 +109,10 @@ void Player::jump() {
     //jumpingSpeed = JUMP_POWER;
     currentGravity.y = JUMP_POWER;
     inAir = true;
+}
+
+float Player::simGravity(float tics) {
+    return currentGravity.y + (GRAVITY.y * tics);
 }
 
 void Player::calculateCollisions(std::vector<Plane> &planes) {

@@ -72,6 +72,7 @@ int main()
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     std::vector<Entity*> entities;
+    std::vector<Terrain*> terrains;
     Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
     Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
     Shader normalMappedShader("../source/Engine/Models/Shaders/normalMappedVertex.glsl", "../source/Engine/Models/Shaders/normalMappedFragment.glsl");
@@ -87,18 +88,32 @@ int main()
     containerTextures.push_back(specularMap);
     Mesh containerMesh("../res/container.obj", true);
     Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(0, 10, 0), glm::vec3(0, 0, 0), glm::vec3(1,1,1));
-    Entity container(containerMesh, containerTextures, glm::vec3(0,10,100), glm::vec3(0,0,0), glm::vec3(10,10,10));
+    Entity container(containerMesh, containerTextures, glm::vec3(-250,10,100), glm::vec3(0,0,0), glm::vec3(10,10,10));
     Entity container2(container);
     container2.translate(0, 20, 25);
+    Entity container3(container2);
+    container3.translate(0, 20, 25);
+    Entity container4(container3);
+    container4.translate(0, 20, 25);
+    Entity container5(container4);
+    container5.translate(0, 20, 25);
     entities.push_back(&container);
     entities.push_back(&container2);
+    entities.push_back(&container3);
+    entities.push_back(&container4);
+    entities.push_back(&container5);
     containerTextures.clear();
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
     TerrainMesh terrainMesh(1, "../res/heightmap.png");
-    Terrain terrain1(terrainMap, terrainMesh, 0, 0);
-    Terrain terrain2(terrainMap, terrainMesh, -1, 0);
+    TerrainMesh terrainMesh1(1, "../res/heightmap2.png");
+    Terrain terrain1(terrainMap, terrainMesh1, 0, 0);
+    Terrain terrain2(terrainMap, terrainMesh1, -1, 0);
     Terrain terrain3(terrainMap, terrainMesh, -1, -1);
     Terrain terrain4(terrainMap, terrainMesh, 0, -1);
+    terrains.push_back(&terrain1);
+    terrains.push_back(&terrain2);
+    terrains.push_back(&terrain3);
+    terrains.push_back(&terrain4);
     std::vector<const char*> textures
     {
         "../res/right.jpg",
@@ -116,7 +131,7 @@ int main()
     // uncomment this call to draw in wireframe polygons.
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    player = Player(&terrain1, &camera, &nonMappedContainer);
+    player = Player(&camera, &nonMappedContainer);
 
     // render Loop
     // -----------
@@ -132,17 +147,16 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         skybox.render(skyboxShader, camera);
 
-        player.movePlayer(entities);
+        player.movePlayer(entities, terrains);
 
         player.render(normalMappedShader, lightPos, lightColor);
         // draw our first triangle
         for(Entity* entity : entities) {
             entity->render(camera, normalMappedShader, lightPos, lightColor);
         }
-        terrain1.render(camera, terrainShader, lightPos, lightColor);
-        terrain2.render(camera, terrainShader, lightPos, lightColor);
-        terrain3.render(camera, terrainShader, lightPos, lightColor);
-        terrain4.render(camera, terrainShader, lightPos, lightColor);
+        for(Terrain* terrain : terrains) {
+            terrain->render(camera, terrainShader, lightPos, lightColor);
+        }
 
         //player.calculateCollisions(insertPlanesListHere);
 

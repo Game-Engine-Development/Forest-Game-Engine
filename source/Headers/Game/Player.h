@@ -10,7 +10,7 @@
 
 class Player {
 private:
-    Terrain *terrain;
+    Terrain *currentTerrain;
     Camera *camera;
     Entity *playerEntity;
     float currentSpeed = 0;
@@ -49,19 +49,22 @@ private:
     void checkTriangle(const Plane &trianglePlane);
     void collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity*>& entities);
     glm::vec3 collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, std::vector<Entity*>& entities);
+    void setCurrentTerrain(std::vector<Terrain*>& terrains);
+    float simGravity(float tics);
 public:
     static constexpr float SPEED = 2.0f;
     static constexpr float LATERAL_SPEED = 1.5f;
     static constexpr float JUMP_POWER = 2.0f;
     Player();
-    explicit Player(Terrain *terrain1, Camera *camera1, Entity *container1);
+    explicit Player(Camera *camera1, Entity *container1);
     void setHeight();
-    void movePlayer(std::vector<Entity*>& entities);
+    void movePlayer(std::vector<Entity*>& entities, std::vector<Terrain*>& terrains);
     void render(Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
     void calculateCollisions(std::vector<Plane>& planes);
     void setSpeed(float speed);
     void setLateralSpeed(float speed);
     Entity& getPlayerEntity();
     bool isInAir();
+    bool isAbleToJump();
     void jump();
 };
