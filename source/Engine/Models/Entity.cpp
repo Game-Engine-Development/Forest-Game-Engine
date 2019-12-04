@@ -23,8 +23,6 @@ void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::ve
 
     camera.setMatrices(shader);
 
-
-
     int modelLoc = glGetUniformLocation(shader.ID, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
@@ -39,7 +37,7 @@ void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::ve
 
     glDrawArrays(GL_TRIANGLES, 0, mesh.getNumOfVertices());
 
-    for (Texture texture : textures) {
+    for (Texture &texture : textures) {
         texture.unbind();
     }
     mesh.unbindVAO();
