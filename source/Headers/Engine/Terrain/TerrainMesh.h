@@ -10,7 +10,7 @@ class TerrainMesh {
 public:
 
     TerrainMesh();
-    explicit TerrainMesh(int type, const char* filename);
+    explicit TerrainMesh(const char* filename);
     ~TerrainMesh();
 
     void bindVAO();
