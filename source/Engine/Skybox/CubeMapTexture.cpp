@@ -1,7 +1,3 @@
-//
-// Created by aekstrand7207 on 10/24/2019.
-//
-
 #include "Headers/Engine/Skybox/CubeMapTexture.h"
 #include <Headers/stb_image.h>
 

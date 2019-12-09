@@ -46,7 +46,7 @@ int main()
 #endif
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Forest", NULL, NULL);
     if (window == NULL)
     {
         std::cerr << "Failed to create GLFW window" << std::endl;
@@ -104,8 +104,8 @@ int main()
     entities.push_back(&container5);
     containerTextures.clear();
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
-    TerrainMesh terrainMesh(1, "../res/heightmap.png");
-    TerrainMesh terrainMesh1(1, "../res/heightmap2.png");
+    TerrainMesh terrainMesh("../res/heightmap.png");
+    TerrainMesh terrainMesh1("../res/heightmap2.png");
     Terrain terrain1(terrainMap, terrainMesh1, 0, 0);
     Terrain terrain2(terrainMap, terrainMesh1, -1, 0);
     Terrain terrain3(terrainMap, terrainMesh, -1, -1);

@@ -7,7 +7,7 @@
 
 TerrainMesh::TerrainMesh() = default;
 
-TerrainMesh::TerrainMesh(int type, const char* filename) {
+TerrainMesh::TerrainMesh(const char* filename) {
     std::vector<glm::vec3> vertices, normals;
     std::vector<glm::vec2> texCoords;
     std::vector<unsigned int> indices;
