@@ -1,4 +1,4 @@
-#include "Test/Plane.h"
+#include "Headers/Engine/Terrain/Plane/Plane.h"
 
 Plane::Plane(const glm::vec3& origin, const glm::vec3& normal) {
     this->normal = normal;

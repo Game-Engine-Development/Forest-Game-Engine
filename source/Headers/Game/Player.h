@@ -6,7 +6,7 @@
 #include "Headers/Engine/Models/Entity.h"
 #include "Headers/Engine/Shader.h"
 #include <array>
-#include "Test/Plane.h"
+#include "Headers/Engine/Terrain/Plane/Plane.h"
 
 class Player {
 private:
@@ -65,6 +65,5 @@ public:
     void setLateralSpeed(float speed);
     Entity& getPlayerEntity();
     bool isInAir();
-    bool isAbleToJump();
     void jump();
 };
