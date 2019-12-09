@@ -1,5 +1,5 @@
 # Project definition
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.10)
 project(opengl_game)
 
 # Source files
@@ -30,7 +30,7 @@ set(GLM_BUILD_TESTS OFF CACHE INTERNAL "Build the GLM test programs")
 set(GLM_BUILD_DOCS OFF CACHE INTERNAL "Build the GLM documentation")
 set(GLM_INTALL OFF CACHE INTERNAL "Generate installation target")
 add_subdirectory("${GLM_DIR}")
-target_link_libraries(${PROJECT_NAME} "glm" "${GLM_LIBRARIES}")
+#target_link_libraries(${PROJECT_NAME} "glm" "${GLM_LIBRARIES}")
 target_include_directories(${PROJECT_NAME} PRIVATE "${GLM_DIR}/include")
 target_compile_definitions(${PROJECT_NAME} PRIVATE "GLM_INCLUDE_NONE")
 
