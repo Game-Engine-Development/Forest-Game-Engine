@@ -144,6 +144,6 @@ void Entity::moveEntityPlanes(std::vector<glm::vec3> &vertices) {
         point1 = modelMatrix * glm::vec4(vertices[i++], 1);
         point2 = modelMatrix * glm::vec4(vertices[i++], 1);
         point3 = modelMatrix * glm::vec4(vertices[i++], 1);
-        planes.push_back(Plane(glm::vec3(point1.x, point1.y, point1.z), glm::vec3(point2.x, point2.y, point2.z), glm::vec3(point3.x, point3.y, point3.z)));
+        planes.push_back(Plane(point1, point2, point3));
     }
 }

@@ -1,7 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "Headers/stb_image.h"
 
-#include "Headers/Engine/Terrain/Plane/Plane.h"
+#include "Headers/Engine/Collisions/Plane.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Headers/Engine/Shader.h"
@@ -131,7 +131,8 @@ int main()
     // uncomment this call to draw in wireframe polygons.
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    player = Player(&camera, &nonMappedContainer);
+    CollisionHandler playerCollider(&nonMappedContainer);
+    player = Player(&camera, &nonMappedContainer, playerCollider);
 
     // render Loop
     // -----------
@@ -166,7 +167,7 @@ int main()
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
-    //glfwTerminate();
+    glfwTerminate();
     return 0;
 }
 

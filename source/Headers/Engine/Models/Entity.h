@@ -4,7 +4,7 @@
 #include "Headers/Engine/Shader.h"
 #include "Headers/Engine/Camera.h"
 #include <glm/gtc/type_ptr.hpp>
-#include <Headers/Engine/Terrain/Plane/Plane.h>
+#include <Headers/Engine/Collisions/Plane.h>
 
 class Entity {
 
