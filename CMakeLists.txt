@@ -34,7 +34,6 @@ target_link_libraries(${PROJECT_NAME} "glm" "${GLM_LIBRARIES}")
 target_include_directories(${PROJECT_NAME} PRIVATE "${GLM_DIR}/include")
 target_compile_definitions(${PROJECT_NAME} PRIVATE "GLM_INCLUDE_NONE")
 
-
 #GLAD
 set(GLAD_DIR "${LIB_DIR}/glad")
 add_library("glad" "${GLAD_DIR}/src/glad.c")
