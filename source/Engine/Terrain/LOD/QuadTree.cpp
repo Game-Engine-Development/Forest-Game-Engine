@@ -6,7 +6,7 @@
 //
 
 #include <iostream>
-#include "QuadTree.h"
+#include "Headers/Engine/Terrain/LOD/QuadTree.h"
 
 /**
  * Create an instance of a QuadTreeNodeData struct and fill it
