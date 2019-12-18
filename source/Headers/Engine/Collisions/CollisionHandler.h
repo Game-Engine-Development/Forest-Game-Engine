@@ -29,7 +29,7 @@ private:
     void collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity*>& entities);
     glm::vec3 collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, std::vector<Entity*>& entities);
     void calculateCollisions(std::vector<Plane>& planes);
-    void calculateTerrainCollisions(Terrain* terrain, glm::vec3 &finalMove);
+    void calculateTerrainCollisions(glm::vec3 &finalMove);
     void updateGravity();
     float simGravity(float tics);
 public:

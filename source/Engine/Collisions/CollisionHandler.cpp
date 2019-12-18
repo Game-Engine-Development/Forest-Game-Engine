@@ -9,7 +9,7 @@ CollisionHandler::CollisionHandler(Entity *entity) {
 
 void CollisionHandler::moveEntity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::vector<Terrain*>& terrains) {
     currentTerrain = calculateCurrentTerrain(terrains);
-    calculateTerrainCollisions(currentTerrain, finalMove);
+    calculateTerrainCollisions(finalMove);
     collideAndSlide(finalMove, currentGravity, entities);
     updateGravity();
 }
@@ -302,13 +302,13 @@ bool CollisionHandler::getLowestRoot(float a, float b, float c, float maxR, floa
     return false;
 }
 
-void CollisionHandler::calculateTerrainCollisions(Terrain* currentTerrain, glm::vec3 &finalMove) {
+void CollisionHandler::calculateTerrainCollisions(glm::vec3 &finalMove) {
     glm::vec3 newMove;
     bool cantGetOver = false;
     float height;
     float currentHeight = entity->getPos().y;
     float dist = std::sqrt(finalMove.x*finalMove.x + finalMove.z*finalMove.z);
-    for(int i = 0; i < dist * 3; ++i) {
+    for(int i = 0; i < dist * 10; ++i) {
         newMove = glm::normalize(finalMove) * (float)i;
         height = entity->getScale().y + currentTerrain->getTerrainHeight(entity->getPos().x + newMove.x, entity->getPos().z + newMove.z);
         if(height >= entity->getPos().y + simGravity(i) - 1) {
