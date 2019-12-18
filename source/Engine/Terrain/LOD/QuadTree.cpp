@@ -5,7 +5,6 @@
 //  Copyright (c) 2014 tomasbasham.co.uk. All rights reserved.
 //
 
-#include <iostream>
 #include "Headers/Engine/Terrain/LOD/QuadTree.h"
 
 /**

@@ -5,8 +5,9 @@
 //  Copyright (c) 2014 tomasbasham.co.uk. All rights reserved.
 //
 
-#ifndef Buildings_QuadTreeNode_h
-#define Buildings_QuadTreeNode_h
+#pragma once
+
+#include <iostream>
 
 class QuadTreeNodeData;
 class QuadTreeNode;
@@ -76,5 +77,3 @@ public:
     QuadTree(QuadTreeNodeData *data, BoundingBox bourdary, int capacity);
     static QuadTree* QuadTreeMake(QuadTreeNodeData *data, BoundingBox boundary, int capacity);
 };
-
-#endif
