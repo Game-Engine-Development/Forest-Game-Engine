@@ -8,7 +8,6 @@
 
 class TerrainMesh {
 public:
-
     TerrainMesh();
     explicit TerrainMesh(const char* filename);
     ~TerrainMesh();

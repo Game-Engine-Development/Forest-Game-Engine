@@ -17,7 +17,7 @@ void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::ve
     shader.use();
 
     mesh.bindVAO();
-    for(Texture texture : textures) {
+    for(Texture &texture : textures) {
         texture.bind(shader);
     }
 

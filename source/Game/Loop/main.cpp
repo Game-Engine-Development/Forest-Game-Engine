@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include <Headers/Engine/Skybox/Skybox.h>
+#include <Headers/Engine/GUI/Button.h>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -73,7 +74,7 @@ int main()
 
     std::vector<Entity*> entities;
     std::vector<Terrain*> terrains;
-    Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
+    //Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
     Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
     Shader normalMappedShader("../source/Engine/Models/Shaders/normalMappedVertex.glsl", "../source/Engine/Models/Shaders/normalMappedFragment.glsl");
     Shader skyboxShader("../source/Engine/Skybox/Shaders/skyboxVertexShader.glsl", "../source/Engine/Skybox/Shaders/skyboxFragmentShader.glsl");
@@ -133,6 +134,8 @@ int main()
 
     CollisionHandler playerCollider(&nonMappedContainer);
     player = Player(&camera, &nonMappedContainer, playerCollider);
+
+    Button button("../res/grass.png", Texture::PNG, glm::vec2(0, 0), glm::vec2(1, 1), NULL);
 
     // render Loop
     // -----------

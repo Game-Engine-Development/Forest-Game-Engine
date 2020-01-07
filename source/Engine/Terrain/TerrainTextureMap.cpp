@@ -14,13 +14,13 @@ TerrainTextureMap::TerrainTextureMap(const char *map, const char *texture1, cons
 TerrainTextureMap::~TerrainTextureMap() = default;
 
 void TerrainTextureMap::bindTextures(Shader &shader) {
-    for(Texture texture : textures) {
+    for(Texture &texture : textures) {
         texture.bind(shader);
     }
 }
 
 void TerrainTextureMap::unBindTextures() {
-    for(Texture texture : textures) {
+    for(Texture &texture : textures) {
         texture.unbind();
     }
 }

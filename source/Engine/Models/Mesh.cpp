@@ -170,7 +170,6 @@ Mesh::~Mesh() {
     glDeleteBuffers(1, &tangentBuffer);
     glDeleteBuffers(1, &bitangentBuffer);
     glDeleteVertexArrays(1, &VAO);
-
 }
 
 void Mesh::bindVAO() {
