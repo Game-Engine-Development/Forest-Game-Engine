@@ -3,6 +3,8 @@
 Skeleton::Skeleton(Joint* root, int jointCount) {
     rootJoint = root;
     this->jointCount = jointCount;
+    glm::mat4 defaultMatrix = glm::mat4(1.0f);
+    rootJoint->calcInverseBindTransform(defaultMatrix);
 }
 
 int Skeleton::getJointCount() {
@@ -15,7 +17,7 @@ Joint Skeleton::getRootJoint() {
 
 std::vector<glm::mat4> Skeleton::getJointTransforms() {
     jointMatrices.clear();
-    glm::mat4 defaultMat = glm::mat4(0.0);
+    glm::mat4 defaultMat = glm::mat4(1.0f);
     for(int i = 0; i < jointCount; ++i) {
         jointMatrices.push_back(defaultMat);
     }
