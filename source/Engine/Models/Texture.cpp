@@ -9,7 +9,7 @@ Texture::Texture(const char* filename, int type, int unit){
     textureUnit = unit;
     glGenTextures(1, &ID);
     int width, height, nrchannels;
-    unsigned char* data;
+    unsigned char* data = NULL;
     if (type == PNG) {
         data = stbi_load(filename, &width, &height, &nrchannels, STBI_rgb_alpha);
     } else if(type == JPG) {

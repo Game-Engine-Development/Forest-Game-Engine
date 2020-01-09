@@ -135,7 +135,7 @@ int main()
     CollisionHandler playerCollider(&nonMappedContainer);
     player = Player(&camera, &nonMappedContainer, playerCollider);
 
-    Button button("../res/grass.png", Texture::PNG, glm::vec2(0, 0), glm::vec2(1, 1), NULL);
+    //Button button("../res/grass.png", Texture::PNG, glm::vec2(0, 0), glm::vec2(1, 1), NULL);
 
     // render Loop
     // -----------
