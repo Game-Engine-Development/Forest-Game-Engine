@@ -7,13 +7,9 @@
 class Button {
 public:
     Button();
-    Button(char *textureLocation, int type, glm::vec2 position, glm::vec2 scale, void (*action)(), std::vector<glm::vec2> verts, std::vector<glm::vec2> texts, std::vector<glm::vec2> inds);
+    Button(char *textureLocation, int type, glm::vec2 position, glm::vec2 scale, void (*action)(), std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts);
     void render(Camera& camera, Shader& shader);
-    void setTexture(char *textureLocation, int type);
-    void setTexture(Texture newTexture);
-    void setPos(glm::vec2 pos);
-    void setScale(glm::vec2 scale);
-    void setAction(void (*newAction)());
+
     ~Button();
 
 private:
@@ -24,8 +20,9 @@ private:
 
     void onClick();
 
-    std::vector<glm::vec2> vertices, textureCoords, indices;
-    unsigned int VAO, VBO, texCoordBuffer, IBO;
+    std::vector<glm::vec2> vertices, textureCoords;
+    std::vector<unsigned int> indices;
+    unsigned int VAO, VBO, TBO;
 
     glm::mat4 modelMatrix;
 

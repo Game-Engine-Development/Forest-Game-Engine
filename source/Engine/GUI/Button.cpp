@@ -1,24 +1,8 @@
 #include "Headers/Engine/GUI/Button.h"
 
 Button::Button() = default;
-Button::Button(char *textureLocation, int type, glm::vec2 position, glm::vec2 scale, void (*action)(), std::vector<glm::vec2> verts, std::vector<glm::vec2> texts, std::vector<glm::vec2> inds) : texture(Texture(textureLocation, type, 0)), position(position), scale(scale), action(action) {
+Button::Button(char *textureLocation, int type, glm::vec2 position, glm::vec2 scale, void (*action)(), std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts) : texture(Texture(textureLocation, type, 0)), position(position), scale(scale), action(action), vertices(verts), textureCoords(texts) {
     createBuffers();
-}
-
-void Button::setTexture(char *textureLocation, int type) {
-    texture = Texture(textureLocation, type, 0);
-}
-void Button::setTexture(Texture newTexture) {
-    texture = newTexture;
-}
-void Button::setPos(glm::vec2 pos) {
-    position = pos;
-}
-void Button::setScale(glm::vec2 newScale) {
-    scale = newScale;
-}
-void Button::setAction(void (*newAction)()) {
-    action = newAction;
 }
 
 void Button::bindVAO() {
@@ -32,37 +16,31 @@ void Button::unbindVAO() {
 void Button::createBuffers() {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
-    glGenBuffers(1, &texCoordBuffer);
-    glGenBuffers(1, &IBO);
+    glGenBuffers(1, &TBO);
     bindVAO();
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec2), &vertices[0], GL_STATIC_DRAW);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, texCoordBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, TBO);
     glBufferData(GL_ARRAY_BUFFER, textureCoords.size() * sizeof(glm::vec2), &textureCoords[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, IBO);
-    glBufferData(GL_ARRAY_BUFFER, indices.size() * sizeof(glm::vec2), &indices[0], GL_STATIC_DRAW);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
 
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
-    glEnableVertexAttribArray(2);
 
     unbindVAO();
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Button::render(Camera &camera, Shader &shader) {
+    createModelMatrix();
+
     shader.use();
 
     bindVAO();
     texture.bind(shader);
-
-    camera.setMatrices(shader);
 
     int modelLoc = glGetUniformLocation(shader.ID, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
@@ -74,10 +52,9 @@ void Button::render(Camera &camera, Shader &shader) {
 }
 
 Button::~Button() {
+    glDeleteBuffers(1, &TBO);
     glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &texCoordBuffer);
     glDeleteVertexArrays(1, &VAO);
-    glDeleteVertexArrays(1, &IBO);
 }
 
 glm::mat4 Button::createModelMatrix() {
