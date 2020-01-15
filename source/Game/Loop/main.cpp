@@ -70,7 +70,7 @@ int main()
     glfwSwapInterval(1);
 
     glEnable(GL_DEPTH_TEST);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
     std::vector<Entity*> entities;
     std::vector<Terrain*> terrains;
@@ -135,7 +135,7 @@ int main()
     CollisionHandler playerCollider(&nonMappedContainer);
     player = Player(&camera, &nonMappedContainer, playerCollider);
 
-    Button button("../res/grass.png", Texture::PNG, glm::vec2(0, 0), glm::vec2(2, 1.3), NULL, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f, -0.5f), glm::vec2(-0.5f,  0.5f)}, std::vector<glm::vec2> {glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(1, 1), glm::vec2(1, 0)});
+    Button button("../res/front.jpg", Texture::JPG, glm::vec2(1, 0), glm::vec2(1, 1), glm::vec2(1, 1), NULL, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
     Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
 
     // render Loop
@@ -163,7 +163,7 @@ int main()
             terrain->render(camera, terrainShader, lightPos, lightColor);
         }
 
-        button.render(camera, buttonShader);
+        button.render(buttonShader);
 
         //player.calculateCollisions(insertPlanesListHere);
 
