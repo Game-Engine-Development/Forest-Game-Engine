@@ -13,18 +13,18 @@ public:
     ~Button();
 
 private:
-    void createModelMatrix();
     void bindVAO();
     void unbindVAO();
     void createBuffers();
 
     void onClick();
 
+    void clampToScreen();
+
+    float xOffset, yOffset;
     std::vector<glm::vec2> vertices, textureCoords;
     std::vector<unsigned int> indices;
     unsigned int VAO, VBO, TBO, IBO;
-
-    glm::mat4 modelMatrix;
 
     glm::vec2 position, scale, rotation;
     Texture texture;

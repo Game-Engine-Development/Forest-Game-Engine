@@ -40,15 +40,16 @@ void Button::createBuffers() {
 }
 
 void Button::render(Shader &shader) {
-    createModelMatrix();
-
     shader.use();
 
     bindVAO();
     texture.bind(shader);
 
-    int modelLoc = glGetUniformLocation(shader.ID, "model");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+    int posInt = glGetUniformLocation(shader.ID, "position");
+    glUniform2fv(posInt, 1, glm::value_ptr(position));
+
+    int scaleInt = glGetUniformLocation(shader.ID, "scale");
+    glUniform2fv(scaleInt, 1, glm::value_ptr(scale));
 
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
@@ -63,8 +64,13 @@ Button::~Button() {
     glDeleteVertexArrays(1, &VAO);
 }
 
-void Button::createModelMatrix() {
-    modelMatrix = glm::mat4(1.0f);
-    modelMatrix = glm::translate(modelMatrix, glm::vec3(position.x, position.y, 0));
-    modelMatrix = glm::scale(modelMatrix, glm::vec3(scale, 0));
+void Button::clampToScreen() {
+    xOffset = 0.0f;
+    yOffset = 0.0f;
+
+    bool offscreen[vertices.size()]; //y < -1.0f, y > 1.0f, x < -1.0f, x > 1.0f
+
+    for (const glm::vec2& vertex : vertices){
+
+    }
 }
