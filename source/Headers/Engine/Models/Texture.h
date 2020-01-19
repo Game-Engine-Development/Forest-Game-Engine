@@ -8,7 +8,7 @@
 class Texture {
 public:
     Texture();
-    explicit Texture(const char* filename, int type, int unit);
+    explicit Texture(const char* filename, int unit);
     ~Texture();
     void bind(Shader& shader);
     void unbind();

@@ -2,7 +2,7 @@
 #include "Headers/Engine/GUI/Button.h"
 
 Button::Button() = default;
-Button::Button(char *textureLocation, int type, glm::vec2 position, glm::vec2 scale, void (*action)(), std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds) : texture(Texture(textureLocation, type, 0)), position(position), scale(scale), action(action), vertices(verts), textureCoords(texts), indices(inds) {
+Button::Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, void (*action)(), std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds) : texture(Texture(textureLocation, 0)), position(position), scale(scale), action(action), vertices(verts), textureCoords(texts), indices(inds) {
     createBuffers();
 }
 
