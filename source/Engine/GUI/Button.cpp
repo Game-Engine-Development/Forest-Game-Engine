@@ -82,7 +82,7 @@ void Button::clampToScreen() {
                 offset.x = -1.0f - (vertex.x * scale.x + position.x);
             }
         }
-        if((vertex.x*scale.x + position.x) > 1.0f){
+        else if((vertex.x*scale.x + position.x) > 1.0f){
             if(std::abs(1.0f - (vertex.x*scale.x + position.x)) > std::abs(offset.x)){
                 offset.x = 1.0f - (vertex.x * scale.x + position.x);
             }
@@ -93,7 +93,7 @@ void Button::clampToScreen() {
                 offset.y = -1.0f - (vertex.y*scale.y + position.y);
             }
         }
-        if((vertex.y*scale.y + position.y) > 1.0f){
+        else if((vertex.y*scale.y + position.y) > 1.0f){
             if(std::abs(1.0f - (vertex.y*scale.y + position.y)) > std::abs(offset.y)){
                 offset.y = 1.0f - (vertex.y*scale.y + position.y);
             }
@@ -103,14 +103,14 @@ void Button::clampToScreen() {
         if((vertex.x*scale.x) < -1.0f) {
             offscreen[0] = true;
         }
-        if((vertex.x*scale.x) > 1.0f){
+        else if((vertex.x*scale.x) > 1.0f){
             offscreen[1] = true;
         }
 
         if((vertex.y*scale.y) < -1.0f){
             offscreen[2] = true;
         }
-        if((vertex.y*scale.y) > 1.0f){
+        else if((vertex.y*scale.y) > 1.0f){
             offscreen[3] = true;
         }
     }
