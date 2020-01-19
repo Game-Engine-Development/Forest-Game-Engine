@@ -7,7 +7,7 @@
 class Button {
 public:
     Button();
-    Button(char *textureLocation, int type, glm::vec2 position, glm::vec2 scale, glm::vec2 rotation, void (*action)(), std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds);
+    Button(char *textureLocation, int type, glm::vec2 position, glm::vec2 scale, void (*action)(), std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds);
     void render(Shader& shader);
 
     ~Button();
@@ -21,12 +21,11 @@ private:
 
     void clampToScreen();
 
-    float xOffset, yOffset;
     std::vector<glm::vec2> vertices, textureCoords;
     std::vector<unsigned int> indices;
     unsigned int VAO, VBO, TBO, IBO;
 
-    glm::vec2 position, scale, rotation;
+    glm::vec2 position, scale, offset;
     Texture texture;
 
     void (*action)();

@@ -1,7 +1,8 @@
+#include <array>
 #include "Headers/Engine/GUI/Button.h"
 
 Button::Button() = default;
-Button::Button(char *textureLocation, int type, glm::vec2 position, glm::vec2 scale, glm::vec2 rotation, void (*action)(), std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds) : texture(Texture(textureLocation, type, 0)), position(position), scale(scale), rotation(rotation), action(action), vertices(verts), textureCoords(texts), indices(inds) {
+Button::Button(char *textureLocation, int type, glm::vec2 position, glm::vec2 scale, void (*action)(), std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds) : texture(Texture(textureLocation, type, 0)), position(position), scale(scale), action(action), vertices(verts), textureCoords(texts), indices(inds) {
     createBuffers();
 }
 
@@ -40,6 +41,8 @@ void Button::createBuffers() {
 }
 
 void Button::render(Shader &shader) {
+    clampToScreen();
+
     shader.use();
 
     bindVAO();
@@ -50,6 +53,9 @@ void Button::render(Shader &shader) {
 
     int scaleInt = glGetUniformLocation(shader.ID, "scale");
     glUniform2fv(scaleInt, 1, glm::value_ptr(scale));
+
+    int offsetInt = glGetUniformLocation(shader.ID, "offset");
+    glUniform2fv(offsetInt, 1, glm::value_ptr(offset));
 
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
@@ -65,12 +71,57 @@ Button::~Button() {
 }
 
 void Button::clampToScreen() {
-    xOffset = 0.0f;
-    yOffset = 0.0f;
+    offset.x = 0;
+    offset.y = 0;
 
-    bool offscreen[vertices.size()]; //y < -1.0f, y > 1.0f, x < -1.0f, x > 1.0f
+    std::array<bool, 4> offscreen{}; //x < -1.0f, x > 1.0f, y < -1.0f, y > 1.0f
 
     for (const glm::vec2& vertex : vertices){
+        if((vertex.x*scale.x + position.x) < -1.0f){
+            if(std::abs(-1.0f - (vertex.x*scale.x + position.x)) > std::abs(offset.x)){
+                offset.x = -1.0f - (vertex.x * scale.x + position.x);
+            }
+        }
+        if((vertex.x*scale.x + position.x) > 1.0f){
+            if(std::abs(1.0f - (vertex.x*scale.x + position.x)) > std::abs(offset.x)){
+                offset.x = 1.0f - (vertex.x * scale.x + position.x);
+            }
+        }
 
+        if((vertex.y*scale.y + position.y) < -1.0f){
+            if(std::abs(-1.0f - (vertex.y*scale.y + position.y)) > std::abs(offset.y)){
+                offset.y = -1.0f - (vertex.y*scale.y + position.y);
+            }
+        }
+        if((vertex.y*scale.y + position.y) > 1.0f){
+            if(std::abs(1.0f - (vertex.y*scale.y + position.y)) > std::abs(offset.y)){
+                offset.y = 1.0f - (vertex.y*scale.y + position.y);
+            }
+        }
+
+
+        if((vertex.x*scale.x) < -1.0f) {
+            offscreen[0] = true;
+        }
+        if((vertex.x*scale.x) > 1.0f){
+            offscreen[1] = true;
+        }
+
+        if((vertex.y*scale.y) < -1.0f){
+            offscreen[2] = true;
+        }
+        if((vertex.y*scale.y) > 1.0f){
+            offscreen[3] = true;
+        }
+    }
+
+    if(offscreen[0] && offscreen[1]){
+        std::cerr << "scale is too big on the x axis" << std::endl;
+        return;
+    }
+
+    if(offscreen[2] && offscreen[3]){
+        std::cerr << "scale is too big on the y axis" << std::endl;
+        return;
     }
 }
