@@ -24,6 +24,9 @@ private:
 
     void detectEdges();
 
+    bool pressed = false;
+    bool notPressed = true;
+
     std::array<float, 4> edges{};
 
     std::vector<glm::vec2> vertices, textureCoords;

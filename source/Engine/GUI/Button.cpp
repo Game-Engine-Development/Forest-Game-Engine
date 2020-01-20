@@ -4,6 +4,7 @@
 Button::Button() = default;
 Button::Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, void (*action)(), GLFWwindow* window, std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds) : texture(Texture(textureLocation, 0)), position(position), scale(scale), action(action), window(window), vertices(verts), textureCoords(texts), indices(inds) {
     createBuffers();
+    clampToScreen();
 }
 
 void Button::bindVAO() {
@@ -43,8 +44,6 @@ void Button::createBuffers() {
 void Button::render(Shader &shader) {
     detectEdges();
 
-    clampToScreen();
-
     onClick();
 
     clampToScreen();
@@ -77,8 +76,6 @@ Button::~Button() {
 }
 
 void Button::onClick() {
-    //check if mouse is on button and is clicked, depends on the camera for getting input
-
     //top y = 0
     //bottom y = 600
 
@@ -87,7 +84,6 @@ void Button::onClick() {
 
     double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-    //std::cout << "x: " << xpos << ", y: " << ypos << std::endl;
 
     //0 - 800 -> -1 - 1
     //operation 1: -400
@@ -110,22 +106,30 @@ void Button::onClick() {
     ypos += 300.0;
     ypos /= 300.0;
 
-    //std::cout << "x: " << xpos << ", y: " << ypos << std::endl;
-
     bool xValid = xpos >= edges[0] && xpos <= edges[1];
     bool yValid = ypos >= edges[2] && ypos <= edges[3];
 
-    //std::cout << "edges[0]: " << edges[0] << ", edges[1]: " << edges[1] << ", edges[2]: " << edges[2] << ", edges[3]: " << edges[3] << std::endl;
-
-    //std::cout << "xValid: " << xValid << ", yValid: " << yValid << std::endl;
-
     int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
 
-    if((xValid && yValid) && (state == GLFW_PRESS)) {
-        std::cout << "over button" << std::endl;
+    if(notPressed && (state == GLFW_PRESS)) {
+        notPressed = false;
+        pressed = true;
     }
-    else {
-        std::cout << "nope" << std::endl;
+    else if(pressed && (state == GLFW_PRESS)) {
+        pressed = false;
+    }
+    else if(state != GLFW_PRESS) {
+        pressed = false;
+        notPressed = true;
+    }
+
+    if((xValid && yValid) && pressed) { //if button pressed
+        if(action != nullptr) {
+            action();
+        }
+        else {
+            std::cout << "no action given for button" << std::endl;
+        }
     }
 }
 
