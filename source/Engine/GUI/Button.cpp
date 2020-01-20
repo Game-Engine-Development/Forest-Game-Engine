@@ -2,7 +2,7 @@
 #include "Headers/Engine/GUI/Button.h"
 
 Button::Button() = default;
-Button::Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, void (*action)(), std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds) : texture(Texture(textureLocation, 0)), position(position), scale(scale), action(action), vertices(verts), textureCoords(texts), indices(inds) {
+Button::Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, void (*action)(), GLFWwindow* window, std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds) : texture(Texture(textureLocation, 0)), position(position), scale(scale), action(action), window(window), vertices(verts), textureCoords(texts), indices(inds) {
     createBuffers();
 }
 
@@ -23,11 +23,11 @@ void Button::createBuffers() {
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec2), &vertices[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), nullptr);
 
     glBindBuffer(GL_ARRAY_BUFFER, TBO);
     glBufferData(GL_ARRAY_BUFFER, textureCoords.size() * sizeof(glm::vec2), &textureCoords[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), nullptr);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
@@ -41,6 +41,12 @@ void Button::createBuffers() {
 }
 
 void Button::render(Shader &shader) {
+    detectEdges();
+
+    clampToScreen();
+
+    onClick();
+
     clampToScreen();
 
     shader.use();
@@ -57,7 +63,7 @@ void Button::render(Shader &shader) {
     int offsetInt = glGetUniformLocation(shader.ID, "offset");
     glUniform2fv(offsetInt, 1, glm::value_ptr(offset));
 
-    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
 
     texture.unbind();
     unbindVAO();
@@ -68,6 +74,79 @@ Button::~Button() {
     glDeleteBuffers(1, &TBO);
     glDeleteBuffers(1, &VBO);
     glDeleteVertexArrays(1, &VAO);
+}
+
+void Button::onClick() {
+    //check if mouse is on button and is clicked, depends on the camera for getting input
+
+    //top y = 0
+    //bottom y = 600
+
+    //left x = 0
+    //right x = 800
+
+    double xpos, ypos;
+    glfwGetCursorPos(window, &xpos, &ypos);
+    //std::cout << "x: " << xpos << ", y: " << ypos << std::endl;
+
+    //0 - 800 -> -1 - 1
+    //operation 1: -400
+    //-400 - 400 -> -1 - 1
+    //operation 2: /400
+    //-1 - 1 -> -1 - 1
+
+    xpos -= 400.0;
+    xpos /= 400.0;
+
+    //0 - 600 -> 1 - -1
+    //operation 1: *-1
+    //0 - -600 -> 1 - -1
+    //operation2: +300
+    //300 - -300 -> 1 - -1
+    //operation 3: /300
+    //1 - -1 -> 1 - -1
+
+    ypos *= -1.0;
+    ypos += 300.0;
+    ypos /= 300.0;
+
+    //std::cout << "x: " << xpos << ", y: " << ypos << std::endl;
+
+    bool xValid = xpos >= edges[0] && xpos <= edges[1];
+    bool yValid = ypos >= edges[2] && ypos <= edges[3];
+
+    //std::cout << "edges[0]: " << edges[0] << ", edges[1]: " << edges[1] << ", edges[2]: " << edges[2] << ", edges[3]: " << edges[3] << std::endl;
+
+    //std::cout << "xValid: " << xValid << ", yValid: " << yValid << std::endl;
+
+    int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+
+    if((xValid && yValid) && (state == GLFW_PRESS)) {
+        std::cout << "over button" << std::endl;
+    }
+    else {
+        std::cout << "nope" << std::endl;
+    }
+}
+
+void Button::detectEdges() {
+    edges = {1.0, -1.0, 1.0, -1.0};
+
+    for (const glm::vec2& vertex : vertices){
+        if((vertex.x*scale.x + position.x + offset.x) < edges[0]){
+            edges[0] = offset.x + (vertex.x * scale.x + position.x);
+        }
+        else if((vertex.x*scale.x + position.x + offset.x) > edges[1]){
+            edges[1] = offset.x + (vertex.x * scale.x + position.x);
+        }
+
+        if((vertex.y*scale.y + position.y + offset.y) < edges[2]){
+                edges[2] = offset.y + (vertex.y*scale.y + position.y);
+        }
+        else if((vertex.y*scale.y + position.y + offset.y) > edges[3]){
+                edges[3] = offset.y + (vertex.y*scale.y + position.y);
+        }
+    }
 }
 
 void Button::clampToScreen() {
