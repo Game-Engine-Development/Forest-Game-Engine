@@ -20,6 +20,10 @@ Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float u
     updateCameraVectors();
 }
 
+void Camera::setAspectRatio(float ratio) {
+    aspectRatio = ratio;
+}
+
 // Returns the view matrix calculated using Euler Angles and the LookAt Matrix
 glm::mat4 Camera::GetViewMatrix()
 {
@@ -91,7 +95,7 @@ void Camera::setMatrices(Shader &shader) {
     glm::mat4 view = glm::mat4(1.0f);
     view = GetViewMatrix();
     glm::mat4 projection = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(Zoom), (float)800/600, 0.1f, 100000.0f);
+    projection = glm::perspective(glm::radians(Zoom), aspectRatio, 0.1f, 100000.0f);
     int viewLoc = glGetUniformLocation(shader.ID, "view");
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
     int projectionLoc = glGetUniformLocation(shader.ID, "projection");
@@ -103,7 +107,7 @@ void Camera::setSkyboxMatrices(Shader &shader) {
     view = GetViewMatrix();
     view = glm::mat4(glm::mat3(view));
     glm::mat4 projection = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(Zoom), (float)800/600, 0.1f, 100000.0f);
+    projection = glm::perspective(glm::radians(Zoom), aspectRatio, 0.1f, 100000.0f);
     int viewLoc = glGetUniformLocation(shader.ID, "view");
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
     int projectionLoc = glGetUniformLocation(shader.ID, "projection");
