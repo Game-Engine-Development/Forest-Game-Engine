@@ -30,6 +30,8 @@ const unsigned int SCR_HEIGHT = 600;
 
 float lastX = 400, lastY = 300;
 bool firstMouse = true;
+bool cursor = false;
+bool held = false;
 
 Camera camera;
 Player player;
@@ -71,11 +73,11 @@ int main()
     glfwSwapInterval(1);
 
     glEnable(GL_DEPTH_TEST);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     std::vector<Entity*> entities;
     std::vector<Terrain*> terrains;
-    //Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
+    Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
     Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
     Shader normalMappedShader("../source/Engine/Models/Shaders/normalMappedVertex.glsl", "../source/Engine/Models/Shaders/normalMappedFragment.glsl");
     Shader skyboxShader("../source/Engine/Skybox/Shaders/skyboxVertexShader.glsl", "../source/Engine/Skybox/Shaders/skyboxFragmentShader.glsl");
@@ -189,6 +191,8 @@ int main()
             terrain->render(camera, terrainShader, lightPos, lightColor);
         }
 
+        button.render(buttonShader);
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         entityShader.use();
@@ -197,9 +201,6 @@ int main()
         entityShader.setInt("hdr", false);
         entityShader.setFloat("exposure", 1);
         renderQuad();
-        button.render(buttonShader);
-
-        //player.calculateCollisions(insertPlanesListHere);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -263,6 +264,19 @@ void processInput(GLFWwindow *window)
     }
     if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !player.isInAir()) {
         player.jump();
+    }
+    if(glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+        if(cursor && !held) {
+            cursor = false;
+            held = true;
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        } else if(!held) {
+            cursor = true;
+            held = true;
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+    } else {
+        held = false;
     }
 }
 
