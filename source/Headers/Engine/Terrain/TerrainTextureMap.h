@@ -3,7 +3,6 @@
 #include <vector>
 #include "Headers/Engine/Shader.h"
 
-
 class TerrainTextureMap {
 public:
     TerrainTextureMap();

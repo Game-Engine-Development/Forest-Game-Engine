@@ -1,8 +1,8 @@
 #include "Headers/Engine/Terrain/Terrain.h"
 
 Terrain::Terrain(TerrainTextureMap &textureMap, TerrainMesh &mesh, int gridX, int gridZ) {
-    x = gridX * TerrainMesh::SIZE;
-    z = gridZ * TerrainMesh::SIZE;
+    float x = gridX * TerrainMesh::SIZE;
+    float z = gridZ * TerrainMesh::SIZE;
     terrainMesh = mesh;
     terrainTextureMap = textureMap;
     position = glm::vec3(x, 0, z);

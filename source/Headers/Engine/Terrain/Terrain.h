@@ -10,7 +10,6 @@
 #include <vector>
 
 class Terrain {
-
 public:
     Terrain(TerrainTextureMap& textureMap, TerrainMesh& terrainMesh, int gridX, int gridY);
     ~Terrain();
@@ -22,7 +21,6 @@ public:
 private:
     TerrainTextureMap terrainTextureMap;
     TerrainMesh terrainMesh;
-    int x, z;
     glm::vec3 position;
     glm::mat4 modelMatrix;
     glm::mat4 createModelMatrix();

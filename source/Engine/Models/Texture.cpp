@@ -1,15 +1,24 @@
+#include <regex>
 #include "Headers/stb_image.h"
 #include "Headers/Engine/Models/Texture.h"
 
-Texture::Texture(){
-    ID = 5;
-}
+Texture::Texture() = default;
 
-Texture::Texture(const char* filename, int type, int unit){
+Texture::Texture(const char* filename, int unit) {
+    int type;
+    if (std::regex_match(filename, std::regex("(.+)(\\.png)"))) {
+        type = PNG;
+    }
+    else if (std::regex_match(filename, std::regex("(.+)(\\.jpg)"))) {
+        type = JPG;
+    }
+    else {
+        std::cerr << "File type not supported!. Please supply a JPG or PNG!" << std::endl;
+    }
     textureUnit = unit;
     glGenTextures(1, &ID);
     int width, height, nrchannels;
-    unsigned char* data;
+    unsigned char* data = NULL;
     if (type == PNG) {
         data = stbi_load(filename, &width, &height, &nrchannels, STBI_rgb_alpha);
     } else if(type == JPG) {

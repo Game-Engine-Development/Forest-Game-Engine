@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Headers/Engine/Models/Entity.h>
+#include <Headers/Engine/Terrain/Terrain.h>
 
 class CollisionHandler {
     struct Movement {

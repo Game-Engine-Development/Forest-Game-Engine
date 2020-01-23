@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include <Headers/Engine/Skybox/Skybox.h>
+#include <Headers/Engine/GUI/Button.h>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -70,18 +71,18 @@ int main()
     glfwSwapInterval(1);
 
     glEnable(GL_DEPTH_TEST);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
     std::vector<Entity*> entities;
     std::vector<Terrain*> terrains;
-    Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
+    //Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
     Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
     Shader normalMappedShader("../source/Engine/Models/Shaders/normalMappedVertex.glsl", "../source/Engine/Models/Shaders/normalMappedFragment.glsl");
     Shader skyboxShader("../source/Engine/Skybox/Shaders/skyboxVertexShader.glsl", "../source/Engine/Skybox/Shaders/skyboxFragmentShader.glsl");
-    Texture texture("../res/container.jpg", Texture::JPG, 0);
-    Texture normalMap("../res/grass.png", Texture::PNG, 1);
-    Texture containerMap("../res/NormalMap.jpg", Texture::JPG, 2);
-    Texture specularMap("../res/SpecularMap.jpg", Texture::JPG, 3);
+    Texture texture("../res/container.jpg", 0);
+    Texture normalMap("../res/grass.png", 1);
+    Texture containerMap("../res/NormalMap.jpg", 2);
+    Texture specularMap("../res/SpecularMap.jpg", 3);
     std::vector<Texture> containerTextures;
     containerTextures.push_back(texture);
     containerTextures.push_back(normalMap);
@@ -135,6 +136,9 @@ int main()
     CollisionHandler playerCollider(&nonMappedContainer);
     player = Player(&camera, &nonMappedContainer, playerCollider);
 
+    Button button((char*) "../res/front.jpg", glm::vec2(100, 100), glm::vec2(0.2, 0.3), NULL, window, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
+    Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
+
     unsigned int hdrFBO;
     glGenFramebuffers(1, &hdrFBO);
     // create floating point color buffer
@@ -161,7 +165,7 @@ int main()
     // -----------
     while (!glfwWindowShouldClose(window))
     {
-        glm::mat3x3 modelViewMatrix = glm::mat3x3(glm::vec3(0,0,0), glm::vec3(0,0,0), glm::vec3(0,0,0));
+        //glm::mat3x3 modelViewMatrix = glm::mat3x3(glm::vec3(0,0,0), glm::vec3(0,0,0), glm::vec3(0,0,0));
         // input
         // -----
         processInput(window);
@@ -193,6 +197,9 @@ int main()
         entityShader.setInt("hdr", false);
         entityShader.setFloat("exposure", 1);
         renderQuad();
+        button.render(buttonShader);
+
+        //player.calculateCollisions(insertPlanesListHere);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
