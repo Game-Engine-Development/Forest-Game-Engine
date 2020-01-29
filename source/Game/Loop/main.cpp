@@ -144,8 +144,8 @@ int main()
     CollisionHandler playerCollider(&nonMappedContainer);
     player = Player(&camera, &nonMappedContainer, playerCollider);
 
-    Button button((char*) "../res/front.jpg", glm::vec2(100, 100), glm::vec2(0.2, 0.3), NULL, window, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
-    Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
+    //Button button((char*) "../res/front.jpg", glm::vec2(100, 100), glm::vec2(0.2, 0.3), NULL, window, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
+    //Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
 
     unsigned int hdrFBO;
     glGenFramebuffers(1, &hdrFBO);
@@ -197,7 +197,7 @@ int main()
             terrain->render(camera, terrainShader, lightPos, lightColor);
         }
 
-        button.render(buttonShader);
+        //button.render(buttonShader);
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
