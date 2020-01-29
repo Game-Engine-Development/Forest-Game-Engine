@@ -13,6 +13,7 @@
 #include "Headers/Engine/Terrain/TerrainTextureMap.h"
 #include <glm/glm.hpp>
 #include "Headers/Game/Player.h"
+#include "Headers/Game/Entities/Wolf.h"
 
 #include <iostream>
 #include <Headers/Engine/Skybox/Skybox.h>
@@ -98,6 +99,14 @@ int main()
     containerTextures.push_back(specularMap);
     Mesh containerMesh("../res/container.obj", true);
     Entity nonMappedContainer(containerMesh, containerTextures, glm::vec3(0, 10, 0), glm::vec3(0, 0, 0), glm::vec3(1,1,1));
+    Entity wolfEntity(containerMesh, containerTextures, glm::vec3(-200, 10, -100), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+    Entity wolfEntity2(containerMesh, containerTextures, glm::vec3(200, 10, 100), glm::vec3(0, 45, 0), glm::vec3(1, 1, 1));
+    Entity wolfEntity3(containerMesh, containerTextures, glm::vec3(-100, 10, -100), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+    Entity wolfEntity4(containerMesh, containerTextures, glm::vec3(100, 10, 100), glm::vec3(0, 45, 0), glm::vec3(1, 1, 1));
+    Entity wolfEntity5(containerMesh, containerTextures, glm::vec3(-200, 10, -200), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+    Entity wolfEntity6(containerMesh, containerTextures, glm::vec3(200, 10, 200), glm::vec3(0, 45, 0), glm::vec3(1, 1, 1));
+    Entity wolfEntity7(containerMesh, containerTextures, glm::vec3(-200, 10, -10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+    Entity wolfEntity8(containerMesh, containerTextures, glm::vec3(20, 10, 100), glm::vec3(0, 45, 0), glm::vec3(1, 1, 1));
     Entity container(containerMesh, containerTextures, glm::vec3(-250,10,100), glm::vec3(0,0,0), glm::vec3(10,10,10));
     Entity container2(container);
     container2.translate(0, 20, 25);
@@ -143,6 +152,24 @@ int main()
 
     CollisionHandler playerCollider(&nonMappedContainer);
     player = Player(&camera, &nonMappedContainer, playerCollider);
+    entities.push_back(&nonMappedContainer);
+    std::vector<Wolf*> wolves;
+    Wolf wolf1(wolfEntity, &player);
+    entities.push_back(wolf1.getEntityPointer());
+    Wolf wolf2(wolfEntity2, &player);
+    entities.push_back(wolf2.getEntityPointer());
+    Wolf wolf3(wolfEntity3, &player);
+    entities.push_back(wolf3.getEntityPointer());
+    Wolf wolf4(wolfEntity4, &player);
+    entities.push_back(wolf4.getEntityPointer());
+    Wolf wolf5(wolfEntity5, &player);
+    entities.push_back(wolf5.getEntityPointer());
+    Wolf wolf6(wolfEntity6, &player);
+    entities.push_back(wolf6.getEntityPointer());
+    Wolf wolf7(wolfEntity7, &player);
+    entities.push_back(wolf7.getEntityPointer());
+    Wolf wolf8(wolfEntity8, &player);
+    entities.push_back(wolf8.getEntityPointer());
 
     Button button((char*) "../res/front.jpg", glm::vec2(100, 100), glm::vec2(0.2, 0.3), NULL, window, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
     Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
@@ -187,8 +214,24 @@ int main()
         skybox.render(skyboxShader, camera);
 
         player.movePlayer(entities, terrains);
+        wolf1.followPlayer(entities, terrains);
+        wolf2.followPlayer(entities, terrains);
+        wolf3.followPlayer(entities, terrains);
+        wolf4.followPlayer(entities, terrains);
+        wolf5.followPlayer(entities, terrains);
+        wolf6.followPlayer(entities, terrains);
+        wolf7.followPlayer(entities, terrains);
+        wolf8.followPlayer(entities, terrains);
 
         player.render(normalMappedShader, lightPos, lightColor);
+        wolf1.render(camera, normalMappedShader, lightPos, lightColor);
+        wolf2.render(camera, normalMappedShader, lightPos, lightColor);
+        wolf3.render(camera, normalMappedShader, lightPos, lightColor);
+        wolf4.render(camera, normalMappedShader, lightPos, lightColor);
+        wolf5.render(camera, normalMappedShader, lightPos, lightColor);
+        wolf6.render(camera, normalMappedShader, lightPos, lightColor);
+        wolf7.render(camera, normalMappedShader, lightPos, lightColor);
+        wolf8.render(camera, normalMappedShader, lightPos, lightColor);
         // draw our first triangle
         for(Entity* entity : entities) {
             entity->render(camera, normalMappedShader, lightPos, lightColor);

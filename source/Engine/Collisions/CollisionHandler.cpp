@@ -3,7 +3,8 @@
 CollisionHandler::CollisionHandler() = default;
 
 CollisionHandler::CollisionHandler(Entity *entity) {
-    this->entity = entity;
+    this->m_entity = entity;
+    move.eRadius = m_entity->getScale();
 }
 
 void CollisionHandler::moveEntity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::vector<Terrain*>& terrains) {
@@ -183,7 +184,7 @@ std::vector<Plane> CollisionHandler::calculateCollidablePlanes(std::vector<Plane
     std::vector<Plane> nearbyPlanes;
     for(const Plane& plane : planes) {
         for(const glm::vec3& point : plane.points) {
-            if(point.x < entity->getPos().x + 10 && point.x > entity->getPos().x - 10 && point.y < entity->getPos().y + 10 && point.y > entity->getPos().y - 10 && point.z < entity->getPos().z + 10 && point.z > entity->getPos().z - 10) {
+            if(point.x < m_entity->getPos().x + 10 && point.x > m_entity->getPos().x - 10 && point.y < m_entity->getPos().y + 10 && point.y > m_entity->getPos().y - 10 && point.z < m_entity->getPos().z + 10 && point.z > m_entity->getPos().z - 10) {
                 nearbyPlanes.push_back(plane);
                 break;
             }
@@ -213,7 +214,7 @@ bool CollisionHandler::checkPointInTriangle(const glm::vec3& point, const glm::v
 
 void CollisionHandler::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity*> &entities)
 {
-    move.startingPos = entity->getPos();
+    move.startingPos = m_entity->getPos();
     move.movement = vel;
 // change values into elipseSpace
     glm::vec3 eSpacePosition = move.startingPos / move.eRadius;
@@ -234,7 +235,7 @@ void CollisionHandler::collideAndSlide(const glm::vec3& vel, const glm::vec3& gr
         currentGravity.y = 0;
     }
     finalPosition *= move.eRadius;
-    entity->setPos(finalPosition);
+    m_entity->setPos(finalPosition);
 }
 
 glm::vec3 CollisionHandler::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, std::vector<Entity*> &entities) {
@@ -249,6 +250,7 @@ glm::vec3 CollisionHandler::collideWithWorld(const glm::vec3& pos, const glm::ve
     move.foundCollision = false;
 // Check for collisions
     for(Entity *entity : entities) {
+        if(entity != m_entity)
         calculateCollisions(entity->planes);
     }
     if (!move.foundCollision) {
@@ -305,20 +307,20 @@ void CollisionHandler::calculateTerrainCollisions(glm::vec3 &finalMove) {
     glm::vec3 newMove;
     bool cantGetOver = false;
     float height;
-    float currentHeight = entity->getPos().y;
+    float currentHeight = m_entity->getPos().y;
     float dist = std::sqrt(finalMove.x*finalMove.x + finalMove.z*finalMove.z);
     for(int i = 0; i < dist * 10; ++i) {
         newMove = glm::normalize(finalMove) * (float)i;
-        height = entity->getScale().y + currentTerrain->getTerrainHeight(entity->getPos().x + newMove.x, entity->getPos().z + newMove.z);
-        if(height >= entity->getPos().y + simGravity(i) - 1) {
+        height = m_entity->getScale().y + currentTerrain->getTerrainHeight(m_entity->getPos().x + newMove.x, m_entity->getPos().z + newMove.z);
+        if(height >= m_entity->getPos().y + simGravity(i) - 1) {
             cantGetOver = true;
             break;
         }
     }
     for(int i = 0; i < dist; ++i) {
         newMove = glm::normalize(finalMove) * (float)i;
-        height = entity->getScale().y + currentTerrain->getTerrainHeight(entity->getPos().x + newMove.x, entity->getPos().z + newMove.z);
-        if(height > currentHeight + entity->getScale().y && cantGetOver) {
+        height = m_entity->getScale().y + currentTerrain->getTerrainHeight(m_entity->getPos().x + newMove.x, m_entity->getPos().z + newMove.z);
+        if(height > currentHeight + m_entity->getScale().y && cantGetOver) {
             finalMove = glm::normalize(finalMove) * (float)(i - 1);
             break;
         } else {
@@ -328,9 +330,9 @@ void CollisionHandler::calculateTerrainCollisions(glm::vec3 &finalMove) {
 }
 
 void CollisionHandler::updateGravity() {
-    if(entity->getPos().y <= currentTerrain->getTerrainHeight(entity->getPos().x, entity->getPos().z) + 1) {
-        glm::vec3 newPos(entity->getPos().x, currentTerrain->getTerrainHeight(entity->getPos().x, entity->getPos().z) + 1, entity->getPos().z);
-        entity->setPos(newPos);
+    if(m_entity->getPos().y <= currentTerrain->getTerrainHeight(m_entity->getPos().x, m_entity->getPos().z) + 1) {
+        glm::vec3 newPos(m_entity->getPos().x, currentTerrain->getTerrainHeight(m_entity->getPos().x, m_entity->getPos().z) + 1, m_entity->getPos().z);
+        m_entity->setPos(newPos);
         currentGravity.y = 0;
         inAir = false;
     } else {
@@ -344,7 +346,7 @@ float CollisionHandler::simGravity(float tics) {
 
 Terrain* CollisionHandler::calculateCurrentTerrain(std::vector<Terrain *> &terrains) {
     for(Terrain* terrain : terrains) {
-        if(entity->getPos().x >= terrain->getPos().x && entity->getPos().x <= terrain->getPos().x + TerrainMesh::SIZE && entity->getPos().z >= terrain->getPos().z && entity->getPos().z <= terrain->getPos().z + TerrainMesh::SIZE) {
+        if(m_entity->getPos().x >= terrain->getPos().x && m_entity->getPos().x <= terrain->getPos().x + TerrainMesh::SIZE && m_entity->getPos().z >= terrain->getPos().z && m_entity->getPos().z <= terrain->getPos().z + TerrainMesh::SIZE) {
             return terrain;
         }
     }

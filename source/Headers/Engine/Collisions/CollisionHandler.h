@@ -18,7 +18,7 @@ class CollisionHandler {
         glm::vec3 intersectionPoint;
     };
 private:
-    Entity* entity;
+    Entity* m_entity;
     Terrain* currentTerrain;
     int collisionRecursionDepth = 0;
 
