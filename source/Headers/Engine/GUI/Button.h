@@ -6,11 +6,12 @@
 #include <Headers/Engine/Camera.h>
 #include <GLFW/glfw3.h>
 #include <Headers/Engine/GUI/Quad.h>
+#include <array>
 
 class Button {
 public:
     Button();
-    Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, std::function<void(void)> &action, GLFWwindow* window, std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds);
+    Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, std::function<void(void)> action, GLFWwindow* window, std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds);
     void render(Shader& shader);
 
 private:
@@ -28,6 +29,8 @@ private:
     GLFWwindow* window;
 
     std::function<void(void)> action;
+
+    GLFWvidmode *mode;
 
     Quad quad;
 };
