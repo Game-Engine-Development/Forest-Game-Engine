@@ -152,6 +152,7 @@ int main()
 
     CollisionHandler playerCollider(&nonMappedContainer);
     player = Player(&camera, &nonMappedContainer, playerCollider);
+    nonMappedContainer.setAsPlayerEntity();
     entities.push_back(&nonMappedContainer);
     std::vector<Wolf*> wolves;
     Wolf wolf1(wolfEntity, &player);
@@ -198,7 +199,7 @@ int main()
 
     // render Loop
     // -----------
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(window) && player.getHealth() > 0)
     {
         //glm::mat3x3 modelViewMatrix = glm::mat3x3(glm::vec3(0,0,0), glm::vec3(0,0,0), glm::vec3(0,0,0));
         // input

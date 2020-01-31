@@ -25,6 +25,8 @@ public:
     void translate(float x, float y, float z);
     void addScale(glm::vec3& scale);
     void addScale(float x, float y, float z);
+    void setAsPlayerEntity();
+    bool checkIfPlayerEntity();
     glm::mat4 createModelMatrix();
     std::vector<Plane> planes;
 private:
@@ -32,6 +34,7 @@ private:
     std::vector<Texture> textures;
     glm::vec3 rotation, position, scale;
     glm::mat4 modelMatrix;
+    bool isPlayerEntity = false;
     void limitRotation();
     void moveEntityPlanes(std::vector<glm::vec3>& vertices);
 };

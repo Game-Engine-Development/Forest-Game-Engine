@@ -18,10 +18,12 @@ private:
     float currentSpeed = 0;
     float lateralSpeed = 0;
     float jumpingSpeed = 0;
+    float currentHealth = MAX_HEALTH;
 public:
     static constexpr float SPEED = 2.0f;
     static constexpr float LATERAL_SPEED = 1.5f;
     static constexpr float JUMP_POWER = 2.0f;
+    static constexpr int MAX_HEALTH = 20;
     Player();
     explicit Player(Camera *camera1, Entity *container1, CollisionHandler &collisionHandler);
     void movePlayer(std::vector<Entity*>& entities, std::vector<Terrain*>& terrains);
@@ -31,4 +33,6 @@ public:
     Entity& getPlayerEntity();
     bool isInAir();
     void jump();
+    void takeDamage(float damage);
+    float getHealth();
 };

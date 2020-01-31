@@ -14,6 +14,7 @@ class CollisionHandler {
         glm::vec3 eSpaceStartingPos;
 
         bool foundCollision;
+        bool hitPlayer;
         double nearestDistance;
         glm::vec3 intersectionPoint;
     };
@@ -26,10 +27,10 @@ private:
     std::vector<Plane> calculateCollidablePlanes(std::vector<Plane>& planes);
     bool getLowestRoot(float a, float b, float c, float maxR, float* root);
     bool checkPointInTriangle(const glm::vec3& point, const glm::vec3& pa,const glm::vec3& pb, const glm::vec3& pc);
-    void checkTriangle(const Plane &trianglePlane);
+    void checkTriangle(const Plane &trianglePlane, bool isPlayer);
     void collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity*>& entities);
     glm::vec3 collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, std::vector<Entity*>& entities);
-    void calculateCollisions(std::vector<Plane>& planes);
+    void calculateCollisions(std::vector<Plane>& planes, bool isPlayer);
     void calculateTerrainCollisions(glm::vec3 &finalMove);
     void updateGravity();
     float simGravity(float tics);
@@ -38,6 +39,7 @@ public:
     static constexpr float unitsPerMeter = 100;
 
     bool inAir = false;
+    bool hitPlayer = false;
     glm::vec3 currentGravity = glm::vec3(0,0,0);
     Movement move;
 

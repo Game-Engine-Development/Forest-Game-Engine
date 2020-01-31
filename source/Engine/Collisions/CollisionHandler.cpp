@@ -8,20 +8,21 @@ CollisionHandler::CollisionHandler(Entity *entity) {
 }
 
 void CollisionHandler::moveEntity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::vector<Terrain*>& terrains) {
+    hitPlayer = false;
     currentTerrain = calculateCurrentTerrain(terrains);
     calculateTerrainCollisions(finalMove);
     collideAndSlide(finalMove, currentGravity, entities);
     updateGravity();
 }
 
-void CollisionHandler::calculateCollisions(std::vector<Plane> &planes) {
+void CollisionHandler::calculateCollisions(std::vector<Plane> &planes, bool isPlayer) {
     std::vector nearbyPlanes = calculateCollidablePlanes(planes);
     for(const Plane& plane : nearbyPlanes) {
-        checkTriangle(plane);
+        checkTriangle(plane, isPlayer);
     }
 }
 
-void CollisionHandler::checkTriangle(const Plane &trianglePlane) {
+void CollisionHandler::checkTriangle(const Plane &trianglePlane, bool isPlayer) {
     if (!trianglePlane.isFrontFacingTo(move.eSpaceMovementNormalized)) {
         double t0, t1;
         bool embeddedInPlane = false;
@@ -172,6 +173,7 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane) {
 // it does if it’s the first hit or the closest
             if (!move.foundCollision || distToCollision < move.nearestDistance) {
 // Collision information nessesary for sliding
+                move.hitPlayer = isPlayer;
                 move.nearestDistance = distToCollision;
                 move.intersectionPoint = collisionPoint;
                 move.foundCollision = true;
@@ -251,11 +253,12 @@ glm::vec3 CollisionHandler::collideWithWorld(const glm::vec3& pos, const glm::ve
 // Check for collisions
     for(Entity *entity : entities) {
         if(entity != m_entity)
-        calculateCollisions(entity->planes);
+        calculateCollisions(entity->planes, entity->checkIfPlayerEntity());
     }
     if (!move.foundCollision) {
         return pos + vel;
     }
+    hitPlayer = move.hitPlayer;
     glm::vec3 destinationPoint = pos + vel;
     glm::vec3 newBasePoint = pos;
     if (move.nearestDistance >= veryCloseDistance) {

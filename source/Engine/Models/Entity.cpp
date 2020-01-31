@@ -147,3 +147,11 @@ void Entity::moveEntityPlanes(std::vector<glm::vec3> &vertices) {
         planes.push_back(Plane(point1, point2, point3));
     }
 }
+
+void Entity::setAsPlayerEntity() {
+    isPlayerEntity = true;
+}
+
+bool Entity::checkIfPlayerEntity() {
+    return isPlayerEntity;
+}

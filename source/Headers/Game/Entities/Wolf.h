@@ -14,10 +14,12 @@ public:
     Entity* getEntityPointer();
     void render(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor);
     void followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains);
+    void hitPlayer();
 
 private:
-    int health = 1;
-    int damage = 1;
+    bool m_damagedPlayer = false;
+    int m_health = 1;
+    int m_damage = 1;
     float const MOVE_SPEED = 1.5f;
     float const JUMP_POWER = 1.0f;
     Entity m_entity;

@@ -46,3 +46,12 @@ void Player::jump() {
     handler.currentGravity.y = JUMP_POWER;
     handler.inAir = true;
 }
+
+void Player::takeDamage(float damage) {
+    currentHealth -= damage;
+    std::cout << currentHealth << std::endl;
+}
+
+float Player::getHealth() {
+    return currentHealth;
+}
