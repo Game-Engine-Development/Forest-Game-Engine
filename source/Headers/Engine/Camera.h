@@ -40,7 +40,7 @@ public:
     float MovementSpeed;
     float MouseSensitivity;
     float Zoom;
-    float aspectRatio = 800/600;
+    float aspectRatio = 800.0f/600.0f;
 
     // Constructor with vectors
     Camera(glm::vec3 position = glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);

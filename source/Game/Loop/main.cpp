@@ -1,7 +1,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "Headers/stb_image.h"
 
-#include "Headers/Engine/Collisions/Plane.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Headers/Engine/Shader.h"
@@ -74,6 +73,10 @@ int main()
     {
         std::cerr << "Failed to initialize GLAD" << std::endl;
         return -1;
+    }
+
+    if (glfwRawMouseMotionSupported()) {
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
     }
 
     glfwSwapInterval(1);
@@ -214,6 +217,7 @@ int main()
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
+    glfwDestroyWindow(window);
     glfwTerminate();
     return 0;
 }
