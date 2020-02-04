@@ -22,15 +22,16 @@ private:
     Entity* m_entity;
     Terrain* currentTerrain;
     int collisionRecursionDepth = 0;
+    Entity* entityBeingChecked;
 
     Terrain* calculateCurrentTerrain(std::vector<Terrain*>& terrains);
     std::vector<Plane> calculateCollidablePlanes(std::vector<Plane>& planes);
     bool getLowestRoot(float a, float b, float c, float maxR, float* root);
     bool checkPointInTriangle(const glm::vec3& point, const glm::vec3& pa,const glm::vec3& pb, const glm::vec3& pc);
-    void checkTriangle(const Plane &trianglePlane, bool isPlayer);
+    void checkTriangle(const Plane &trianglePlane, bool isPlayer, bool isAnimal);
     void collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity*>& entities);
     glm::vec3 collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, std::vector<Entity*>& entities);
-    void calculateCollisions(std::vector<Plane>& planes, bool isPlayer);
+    void calculateCollisions(std::vector<Plane>& planes, bool isPlayer, bool isAnimal);
     void calculateTerrainCollisions(glm::vec3 &finalMove);
     void updateGravity();
     float simGravity(float tics);

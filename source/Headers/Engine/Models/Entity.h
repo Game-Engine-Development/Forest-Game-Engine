@@ -27,14 +27,21 @@ public:
     void addScale(float x, float y, float z);
     void setAsPlayerEntity();
     bool checkIfPlayerEntity();
+    void setAsBullet();
+    bool checkIfBullet();
+    void setAsAnimal();
+    bool checkIfAnimal();
     glm::mat4 createModelMatrix();
     std::vector<Plane> planes;
+    bool hit = false;
 private:
     Mesh mesh;
     std::vector<Texture> textures;
     glm::vec3 rotation, position, scale;
     glm::mat4 modelMatrix;
     bool isPlayerEntity = false;
+    bool isBullet = false;
+    bool isAnimal = false;
     void limitRotation();
     void moveEntityPlanes(std::vector<glm::vec3>& vertices);
 };

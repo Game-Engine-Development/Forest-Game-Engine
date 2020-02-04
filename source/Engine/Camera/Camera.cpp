@@ -91,6 +91,18 @@ void Camera::updateCameraVectors()
     Up    = glm::normalize(glm::cross(Right, Front));
 }
 
+glm::mat4 Camera::getProjectionMatrix() {
+    glm::mat4 projection = glm::mat4(1.0f);
+    projection = glm::perspective(glm::radians(Zoom), aspectRatio, 0.1f, 100000.0f);
+    return projection;
+}
+
+glm::mat4 Camera::getViewMatrix() {
+    glm::mat4 view = glm::mat4(1.0f);
+    view = GetViewMatrix();
+    return view;
+}
+
 void Camera::setMatrices(Shader &shader) {
     glm::mat4 view = glm::mat4(1.0f);
     view = GetViewMatrix();

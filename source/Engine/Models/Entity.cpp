@@ -155,3 +155,19 @@ void Entity::setAsPlayerEntity() {
 bool Entity::checkIfPlayerEntity() {
     return isPlayerEntity;
 }
+
+void Entity::setAsBullet() {
+    isBullet = true;
+}
+
+bool Entity::checkIfBullet() {
+    return isBullet;
+}
+
+void Entity::setAsAnimal() {
+    isAnimal = true;
+}
+
+bool Entity::checkIfAnimal() {
+    return isAnimal;
+}

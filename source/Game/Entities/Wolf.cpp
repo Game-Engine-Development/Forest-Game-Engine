@@ -9,6 +9,10 @@ Wolf::Wolf(Entity &&entity, Player* player) : m_entity(entity), m_collisionHandl
 }
 
 void Wolf::update(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor, std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
+    if(m_entity.hit) {
+        takeDamage(1);
+        m_entity.hit = false;
+    }
     followPlayer(entities, terrains);
     render(camera, shader, lightPos, lightColor);
 }
@@ -22,7 +26,9 @@ Entity* Wolf::getEntityPointer() {
 }
 
 void Wolf::render(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor) {
-    m_entity.render(camera, shader, lightPos, lightColor);
+    if(m_health > 0) {
+        m_entity.render(camera, shader, lightPos, lightColor);
+    }
 }
 
 void Wolf::followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains) {
@@ -47,4 +53,8 @@ void Wolf::followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &t
 
 void Wolf::hitPlayer() {
     m_player->takeDamage(m_damage);
+}
+
+void Wolf::takeDamage(int damage) {
+    m_health -= damage;
 }

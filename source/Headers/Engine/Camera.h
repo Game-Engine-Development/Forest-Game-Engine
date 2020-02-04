@@ -62,6 +62,10 @@ public:
 
     void setMatrices(Shader& shader);
 
+    glm::mat4 getProjectionMatrix();
+
+    glm::mat4 getViewMatrix();
+
     void setSkyboxMatrices(Shader& shader);
 
     glm::vec3 getPos();

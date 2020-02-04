@@ -1,4 +1,4 @@
-#include "Headers/Game/Player.h"
+#include "Headers/Game/Player/Player.h"
 
 Player::Player() = default;
 
