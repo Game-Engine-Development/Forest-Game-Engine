@@ -56,5 +56,6 @@ void Wolf::hitPlayer() {
 }
 
 void Wolf::takeDamage(int damage) {
+    std::cout << "took damage" << std::endl;
     m_health -= damage;
 }

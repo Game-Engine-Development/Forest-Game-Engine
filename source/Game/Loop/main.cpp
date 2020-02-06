@@ -58,7 +58,7 @@ int main()
     glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
     glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
-    camera.setAspectRatio(mode->width/mode->height);
+    camera.setAspectRatio((mode->width/2)/(mode->height/2));
 
     GLFWwindow* window = glfwCreateWindow(mode->width/2, mode->height/2, "Forest", NULL, NULL);
     if (window == NULL)
@@ -195,7 +195,7 @@ int main()
     unsigned int colorBuffer;
     glGenTextures(1, &colorBuffer);
     glBindTexture(GL_TEXTURE_2D, colorBuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, mode->width, mode->height, 0, GL_RGBA, GL_FLOAT, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, mode->width/2, mode->height/2, 0, GL_RGBA, GL_FLOAT, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // create depth buffer (renderbuffer)
@@ -235,15 +235,16 @@ int main()
         }
 
         player.render(normalMappedShader, lightPos, lightColor);
-        wolf1.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
+        /*wolf1.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf2.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf3.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf4.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf5.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf6.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf7.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        wolf8.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
+        wolf8.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);*/
         // draw our first triangle
+        bullet.render(camera, normalMappedShader, lightPos, lightColor);
         for(Entity* entity : entities) {
             entity->render(camera, normalMappedShader, lightPos, lightColor);
         }

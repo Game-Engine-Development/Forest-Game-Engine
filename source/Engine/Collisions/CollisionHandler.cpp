@@ -15,14 +15,23 @@ void CollisionHandler::moveEntity(glm::vec3 &finalMove, std::vector<Entity*>& en
     updateGravity();
 }
 
-void CollisionHandler::calculateCollisions(std::vector<Plane> &planes, bool isPlayer, bool isAnimal) {
+void CollisionHandler::moveEntityWithoutGravity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::vector<Terrain*>& terrains) {
+    hitPlayer = false;
+    currentTerrain = calculateCurrentTerrain(terrains);
+    calculateTerrainCollisions(finalMove);
+    currentGravity = glm::vec3(0, 0, 0);
+    collideAndSlide(finalMove, currentGravity, entities);
+    updateGravity();
+}
+
+void CollisionHandler::calculateCollisions(std::vector<Plane> &planes, Entity* entity) {
     std::vector nearbyPlanes = calculateCollidablePlanes(planes);
     for(const Plane& plane : nearbyPlanes) {
-        checkTriangle(plane, isPlayer, isAnimal);
+        checkTriangle(plane, entity);
     }
 }
 
-void CollisionHandler::checkTriangle(const Plane &trianglePlane, bool isPlayer, bool isAnimal) {
+void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity) {
     if (!trianglePlane.isFrontFacingTo(move.eSpaceMovementNormalized)) {
         double t0, t1;
         bool embeddedInPlane = false;
@@ -171,13 +180,15 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, bool isPlayer, 
             float distToCollision = t * move.eSpaceMovement.length();
 // Does this triangle qualify for the closest hit?
 // it does if it’s the first hit or the closest
-            if(isAnimal && m_entity->checkIfBullet()) {
-                std::cout << "hit" << std::endl;
-                entityBeingChecked->hit = true;
-            }
+            std::cout << "found Collision" << std::endl;
             if (!move.foundCollision || distToCollision < move.nearestDistance) {
+                if(entity->checkIfAnimal() && m_entity->checkIfBullet()) {
+                    std::cout << "hit" << std::endl;
+                } else if(m_entity->checkIfBullet()){
+                    std::cout << "not animal" << std::endl;
+                }
 // Collision information nessesary for sliding
-                move.hitPlayer = isPlayer;
+                move.hitPlayer = entity->checkIfPlayerEntity();
                 move.nearestDistance = distToCollision;
                 move.intersectionPoint = collisionPoint;
                 move.foundCollision = true;
@@ -256,9 +267,8 @@ glm::vec3 CollisionHandler::collideWithWorld(const glm::vec3& pos, const glm::ve
     move.foundCollision = false;
 // Check for collisions
     for(Entity *entity : entities) {
-        if(entity != m_entity) {
-            entityBeingChecked = entity;
-            calculateCollisions(entity->planes, entity->checkIfPlayerEntity(), entity->checkIfBullet());
+        if(entity != m_entity  && !(entity->checkIfPlayerEntity() && m_entity->checkIfBullet())) {
+            calculateCollisions(entity->planes, entity);
         }
     }
     if (!move.foundCollision) {
@@ -281,7 +291,7 @@ glm::vec3 CollisionHandler::collideWithWorld(const glm::vec3& pos, const glm::ve
     glm::vec3 newDestinationPoint = destinationPoint - (float)slidingPlane.signedDistanceTo(destinationPoint) * slidePlaneNormal;
     glm::vec3 newVelocityVector = newDestinationPoint - move.intersectionPoint;
 
-    if (std::sqrt(std::pow(newVelocityVector.x, 2) + std::pow(newVelocityVector.y, 2) + std::pow(newVelocityVector.z, 2)) < veryCloseDistance) {
+    if (std::sqrt(std::pow(newVelocityVector.x, 2) + std::pow(newVelocityVector.y, 2) + std::pow(newVelocityVector.z, 2)) < veryCloseDistance || m_entity->checkIfBullet()) {
         return newBasePoint;
     }
 
