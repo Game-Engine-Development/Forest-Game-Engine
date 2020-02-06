@@ -6,34 +6,31 @@
 
 class Input {
 public:
-    Input();
-    Input(GLFWwindow *window, Camera *camera);
+    static void Init(GLFWwindow *window, Camera *camera, const GLFWvidmode *mode);
 
-    void mouse_callback(GLFWwindow *window, double xpos, double ypos);
-    void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
-    void processInput(GLFWwindow *window);
+    static void processInput();
 
-    bool isKeyDown(int key);
-    bool isButtonDown(int button);
+    static bool isKeyDown(int key);
+    static bool isButtonDown(int button);
 
-    double getScrollY();
-    void setScrollY(double scrollY);
-    double getScrollX();
-    void setScrollX(double scrollX);
+    static double getScrollY();
+    static double getScrollX();
 
-    double getMouseY();
-    void setMouseY(double mouseY);
-    double getMouseX();
-    void setMouseX(double mouseX);
-
-    ~Input();
+    static double getMouseY();
+    static double getMouseX();
 private:
-    GLFWwindow *window;
-    Camera *camera;
+    static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+    static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+    static void cursor_enter_callback(GLFWwindow* window, int entered);
 
-    std::array<bool, GLFW_KEY_LAST> m_keys{};
-    std::array<bool, GLFW_MOUSE_BUTTON_LAST> m_buttons{};
+    static GLFWwindow *m_window;
+    static Camera *m_camera;
 
-    double m_mouseX{}, m_mouseY{};
-    double m_scrollX{}, m_scrollY{};
+    static std::array<bool, GLFW_KEY_LAST> m_keys;
+    static std::array<bool, GLFW_MOUSE_BUTTON_LAST> m_buttons;
+
+    static double m_scrollX, m_scrollY;
+    static float lastX, lastY;
+
+    static bool firstMouse;
 };

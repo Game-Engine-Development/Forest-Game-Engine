@@ -1,6 +1,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "Headers/stb_image.h"
 
+#include "Engine/IO/Input.h"
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Headers/Engine/Shader.h"
@@ -18,12 +20,9 @@
 #include <Headers/Engine/GUI/Button.h>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-void processInput(GLFWwindow *window);
 void renderQuad();
 
-float lastX = 400, lastY = 300;
+float lastX, lastY;
 bool firstMouse = true;
 bool cursor = false;
 bool held = false;
@@ -46,7 +45,9 @@ int main()
     // glfw window creation
     // --------------------
     GLFWmonitor *monitor = glfwGetPrimaryMonitor();
-    GLFWvidmode *mode = const_cast<GLFWvidmode*>(glfwGetVideoMode(monitor));
+    const GLFWvidmode *mode = (glfwGetVideoMode(monitor));
+    lastX = mode->width/2;
+    lastY = mode->height/2;
 
     glfwWindowHint(GLFW_RED_BITS, mode->redBits);
     glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
@@ -55,7 +56,7 @@ int main()
 
     camera.setAspectRatio(mode->width/mode->height);
 
-    GLFWwindow* window = glfwCreateWindow(mode->width/2.0, mode->height/2.0, "Forest", nullptr, nullptr); //monitor, NULL);
+    GLFWwindow* window = glfwCreateWindow(mode->width/2.0, mode->height/2.0, "Forest", nullptr, nullptr); //monitor, nullptr);
     if (window == NULL)
     {
         std::cerr << "Failed to create GLFW window" << std::endl;
@@ -64,8 +65,7 @@ int main()
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSetCursorPosCallback(window, mouse_callback);
-    glfwSetScrollCallback(window, scroll_callback);
+    Input::Init(window, &camera, mode);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
@@ -73,10 +73,6 @@ int main()
     {
         std::cerr << "Failed to initialize GLAD" << std::endl;
         return -1;
-    }
-
-    if (glfwRawMouseMotionSupported()) {
-        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
     }
 
     glfwSwapInterval(1);
@@ -179,7 +175,7 @@ int main()
         //glm::mat3x3 modelViewMatrix = glm::mat3x3(glm::vec3(0,0,0), glm::vec3(0,0,0), glm::vec3(0,0,0));
         // input
         // -----
-        processInput(window);
+        Input::processInput();
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -251,45 +247,6 @@ void renderQuad()
     glBindVertexArray(0);
 }
 
-// process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
-// ---------------------------------------------------------------------------------------------------------
-void processInput(GLFWwindow *window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, true);
-    }
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        player.setSpeed(Player::SPEED);
-    } else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        player.setSpeed(-Player::SPEED);
-    } else {
-        player.setSpeed(0);
-    }
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        player.setLateralSpeed(Player::LATERAL_SPEED);
-    } else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        player.setLateralSpeed(-Player::LATERAL_SPEED);
-    } else {
-        player.setLateralSpeed(0);
-    }
-    if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !player.isInAir()) {
-        player.jump();
-    }
-    if(glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
-        if(cursor && !held) {
-            cursor = false;
-            held = true;
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        } else if(!held) {
-            cursor = true;
-            held = true;
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-        }
-    } else {
-        held = false;
-    }
-}
-
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
 // ---------------------------------------------------------------------------------------------
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -297,28 +254,4 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
-}
-
-void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
-    std::cout << "mouse moved" << std::endl;
-
-    if(firstMouse){
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
-    }
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos;
-    lastX = xpos;
-    lastY = ypos;
-
-    float sensitivity = 0.05f;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-
-    camera.ProcessMouseMovement(xoffset, yoffset, true);
-}
-
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
-    camera.ProcessMouseScroll(yoffset);
 }
