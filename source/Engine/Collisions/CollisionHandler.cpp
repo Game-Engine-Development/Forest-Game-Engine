@@ -25,7 +25,7 @@ void CollisionHandler::moveEntityWithoutGravity(glm::vec3 &finalMove, std::vecto
 }
 
 void CollisionHandler::calculateCollisions(std::vector<Plane> &planes, Entity* entity) {
-    std::vector nearbyPlanes = calculateCollidablePlanes(planes);
+    std::vector nearbyPlanes = planes;//calculateCollidablePlanes(planes);
     for(const Plane& plane : nearbyPlanes) {
         checkTriangle(plane, entity);
     }
@@ -180,12 +180,9 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
             float distToCollision = t * move.eSpaceMovement.length();
 // Does this triangle qualify for the closest hit?
 // it does if it’s the first hit or the closest
-            std::cout << "found Collision" << std::endl;
             if (!move.foundCollision || distToCollision < move.nearestDistance) {
                 if(entity->checkIfAnimal() && m_entity->checkIfBullet()) {
-                    std::cout << "hit" << std::endl;
-                } else if(m_entity->checkIfBullet()){
-                    std::cout << "not animal" << std::endl;
+                    entity->hit = true;
                 }
 // Collision information nessesary for sliding
                 move.hitPlayer = entity->checkIfPlayerEntity();

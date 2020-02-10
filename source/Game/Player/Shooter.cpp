@@ -12,7 +12,7 @@ glm::vec3 Shooter::getCurrentRay() {
 void Shooter::shoot(std::vector<Entity*>& entities, std::vector<Terrain*>& terrains) {
     glm::vec3 newPos(m_camera->getPos());
     m_bulletEntity->setPos(newPos);
-    glm::vec3 shotMove(m_currentRay * 100.0f);
+    glm::vec3 shotMove(m_currentRay * 1000.0f);
     m_handler.moveEntityWithoutGravity(shotMove, entities, terrains);
 }
 

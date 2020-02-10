@@ -9,12 +9,21 @@ Wolf::Wolf(Entity &&entity, Player* player) : m_entity(entity), m_collisionHandl
 }
 
 void Wolf::update(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor, std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
-    if(m_entity.hit) {
-        takeDamage(1);
-        m_entity.hit = false;
+    if(m_health > 0) {
+        if (m_entity.hit) {
+            takeDamage(1);
+            m_entity.hit = false;
+            if(m_health <= 0) {
+                for(int i = 0; i < entities.size(); ++i) {
+                    if(&m_entity == entities[i]) {
+                        entities.erase(entities.begin() + i);
+                    }
+                }
+            }
+        }
+        followPlayer(entities, terrains);
+        render(camera, shader, lightPos, lightColor);
     }
-    followPlayer(entities, terrains);
-    render(camera, shader, lightPos, lightColor);
 }
 
 Entity Wolf::getEntity() {
@@ -26,9 +35,7 @@ Entity* Wolf::getEntityPointer() {
 }
 
 void Wolf::render(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor) {
-    if(m_health > 0) {
-        m_entity.render(camera, shader, lightPos, lightColor);
-    }
+    m_entity.render(camera, shader, lightPos, lightColor);
 }
 
 void Wolf::followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains) {
@@ -56,6 +63,5 @@ void Wolf::hitPlayer() {
 }
 
 void Wolf::takeDamage(int damage) {
-    std::cout << "took damage" << std::endl;
     m_health -= damage;
 }

@@ -49,7 +49,6 @@ void Player::jump() {
 
 void Player::takeDamage(float damage) {
     currentHealth -= damage;
-    std::cout << currentHealth << std::endl;
 }
 
 float Player::getHealth() {

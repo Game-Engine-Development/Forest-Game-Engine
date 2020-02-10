@@ -58,9 +58,9 @@ int main()
     glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
     glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
-    camera.setAspectRatio((mode->width/2)/(mode->height/2));
+    camera.setAspectRatio((mode->width)/(mode->height));
 
-    GLFWwindow* window = glfwCreateWindow(mode->width/2, mode->height/2, "Forest", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "Forest", monitor, NULL);
     if (window == NULL)
     {
         std::cerr << "Failed to create GLFW window" << std::endl;
@@ -186,7 +186,7 @@ int main()
     Wolf wolf8(wolfEntity8, &player);
     entities.push_back(wolf8.getEntityPointer());
 
-    Button button((char*) "../res/front.jpg", glm::vec2(100, 100), glm::vec2(0.2, 0.3), NULL, window, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
+    Button button((char*) "../res/front.jpg", glm::vec2(0, 0), glm::vec2(0.01, 0.01), NULL, window, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
     Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
 
     unsigned int hdrFBO;
@@ -195,7 +195,7 @@ int main()
     unsigned int colorBuffer;
     glGenTextures(1, &colorBuffer);
     glBindTexture(GL_TEXTURE_2D, colorBuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, mode->width/2, mode->height/2, 0, GL_RGBA, GL_FLOAT, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, mode->width, mode->height, 0, GL_RGBA, GL_FLOAT, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // create depth buffer (renderbuffer)
@@ -235,16 +235,15 @@ int main()
         }
 
         player.render(normalMappedShader, lightPos, lightColor);
-        /*wolf1.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
+        wolf1.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf2.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf3.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf4.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf5.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf6.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf7.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        wolf8.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);*/
+        wolf8.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         // draw our first triangle
-        bullet.render(camera, normalMappedShader, lightPos, lightColor);
         for(Entity* entity : entities) {
             entity->render(camera, normalMappedShader, lightPos, lightColor);
         }
