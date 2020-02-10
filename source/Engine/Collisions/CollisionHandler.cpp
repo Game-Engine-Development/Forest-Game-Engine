@@ -182,7 +182,9 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
 // it does if it’s the first hit or the closest
             if (!move.foundCollision || distToCollision < move.nearestDistance) {
                 if(entity->checkIfAnimal() && m_entity->checkIfBullet()) {
-                    entity->hit = true;
+                    m_hitEntity = entity;
+                } else {
+                    m_hitEntity = nullptr;
                 }
 // Collision information nessesary for sliding
                 move.hitPlayer = entity->checkIfPlayerEntity();
@@ -228,6 +230,7 @@ bool CollisionHandler::checkPointInTriangle(const glm::vec3& point, const glm::v
 
 void CollisionHandler::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity*> &entities)
 {
+    m_hitEntity = nullptr;
     move.startingPos = m_entity->getPos();
     move.movement = vel;
 // change values into elipseSpace
@@ -247,6 +250,9 @@ void CollisionHandler::collideAndSlide(const glm::vec3& vel, const glm::vec3& gr
         inAir = false;
     } else if(finalPosition.y >= startingPos - gravity.y && move.foundCollision) {
         currentGravity.y = 0;
+    }
+    if(m_hitEntity != nullptr) {
+        m_hitEntity->hit = true;
     }
     finalPosition *= move.eRadius;
     m_entity->setPos(finalPosition);

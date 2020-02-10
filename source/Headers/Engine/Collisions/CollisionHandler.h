@@ -23,6 +23,8 @@ private:
     Terrain* currentTerrain;
     int collisionRecursionDepth = 0;
 
+    Entity* m_hitEntity = nullptr;
+
     Terrain* calculateCurrentTerrain(std::vector<Terrain*>& terrains);
     std::vector<Plane> calculateCollidablePlanes(std::vector<Plane>& planes);
     bool getLowestRoot(float a, float b, float c, float maxR, float* root);
