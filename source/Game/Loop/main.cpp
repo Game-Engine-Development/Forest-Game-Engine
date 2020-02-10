@@ -1,7 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "Headers/stb_image.h"
 
-#include "Engine/IO/Input.h"
+#include "Headers/Engine/IO/Input.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -18,67 +18,15 @@
 #include <iostream>
 #include <Headers/Engine/Skybox/Skybox.h>
 #include <Headers/Engine/GUI/Button.h>
+#include <Engine/IO/Window.h>
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void renderQuad();
-
-float lastX, lastY;
-bool firstMouse = true;
-bool cursor = false;
-bool held = false;
-
-Camera camera;
-Player player;
 
 int main()
 {
-    // glfw: initialize and configure
-    // ------------------------------
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
-#endif
-    // glfw window creation
-    // --------------------
-    GLFWmonitor *monitor = glfwGetPrimaryMonitor();
-    const GLFWvidmode *mode = (glfwGetVideoMode(monitor));
-    lastX = mode->width/2;
-    lastY = mode->height/2;
-
-    glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-    glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-    glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-    glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-
-    camera.setAspectRatio(mode->width/mode->height);
-
-    GLFWwindow* window = glfwCreateWindow(mode->width/2.0, mode->height/2.0, "Forest", nullptr, nullptr); //monitor, nullptr);
-    if (window == NULL)
-    {
-        std::cerr << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    Input::Init(window, &camera, mode);
-
-    // glad: load all OpenGL function pointers
-    // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cerr << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
-
-    glfwSwapInterval(1);
-
-    glEnable(GL_DEPTH_TEST);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    Camera camera;
+    Player player;
+    Window window(&camera);
 
     std::vector<Entity*> entities;
     std::vector<Terrain*> terrains;
@@ -143,7 +91,7 @@ int main()
     CollisionHandler playerCollider(&nonMappedContainer);
     player = Player(&camera, &nonMappedContainer, playerCollider);
 
-    Button button((char*) "../res/front.jpg", glm::vec2(100, 100), glm::vec2(0.2, 0.3), nullptr, window, std::vector<glm::vec2> {glm::vec2(0.5f, 0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f, 0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(1, 0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
+    Button button((char*) "../res/front.jpg", glm::vec2(100, 100), glm::vec2(0.2, 0.3), nullptr, window.getWindow(), std::vector<glm::vec2> {glm::vec2(0.5f, 0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f, 0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(1, 0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
     Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
 
     unsigned int hdrFBO;
@@ -152,14 +100,14 @@ int main()
     unsigned int colorBuffer;
     glGenTextures(1, &colorBuffer);
     glBindTexture(GL_TEXTURE_2D, colorBuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, mode->width/2.0, mode->height/2.0, 0, GL_RGBA, GL_FLOAT, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, window.getMode()->width/2.0, window.getMode()->height/2.0, 0, GL_RGBA, GL_FLOAT, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // create depth buffer (renderbuffer)
     unsigned int rboDepth;
     glGenRenderbuffers(1, &rboDepth);
     glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, mode->width/2.0, mode->height/2.0);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, window.getMode()->width/2.0, window.getMode()->height/2.0);
     // attach buffers
     glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorBuffer, 0);
@@ -168,16 +116,10 @@ int main()
         std::cout << "Framebuffer not complete!" << std::endl;
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    // render Loop
-    // -----------
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(window.getWindow()))
     {
-        //glm::mat3x3 modelViewMatrix = glm::mat3x3(glm::vec3(0,0,0), glm::vec3(0,0,0), glm::vec3(0,0,0));
-        // input
-        // -----
-        Input::processInput();
-        // render
-        // ------
+        Input::getInstance()->processInput();
+
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -188,7 +130,6 @@ int main()
         player.movePlayer(entities, terrains);
 
         player.render(normalMappedShader, lightPos, lightColor);
-        // draw our first triangle
         for(Entity* entity : entities) {
             entity->render(camera, normalMappedShader, lightPos, lightColor);
         }
@@ -207,13 +148,13 @@ int main()
         entityShader.setFloat("exposure", 1);
         renderQuad();
 
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
     }
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
-    glfwDestroyWindow(window);
+    glfwDestroyWindow(window.getWindow());
     glfwTerminate();
     return 0;
 }
@@ -238,20 +179,11 @@ void renderQuad()
         glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     }
     glBindVertexArray(quadVAO);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glBindVertexArray(0);
-}
-
-// glfw: whenever the window size changed (by OS or user resize) this callback function executes
-// ---------------------------------------------------------------------------------------------
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    // make sure the viewport matches the new window dimensions; note that width and
-    // height will be significantly larger than specified on retina displays.
-    glViewport(0, 0, width, height);
 }

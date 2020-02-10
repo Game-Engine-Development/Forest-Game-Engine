@@ -6,8 +6,8 @@ Button::Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, std::
 }
 
 void Button::onClick() {
-    double xpos, ypos;
-    glfwGetCursorPos(window, &xpos, &ypos);
+    double xpos = Input::getInstance()->getMouseX();
+    double ypos = Input::getInstance()->getMouseY();
 
     int centerX, centerY;
     glfwGetWindowPos(window, &centerX, &centerY);
@@ -18,22 +18,28 @@ void Button::onClick() {
     //std::cout << "xPos: " << xpos << ", yPos: " << ypos << std::endl;
     //std::cout << "screenX: " << centerX << ", screenY: " << centerY << std::endl;
 
-    int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+    int leftButtonState = Input::getInstance()->isButtonDown(GLFW_MOUSE_BUTTON_LEFT);
 
-    if(notPressed && (state == GLFW_PRESS)) {
+    if(notPressed && (leftButtonState == GLFW_PRESS)) {
         notPressed = false;
         pressed = true;
     }
-    else if(pressed && (state == GLFW_PRESS)) {
+    else if(pressed && (leftButtonState == GLFW_PRESS)) {
         pressed = false;
     }
-    else if(state != GLFW_PRESS) {
+    else if(leftButtonState != GLFW_PRESS) {
         pressed = false;
         notPressed = true;
     }
 
     bool xValid = xpos >= edges[0] && xpos <= edges[1];
     bool yValid = ypos >= edges[2] && ypos <= edges[3];
+
+    edges[0] *= 949;
+    edges[1] *= 949;
+    std::cout << "xpos: " << xpos << ", edges[0]: " << edges[0] << ", edges[1]: " << edges[1] << std::endl;
+    //std::cout << "ypos: " << ypos << ", edges[2]: " << edges[2] << ", edges[3]: " << edges[3] << std::endl;
+
     if((xValid && yValid) && pressed) { //if button pressed
         std::cout << "pressed" << std::endl;
         if(action != nullptr) {
