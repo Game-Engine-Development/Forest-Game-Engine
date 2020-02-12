@@ -118,12 +118,12 @@ int main() {
     terrains.push_back(&terrain4);
     std::vector<const char*> textures
     {
-        "../res/right.jpg",
-        "../res/left.jpg",
-        "../res/top.jpg",
-        "../res/bottom.jpg",
-        "../res/front.jpg",
-        "../res/back.jpg"
+        "../res/Standard-Cube-Map2/px.png",
+        "../res/Standard-Cube-Map2/nx.png",
+        "../res/Standard-Cube-Map2/py.png",
+        "../res/Standard-Cube-Map2/ny.png",
+        "../res/Standard-Cube-Map2/pz.png",
+        "../res/Standard-Cube-Map2/nz.png"
     };
     CubeMapTexture cubeMapTexture(textures, 0);
     Skybox skybox(cubeMapTexture);
