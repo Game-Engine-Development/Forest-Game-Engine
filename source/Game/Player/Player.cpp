@@ -19,7 +19,7 @@ void Player::movePlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &t
     finalMove += lateralSpeed * camera->Right;
     handler.moveEntity(finalMove, entities, terrains);
     camera->Position = playerEntity->getPos();
-    camera->setYPos(playerEntity->getPos().y + playerEntity->getScale().y + 0.5f);
+    camera->setYPos(playerEntity->getPos().y + playerEntity->getScale().y + 3.5f);
 }
 
 void Player::render(Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor) {
