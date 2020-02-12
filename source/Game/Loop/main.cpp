@@ -18,12 +18,11 @@
 #include <iostream>
 #include <Headers/Engine/Skybox/Skybox.h>
 #include <Headers/Engine/GUI/Button.h>
-#include <Engine/IO/Window.h>
+#include <Headers/Engine/IO/Window.h>
 
 void renderQuad();
 
-int main()
-{
+int main() {
     Camera camera;
     Player player;
     Window window(&camera);
@@ -118,7 +117,7 @@ int main()
 
     while (!glfwWindowShouldClose(window.getWindow()))
     {
-        Input::getInstance()->processInput();
+        Input::getInstance()->processInput(&player);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

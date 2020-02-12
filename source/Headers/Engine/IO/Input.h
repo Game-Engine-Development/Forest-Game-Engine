@@ -4,12 +4,15 @@
 #include <array>
 #include <GLFW/glfw3.h>
 #include <Headers/Engine/Camera.h>
+#include <Headers/Game/Player.h>
 
 class Input {
 public:
-    static void Init(GLFWwindow *window, Camera *camera, const GLFWvidmode *mode);
+    Input();
 
-    void processInput();
+    Input(GLFWwindow *window, Camera *camera, const GLFWvidmode *mode);
+
+    void processInput(Player *player);
 
     bool isKeyDown(int key);
     bool isButtonDown(int button);
@@ -38,4 +41,9 @@ private:
     bool firstMouse;
 
     static std::shared_ptr<Input> instance;
+
+    bool cursor = false;
+    bool held = false;
+    bool cursorHeld = false;
+    bool shouldShoot = false;
 };

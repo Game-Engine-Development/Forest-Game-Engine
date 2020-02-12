@@ -1,4 +1,4 @@
-#include "Window.h"
+#include "Headers/Engine/IO/Window.h"
 
 Window::Window(Camera *camera) {
     // glfw: initialize and configure
@@ -32,7 +32,7 @@ Window::Window(Camera *camera) {
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    Input::Init(window, camera, mode);
+    Input(window, camera, mode);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------

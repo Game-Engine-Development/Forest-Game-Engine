@@ -2,7 +2,9 @@
 
 std::shared_ptr<Input> Input::instance;
 
-void Input::Init(GLFWwindow *window, Camera *camera, const GLFWvidmode *mode) {
+Input::Input() = default;
+
+Input::Input(GLFWwindow *window, Camera *camera, const GLFWvidmode *mode) {
     instance = std::make_shared<Input>();
 
     instance->m_window = window;
@@ -21,7 +23,7 @@ void Input::Init(GLFWwindow *window, Camera *camera, const GLFWvidmode *mode) {
     glfwSetCursorEnterCallback(window, cursor_enter_callback);
 }
 
-void Input::processInput() {
+void Input::processInput(Player *player) {
     for(int i = 0; i < GLFW_KEY_LAST; ++i) {
         instance->m_keys[i] = glfwGetKey(instance->m_window, i) == GLFW_PRESS;
     }
@@ -31,6 +33,45 @@ void Input::processInput() {
 
     if(instance->m_keys[GLFW_KEY_ESCAPE]) {
         glfwSetWindowShouldClose(instance->m_window, true);
+    }
+
+    if (glfwGetKey(m_window, GLFW_KEY_W) == GLFW_PRESS) {
+        player->setSpeed(Player::SPEED);
+    } else if (glfwGetKey(m_window, GLFW_KEY_S) == GLFW_PRESS) {
+        player->setSpeed(-Player::SPEED);
+    } else {
+        player->setSpeed(0);
+    }
+    if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS) {
+        player->setLateralSpeed(Player::LATERAL_SPEED);
+    } else if (glfwGetKey(m_window, GLFW_KEY_A) == GLFW_PRESS) {
+        player->setLateralSpeed(-Player::LATERAL_SPEED);
+    } else {
+        player->setLateralSpeed(0);
+    }
+    if(glfwGetKey(m_window, GLFW_KEY_SPACE) == GLFW_PRESS && !player->isInAir()) {
+        player->jump();
+    }
+    if(glfwGetKey(m_window, GLFW_KEY_C) == GLFW_PRESS) {
+        if(cursor && !held) {
+            cursor = false;
+            held = true;
+            glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        } else if(!held) {
+            cursor = true;
+            held = true;
+            glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+    } else {
+        held = false;
+    }
+    if(glfwGetMouseButton(m_window, GLFW_MOUSE_BUTTON_LEFT)) {
+        if(!cursorHeld) {
+            cursorHeld = true;
+            shouldShoot = true;
+        }
+    } else {
+        cursorHeld = false;
     }
 }
 
