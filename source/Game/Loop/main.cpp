@@ -23,13 +23,15 @@
 #include <Headers/Game/Entities/Deer.h>
 #include <Headers/Engine/IO/Window.h>
 
-void renderQuad();
+#include "Headers/Engine/Graphics/HDR.h"
 
 int main() {
     Camera camera;
     Player player;
     Window window(&camera);
     Input input(window.getWindow(), &camera, window.getMode());
+
+    HDR hdr(window);
 
     std::vector<Entity*> entities;
     std::vector<Terrain*> terrains;
@@ -177,37 +179,14 @@ int main() {
     Button button((char*) "../res/front.jpg", glm::vec2(0, 0), glm::vec2(0.01, 0.01), NULL, window.getWindow(), std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
     Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
 
-    unsigned int hdrFBO;
-    glGenFramebuffers(1, &hdrFBO);
-    // create floating point color buffer
-    unsigned int colorBuffer;
-    glGenTextures(1, &colorBuffer);
-    glBindTexture(GL_TEXTURE_2D, colorBuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, window.getMode()->width, window.getMode()->height, 0, GL_RGBA, GL_FLOAT, NULL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // create depth buffer (renderbuffer)
-    unsigned int rboDepth;
-    glGenRenderbuffers(1, &rboDepth);
-    glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, window.getMode()->width, window.getMode()->height);
-    // attach buffers
-    glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorBuffer, 0);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        std::cout << "Framebuffer not complete!" << std::endl;
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-    while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0)
-    {
+    while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
         Input::getInstance()->processInput(&player);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        hdr.bind();
+
         skybox.render(skyboxShader, camera);
         player.movePlayer(entities, terrains);
         shooter.update();
@@ -242,14 +221,7 @@ int main() {
 
         button.render(buttonShader);
 
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        entityShader.use();
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, colorBuffer);
-        entityShader.setInt("hdr", false);
-        entityShader.setFloat("exposure", 1);
-        renderQuad();
+        hdr.render(entityShader);
 
         glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
@@ -260,33 +232,4 @@ int main() {
     glfwDestroyWindow(window.getWindow());
     glfwTerminate();
     return 0;
-}
-
-unsigned int quadVAO = 0;
-unsigned int quadVBO;
-void renderQuad()
-{
-    if (quadVAO == 0)
-    {
-        float quadVertices[] = {
-                // positions        // texture Coords
-                -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-                -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-                1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
-                1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-        };
-        // setup plane VAO
-        glGenVertexArrays(1, &quadVAO);
-        glGenBuffers(1, &quadVBO);
-        glBindVertexArray(quadVAO);
-        glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), nullptr);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    }
-    glBindVertexArray(quadVAO);
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    glBindVertexArray(0);
 }
