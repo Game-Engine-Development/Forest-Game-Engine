@@ -4,7 +4,7 @@
 #include <array>
 #include <GLFW/glfw3.h>
 #include <Headers/Engine/Camera.h>
-#include <Headers/Game/Player.h>
+#include <Headers/Game/Player/Player.h>
 
 class Input {
 public:
@@ -22,6 +22,9 @@ public:
 
     double getMouseY();
     double getMouseX();
+
+    bool isShouldShoot();
+    void setShouldShoot(bool value);
 
     static std::shared_ptr<Input> getInstance();
 private:

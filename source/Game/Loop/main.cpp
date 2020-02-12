@@ -29,6 +29,7 @@ int main() {
     Camera camera;
     Player player;
     Window window(&camera);
+    Input input(window.getWindow(), &camera, window.getMode());
 
     std::vector<Entity*> entities;
     std::vector<Terrain*> terrains;
@@ -173,7 +174,7 @@ int main() {
     Deer deer8(deerEntity8, &player);
     entities.push_back(deer8.getEntityPointer());
 
-    Button button((char*) "../res/front.jpg", glm::vec2(0, 0), glm::vec2(0.01, 0.01), NULL, window, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
+    Button button((char*) "../res/front.jpg", glm::vec2(0, 0), glm::vec2(0.01, 0.01), NULL, window.getWindow(), std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
     Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
 
     unsigned int hdrFBO;
@@ -182,14 +183,14 @@ int main() {
     unsigned int colorBuffer;
     glGenTextures(1, &colorBuffer);
     glBindTexture(GL_TEXTURE_2D, colorBuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, window.getMode()->width/2.0, window.getMode()->height/2.0, 0, GL_RGBA, GL_FLOAT, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, window.getMode()->width, window.getMode()->height, 0, GL_RGBA, GL_FLOAT, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // create depth buffer (renderbuffer)
     unsigned int rboDepth;
     glGenRenderbuffers(1, &rboDepth);
     glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, window.getMode()->width/2.0, window.getMode()->height/2.0);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, window.getMode()->width, window.getMode()->height);
     // attach buffers
     glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorBuffer, 0);
@@ -198,7 +199,7 @@ int main() {
         std::cout << "Framebuffer not complete!" << std::endl;
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    while (!glfwWindowShouldClose(window) && player.getHealth() > 0)
+    while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0)
     {
         Input::getInstance()->processInput(&player);
 
@@ -210,9 +211,9 @@ int main() {
         skybox.render(skyboxShader, camera);
         player.movePlayer(entities, terrains);
         shooter.update();
-        if(shouldShoot) {
+        if(Input::getInstance()->isShouldShoot()) {
             shooter.shoot(entities, terrains);
-            shouldShoot = false;
+            Input::getInstance()->setShouldShoot(false);
         }
 
         player.render(normalMappedShader, lightPos, lightColor);

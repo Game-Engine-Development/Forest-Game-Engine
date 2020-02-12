@@ -23,7 +23,7 @@ Window::Window(Camera *camera) {
 
     camera->setAspectRatio(mode->width/mode->height);
 
-    window = glfwCreateWindow(mode->width/2.0, mode->height/2.0, "Forest", nullptr, nullptr); //monitor, nullptr);
+    window = glfwCreateWindow(mode->width, mode->height, "Forest", monitor, nullptr);
     if (window == nullptr)
     {
         std::cerr << "Failed to create GLFW window" << std::endl;
@@ -45,7 +45,7 @@ Window::Window(Camera *camera) {
     glfwSwapInterval(1);
 
     glEnable(GL_DEPTH_TEST);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

@@ -120,6 +120,14 @@ double Input::getMouseX() {
     return instance->lastX;
 }
 
+bool Input::isShouldShoot() {
+    return shouldShoot;
+}
+
+void Input::setShouldShoot(bool value) {
+    shouldShoot = value;
+}
+
 std::shared_ptr<Input> Input::getInstance() {
     return instance;
 }

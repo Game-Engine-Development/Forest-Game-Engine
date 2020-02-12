@@ -37,8 +37,6 @@ void Button::onClick() {
 
     edges[0] *= 949;
     edges[1] *= 949;
-    std::cout << "xpos: " << xpos << ", edges[0]: " << edges[0] << ", edges[1]: " << edges[1] << std::endl;
-    //std::cout << "ypos: " << ypos << ", edges[2]: " << edges[2] << ", edges[3]: " << edges[3] << std::endl;
 
     if((xValid && yValid) && pressed) { //if button pressed
         std::cout << "pressed" << std::endl;
