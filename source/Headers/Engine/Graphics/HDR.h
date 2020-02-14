@@ -9,7 +9,7 @@
 class HDR {
 public:
     HDR();
-    HDR(Window &window);
+    explicit HDR(Window &window);
     void bind();
     void render(Shader &entityShader);
 private:

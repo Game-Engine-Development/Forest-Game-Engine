@@ -5,12 +5,13 @@
 #include <GLFW/glfw3.h>
 #include <Headers/Engine/Camera.h>
 #include <Headers/Game/Player/Player.h>
+#include "Window.h"
 
 class Input {
 public:
     Input();
 
-    Input(GLFWwindow *window, Camera *camera, const GLFWvidmode *mode);
+    Input(Window *window, Camera *camera);
 
     void processInput(Player *player);
 

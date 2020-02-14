@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Headers/Engine/IO/Input.h"
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <Headers/Engine/Camera.h>
@@ -9,7 +7,7 @@
 
 class Window {
 public:
-    Window(Camera *camera);
+    explicit Window(Camera *camera);
 
     GLFWmonitor* getMonitor();
     const GLFWvidmode* getMode();

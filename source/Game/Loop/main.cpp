@@ -14,13 +14,10 @@
 #include "Headers/Engine/Terrain/TerrainTextureMap.h"
 #include <glm/glm.hpp>
 #include "Headers/Game/Player/Player.h"
-#include "Headers/Game/Entities/Wolf.h"
 
-#include <iostream>
 #include <Headers/Engine/Skybox/Skybox.h>
 #include <Headers/Engine/GUI/Button.h>
 #include <Headers/Game/Player/Shooter.h>
-#include <Headers/Game/Entities/Deer.h>
 #include <Headers/Engine/IO/Window.h>
 
 #include "Headers/Engine/Graphics/HDR.h"
@@ -29,7 +26,7 @@ int main() {
     Camera camera;
     Player player;
     Window window(&camera);
-    Input input(window.getWindow(), &camera, window.getMode());
+    Input input(&window, &camera);
 
     HDR hdr(window);
 
@@ -132,9 +129,6 @@ int main() {
     glm::vec3 lightPos(-3200, 3200, -3200);
     glm::vec3 lightColor(0.7, 0.7, 0.7);
 
-    // uncomment this call to draw in wireframe polygons.
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
     CollisionHandler playerCollider(&playerEntity);
     player = Player(&camera, &playerEntity, playerCollider);
     playerEntity.setAsPlayerEntity();
@@ -142,7 +136,7 @@ int main() {
     Shooter shooter(&camera, &bullet, &player);
     entities.push_back(&playerEntity);
 
-    Wolf wolf1(wolfEntity, &player);
+    /*Wolf wolf1(wolfEntity, &player);
     entities.push_back(wolf1.getEntityPointer());
     Wolf wolf2(wolfEntity2, &player);
     entities.push_back(wolf2.getEntityPointer());
@@ -174,9 +168,9 @@ int main() {
     Deer deer7(deerEntity7, &player);
     entities.push_back(deer7.getEntityPointer());
     Deer deer8(deerEntity8, &player);
-    entities.push_back(deer8.getEntityPointer());
+    entities.push_back(deer8.getEntityPointer());*/
 
-    Button button((char*) "../res/front.jpg", glm::vec2(0, 0), glm::vec2(0.01, 0.01), NULL, window.getWindow(), std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
+    Button button((char*) "../res/front.jpg", glm::vec2(2, 0), glm::vec2(0.2, 0.1), nullptr, &window, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
     Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
 
     while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
@@ -196,7 +190,7 @@ int main() {
         }
 
         player.render(normalMappedShader, lightPos, lightColor);
-        wolf1.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
+        /*wolf1.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf2.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf3.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         wolf4.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
@@ -211,7 +205,7 @@ int main() {
         deer5.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         deer6.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
         deer7.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        deer8.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
+        deer8.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);*/
         for(Entity* entity : entities) {
             entity->render(camera, normalMappedShader, lightPos, lightColor);
         }

@@ -1,7 +1,7 @@
 #include "Headers/Engine/GUI/Button.h"
 
 Button::Button() = default;
-Button::Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, std::function<void(void)> action, GLFWwindow *window, std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds) : window(window), mode(mode), quad(Quad(Texture(textureLocation, 0), position, scale, verts, texts, inds)) {
+Button::Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, std::function<void(void)> action, Window *window, std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds) : window(window), quad(Quad(Texture(textureLocation, 0), position, scale, verts, texts, inds)) {
     clampToScreen();
 }
 
@@ -10,7 +10,7 @@ void Button::onClick() {
     double ypos = Input::getInstance()->getMouseY();
 
     int centerX, centerY;
-    glfwGetWindowPos(window, &centerX, &centerY);
+    glfwGetWindowPos(window->getWindow(), &centerX, &centerY);
 
     /*int scaleX, scaleY;
     glfwGetWindowSize(window, &scaleX, &scaleY);*/
@@ -32,11 +32,27 @@ void Button::onClick() {
         notPressed = true;
     }
 
+    edges[0] += 1.0f;
+    edges[1] += 1.0f;
+
+    edges[0] /= 2.0f;
+    edges[1] /= 2.0f;
+
+    edges[0] *= window->getMode()->width/2.0f;
+    edges[1] *= window->getMode()->width/2.0f;
+
     bool xValid = xpos >= edges[0] && xpos <= edges[1];
     bool yValid = ypos >= edges[2] && ypos <= edges[3];
 
-    edges[0] *= 949;
-    edges[1] *= 949;
+    std::cout << "xPos: " << xpos << ", yPos: " << ypos << std::endl;
+    //std::cout << "edges[0]: " << edges[0] << ", edges[1]: " << edges[1] << std::endl;
+    std::cout << "edges[2]: " << edges[2] << ", edges[3]: " << edges[3] << std::endl;
+
+    std::cout << "scale: " << quad.getScale().x << std::endl;
+    //std::cout << "test: " << ((edges[1] - quad.getScale().x - edges[0]) == 0) << std::endl;
+    std::cout << "test: " << (mathRound(edges[3] - quad.getScale().y - edges[2]) == 0.0f) << std::endl;
+
+    std::cout << std::endl;
 
     if((xValid && yValid) && pressed) { //if button pressed
         std::cout << "pressed" << std::endl;
@@ -53,18 +69,26 @@ void Button::detectEdges() {
     edges = {1.0, -1.0, 1.0, -1.0};
 
     for (const glm::vec2& vertex : quad.getVertices()){
-        if((vertex.x*quad.getScale().x + quad.getPos().x + quad.getOffset().x) < edges[0]){
-            edges[0] = quad.getOffset().x + (vertex.x * quad.getScale().x + quad.getPos().x);
+        if(mathRound(vertex.x*quad.getScale().x + quad.getPos().x + quad.getOffset().x) < edges[0]){
+            //std::cout << "0: new: " << mathRound(vertex.x*quad.getScale().x + quad.getPos().x + quad.getOffset().x) << ", old: " << mathRound(edges[0]) << std::endl;
+            assert(mathRound(vertex.x*quad.getScale().x + quad.getPos().x + quad.getOffset().x) != mathRound(edges[0]));
+            edges[0] = mathRound(quad.getOffset().x + (vertex.x * quad.getScale().x + quad.getPos().x));
         }
-        else if((vertex.x*quad.getScale().x + quad.getPos().x + quad.getOffset().x) > edges[1]){
-            edges[1] = quad.getOffset().x + (vertex.x * quad.getScale().x + quad.getPos().x);
+        if(mathRound(vertex.x*quad.getScale().x + quad.getPos().x + quad.getOffset().x) > edges[1]){
+            //std::cout << "1: new: " << mathRound(vertex.x*quad.getScale().x + quad.getPos().x + quad.getOffset().x) << ", old: " << mathRound(edges[1]) << std::endl;
+            assert(mathRound(vertex.x*quad.getScale().x + quad.getPos().x + quad.getOffset().x) != mathRound(edges[1]));
+            edges[1] = mathRound(quad.getOffset().x + (vertex.x * quad.getScale().x + quad.getPos().x));
         }
 
-        if((vertex.y*quad.getScale().y + quad.getPos().y + quad.getOffset().y) < edges[2]){
-                edges[2] = quad.getOffset().y + (vertex.y*quad.getScale().y + quad.getPos().y);
+        if(mathRound(vertex.y*quad.getScale().y + quad.getPos().y + quad.getOffset().y) < edges[2]){
+            //std::cout << "2: new: " << mathRound(vertex.y*quad.getScale().y + quad.getPos().y + quad.getOffset().y) << ", old: " << mathRound(edges[2]) << std::endl;
+            assert(mathRound(vertex.y*quad.getScale().y + quad.getPos().y + quad.getOffset().y) != mathRound(edges[2]));
+            edges[2] = mathRound(quad.getOffset().y + (vertex.y*quad.getScale().y + quad.getPos().y));
         }
-        else if((vertex.y*quad.getScale().y + quad.getPos().y + quad.getOffset().y) > edges[3]){
-                edges[3] = quad.getOffset().y + (vertex.y*quad.getScale().y + quad.getPos().y);
+        if(mathRound(vertex.y*quad.getScale().y + quad.getPos().y + quad.getOffset().y) > edges[3]){
+            //std::cout << "3: new: " << mathRound(vertex.y*quad.getScale().y + quad.getPos().y + quad.getOffset().y) << ", old: " << mathRound(edges[3]) << std::endl;
+            assert(mathRound(vertex.y*quad.getScale().y + quad.getPos().y + quad.getOffset().y) != mathRound(edges[3]));
+            edges[3] = mathRound(quad.getOffset().y + (vertex.y*quad.getScale().y + quad.getPos().y));
         }
     }
 }

@@ -4,23 +4,23 @@ std::shared_ptr<Input> Input::instance;
 
 Input::Input() = default;
 
-Input::Input(GLFWwindow *window, Camera *camera, const GLFWvidmode *mode) {
+Input::Input(Window *window, Camera *camera) {
     instance = std::make_shared<Input>();
 
-    instance->m_window = window;
+    instance->m_window = window->getWindow();
     instance->m_camera = camera;
 
     instance->firstMouse = true;
 
-    instance->lastX = mode->width/2;
-    instance->lastY = mode->height/2;
+    instance->lastX = window->getMode()->width/2;
+    instance->lastY = window->getMode()->height/2;
 
     instance->m_keys.fill(false);
     instance->m_buttons.fill(false);
 
-    glfwSetCursorPosCallback(window, mouse_callback);
-    glfwSetScrollCallback(window, scroll_callback);
-    glfwSetCursorEnterCallback(window, cursor_enter_callback);
+    glfwSetCursorPosCallback(window->getWindow(), mouse_callback);
+    glfwSetScrollCallback(window->getWindow(), scroll_callback);
+    glfwSetCursorEnterCallback(window->getWindow(), cursor_enter_callback);
 }
 
 void Input::processInput(Player *player) {

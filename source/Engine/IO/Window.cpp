@@ -21,23 +21,22 @@ Window::Window(Camera *camera) {
     glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
     glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
-    camera->setAspectRatio(mode->width/mode->height);
+    camera->setAspectRatio((mode->width/2.0f)/(mode->height/2.0f));
 
-    window = glfwCreateWindow(mode->width, mode->height, "Forest", monitor, nullptr);
-    if (window == nullptr)
-    {
+    std::cout << mode->width/2.0f << std::endl;
+
+    window = glfwCreateWindow(mode->width/2, mode->height/2, "Forest", nullptr, nullptr); //monitor, nullptr);
+    if (window == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         std::exit(EXIT_FAILURE);
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    Input(window, camera, mode);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         std::cerr << "Failed to initialize GLAD" << std::endl;
         std::exit(EXIT_FAILURE);
     }
@@ -46,6 +45,9 @@ Window::Window(Camera *camera) {
 
     glEnable(GL_DEPTH_TEST);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    // uncomment this call to draw in wireframe polygons.
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
@@ -54,6 +56,9 @@ void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height
 {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
+
+
+
     glViewport(0, 0, width, height);
 }
 
