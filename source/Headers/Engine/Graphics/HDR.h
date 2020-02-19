@@ -11,7 +11,7 @@ public:
     HDR();
     explicit HDR(Window &window);
     void bind();
-    void render(Shader &entityShader);
+    void render(Shader &entityShader, bool hdr, float exposure);
 private:
     unsigned int quadVAO = 0;
     unsigned int quadVBO;

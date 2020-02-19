@@ -29,14 +29,14 @@ void HDR::bind() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void HDR::render(Shader &entityShader) {
+void HDR::render(Shader &entityShader, bool hdr, float exposure) {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     entityShader.use();
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, colorBuffer);
-    entityShader.setInt("hdr", false);
-    entityShader.setFloat("exposure", 1);
+    entityShader.setInt("hdr", hdr);
+    entityShader.setFloat("exposure", exposure);
     renderQuad();
 }
 
