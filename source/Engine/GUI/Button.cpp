@@ -32,27 +32,47 @@ void Button::onClick() {
         notPressed = true;
     }
 
+    assert(mathRound(edges[1] - quad.getScale().x - edges[0]) == 0.0f);
+    assert(mathRound(edges[3] - quad.getScale().y - edges[2]) == 0.0f);
+
+    //std::cout << "edges[2]: " << edges[2] << ", edges[3]: " << edges[3] << std::endl;
+
     edges[0] += 1.0f;
     edges[1] += 1.0f;
 
     edges[0] /= 2.0f;
     edges[1] /= 2.0f;
 
-    edges[0] *= window->getMode()->width/2.0f;
-    edges[1] *= window->getMode()->width/2.0f;
+    edges[0] *= window->getWidth();
+    edges[1] *= window->getWidth();
+
+    ypos -= window->getHeight();
+    ypos *= -1.0f;
+
+    edges[2] += 1.0f;
+    edges[3] += 1.0f;
+
+    edges[2] /= 2.0f;
+    edges[3] /= 2.0f;
+
+    edges[2] *= window->getHeight();
+    edges[3] *= window->getHeight();
+
+    //std::cout << "edges[2]: " << edges[2] << ", edges[3]: " << edges[3] << std::endl;
+
+    //std::cout << std::endl;
 
     bool xValid = xpos >= edges[0] && xpos <= edges[1];
     bool yValid = ypos >= edges[2] && ypos <= edges[3];
 
-    std::cout << "xPos: " << xpos << ", yPos: " << ypos << std::endl;
+    //std::cout << "xPos: " << xpos << ", yPos: " << ypos << std::endl;
+
     //std::cout << "edges[0]: " << edges[0] << ", edges[1]: " << edges[1] << std::endl;
-    std::cout << "edges[2]: " << edges[2] << ", edges[3]: " << edges[3] << std::endl;
+    //std::cout << "edges[2]: " << edges[2] << ", edges[3]: " << edges[3] << std::endl;
 
-    std::cout << "scale: " << quad.getScale().x << std::endl;
-    //std::cout << "test: " << ((edges[1] - quad.getScale().x - edges[0]) == 0) << std::endl;
-    std::cout << "test: " << (mathRound(edges[3] - quad.getScale().y - edges[2]) == 0.0f) << std::endl;
+    //std::cout << "scale: " << quad.getScale().x << std::endl;
 
-    std::cout << std::endl;
+    //std::cout << std::endl;
 
     if((xValid && yValid) && pressed) { //if button pressed
         std::cout << "pressed" << std::endl;

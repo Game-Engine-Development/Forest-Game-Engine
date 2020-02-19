@@ -12,8 +12,8 @@ Input::Input(Window *window, Camera *camera) {
 
     instance->firstMouse = true;
 
-    instance->lastX = window->getMode()->width/2;
-    instance->lastY = window->getMode()->height/2;
+    instance->lastX = window->getWidth();
+    instance->lastY = window->getHeight();
 
     instance->m_keys.fill(false);
     instance->m_buttons.fill(false);

@@ -170,7 +170,7 @@ int main() {
     Deer deer8(deerEntity8, &player);
     entities.push_back(deer8.getEntityPointer());*/
 
-    Button button((char*) "../res/front.jpg", glm::vec2(2, 0), glm::vec2(0.2, 0.1), nullptr, &window, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
+    Button button((char*) "../res/front.jpg", glm::vec2(0.3f, 0.5f), glm::vec2(0.4, 0.05), nullptr, &window, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
     Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
 
     while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
