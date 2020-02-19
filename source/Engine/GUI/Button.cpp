@@ -1,22 +1,15 @@
 #include "Headers/Engine/GUI/Button.h"
 
+#include <utility>
+
 Button::Button() = default;
-Button::Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, std::function<void(void)> action, Window *window, std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds) : window(window), quad(Quad(Texture(textureLocation, 0), position, scale, verts, texts, inds)) {
+Button::Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, std::function<void(void)> action, Window *window, std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds) : window(window), quad(Quad(Texture(textureLocation, 0), position, scale, verts, texts, inds)), action(std::move(action)) {
     clampToScreen();
 }
 
 void Button::onClick() {
     double xpos = Input::getInstance()->getMouseX();
     double ypos = Input::getInstance()->getMouseY();
-
-    int centerX, centerY;
-    glfwGetWindowPos(window->getWindow(), &centerX, &centerY);
-
-    /*int scaleX, scaleY;
-    glfwGetWindowSize(window, &scaleX, &scaleY);*/
-
-    //std::cout << "xPos: " << xpos << ", yPos: " << ypos << std::endl;
-    //std::cout << "screenX: " << centerX << ", screenY: " << centerY << std::endl;
 
     int leftButtonState = Input::getInstance()->isButtonDown(GLFW_MOUSE_BUTTON_LEFT);
 
@@ -34,8 +27,6 @@ void Button::onClick() {
 
     assert(mathRound(edges[1] - quad.getScale().x - edges[0]) == 0.0f);
     assert(mathRound(edges[3] - quad.getScale().y - edges[2]) == 0.0f);
-
-    //std::cout << "edges[2]: " << edges[2] << ", edges[3]: " << edges[3] << std::endl;
 
     edges[0] += 1.0f;
     edges[1] += 1.0f;
@@ -58,25 +49,13 @@ void Button::onClick() {
     edges[2] *= window->getHeight();
     edges[3] *= window->getHeight();
 
-    //std::cout << "edges[2]: " << edges[2] << ", edges[3]: " << edges[3] << std::endl;
-
-    //std::cout << std::endl;
-
     bool xValid = xpos >= edges[0] && xpos <= edges[1];
     bool yValid = ypos >= edges[2] && ypos <= edges[3];
-
-    //std::cout << "xPos: " << xpos << ", yPos: " << ypos << std::endl;
-
-    //std::cout << "edges[0]: " << edges[0] << ", edges[1]: " << edges[1] << std::endl;
-    //std::cout << "edges[2]: " << edges[2] << ", edges[3]: " << edges[3] << std::endl;
-
-    //std::cout << "scale: " << quad.getScale().x << std::endl;
-
-    //std::cout << std::endl;
 
     if((xValid && yValid) && pressed) { //if button pressed
         std::cout << "pressed" << std::endl;
         if(action != nullptr) {
+            std::cout << "action given" << std::endl;
             action();
         }
         else {

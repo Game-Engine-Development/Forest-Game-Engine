@@ -18,6 +18,8 @@ private:
 
     void renderQuad();
 
+    bool HDROn = false;
+
     unsigned int hdrFBO;
     unsigned int colorBuffer;
     unsigned int rboDepth;
