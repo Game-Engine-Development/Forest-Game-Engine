@@ -12,11 +12,16 @@ public:
     explicit HDR(Window &window);
     void bind();
     void render(Shader &entityShader);
+
+    void setHDR(bool toggle);
+    bool getToggle();
 private:
     unsigned int quadVAO = 0;
     unsigned int quadVBO;
 
     void renderQuad();
+
+    bool HDROn = false;
 
     unsigned int hdrFBO;
     unsigned int colorBuffer;

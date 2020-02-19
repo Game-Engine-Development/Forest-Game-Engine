@@ -35,8 +35,8 @@ void HDR::render(Shader &entityShader) {
     entityShader.use();
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, colorBuffer);
-    entityShader.setInt("hdr", false);
-    entityShader.setFloat("exposure", 1);
+    entityShader.setInt("hdr", HDROn);
+    entityShader.setFloat("exposure", 100);
     renderQuad();
 }
 
@@ -63,4 +63,11 @@ void HDR::renderQuad() {
     glBindVertexArray(quadVAO);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glBindVertexArray(0);
+}
+
+void HDR::setHDR(bool toggle) {
+    HDROn = toggle;
+}
+bool HDR::getToggle() {
+    return HDROn;
 }
