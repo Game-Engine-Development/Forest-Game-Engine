@@ -64,10 +64,3 @@ void HDR::renderQuad() {
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glBindVertexArray(0);
 }
-
-void HDR::setHDR(bool toggle) {
-    HDROn = toggle;
-}
-bool HDR::getToggle() {
-    return HDROn;
-}
