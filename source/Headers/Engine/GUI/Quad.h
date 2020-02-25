@@ -3,7 +3,7 @@
 #include <functional>
 #include <glm/vec2.hpp>
 #include <Headers/Engine/Models/Texture.h>
-#include <Headers/Engine/Camera.h>
+#include <Headers/Engine/Camera/Camera.h>
 #include <GLFW/glfw3.h>
 #include <Headers/Engine/GUI/Quad.h>
 

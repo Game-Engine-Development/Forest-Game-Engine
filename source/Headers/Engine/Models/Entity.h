@@ -1,8 +1,8 @@
 #pragma once
 #include "Headers/Engine/Models/Mesh.h"
 #include "Headers/Engine/Models/Texture.h"
-#include "Headers/Engine/Shader.h"
-#include "Headers/Engine/Camera.h"
+#include "Headers/Engine/Shader/Shader.h"
+#include "Headers/Engine/Camera/Camera.h"
 #include <glm/gtc/type_ptr.hpp>
 #include <Headers/Engine/Collisions/Plane.h>
 

@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <Headers/Engine/Camera.h>
+#include <Headers/Engine/Camera/Camera.h>
 #include "CubeMapTexture.h"
 
 class Skybox {

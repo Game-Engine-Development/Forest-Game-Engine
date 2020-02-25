@@ -2,9 +2,9 @@
 
 #include <glm/glm.hpp>
 #include "Headers/Engine/Terrain/Terrain.h"
-#include "Headers/Engine/Camera.h"
+#include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Models/Entity.h"
-#include "Headers/Engine/Shader.h"
+#include "Headers/Engine/Shader/Shader.h"
 #include <array>
 #include <Headers/Engine/Collisions/CollisionHandler.h>
 #include "Headers/Engine/Collisions/Plane.h"

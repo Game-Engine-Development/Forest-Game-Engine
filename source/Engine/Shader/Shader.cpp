@@ -1,4 +1,4 @@
-#include "Headers/Engine/Shader.h"
+#include "Headers/Engine/Shader/Shader.h"
 
 // constructor generates the shader on the fly
 // ------------------------------------------------------------------------

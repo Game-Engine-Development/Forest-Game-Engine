@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include <Headers/Engine/Camera.h>
+#include <Headers/Engine/Camera/Camera.h>
 #include <Headers/Engine/Models/Entity.h>
 #include "Player.h"
 

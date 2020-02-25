@@ -1,9 +1,9 @@
 #pragma once
 
-#include <Headers/Engine/Camera.h>
+#include <Headers/Engine/Camera/Camera.h>
 #include "Headers/Engine/Terrain/TerrainTextureMap.h"
 #include "Headers/Engine/Terrain/TerrainMesh.h"
-#include "Headers/Engine/Shader.h"
+#include "Headers/Engine/Shader/Shader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>

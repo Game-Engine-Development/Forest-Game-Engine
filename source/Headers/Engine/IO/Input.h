@@ -3,7 +3,7 @@
 #include <memory>
 #include <array>
 #include <GLFW/glfw3.h>
-#include <Headers/Engine/Camera.h>
+#include <Headers/Engine/Camera/Camera.h>
 #include <Headers/Game/Player/Player.h>
 #include "Window.h"
 

@@ -1,5 +1,5 @@
 #include <regex>
-#include "Headers/stb_image.h"
+#include "Headers/Engine/Models/stb_image.h"
 #include "Headers/Engine/Models/Texture.h"
 
 Texture::Texture() = default;

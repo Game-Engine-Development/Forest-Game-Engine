@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <iostream>
 #include <string>
-#include <Headers/Engine/Shader.h>
+#include <Headers/Engine/Shader/Shader.h>
 
 class Texture {
 public:

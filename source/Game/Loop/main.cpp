@@ -1,12 +1,12 @@
 #define STB_IMAGE_IMPLEMENTATION
-#include "Headers/stb_image.h"
+#include "Headers/Engine/Models/stb_image.h"
 
 #include "Headers/Engine/IO/Input.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "Headers/Engine/Shader.h"
-#include "Headers/Engine/Camera.h"
+#include "Headers/Engine/Shader/Shader.h"
+#include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Models/Texture.h"
 #include "Headers/Engine/Models/Mesh.h"
 #include "Headers/Engine/Models/Entity.h"

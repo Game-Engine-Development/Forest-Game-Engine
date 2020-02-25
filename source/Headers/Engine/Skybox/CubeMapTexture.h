@@ -2,7 +2,7 @@
 
 
 #include <vector>
-#include <Headers/Engine/Shader.h>
+#include <Headers/Engine/Shader/Shader.h>
 
 class CubeMapTexture {
 public:
