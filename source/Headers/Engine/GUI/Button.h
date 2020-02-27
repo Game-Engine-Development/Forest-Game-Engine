@@ -13,7 +13,7 @@
 class Button {
 public:
     Button();
-    Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, std::function<void(void)> action, Window *window, std::vector<glm::vec2> &&verts, std::vector<glm::vec2> &&texts, std::vector<unsigned int> &&inds);
+    Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, std::function<void(void)> action, Window *window);
     void render(Shader& shader);
 
 private:

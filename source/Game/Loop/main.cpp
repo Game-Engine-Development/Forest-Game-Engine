@@ -172,7 +172,7 @@ int main() {
     Deer deer8(deerEntity8, &player);
     entities.push_back(deer8.getEntityPointer());
 
-    Button button((char*) "../res/white.png", glm::vec2(0.0f, 0.0f), glm::vec2(0.01, 0.01), nullptr, &window, std::vector<glm::vec2> {glm::vec2(0.5f,  0.5f), glm::vec2(0.5f, -0.5f), glm::vec2(-0.5f,  0.5f), glm::vec2(-0.5f, -0.5f)}, std::vector<glm::vec2> {glm::vec2(0,  0), glm::vec2(0, 1), glm::vec2(1,  0), glm::vec2(1, 1)}, std::vector<unsigned int> {0, 1, 2, 1, 3, 2});
+    Button button((char*) "../res/deer.jpg", glm::vec2(0.0f, 0.0f), glm::vec2(0.1, 0.1), nullptr, &window);
     Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
 
     while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
@@ -226,6 +226,6 @@ int main() {
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwDestroyWindow(window.getWindow());
-    glfwTerminate();
+    //glfwTerminate();
     return 0;
 }

@@ -2,9 +2,7 @@
 
 Quad::Quad() = default;
 
-Quad::Quad(Texture &&texture, glm::vec2 &position, glm::vec2 &scale, std::vector <glm::vec2> &verts, std::vector <glm::vec2> &texts, std::vector<unsigned int> &inds) : texture(texture), position(position), scale(scale), vertices(verts), textureCoords(texts), indices(inds) {
-    createBuffers();
-}
+Quad::Quad(Texture &&texture, glm::vec2 &position, glm::vec2 &scale, std::vector <glm::vec2> verts, std::vector <glm::vec2> texts, std::vector<unsigned int> inds) : texture(texture), position(position), scale(scale), vertices(verts), textureCoords(texts), indices(inds) {}
 
 void Quad::bindVAO() {
     glBindVertexArray(VAO);
