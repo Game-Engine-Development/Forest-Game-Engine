@@ -14,10 +14,12 @@ class Quad {
 public:
     Quad();
 
-    Quad(Texture &&texture, glm::vec2 &position, glm::vec2 &scale, std::vector<glm::vec2> &verts, std::vector<glm::vec2>&texts, std::vector<unsigned int> &inds);
+    Quad(Texture &&texture, glm::vec2 &position, glm::vec2 &scale, std::vector<glm::vec2> verts, std::vector<glm::vec2> texts, std::vector<unsigned int> inds);
 
     void render(Shader& shader);
 
+    void createBuffers();
+    
     std::vector<glm::vec2> getVertices();
 
     glm::vec2 getScale();
@@ -31,7 +33,6 @@ public:
 private:
     void bindVAO();
     void unbindVAO();
-    void createBuffers();
 
     std::vector<glm::vec2> vertices, textureCoords;
     std::vector<unsigned int> indices;
