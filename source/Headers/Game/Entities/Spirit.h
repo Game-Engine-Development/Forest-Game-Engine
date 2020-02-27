@@ -4,10 +4,10 @@
 #include <Headers/Engine/Collisions/CollisionHandler.h>
 #include <Headers/Game/Player/Player.h>
 
-class Wolf {
+class Spirit {
 public:
-    Wolf(Entity& entity, Player* player);
-    Wolf(Entity&& entity, Player* player);
+    Spirit(Entity& entity, Player* player);
+    Spirit(Entity&& entity, Player* player);
 
     void update(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains);
     Entity getEntity();
@@ -19,9 +19,9 @@ public:
 
 private:
     bool m_damagedPlayer = false;
-    int m_health = 3;
-    int m_damage = 5;
-    float const MOVE_SPEED = 2.0f;
+    int m_health = 20;
+    int m_damage = 2;
+    float const MOVE_SPEED = 1.0f;
     float const JUMP_POWER = 1.0f;
     Entity m_entity;
     CollisionHandler m_collisionHandler;

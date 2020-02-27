@@ -9,7 +9,7 @@ public:
     Deer(Entity& entity, Player* player);
     Deer(Entity&& entity, Player* player);
 
-    void update(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor, std::vector<Entity*> &entities, std::vector<Terrain*> &terrains);
+    void update(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains);
     Entity getEntity();
     Entity* getEntityPointer();
     void render(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor);
@@ -19,8 +19,8 @@ public:
 
 private:
     bool m_damagedPlayer = false;
-    int m_health = 2;
-    int m_damage = 1;
+    int m_health = 6;
+    int m_damage = 3;
     float const MOVE_SPEED = 1.5f;
     float const JUMP_POWER = 1.0f;
     Entity m_entity;
