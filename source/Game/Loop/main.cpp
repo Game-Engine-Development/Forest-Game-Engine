@@ -243,6 +243,6 @@ int main() {
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwDestroyWindow(window.getWindow());
-    //glfwTerminate();
+    glfwTerminate();
     return 0;
 }
