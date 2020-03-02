@@ -26,7 +26,7 @@ public:
     static constexpr int MAX_HEALTH = 20;
     Player();
     explicit Player(Camera *camera1, Entity *container1, CollisionHandler &collisionHandler);
-    void movePlayer(std::vector<Entity*>& entities, std::vector<Terrain*>& terrains);
+    void movePlayer(std::vector<Entity*>& entities, std::vector<Terrain*>& terrains, Entity* boundingBox, bool bound);
     void render(Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
     void setSpeed(float speed);
     void setLateralSpeed(float speed);

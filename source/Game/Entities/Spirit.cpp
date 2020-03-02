@@ -62,5 +62,11 @@ void Spirit::hitPlayer() {
 }
 
 void Spirit::takeDamage(int damage) {
-    m_health -= damage;
+    if(m_numOfAnimals == 0) {
+        m_health -= damage;
+    }
+}
+
+void Spirit::animalDied() {
+    m_numOfAnimals -= 1;
 }

@@ -1,11 +1,15 @@
 #include "Headers/Game/Entities/Wolf.h"
 
-Wolf::Wolf(Entity &entity, Player* player) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player) {
+Wolf::Wolf(Entity &entity, Player* player, Spirit* spirit) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player), m_spirit(spirit) {
 
 }
 
-Wolf::Wolf(Entity &&entity, Player* player) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player) {
+Wolf::Wolf(Entity &&entity, Player* player, Spirit* spirit) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player), m_spirit(spirit) {
 
+}
+
+Wolf::~Wolf() {
+    m_spirit->animalDied();
 }
 
 void Wolf::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
@@ -22,6 +26,8 @@ void Wolf::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terra
             }
         }
         followPlayer(entities, terrains);
+    } else {
+        m_isDead = true;
     }
 }
 
@@ -63,4 +69,8 @@ void Wolf::hitPlayer() {
 
 void Wolf::takeDamage(int damage) {
     m_health -= damage;
+}
+
+bool Wolf::isDead() {
+    return m_isDead;
 }

@@ -11,14 +11,14 @@ Plane::Plane(const glm::vec3& origin, const glm::vec3& normal) {
 }
 // Construct from triangle:
 Plane::Plane(const glm::vec3& p1,const glm::vec3& p2,
-const glm::vec3& p3)
+const glm::vec3& p3, float flipped)
 {
     points[0] = p1;
     points[1] = p2;
     points[2] = p3;
     normal = glm::cross((p2-p1), (p3-p1));
     normal = glm::normalize(normal);
-    normal = normal * (float)-1;
+    normal = normal * flipped;
     origin = p1;
     equation[0] = normal.x;
     equation[1] = normal.y;

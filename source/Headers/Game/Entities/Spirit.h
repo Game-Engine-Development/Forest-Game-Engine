@@ -16,11 +16,12 @@ public:
     void followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains);
     void hitPlayer();
     void takeDamage(int damage);
-
+    void animalDied();
 private:
     bool m_damagedPlayer = false;
-    int m_health = 20;
-    int m_damage = 2;
+    int m_health = 1;
+    int m_damage = 20;
+    int m_numOfAnimals = 8;
     float const MOVE_SPEED = 1.0f;
     float const JUMP_POWER = 1.0f;
     Entity m_entity;

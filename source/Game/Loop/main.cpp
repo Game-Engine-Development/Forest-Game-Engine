@@ -5,6 +5,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <memory>
 #include "Headers/Engine/Shader/Shader.h"
 #include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Models/Texture.h"
@@ -59,6 +60,9 @@ int main() {
     currentTextures.push_back(normalMap);
     currentTextures.push_back(containerMap);
     currentTextures.push_back(specularMap);
+    Entity boundingBox(containerMesh, currentTextures, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(500, 500, 500));
+    boundingBox.setFlipped();
+    entities.push_back(&boundingBox);
     Entity container(containerMesh, currentTextures, glm::vec3(-250,10,100), glm::vec3(0,0,0), glm::vec3(10,10,10));
     Entity container2(container);
     container2.translate(0, 20, 25);
@@ -145,22 +149,25 @@ int main() {
     Shooter shooter(&camera, &bullet, &player);
     entities.push_back(&playerEntity);
 
-    Wolf wolf1(wolfEntity, &player);
-    entities.push_back(wolf1.getEntityPointer());
-    Wolf wolf2(wolfEntity2, &player);
-    entities.push_back(wolf2.getEntityPointer());
-    Wolf wolf3(wolfEntity3, &player);
-    entities.push_back(wolf3.getEntityPointer());
-    Wolf wolf4(wolfEntity4, &player);
-    entities.push_back(wolf4.getEntityPointer());
-    Wolf wolf5(wolfEntity5, &player);
-    entities.push_back(wolf5.getEntityPointer());
-    Wolf wolf6(wolfEntity6, &player);
-    entities.push_back(wolf6.getEntityPointer());
-    Wolf wolf7(wolfEntity7, &player);
-    entities.push_back(wolf7.getEntityPointer());
-    Wolf wolf8(wolfEntity8, &player);
-    entities.push_back(wolf8.getEntityPointer());
+    Spirit spirit(spiritEntity, &player);
+    entities.push_back(spirit.getEntityPointer());
+
+    std::unique_ptr<Wolf> wolf1 = std::make_unique<Wolf>(wolfEntity, &player, &spirit);
+    entities.push_back(wolf1->getEntityPointer());
+    std::unique_ptr<Wolf> wolf2 = std::make_unique<Wolf>(wolfEntity, &player, &spirit);
+    entities.push_back(wolf2->getEntityPointer());
+    std::unique_ptr<Wolf> wolf3 = std::make_unique<Wolf>(wolfEntity, &player, &spirit);
+    entities.push_back(wolf3->getEntityPointer());
+    std::unique_ptr<Wolf> wolf4 = std::make_unique<Wolf>(wolfEntity, &player, &spirit);
+    entities.push_back(wolf4->getEntityPointer());
+    std::unique_ptr<Wolf> wolf5 = std::make_unique<Wolf>(wolfEntity, &player, &spirit);
+    entities.push_back(wolf5->getEntityPointer());
+    std::unique_ptr<Wolf> wolf6 = std::make_unique<Wolf>(wolfEntity, &player, &spirit);
+    entities.push_back(wolf6->getEntityPointer());
+    std::unique_ptr<Wolf> wolf7 = std::make_unique<Wolf>(wolfEntity, &player, &spirit);
+    entities.push_back(wolf7->getEntityPointer());
+    std::unique_ptr<Wolf> wolf8 = std::make_unique<Wolf>(wolfEntity, &player, &spirit);
+    entities.push_back(wolf8->getEntityPointer());
     wolves.push_back(&wolf1);
     wolves.push_back(&wolf2);
     wolves.push_back(&wolf3);
@@ -195,10 +202,7 @@ int main() {
     deers.push_back(&deer7);
     deers.push_back(&deer8);
 
-    Spirit spirit(spiritEntity, &player);
-    entities.push_back(spirit.getEntityPointer());
-
-    Button button((char*) "../res/deer.jpg", glm::vec2(0.0f, 0.0f), glm::vec2(0.1, 0.1), nullptr, &window);
+    Button button((char*) "../res/white.png", glm::vec2(0.0f, 0.0f), glm::vec2(0.01, 0.01), nullptr, &window);
     Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
 
     while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
@@ -210,13 +214,13 @@ int main() {
         hdr.bind();
 
         skybox.render(skyboxShader, camera);
-        player.movePlayer(entities, terrains);
+        player.movePlayer(entities, terrains, &boundingBox, true);
         shooter.update();
         if(Input::getInstance()->isShouldShoot()) {
             shooter.shoot(entities, terrains);
             Input::getInstance()->setShouldShoot(false);
         }
-
+        boundingBox.addScale(-0.2, -0.2, -0.2);
         player.render(normalMappedShader, lightPos, lightColor);
         spirit.update(entities, terrains);
         for(Deer* deer : deers) {

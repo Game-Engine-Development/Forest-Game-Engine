@@ -31,6 +31,7 @@ public:
     bool checkIfBullet();
     void setAsAnimal();
     bool checkIfAnimal();
+    void setFlipped();
     glm::mat4 createModelMatrix();
     std::vector<Plane> planes;
     bool hit = false;
@@ -42,6 +43,7 @@ private:
     bool isPlayerEntity = false;
     bool isBullet = false;
     bool isAnimal = false;
+    float flipped = -1;
     void limitRotation();
     void moveEntityPlanes(std::vector<glm::vec3>& vertices);
 };

@@ -144,7 +144,7 @@ void Entity::moveEntityPlanes(std::vector<glm::vec3> &vertices) {
         point1 = modelMatrix * glm::vec4(vertices[i++], 1);
         point2 = modelMatrix * glm::vec4(vertices[i++], 1);
         point3 = modelMatrix * glm::vec4(vertices[i++], 1);
-        planes.push_back(Plane(point1, point2, point3));
+        planes.push_back(Plane(point1, point2, point3, flipped));
     }
 }
 
@@ -170,4 +170,9 @@ void Entity::setAsAnimal() {
 
 bool Entity::checkIfAnimal() {
     return isAnimal;
+}
+
+void Entity::setFlipped() {
+    flipped = 1;
+    moveEntityPlanes(mesh.getVertices());
 }
