@@ -8,7 +8,7 @@ Deer::Deer(Entity &&entity, Player* player) : m_entity(entity), m_collisionHandl
 
 }
 
-void Deer::update(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor, std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
+void Deer::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
     if(m_health > 0) {
         if (m_entity.hit) {
             takeDamage(1);
@@ -22,7 +22,6 @@ void Deer::update(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3
             }
         }
         followPlayer(entities, terrains);
-        render(camera, shader, lightPos, lightColor);
     }
 }
 

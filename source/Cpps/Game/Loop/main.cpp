@@ -21,6 +21,7 @@
 #include <Headers/Engine/GUI/Button.h>
 #include <Headers/Game/Player/Shooter.h>
 #include <Headers/Engine/IO/Window.h>
+#include <Headers/Game/Entities/Spirit.h>
 
 #include "Headers/Engine/Graphics/HDR.h"
 
@@ -34,6 +35,8 @@ int main() {
 
     std::vector<Entity*> entities;
     std::vector<Terrain*> terrains;
+    std::vector<Wolf*> wolves;
+    std::vector<Deer*> deers;
     Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
     Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
     Shader normalMappedShader("../source/Engine/Models/Shaders/normalMappedVertex.glsl", "../source/Engine/Models/Shaders/normalMappedFragment.glsl");
@@ -42,9 +45,10 @@ int main() {
     Texture normalMap("../res/grass.png", 1);
     Texture containerMap("../res/NormalMap.jpg", 2);
     Texture specularMap("../res/SpecularMap.jpg", 3);
-    Texture wolf("../res/wolf.jpg", 0);
-    Texture deer("../res/deer.jpg", 0);
+    Texture wolfTexture("../res/wolf.jpg", 0);
+    Texture deerTexture("../res/deer.jpg", 0);
     Texture human("../res/human.jpg", 0);
+    Texture ghostTexture("../res/ghost.png", 0);
     std::vector<Texture> currentTextures;
     Mesh containerMesh("../res/container.obj", true);
     currentTextures.push_back(human);
@@ -70,15 +74,15 @@ int main() {
     entities.push_back(&container4);
     entities.push_back(&container5);
     currentTextures.clear();
-    currentTextures.push_back(wolf);
-    Entity wolfEntity(containerMesh, currentTextures, glm::vec3(-200, 10, -100), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-    Entity wolfEntity2(containerMesh, currentTextures, glm::vec3(200, 10, 100), glm::vec3(0, 45, 0), glm::vec3(1, 1, 1));
-    Entity wolfEntity3(containerMesh, currentTextures, glm::vec3(-100, 10, -100), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-    Entity wolfEntity4(containerMesh, currentTextures, glm::vec3(100, 10, 100), glm::vec3(0, 45, 0), glm::vec3(1, 1, 1));
-    Entity wolfEntity5(containerMesh, currentTextures, glm::vec3(-200, 10, -200), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-    Entity wolfEntity6(containerMesh, currentTextures, glm::vec3(200, 10, 200), glm::vec3(0, 45, 0), glm::vec3(1, 1, 1));
-    Entity wolfEntity7(containerMesh, currentTextures, glm::vec3(-200, 10, -10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-    Entity wolfEntity8(containerMesh, currentTextures, glm::vec3(20, 10, 100), glm::vec3(0, 45, 0), glm::vec3(1, 1, 1));
+    currentTextures.push_back(wolfTexture);
+    Entity wolfEntity(containerMesh, currentTextures, glm::vec3(-200, 10, -100), glm::vec3(0, 0, 0), glm::vec3(2, 1, 1));
+    Entity wolfEntity2(containerMesh, currentTextures, glm::vec3(200, 10, 100), glm::vec3(0, 45, 0), glm::vec3(2, 1, 1));
+    Entity wolfEntity3(containerMesh, currentTextures, glm::vec3(-100, 10, -100), glm::vec3(0, 0, 0), glm::vec3(2, 1, 1));
+    Entity wolfEntity4(containerMesh, currentTextures, glm::vec3(100, 10, 100), glm::vec3(0, 45, 0), glm::vec3(2, 1, 1));
+    Entity wolfEntity5(containerMesh, currentTextures, glm::vec3(-200, 10, -200), glm::vec3(0, 0, 0), glm::vec3(2, 1, 1));
+    Entity wolfEntity6(containerMesh, currentTextures, glm::vec3(200, 10, 200), glm::vec3(0, 45, 0), glm::vec3(2, 1, 1));
+    Entity wolfEntity7(containerMesh, currentTextures, glm::vec3(-200, 10, -10), glm::vec3(0, 0, 0), glm::vec3(2, 1, 1));
+    Entity wolfEntity8(containerMesh, currentTextures, glm::vec3(20, 10, 100), glm::vec3(0, 45, 0), glm::vec3(2, 1, 1));
     wolfEntity.setAsAnimal();
     wolfEntity2.setAsAnimal();
     wolfEntity3.setAsAnimal();
@@ -88,15 +92,15 @@ int main() {
     wolfEntity7.setAsAnimal();
     wolfEntity8.setAsAnimal();
     currentTextures.clear();
-    currentTextures.push_back(deer);
-    Entity deerEntity1(containerMesh, currentTextures, glm::vec3(-300, 10, -200), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-    Entity deerEntity2(containerMesh, currentTextures, glm::vec3(100, 10, 100), glm::vec3(0, 45, 0), glm::vec3(1, 1, 1));
-    Entity deerEntity3(containerMesh, currentTextures, glm::vec3(-300, 10, -200), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-    Entity deerEntity4(containerMesh, currentTextures, glm::vec3(200, 10, 100), glm::vec3(0, 45, 0), glm::vec3(1, 1, 1));
-    Entity deerEntity5(containerMesh, currentTextures, glm::vec3(-100, 10, -400), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-    Entity deerEntity6(containerMesh, currentTextures, glm::vec3(300, 10, 200), glm::vec3(0, 45, 0), glm::vec3(1, 1, 1));
-    Entity deerEntity7(containerMesh, currentTextures, glm::vec3(-400, 10, -40), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
-    Entity deerEntity8(containerMesh, currentTextures, glm::vec3(50, 10, 400), glm::vec3(0, 45, 0), glm::vec3(1, 1, 1));
+    currentTextures.push_back(deerTexture);
+    Entity deerEntity1(containerMesh, currentTextures, glm::vec3(-300, 10, -200), glm::vec3(0, 0, 0), glm::vec3(2, 3, 1));
+    Entity deerEntity2(containerMesh, currentTextures, glm::vec3(100, 10, 100), glm::vec3(0, 45, 0), glm::vec3(2, 3, 1));
+    Entity deerEntity3(containerMesh, currentTextures, glm::vec3(-300, 10, -200), glm::vec3(0, 0, 0), glm::vec3(2, 3, 1));
+    Entity deerEntity4(containerMesh, currentTextures, glm::vec3(200, 10, 100), glm::vec3(0, 45, 0), glm::vec3(2, 3, 1));
+    Entity deerEntity5(containerMesh, currentTextures, glm::vec3(-100, 10, -400), glm::vec3(0, 0, 0), glm::vec3(2, 3, 1));
+    Entity deerEntity6(containerMesh, currentTextures, glm::vec3(300, 10, 200), glm::vec3(0, 45, 0), glm::vec3(2, 3, 1));
+    Entity deerEntity7(containerMesh, currentTextures, glm::vec3(-400, 10, -40), glm::vec3(0, 0, 0), glm::vec3(2, 3, 1));
+    Entity deerEntity8(containerMesh, currentTextures, glm::vec3(50, 10, 400), glm::vec3(0, 45, 0), glm::vec3(2, 3, 1));
     deerEntity1.setAsAnimal();
     deerEntity2.setAsAnimal();
     deerEntity3.setAsAnimal();
@@ -106,11 +110,14 @@ int main() {
     deerEntity7.setAsAnimal();
     deerEntity8.setAsAnimal();
     currentTextures.clear();
+    currentTextures.push_back(ghostTexture);
+    Entity spiritEntity(containerMesh, currentTextures, glm::vec3(100, 100, 100), glm::vec3(0, 0, 0), glm::vec3(2, 4, 2));
+    spiritEntity.setAsAnimal();
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
     TerrainMesh terrainMesh("../res/heightmap.png");
     TerrainMesh terrainMesh1("../res/heightmap2.png");
-    Terrain terrain1(terrainMap, terrainMesh1, 0, 0);
-    Terrain terrain2(terrainMap, terrainMesh1, -1, 0);
+    Terrain terrain1(terrainMap, terrainMesh, 0, 0);
+    Terrain terrain2(terrainMap, terrainMesh, -1, 0);
     Terrain terrain3(terrainMap, terrainMesh, -1, -1);
     Terrain terrain4(terrainMap, terrainMesh, 0, -1);
     terrains.push_back(&terrain1);
@@ -154,6 +161,14 @@ int main() {
     entities.push_back(wolf7.getEntityPointer());
     Wolf wolf8(wolfEntity8, &player);
     entities.push_back(wolf8.getEntityPointer());
+    wolves.push_back(&wolf1);
+    wolves.push_back(&wolf2);
+    wolves.push_back(&wolf3);
+    wolves.push_back(&wolf4);
+    wolves.push_back(&wolf5);
+    wolves.push_back(&wolf6);
+    wolves.push_back(&wolf7);
+    wolves.push_back(&wolf8);
 
     Deer deer1(deerEntity1, &player);
     entities.push_back(deer1.getEntityPointer());
@@ -171,6 +186,17 @@ int main() {
     entities.push_back(deer7.getEntityPointer());
     Deer deer8(deerEntity8, &player);
     entities.push_back(deer8.getEntityPointer());
+    deers.push_back(&deer1);
+    deers.push_back(&deer2);
+    deers.push_back(&deer3);
+    deers.push_back(&deer4);
+    deers.push_back(&deer5);
+    deers.push_back(&deer6);
+    deers.push_back(&deer7);
+    deers.push_back(&deer8);
+
+    Spirit spirit(spiritEntity, &player);
+    entities.push_back(spirit.getEntityPointer());
 
     Button button((char*) "../res/deer.jpg", glm::vec2(0.0f, 0.0f), glm::vec2(0.1, 0.1), nullptr, &window);
     Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
@@ -192,22 +218,13 @@ int main() {
         }
 
         player.render(normalMappedShader, lightPos, lightColor);
-        wolf1.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        wolf2.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        wolf3.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        wolf4.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        wolf5.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        wolf6.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        wolf7.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        wolf8.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        deer1.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        deer2.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        deer3.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        deer4.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        deer5.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        deer6.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        deer7.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
-        deer8.update(camera, normalMappedShader, lightPos, lightColor, entities, terrains);
+        spirit.update(entities, terrains);
+        for(Deer* deer : deers) {
+            deer->update( entities, terrains);
+        }
+        for(Wolf* wolf : wolves) {
+            wolf->update(entities, terrains);
+        }
         for(Entity* entity : entities) {
             entity->render(camera, normalMappedShader, lightPos, lightColor);
         }
@@ -226,6 +243,6 @@ int main() {
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwDestroyWindow(window.getWindow());
-    //glfwTerminate();
+    glfwTerminate();
     return 0;
 }

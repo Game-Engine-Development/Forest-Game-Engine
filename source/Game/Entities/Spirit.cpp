@@ -1,14 +1,14 @@
-#include "Headers/Game/Entities/Wolf.h"
+#include "Headers/Game/Entities/Spirit.h"
 
-Wolf::Wolf(Entity &entity, Player* player) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player) {
-
-}
-
-Wolf::Wolf(Entity &&entity, Player* player) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player) {
+Spirit::Spirit(Entity &entity, Player* player) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player) {
 
 }
 
-void Wolf::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
+Spirit::Spirit(Entity &&entity, Player* player) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player) {
+
+}
+
+void Spirit::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
     if(m_health > 0) {
         if (m_entity.hit) {
             takeDamage(1);
@@ -25,19 +25,19 @@ void Wolf::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terra
     }
 }
 
-Entity Wolf::getEntity() {
+Entity Spirit::getEntity() {
     return m_entity;
 }
 
-Entity* Wolf::getEntityPointer() {
+Entity* Spirit::getEntityPointer() {
     return &m_entity;
 }
 
-void Wolf::render(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor) {
+void Spirit::render(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor) {
     m_entity.render(camera, shader, lightPos, lightColor);
 }
 
-void Wolf::followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains) {
+void Spirit::followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains) {
     glm::vec3 move = m_player->getPlayerEntity().getPos() - m_entity.getPos();
     if(!m_damagedPlayer) {
         if (std::sqrt(move.x * move.x + move.y * move.y + move.z * move.z) < 20 && !m_collisionHandler.inAir) {
@@ -57,10 +57,10 @@ void Wolf::followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &t
     }
 }
 
-void Wolf::hitPlayer() {
+void Spirit::hitPlayer() {
     m_player->takeDamage(m_damage);
 }
 
-void Wolf::takeDamage(int damage) {
+void Spirit::takeDamage(int damage) {
     m_health -= damage;
 }
