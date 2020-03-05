@@ -1,10 +1,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "Headers/Engine/Models/stb_image.h"
 
-#include "Headers/Engine/IO/Input.h"
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 #include "Headers/Engine/Shader/Shader.h"
 #include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Models/Texture.h"
@@ -12,17 +11,15 @@
 #include "Headers/Engine/Models/Entity.h"
 #include "Headers/Engine/Terrain/Terrain.h"
 #include "Headers/Engine/Terrain/TerrainTextureMap.h"
-#include <glm/glm.hpp>
 #include "Headers/Game/Player/Player.h"
 #include "Headers/Game/Entities/Wolf.h"
 #include "Headers/Game/Entities/Deer.h"
-
-#include <Headers/Engine/Skybox/Skybox.h>
-#include <Headers/Engine/GUI/Button.h>
-#include <Headers/Game/Player/Shooter.h>
-#include <Headers/Engine/IO/Window.h>
-#include <Headers/Game/Entities/Spirit.h>
-
+#include "Headers/Engine/IO/Input.h"
+#include "Headers/Engine/Skybox/Skybox.h"
+#include "Headers/Engine/GUI/Button.h"
+#include "Headers/Game/Player/Shooter.h"
+#include "Headers/Engine/IO/Window.h"
+#include "Headers/Game/Entities/Spirit.h"
 #include "Headers/Engine/Graphics/HDR.h"
 
 int main() {
@@ -37,10 +34,10 @@ int main() {
     std::vector<Terrain*> terrains;
     std::vector<Wolf*> wolves;
     std::vector<Deer*> deers;
-    Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
-    Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
-    Shader normalMappedShader("../source/Engine/Models/Shaders/normalMappedVertex.glsl", "../source/Engine/Models/Shaders/normalMappedFragment.glsl");
-    Shader skyboxShader("../source/Engine/Skybox/Shaders/skyboxVertexShader.glsl", "../source/Engine/Skybox/Shaders/skyboxFragmentShader.glsl");
+    Shader entityShader("../source/Cpps/Engine/Models/Shaders/vertexShader.glsl", "../source/Cpps/Engine/Models/Shaders/fragmentShader.glsl");
+    Shader terrainShader("../source/Cpps/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Cpps/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
+    Shader normalMappedShader("../source/Cpps/Engine/Models/Shaders/normalMappedVertex.glsl", "../source/Cpps/Engine/Models/Shaders/normalMappedFragment.glsl");
+    Shader skyboxShader("../source/Cpps/Engine/Skybox/Shaders/skyboxVertexShader.glsl", "../source/Cpps/Engine/Skybox/Shaders/skyboxFragmentShader.glsl");
     Texture texture("../res/container.jpg", 0);
     Texture normalMap("../res/grass.png", 1);
     Texture containerMap("../res/NormalMap.jpg", 2);
@@ -199,7 +196,7 @@ int main() {
     entities.push_back(spirit.getEntityPointer());
 
     Button button((char*) "../res/deer.jpg", glm::vec2(0.0f, 0.0f), glm::vec2(0.1, 0.1), nullptr, &window);
-    Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
+    Shader buttonShader("../source/Cpps/Engine/GUI/Shaders/vertexShader.glsl", "../source/Cpps/Engine/GUI/Shaders/fragmentShader.glsl");
 
     while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
         Input::getInstance()->processInput(&player);
@@ -243,6 +240,6 @@ int main() {
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwDestroyWindow(window.getWindow());
-    glfwTerminate();
+    glfwTerminate(); //this line will not work on linux
     return 0;
 }
