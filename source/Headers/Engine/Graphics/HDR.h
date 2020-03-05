@@ -10,8 +10,12 @@ class HDR {
 public:
     HDR();
     explicit HDR(Window &window);
+
     void bind();
-    void render(Shader &entityShader, bool hdr, float exposure);
+    void render(Shader &entityShader, float exposure);
+
+    bool getHDRStatus();
+    void setHDRStatus(bool hdr);
 private:
     unsigned int quadVAO = 0;
     unsigned int quadVBO;

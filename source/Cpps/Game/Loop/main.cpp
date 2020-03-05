@@ -195,7 +195,7 @@ int main() {
     Spirit spirit(spiritEntity, &player);
     entities.push_back(spirit.getEntityPointer());
 
-    Button button((char*) "../res/deer.jpg", glm::vec2(0.0f, 0.0f), glm::vec2(0.1, 0.1), nullptr, &window);
+    Button button((char*) "../res/deer.jpg", glm::vec2(0.0f, 0.0f), glm::vec2(0.1, 0.1), [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());}, &window);
     Shader buttonShader("../source/Cpps/Engine/GUI/Shaders/vertexShader.glsl", "../source/Cpps/Engine/GUI/Shaders/fragmentShader.glsl");
 
     while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
@@ -217,7 +217,7 @@ int main() {
         player.render(normalMappedShader, lightPos, lightColor);
         spirit.update(entities, terrains);
         for(Deer* deer : deers) {
-            deer->update( entities, terrains);
+            deer->update(entities, terrains);
         }
         for(Wolf* wolf : wolves) {
             wolf->update(entities, terrains);
@@ -231,7 +231,7 @@ int main() {
 
         button.render(buttonShader);
 
-        hdr.render(entityShader, true,1.5);
+        hdr.render(entityShader, 1.5);
 
         glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
@@ -240,6 +240,6 @@ int main() {
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwDestroyWindow(window.getWindow());
-    glfwTerminate(); //this line will not work on linux
+    glfwTerminate(); //this line will not work on linux (will add #ifdef statement to automatically toggle this later)
     return 0;
 }
