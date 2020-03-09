@@ -1,13 +1,16 @@
 #pragma once
 
-#include <Headers/Engine/IO/Input.h>
-#include <functional>
-#include <glm/vec2.hpp>
-#include <Headers/Engine/Models/Texture.h>
-#include <Headers/Engine/Camera/Camera.h>
-#include <GLFW/glfw3.h>
-#include <Headers/Engine/GUI/Quad.h>
+#include <ctime>
+#include <utility>
+#include <memory>
 #include <array>
+#include <functional>
+#include <GLFW/glfw3.h>
+#include <glm/vec2.hpp>
+#include "Headers/Engine/IO/Input.h"
+#include "Headers/Engine/Models/Texture.h"
+#include "Headers/Engine/Camera/Camera.h"
+#include "Headers/Engine/GUI/Quad.h"
 #include "Headers/Engine/Math/MathUtils.h"
 
 class Button {
@@ -32,6 +35,6 @@ private:
 
     std::function<void(void)> action;
 
-    Quad quad;
+    std::unique_ptr<Quad> quad;
 };
 

@@ -1,11 +1,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "Headers/Engine/Models/stb_image.h"
 
-#include "Headers/Engine/IO/Input.h"
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <memory>
+#include <glm/glm.hpp>
 #include "Headers/Engine/Shader/Shader.h"
 #include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Models/Texture.h"
@@ -13,17 +11,15 @@
 #include "Headers/Engine/Models/Entity.h"
 #include "Headers/Engine/Terrain/Terrain.h"
 #include "Headers/Engine/Terrain/TerrainTextureMap.h"
-#include <glm/glm.hpp>
 #include "Headers/Game/Player/Player.h"
 #include "Headers/Game/Entities/Wolf.h"
 #include "Headers/Game/Entities/Deer.h"
-
-#include <Headers/Engine/Skybox/Skybox.h>
-#include <Headers/Engine/GUI/Button.h>
-#include <Headers/Game/Player/Shooter.h>
-#include <Headers/Engine/IO/Window.h>
-#include <Headers/Game/Entities/Spirit.h>
-
+#include "Headers/Engine/IO/Input.h"
+#include "Headers/Engine/Skybox/Skybox.h"
+#include "Headers/Engine/GUI/Button.h"
+#include "Headers/Game/Player/Shooter.h"
+#include "Headers/Engine/IO/Window.h"
+#include "Headers/Game/Entities/Spirit.h"
 #include "Headers/Engine/Graphics/HDR.h"
 
 int main() {
@@ -38,10 +34,10 @@ int main() {
     std::vector<Terrain*> terrains;
     std::vector<Wolf*> wolves;
     std::vector<Deer*> deers;
-    Shader entityShader("../source/Engine/Models/Shaders/vertexShader.glsl", "../source/Engine/Models/Shaders/fragmentShader.glsl");
-    Shader terrainShader("../source/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
-    Shader normalMappedShader("../source/Engine/Models/Shaders/normalMappedVertex.glsl", "../source/Engine/Models/Shaders/normalMappedFragment.glsl");
-    Shader skyboxShader("../source/Engine/Skybox/Shaders/skyboxVertexShader.glsl", "../source/Engine/Skybox/Shaders/skyboxFragmentShader.glsl");
+    Shader entityShader("../source/Cpps/Engine/Models/Shaders/vertexShader.glsl", "../source/Cpps/Engine/Models/Shaders/fragmentShader.glsl");
+    Shader terrainShader("../source/Cpps/Engine/Terrain/Shaders/terrainVertexShader.glsl", "../source/Cpps/Engine/Terrain/Shaders/terrainFragmentShader.glsl");
+    Shader normalMappedShader("../source/Cpps/Engine/Models/Shaders/normalMappedVertex.glsl", "../source/Cpps/Engine/Models/Shaders/normalMappedFragment.glsl");
+    Shader skyboxShader("../source/Cpps/Engine/Skybox/Shaders/skyboxVertexShader.glsl", "../source/Cpps/Engine/Skybox/Shaders/skyboxFragmentShader.glsl");
     Texture texture("../res/container.jpg", 0);
     Texture normalMap("../res/grass.png", 1);
     Texture containerMap("../res/NormalMap.jpg", 2);
@@ -60,9 +56,6 @@ int main() {
     currentTextures.push_back(normalMap);
     currentTextures.push_back(containerMap);
     currentTextures.push_back(specularMap);
-    Entity boundingBox(containerMesh, currentTextures, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(500, 500, 500));
-    boundingBox.setFlipped();
-    entities.push_back(&boundingBox);
     Entity container(containerMesh, currentTextures, glm::vec3(-250,10,100), glm::vec3(0,0,0), glm::vec3(10,10,10));
     Entity container2(container);
     container2.translate(0, 20, 25);
@@ -149,24 +142,21 @@ int main() {
     Shooter shooter(&camera, &bullet, &player);
     entities.push_back(&playerEntity);
 
-    Spirit spirit(spiritEntity, &player);
-    entities.push_back(spirit.getEntityPointer());
-
-    Wolf wolf1(wolfEntity, &player, &spirit);
+    Wolf wolf1(wolfEntity, &player);
     entities.push_back(wolf1.getEntityPointer());
-    Wolf wolf2(wolfEntity, &player, &spirit);
+    Wolf wolf2(wolfEntity2, &player);
     entities.push_back(wolf2.getEntityPointer());
-    Wolf wolf3(wolfEntity, &player, &spirit);
+    Wolf wolf3(wolfEntity3, &player);
     entities.push_back(wolf3.getEntityPointer());
-    Wolf wolf4(wolfEntity, &player, &spirit);
+    Wolf wolf4(wolfEntity4, &player);
     entities.push_back(wolf4.getEntityPointer());
-    Wolf wolf5(wolfEntity, &player, &spirit);
+    Wolf wolf5(wolfEntity5, &player);
     entities.push_back(wolf5.getEntityPointer());
-    Wolf wolf6(wolfEntity, &player, &spirit);
+    Wolf wolf6(wolfEntity6, &player);
     entities.push_back(wolf6.getEntityPointer());
-    Wolf wolf7(wolfEntity, &player, &spirit);
+    Wolf wolf7(wolfEntity7, &player);
     entities.push_back(wolf7.getEntityPointer());
-    Wolf wolf8(wolfEntity, &player, &spirit);
+    Wolf wolf8(wolfEntity8, &player);
     entities.push_back(wolf8.getEntityPointer());
     wolves.push_back(&wolf1);
     wolves.push_back(&wolf2);
@@ -202,8 +192,11 @@ int main() {
     deers.push_back(&deer7);
     deers.push_back(&deer8);
 
-    Button button((char*) "../res/white.png", glm::vec2(0.0f, 0.0f), glm::vec2(0.01, 0.01), nullptr, &window);
-    Shader buttonShader("../source/Engine/GUI/Shaders/vertexShader.glsl", "../source/Engine/GUI/Shaders/fragmentShader.glsl");
+    Spirit spirit(spiritEntity, &player);
+    entities.push_back(spirit.getEntityPointer());
+
+    Button button((char*) "../res/deer.jpg", glm::vec2(0.0f, 0.0f), glm::vec2(0.1, 0.1), [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());}, &window);
+    Shader buttonShader("../source/Cpps/Engine/GUI/Shaders/vertexShader.glsl", "../source/Cpps/Engine/GUI/Shaders/fragmentShader.glsl");
 
     while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
         Input::getInstance()->processInput(&player);
@@ -214,17 +207,17 @@ int main() {
         hdr.bind();
 
         skybox.render(skyboxShader, camera);
-        player.movePlayer(entities, terrains, &boundingBox, true);
+        player.movePlayer(entities, terrains);
         shooter.update();
         if(Input::getInstance()->isShouldShoot()) {
             shooter.shoot(entities, terrains);
             Input::getInstance()->setShouldShoot(false);
         }
-        boundingBox.addScale(-0.2, -0.2, -0.2);
+
         player.render(normalMappedShader, lightPos, lightColor);
         spirit.update(entities, terrains);
         for(Deer* deer : deers) {
-            deer->update( entities, terrains);
+            deer->update(entities, terrains);
         }
         for(Wolf* wolf : wolves) {
             wolf->update(entities, terrains);
@@ -238,7 +231,7 @@ int main() {
 
         button.render(buttonShader);
 
-        hdr.render(entityShader, true,1.5);
+        hdr.render(entityShader, 1.5);
 
         glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
@@ -247,6 +240,6 @@ int main() {
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwDestroyWindow(window.getWindow());
-    glfwTerminate();
+    glfwTerminate(); //this line will not work on linux (will add #ifdef statement to automatically toggle this later)
     return 0;
 }

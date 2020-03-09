@@ -1,24 +1,22 @@
 #pragma once
 
+#include <memory>
 #include <functional>
 #include <glm/vec2.hpp>
-#include <Headers/Engine/Models/Texture.h>
-#include <Headers/Engine/Camera/Camera.h>
-#include <GLFW/glfw3.h>
-#include <Headers/Engine/GUI/Quad.h>
-
-#include "Headers/Engine/Models/Texture.h"
 #include <vector>
+#include <utility>
+#include <GLFW/glfw3.h>
+#include "Headers/Engine/Models/Texture.h"
+#include "Headers/Engine/Camera/Camera.h"
+#include "Headers/Engine/GUI/Quad.h"
+#include "Headers/Engine/Models/Texture.h"
 
 class Quad {
 public:
     Quad();
-
-    Quad(Texture &&texture, glm::vec2 &position, glm::vec2 &scale, std::vector<glm::vec2> verts, std::vector<glm::vec2> texts, std::vector<unsigned int> inds);
+    explicit Quad(const Texture& texturePar, glm::vec2 &position, glm::vec2 &scale, std::vector <glm::vec2> verts, std::vector <glm::vec2> texts, std::vector<unsigned int> inds);
 
     void render(Shader& shader);
-
-    void createBuffers();
     
     std::vector<glm::vec2> getVertices();
 
@@ -33,6 +31,7 @@ public:
 private:
     void bindVAO();
     void unbindVAO();
+    void createBuffers();
 
     std::vector<glm::vec2> vertices, textureCoords;
     std::vector<unsigned int> indices;

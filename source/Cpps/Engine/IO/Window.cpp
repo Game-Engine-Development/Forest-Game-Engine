@@ -29,7 +29,7 @@ Window::Window(Camera *camera) {
     std::cout << "width: " << width << std::endl;
     std::cout << "height: " << height << std::endl;
 
-    window = glfwCreateWindow(width, height, "Forest", monitor, nullptr); //monitor, nullptr);
+    window = glfwCreateWindow(width, height, "Forest", monitor, nullptr);
     if (window == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
