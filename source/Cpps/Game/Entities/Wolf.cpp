@@ -18,6 +18,7 @@ void Wolf::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terra
             takeDamage(1);
             m_entity.hit = false;
             if(m_health <= 0) {
+                die();
                 for(int i = 0; i < entities.size(); ++i) {
                     if(&m_entity == entities[i]) {
                         entities.erase(entities.begin() + i);

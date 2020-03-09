@@ -4,6 +4,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <Headers/Game/Environment/BoundingBox.h>
 #include "Headers/Engine/Shader/Shader.h"
 #include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Models/Texture.h"
@@ -56,6 +57,8 @@ int main() {
     currentTextures.push_back(normalMap);
     currentTextures.push_back(containerMap);
     currentTextures.push_back(specularMap);
+    Entity boundingBoxEntity(containerMesh, currentTextures, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(500, 500, 500));
+    boundingBoxEntity.setFlipped();
     Entity container(containerMesh, currentTextures, glm::vec3(-250,10,100), glm::vec3(0,0,0), glm::vec3(10,10,10));
     Entity container2(container);
     container2.translate(0, 20, 25);
@@ -142,21 +145,26 @@ int main() {
     Shooter shooter(&camera, &bullet, &player);
     entities.push_back(&playerEntity);
 
-    Wolf wolf1(wolfEntity, &player);
+    Spirit spirit(spiritEntity, &player);
+    entities.push_back(spirit.getEntityPointer());
+    BoundingBox boundingBox(&boundingBoxEntity, &spirit);
+    boundingBox.turnOn(entities);
+
+    Wolf wolf1(wolfEntity, &player, &spirit);
     entities.push_back(wolf1.getEntityPointer());
-    Wolf wolf2(wolfEntity2, &player);
+    Wolf wolf2(wolfEntity2, &player, &spirit);
     entities.push_back(wolf2.getEntityPointer());
-    Wolf wolf3(wolfEntity3, &player);
+    Wolf wolf3(wolfEntity3, &player, &spirit);
     entities.push_back(wolf3.getEntityPointer());
-    Wolf wolf4(wolfEntity4, &player);
+    Wolf wolf4(wolfEntity4, &player, &spirit);
     entities.push_back(wolf4.getEntityPointer());
-    Wolf wolf5(wolfEntity5, &player);
+    Wolf wolf5(wolfEntity5, &player, &spirit);
     entities.push_back(wolf5.getEntityPointer());
-    Wolf wolf6(wolfEntity6, &player);
+    Wolf wolf6(wolfEntity6, &player, &spirit);
     entities.push_back(wolf6.getEntityPointer());
-    Wolf wolf7(wolfEntity7, &player);
+    Wolf wolf7(wolfEntity7, &player, &spirit);
     entities.push_back(wolf7.getEntityPointer());
-    Wolf wolf8(wolfEntity8, &player);
+    Wolf wolf8(wolfEntity8, &player, &spirit);
     entities.push_back(wolf8.getEntityPointer());
     wolves.push_back(&wolf1);
     wolves.push_back(&wolf2);
@@ -167,21 +175,21 @@ int main() {
     wolves.push_back(&wolf7);
     wolves.push_back(&wolf8);
 
-    Deer deer1(deerEntity1, &player);
+    Deer deer1(deerEntity1, &player, &spirit);
     entities.push_back(deer1.getEntityPointer());
-    Deer deer2(deerEntity2, &player);
+    Deer deer2(deerEntity2, &player, &spirit);
     entities.push_back(deer2.getEntityPointer());
-    Deer deer3(deerEntity3, &player);
+    Deer deer3(deerEntity3, &player, &spirit);
     entities.push_back(deer3.getEntityPointer());
-    Deer deer4(deerEntity4, &player);
+    Deer deer4(deerEntity4, &player, &spirit);
     entities.push_back(deer4.getEntityPointer());
-    Deer deer5(deerEntity5, &player);
+    Deer deer5(deerEntity5, &player, &spirit);
     entities.push_back(deer5.getEntityPointer());
-    Deer deer6(deerEntity6, &player);
+    Deer deer6(deerEntity6, &player, &spirit);
     entities.push_back(deer6.getEntityPointer());
-    Deer deer7(deerEntity7, &player);
+    Deer deer7(deerEntity7, &player, &spirit);
     entities.push_back(deer7.getEntityPointer());
-    Deer deer8(deerEntity8, &player);
+    Deer deer8(deerEntity8, &player, &spirit);
     entities.push_back(deer8.getEntityPointer());
     deers.push_back(&deer1);
     deers.push_back(&deer2);
@@ -192,10 +200,7 @@ int main() {
     deers.push_back(&deer7);
     deers.push_back(&deer8);
 
-    Spirit spirit(spiritEntity, &player);
-    entities.push_back(spirit.getEntityPointer());
-
-    Button button((char*) "../res/deer.jpg", glm::vec2(0.0f, 0.0f), glm::vec2(0.1, 0.1), [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());}, &window);
+    Button button((char*) "../res/white.png", glm::vec2(0.0f, 0.0f), glm::vec2(0.01, 0.01), [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());}, &window);
     Shader buttonShader("../source/Cpps/Engine/GUI/Shaders/vertexShader.glsl", "../source/Cpps/Engine/GUI/Shaders/fragmentShader.glsl");
 
     while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
@@ -207,8 +212,9 @@ int main() {
         hdr.bind();
 
         skybox.render(skyboxShader, camera);
-        player.movePlayer(entities, terrains);
+        player.movePlayer(entities, terrains, boundingBox.getEntity(), true);
         shooter.update();
+        boundingBox.shrink();
         if(Input::getInstance()->isShouldShoot()) {
             shooter.shoot(entities, terrains);
             Input::getInstance()->setShouldShoot(false);

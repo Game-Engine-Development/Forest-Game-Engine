@@ -62,7 +62,7 @@ void Spirit::hitPlayer() {
 }
 
 void Spirit::takeDamage(int damage) {
-    if(m_numOfAnimals == 0) {
+    if(m_numOfAnimals <= 0) {
         m_health -= damage;
     }
 }

@@ -19,6 +19,7 @@ public:
     void animalDied();
 private:
     bool m_damagedPlayer = false;
+    bool m_playerBound = false;
     int m_health = 1;
     int m_damage = 20;
     int m_numOfAnimals = 8;

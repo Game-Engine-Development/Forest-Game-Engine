@@ -3,12 +3,13 @@
 #include <Headers/Engine/Models/Entity.h>
 #include <Headers/Engine/Collisions/CollisionHandler.h>
 #include <Headers/Game/Player/Player.h>
+#include "Spirit.h"
 
 class Deer {
 public:
-    Deer(Entity& entity, Player* player);
-    Deer(Entity&& entity, Player* player);
-
+    Deer(Entity& entity, Player* player, Spirit* spirit);
+    Deer(Entity&& entity, Player* player, Spirit* spirit);
+    void die();
     void update(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains);
     Entity getEntity();
     Entity* getEntityPointer();
@@ -26,5 +27,5 @@ private:
     Entity m_entity;
     CollisionHandler m_collisionHandler;
     Player* m_player;
-
+    Spirit* m_spirit;
 };

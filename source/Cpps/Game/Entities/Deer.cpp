@@ -1,11 +1,15 @@
 #include "Headers/Game/Entities/Deer.h"
 
-Deer::Deer(Entity &entity, Player* player) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player) {
+Deer::Deer(Entity &entity, Player* player, Spirit* spirit) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player), m_spirit(spirit) {
 
 }
 
-Deer::Deer(Entity &&entity, Player* player) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player) {
+Deer::Deer(Entity &&entity, Player* player, Spirit* spirit) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player), m_spirit(spirit) {
 
+}
+
+void Deer::die() {
+    m_spirit->animalDied();
 }
 
 void Deer::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
@@ -14,6 +18,7 @@ void Deer::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terra
             takeDamage(1);
             m_entity.hit = false;
             if(m_health <= 0) {
+                die();
                 for(int i = 0; i < entities.size(); ++i) {
                     if(&m_entity == entities[i]) {
                         entities.erase(entities.begin() + i);
