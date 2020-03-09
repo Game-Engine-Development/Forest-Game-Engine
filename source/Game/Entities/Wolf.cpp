@@ -8,7 +8,7 @@ Wolf::Wolf(Entity &&entity, Player* player, Spirit* spirit) : m_entity(entity), 
 
 }
 
-Wolf::~Wolf() {
+void Wolf::die() {
     m_spirit->animalDied();
 }
 

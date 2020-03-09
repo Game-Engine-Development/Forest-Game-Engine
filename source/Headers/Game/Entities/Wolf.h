@@ -9,7 +9,7 @@ class Wolf {
 public:
     Wolf(Entity& entity, Player* player, Spirit* spirit);
     Wolf(Entity&& entity, Player* player, Spirit* spirit);
-    ~Wolf();
+    void die();
     void update(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains);
     Entity getEntity();
     Entity* getEntityPointer();
@@ -21,7 +21,7 @@ public:
 private:
     bool m_damagedPlayer = false;
     bool m_isDead = false;
-    int m_health = 3;
+    int m_health = 1;
     int m_damage = 5;
     float const MOVE_SPEED = 2.0f;
     float const JUMP_POWER = 1.0f;
