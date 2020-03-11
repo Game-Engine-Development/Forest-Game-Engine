@@ -1,15 +1,15 @@
 #include "Headers/Game/Entities/Wolf.h"
 
-Wolf::Wolf(Entity &entity, Player* player, Spirit* spirit) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player), m_spirit(spirit) {
+Wolf::Wolf(Entity &entity, Player* player) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player) {
 
 }
 
-Wolf::Wolf(Entity &&entity, Player* player, Spirit* spirit) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player), m_spirit(spirit) {
+Wolf::Wolf(Entity &&entity, Player* player) : m_entity(entity), m_collisionHandler(CollisionHandler(&m_entity)), m_player(player) {
 
 }
 
-void Wolf::die() {
-    m_spirit->animalDied();
+Wolf::Wolf(Wolf &wolf) : m_entity(wolf.getEntity()), m_collisionHandler(CollisionHandler(&m_entity)), m_player(wolf.m_player) {
+
 }
 
 void Wolf::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
@@ -18,17 +18,15 @@ void Wolf::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terra
             takeDamage(1);
             m_entity.hit = false;
             if(m_health <= 0) {
-                die();
+                m_dead = true;
                 for(int i = 0; i < entities.size(); ++i) {
-                    if(&m_entity == entities[i]) {
+                    if(entities[i] == &m_entity) {
                         entities.erase(entities.begin() + i);
                     }
                 }
             }
         }
         followPlayer(entities, terrains);
-    } else {
-        m_isDead = true;
     }
 }
 
@@ -73,5 +71,5 @@ void Wolf::takeDamage(int damage) {
 }
 
 bool Wolf::isDead() {
-    return m_isDead;
+    return m_dead;
 }

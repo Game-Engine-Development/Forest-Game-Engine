@@ -114,8 +114,7 @@ int main() {
     Entity spiritEntity(containerMesh, currentTextures, glm::vec3(100, 100, 100), glm::vec3(0, 0, 0), glm::vec3(2, 4, 2));
     spiritEntity.setAsAnimal();
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
-    TerrainMesh terrainMesh("../res/heightmap.png");
-    TerrainMesh terrainMesh1("../res/heightmap2.png");
+    TerrainMesh terrainMesh("../res/heightMap.png");
     Terrain terrain1(terrainMap, terrainMesh, -1, -1);
     Terrain terrain2(terrainMap, terrainMesh, -1, 0);
     Terrain terrain3(terrainMap, terrainMesh, -1, 1);
@@ -155,61 +154,13 @@ int main() {
     Shooter shooter(&camera, &bullet, &player);
     entities.push_back(&playerEntity);
 
-    Spirit spirit(spiritEntity, &player);
+    Wolf wolf1(wolfEntity, &player);
+    Deer deer1(deerEntity1, &player);
+    BoundingBox boundingBox(&boundingBoxEntity);
+    Spirit spirit(spiritEntity, &player, &boundingBox, wolf1, deer1);
     entities.push_back(spirit.getEntityPointer());
-    BoundingBox boundingBox(&boundingBoxEntity, &spirit);
-    boundingBox.turnOn(entities);
-    boundingBox.turnOff(entities);
 
-    Wolf wolf1(wolfEntity, &player, &spirit);
-    entities.push_back(wolf1.getEntityPointer());
-    Wolf wolf2(wolfEntity2, &player, &spirit);
-    entities.push_back(wolf2.getEntityPointer());
-    Wolf wolf3(wolfEntity3, &player, &spirit);
-    entities.push_back(wolf3.getEntityPointer());
-    Wolf wolf4(wolfEntity4, &player, &spirit);
-    entities.push_back(wolf4.getEntityPointer());
-    Wolf wolf5(wolfEntity5, &player, &spirit);
-    entities.push_back(wolf5.getEntityPointer());
-    Wolf wolf6(wolfEntity6, &player, &spirit);
-    entities.push_back(wolf6.getEntityPointer());
-    Wolf wolf7(wolfEntity7, &player, &spirit);
-    entities.push_back(wolf7.getEntityPointer());
-    Wolf wolf8(wolfEntity8, &player, &spirit);
-    entities.push_back(wolf8.getEntityPointer());
-    wolves.push_back(&wolf1);
-    wolves.push_back(&wolf2);
-    wolves.push_back(&wolf3);
-    wolves.push_back(&wolf4);
-    wolves.push_back(&wolf5);
-    wolves.push_back(&wolf6);
-    wolves.push_back(&wolf7);
-    wolves.push_back(&wolf8);
-
-    Deer deer1(deerEntity1, &player, &spirit);
-    entities.push_back(deer1.getEntityPointer());
-    Deer deer2(deerEntity2, &player, &spirit);
-    entities.push_back(deer2.getEntityPointer());
-    Deer deer3(deerEntity3, &player, &spirit);
-    entities.push_back(deer3.getEntityPointer());
-    Deer deer4(deerEntity4, &player, &spirit);
-    entities.push_back(deer4.getEntityPointer());
-    Deer deer5(deerEntity5, &player, &spirit);
-    entities.push_back(deer5.getEntityPointer());
-    Deer deer6(deerEntity6, &player, &spirit);
-    entities.push_back(deer6.getEntityPointer());
-    Deer deer7(deerEntity7, &player, &spirit);
-    entities.push_back(deer7.getEntityPointer());
-    Deer deer8(deerEntity8, &player, &spirit);
-    entities.push_back(deer8.getEntityPointer());
-    deers.push_back(&deer1);
-    deers.push_back(&deer2);
-    deers.push_back(&deer3);
-    deers.push_back(&deer4);
-    deers.push_back(&deer5);
-    deers.push_back(&deer6);
-    deers.push_back(&deer7);
-    deers.push_back(&deer8);
+    spirit.spawnDeer(glm::vec3(100, 100, 100), entities);
 
     Button button((char*) "../res/white.png", glm::vec2(0.0f, 0.0f), glm::vec2(0.01, 0.01), [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());}, &window);
     Shader buttonShader("../source/Cpps/Engine/GUI/Shaders/vertexShader.glsl", "../source/Cpps/Engine/GUI/Shaders/fragmentShader.glsl");
@@ -223,22 +174,16 @@ int main() {
         hdr.bind();
 
         skybox.render(skyboxShader, camera);
-        player.movePlayer(entities, terrains, boundingBox.getEntity(), false);
+        player.movePlayer(entities, terrains, boundingBox.getEntity(), spirit.isBound());
         shooter.update();
-        boundingBox.shrink();
         if(Input::getInstance()->isShouldShoot()) {
             shooter.shoot(entities, terrains);
             Input::getInstance()->setShouldShoot(false);
         }
 
         player.render(normalMappedShader, lightPos, lightColor);
+        spirit.updateAnimals(entities, terrains);
         spirit.update(entities, terrains);
-        for(Deer* deer : deers) {
-            deer->update(entities, terrains);
-        }
-        for(Wolf* wolf : wolves) {
-            wolf->update(entities, terrains);
-        }
         for(Entity* entity : entities) {
             entity->render(camera, normalMappedShader, lightPos, lightColor);
         }
