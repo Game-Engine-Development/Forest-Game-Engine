@@ -116,14 +116,24 @@ int main() {
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
     TerrainMesh terrainMesh("../res/heightmap.png");
     TerrainMesh terrainMesh1("../res/heightmap2.png");
-    Terrain terrain1(terrainMap, terrainMesh, 0, 0);
+    Terrain terrain1(terrainMap, terrainMesh, -1, -1);
     Terrain terrain2(terrainMap, terrainMesh, -1, 0);
-    Terrain terrain3(terrainMap, terrainMesh, -1, -1);
+    Terrain terrain3(terrainMap, terrainMesh, -1, 1);
     Terrain terrain4(terrainMap, terrainMesh, 0, -1);
+    Terrain terrain5(terrainMap, terrainMesh, 0, 0);
+    Terrain terrain6(terrainMap, terrainMesh, 0, 1);
+    Terrain terrain7(terrainMap, terrainMesh, 1, -1);
+    Terrain terrain8(terrainMap, terrainMesh, 1, 0);
+    Terrain terrain9(terrainMap, terrainMesh, 1, 1);
     terrains.push_back(&terrain1);
     terrains.push_back(&terrain2);
     terrains.push_back(&terrain3);
     terrains.push_back(&terrain4);
+    terrains.push_back(&terrain5);
+    terrains.push_back(&terrain6);
+    terrains.push_back(&terrain7);
+    terrains.push_back(&terrain8);
+    terrains.push_back(&terrain9);
     std::vector<const char*> textures
     {
         "../res/Standard-Cube-Map2/px.png",
@@ -149,6 +159,7 @@ int main() {
     entities.push_back(spirit.getEntityPointer());
     BoundingBox boundingBox(&boundingBoxEntity, &spirit);
     boundingBox.turnOn(entities);
+    boundingBox.turnOff(entities);
 
     Wolf wolf1(wolfEntity, &player, &spirit);
     entities.push_back(wolf1.getEntityPointer());
@@ -212,7 +223,7 @@ int main() {
         hdr.bind();
 
         skybox.render(skyboxShader, camera);
-        player.movePlayer(entities, terrains, boundingBox.getEntity(), true);
+        player.movePlayer(entities, terrains, boundingBox.getEntity(), false);
         shooter.update();
         boundingBox.shrink();
         if(Input::getInstance()->isShouldShoot()) {
@@ -246,6 +257,8 @@ int main() {
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwDestroyWindow(window.getWindow());
-    glfwTerminate(); //this line will not work on linux (will add #ifdef statement to automatically toggle this later)
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+    glfwTerminate();
+#endif
     return 0;
 }
