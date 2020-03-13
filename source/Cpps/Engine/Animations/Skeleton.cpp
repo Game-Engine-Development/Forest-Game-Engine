@@ -22,6 +22,7 @@ std::vector<glm::mat4> Skeleton::getJointTransforms() {
         jointMatrices.push_back(defaultMat);
     }
     addJointsToArray(rootJoint);
+    return jointMatrices;
 }
 
 void Skeleton::addJointsToArray(Joint *joint) {

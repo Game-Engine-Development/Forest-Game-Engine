@@ -161,6 +161,7 @@ int main() {
     entities.push_back(spirit.getEntityPointer());
 
     spirit.spawnDeer(glm::vec3(100, 100, 100), entities);
+    spirit.bindPlayer(entities);
 
     Button button((char*) "../res/white.png", glm::vec2(0.0f, 0.0f), glm::vec2(0.01, 0.01), [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());}, &window);
     Shader buttonShader("../source/Cpps/Engine/GUI/Shaders/vertexShader.glsl", "../source/Cpps/Engine/GUI/Shaders/fragmentShader.glsl");

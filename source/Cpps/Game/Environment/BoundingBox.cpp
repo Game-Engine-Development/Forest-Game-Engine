@@ -10,7 +10,9 @@ void BoundingBox::resetSize() {
 }
 
 void BoundingBox::shrink() {
-    m_entity->addScale(SPEED, SPEED, SPEED);
+    if(m_entity->getScale().x > 50) {
+        m_entity->addScale(SPEED, SPEED, SPEED);
+    }
 }
 
 void BoundingBox::turnOff(std::vector<Entity *> &entities) {

@@ -18,8 +18,8 @@ public:
     void takeDamage(int damage);
     void updateAnimals(std::vector<Entity *> &entities, std::vector<Terrain *> &terrains);
     bool isBound();
-    void spawnDeer(glm::vec3 pos, std::vector<Entity*>& entities);
-    void spawnWolf(glm::vec3 pos, std::vector<Entity*>& entities);
+    void spawnDeer(glm::vec3&& pos, std::vector<Entity*>& entities);
+    void spawnWolf(glm::vec3&& pos, std::vector<Entity*>& entities);
     void bindPlayer(std::vector<Entity*>& entities);
     void releasePlayer(std::vector<Entity*>& entities);
 private:
