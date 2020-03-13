@@ -4,13 +4,14 @@ Spirit::Spirit(Entity &entity, Player* player, BoundingBox* boundingBox, Wolf& g
 
 }
 
-void Spirit::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
-    m_numOfAnimals = wolves.size() + deer.size();
+void Spirit::update(std::vector<Entity*> &entities, std::vector<Terrain *> &terrains) {
+    m_numOfAnimals = m_wolves.size() + m_deer.size();
     if(m_health > 0) {
         if (m_entity.hit) {
             takeDamage(1);
             m_entity.hit = false;
             if(m_health <= 0) {
+                m_alive = false;
                 releasePlayer(entities);
                 for(int i = 0; i < entities.size(); ++i) {
                     if(&m_entity == entities[i]) {
@@ -32,10 +33,6 @@ Entity Spirit::getEntity() {
 
 Entity* Spirit::getEntityPointer() {
     return &m_entity;
-}
-
-void Spirit::render(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor) {
-    m_entity.render(camera, shader, lightPos, lightColor);
 }
 
 void Spirit::followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains) {
@@ -74,6 +71,7 @@ bool Spirit::isBound() {
 
 void Spirit::bindPlayer(std::vector<Entity*>& entities) {
     m_playerBound = true;
+    m_boundingBox->getEntity()->setPos(m_player->getPlayerEntity().getPos());
     m_boundingBox->turnOn(entities);
 }
 
@@ -83,28 +81,46 @@ void Spirit::releasePlayer(std::vector<Entity *> &entities) {
 }
 
 void Spirit::spawnDeer(glm::vec3&& pos, std::vector<Entity*>& entities) {
-    deer.push_back(std::make_shared<Deer>(m_genericDeer));
-    //deer[deer.size() - 1]->getEntity().setPos(pos);
-    entities.push_back(deer[deer.size() - 1]->getEntityPointer());
+    m_deer.push_back(std::make_shared<Deer>(m_genericDeer));
+    m_deer[m_deer.size() - 1]->getEntityPointer()->setPos(pos);
+    entities.push_back(m_deer[m_deer.size() - 1]->getEntityPointer());
 }
 
 void Spirit::spawnWolf(glm::vec3&& pos, std::vector<Entity*>& entities) {
-    wolves.push_back(std::make_shared<Wolf>(m_genericWolf));
-    //wolves[wolves.size() - 1]->getEntity().setPos(pos);
-    entities.push_back(wolves[wolves.size() - 1]->getEntityPointer());
+    m_wolves.push_back(std::make_shared<Wolf>(m_genericWolf));
+    m_wolves[m_wolves.size() - 1]->getEntityPointer()->setPos(pos);
+    entities.push_back(m_wolves[m_wolves.size() - 1]->getEntityPointer());
 }
 
 void Spirit::updateAnimals(std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
-    for(unsigned int i = 0; i < wolves.size(); ++i) {
-        wolves[i]->update(entities, terrains);
-        if(wolves[i]->isDead()) {
-            wolves.erase(wolves.begin() + i);
+    for(unsigned int i = 0; i < m_wolves.size(); ++i) {
+        m_wolves[i]->update(entities, terrains);
+        if(m_wolves[i]->isDead()) {
+            m_wolves.erase(m_wolves.begin() + i);
         }
     }
-    for(unsigned int i = 0; i < deer.size(); ++i) {
-        deer[i]->update(entities, terrains);
-        if(deer[i]->isDead()) {
-            deer.erase(deer.begin() + i);
+    for(unsigned int i = 0; i < m_deer.size(); ++i) {
+        m_deer[i]->update(entities, terrains);
+        if(m_deer[i]->isDead()) {
+            m_deer.erase(m_deer.begin() + i);
         }
     }
+}
+
+void Spirit::spawn(std::vector<Entity*>& entities) {
+    m_health = 1;
+    m_alive = true;
+    int numOfWolves = rand() % 4 + 4;
+    for(int i = 0; i < numOfWolves; ++i) {
+        spawnWolf(glm::vec3(rand() % BoundingBox::SIZE + m_boundingBox->getEntity()->getPos().x - (BoundingBox::SIZE / 2) , 100, rand() % BoundingBox::SIZE + m_boundingBox->getEntity()->getPos().z - (BoundingBox::SIZE / 2)), entities);
+    }
+    int numOfDeer = rand() % 4 + 4;
+    for(int i = 0; i < numOfDeer; ++i) {
+        spawnDeer(glm::vec3(rand() % BoundingBox::SIZE + m_boundingBox->getEntity()->getPos().x - (BoundingBox::SIZE / 2), 100, rand() % BoundingBox::SIZE + m_boundingBox->getEntity()->getPos().z - (BoundingBox::SIZE / 2)), entities);
+    }
+    bindPlayer(entities);
+}
+
+bool Spirit::isAlive() {
+    return m_alive;
 }

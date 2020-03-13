@@ -73,6 +73,12 @@ void Entity::setPos(glm::vec3& newPos) {
     moveEntityPlanes(mesh.getVertices());
 }
 
+void Entity::setPos(glm::vec3&& newPos) {
+    position = newPos;
+    createModelMatrix();
+    moveEntityPlanes(mesh.getVertices());
+}
+
 void Entity::rotate(glm::vec3& rotation) {
     this->rotation += rotation;
     limitRotation();

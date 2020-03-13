@@ -21,18 +21,18 @@ void Player::movePlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &t
     camera->Position = playerEntity->getPos();
     camera->setYPos(playerEntity->getPos().y + 4);
     if(bound) {
-        if(playerEntity->getPos().x > boundingBox->getScale().x - 5) {
-            glm::vec3 newPos(boundingBox->getScale().x - 5, playerEntity->getPos().y, playerEntity->getPos().z);
+        if(playerEntity->getPos().x > boundingBox->getScale().x - 5 + boundingBox->getPos().x) {
+            glm::vec3 newPos(boundingBox->getScale().x - 5 + boundingBox->getPos().x, playerEntity->getPos().y, playerEntity->getPos().z);
             playerEntity->setPos(newPos);
-        } else if(playerEntity->getPos().x < -boundingBox->getScale().x + 5) {
-            glm::vec3 newPos(-boundingBox->getScale().x + 5, playerEntity->getPos().y, playerEntity->getPos().z);
+        } else if(playerEntity->getPos().x < -boundingBox->getScale().x + 5 + boundingBox->getPos().x) {
+            glm::vec3 newPos(-boundingBox->getScale().x + 5 + boundingBox->getPos().x, playerEntity->getPos().y, playerEntity->getPos().z);
             playerEntity->setPos(newPos);
         }
-        if(playerEntity->getPos().z > boundingBox->getScale().z - 5) {
-            glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y, boundingBox->getScale().z - 5);
+        if(playerEntity->getPos().z > boundingBox->getScale().z - 5 + boundingBox->getPos().z) {
+            glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y, boundingBox->getScale().z - 5 + boundingBox->getPos().z);
             playerEntity->setPos(newPos);
-        } else if(playerEntity->getPos().z < -boundingBox->getScale().z + 5) {
-            glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y, -boundingBox->getScale().z + 5);
+        } else if(playerEntity->getPos().z < -boundingBox->getScale().z + 5 + boundingBox->getPos().z) {
+            glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y, -boundingBox->getScale().z + 5 + boundingBox->getPos().z);
             playerEntity->setPos(newPos);
         }
     }

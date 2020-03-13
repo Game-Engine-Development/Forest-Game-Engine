@@ -10,8 +10,8 @@ public:
     void turnOn(std::vector<Entity*>& entities);
     void turnOff(std::vector<Entity*>& entities);
     Entity* getEntity();
+    static constexpr int SIZE = 500;
+    static constexpr float SPEED = -0.2;
 private:
     Entity* m_entity;
-    float SIZE = 500;
-    float const SPEED = -0.2;
 };

@@ -75,43 +75,15 @@ int main() {
     entities.push_back(&container5);
     currentTextures.clear();
     currentTextures.push_back(wolfTexture);
-    Entity wolfEntity(containerMesh, currentTextures, glm::vec3(-200, 10, -100), glm::vec3(0, 0, 0), glm::vec3(2, 1, 1));
-    Entity wolfEntity2(containerMesh, currentTextures, glm::vec3(200, 10, 100), glm::vec3(0, 45, 0), glm::vec3(2, 1, 1));
-    Entity wolfEntity3(containerMesh, currentTextures, glm::vec3(-100, 10, -100), glm::vec3(0, 0, 0), glm::vec3(2, 1, 1));
-    Entity wolfEntity4(containerMesh, currentTextures, glm::vec3(100, 10, 100), glm::vec3(0, 45, 0), glm::vec3(2, 1, 1));
-    Entity wolfEntity5(containerMesh, currentTextures, glm::vec3(-200, 10, -200), glm::vec3(0, 0, 0), glm::vec3(2, 1, 1));
-    Entity wolfEntity6(containerMesh, currentTextures, glm::vec3(200, 10, 200), glm::vec3(0, 45, 0), glm::vec3(2, 1, 1));
-    Entity wolfEntity7(containerMesh, currentTextures, glm::vec3(-200, 10, -10), glm::vec3(0, 0, 0), glm::vec3(2, 1, 1));
-    Entity wolfEntity8(containerMesh, currentTextures, glm::vec3(20, 10, 100), glm::vec3(0, 45, 0), glm::vec3(2, 1, 1));
+    Entity wolfEntity(containerMesh, currentTextures, glm::vec3(-200, 10, -100), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
     wolfEntity.setAsAnimal();
-    wolfEntity2.setAsAnimal();
-    wolfEntity3.setAsAnimal();
-    wolfEntity4.setAsAnimal();
-    wolfEntity5.setAsAnimal();
-    wolfEntity6.setAsAnimal();
-    wolfEntity7.setAsAnimal();
-    wolfEntity8.setAsAnimal();
     currentTextures.clear();
     currentTextures.push_back(deerTexture);
-    Entity deerEntity1(containerMesh, currentTextures, glm::vec3(-300, 10, -200), glm::vec3(0, 0, 0), glm::vec3(2, 3, 1));
-    Entity deerEntity2(containerMesh, currentTextures, glm::vec3(100, 10, 100), glm::vec3(0, 45, 0), glm::vec3(2, 3, 1));
-    Entity deerEntity3(containerMesh, currentTextures, glm::vec3(-300, 10, -200), glm::vec3(0, 0, 0), glm::vec3(2, 3, 1));
-    Entity deerEntity4(containerMesh, currentTextures, glm::vec3(200, 10, 100), glm::vec3(0, 45, 0), glm::vec3(2, 3, 1));
-    Entity deerEntity5(containerMesh, currentTextures, glm::vec3(-100, 10, -400), glm::vec3(0, 0, 0), glm::vec3(2, 3, 1));
-    Entity deerEntity6(containerMesh, currentTextures, glm::vec3(300, 10, 200), glm::vec3(0, 45, 0), glm::vec3(2, 3, 1));
-    Entity deerEntity7(containerMesh, currentTextures, glm::vec3(-400, 10, -40), glm::vec3(0, 0, 0), glm::vec3(2, 3, 1));
-    Entity deerEntity8(containerMesh, currentTextures, glm::vec3(50, 10, 400), glm::vec3(0, 45, 0), glm::vec3(2, 3, 1));
+    Entity deerEntity1(containerMesh, currentTextures, glm::vec3(-300, 10, -200), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
     deerEntity1.setAsAnimal();
-    deerEntity2.setAsAnimal();
-    deerEntity3.setAsAnimal();
-    deerEntity4.setAsAnimal();
-    deerEntity5.setAsAnimal();
-    deerEntity6.setAsAnimal();
-    deerEntity7.setAsAnimal();
-    deerEntity8.setAsAnimal();
     currentTextures.clear();
     currentTextures.push_back(ghostTexture);
-    Entity spiritEntity(containerMesh, currentTextures, glm::vec3(100, 100, 100), glm::vec3(0, 0, 0), glm::vec3(2, 4, 2));
+    Entity spiritEntity(containerMesh, currentTextures, glm::vec3(100, 100, 100), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
     spiritEntity.setAsAnimal();
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
     TerrainMesh terrainMesh("../res/heightMap.png");
@@ -160,8 +132,7 @@ int main() {
     Spirit spirit(spiritEntity, &player, &boundingBox, wolf1, deer1);
     entities.push_back(spirit.getEntityPointer());
 
-    spirit.spawnDeer(glm::vec3(100, 100, 100), entities);
-    spirit.bindPlayer(entities);
+    spirit.spawn(entities);
 
     Button button((char*) "../res/white.png", glm::vec2(0.0f, 0.0f), glm::vec2(0.01, 0.01), [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());}, &window);
     Shader buttonShader("../source/Cpps/Engine/GUI/Shaders/vertexShader.glsl", "../source/Cpps/Engine/GUI/Shaders/fragmentShader.glsl");
@@ -173,6 +144,13 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         hdr.bind();
+
+        if(!spirit.isAlive()) {
+            double respawnChance = rand() % 500;
+            if(respawnChance == 0) {
+                spirit.spawn(entities);
+            }
+        }
 
         skybox.render(skyboxShader, camera);
         player.movePlayer(entities, terrains, boundingBox.getEntity(), spirit.isBound());

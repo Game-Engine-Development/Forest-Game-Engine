@@ -5,10 +5,10 @@ Mesh::Mesh() {
 }
 
 Mesh::Mesh(const char* filename, bool isNormalMapped) {
-    std::vector<glm::vec3> normals, tangents, bitangents;
-    std::vector<glm::vec2> textureCoords;
+    std::vector<glm::vec3> tangents, bitangents;
     loadOBJ(filename, vertices, textureCoords, normals);
     numOfVertices = vertices.size();
+    normalMapped = isNormalMapped;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &texCoordBuffer);
@@ -27,7 +27,7 @@ Mesh::Mesh(const char* filename, bool isNormalMapped) {
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
-    if(isNormalMapped) {
+    if(normalMapped) {
         CalculateTangentsAndBitangents(vertices, textureCoords, normals, tangents, bitangents);
 
         glGenBuffers(1, &tangentBuffer);
@@ -53,6 +53,58 @@ Mesh::Mesh(const char* filename, bool isNormalMapped) {
     unbindVAO();
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+}
+
+Mesh::Mesh(Mesh& mesh) {
+    std::vector<glm::vec3> tangents, bitangents;
+    numOfVertices = mesh.numOfVertices;
+    normalMapped = mesh.isNormalMapped();
+    vertices = mesh.getVertices();
+    textureCoords = mesh.getTextureCoords();
+    normals = mesh.getNormals();
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &texCoordBuffer);
+    glGenBuffers(1, &normalBuffer);
+    bindVAO();
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, texCoordBuffer);
+    glBufferData(GL_ARRAY_BUFFER, textureCoords.size() * sizeof(glm::vec2), &textureCoords[0], GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+    glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+    if(normalMapped) {
+        CalculateTangentsAndBitangents(vertices, textureCoords, normals, tangents, bitangents);
+
+        glGenBuffers(1, &tangentBuffer);
+        glGenBuffers(1, &bitangentBuffer);
+
+        glBindBuffer(GL_ARRAY_BUFFER, tangentBuffer);
+        glBufferData(GL_ARRAY_BUFFER, tangents.size() * sizeof(glm::vec3), &tangents[0], GL_STATIC_DRAW);
+        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+        glBindBuffer(GL_ARRAY_BUFFER, bitangentBuffer);
+        glBufferData(GL_ARRAY_BUFFER, bitangents.size() * sizeof(glm::vec3), &bitangents[0], GL_STATIC_DRAW);
+        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+        glEnableVertexAttribArray(3);
+        glEnableVertexAttribArray(4);
+    }
+
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
+
+
+    unbindVAO();
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Mesh::loadOBJ(const char* filename, std::vector<glm::vec3>& finalVertices, std::vector<glm::vec2>& finalTextureCoords, std::vector<glm::vec3>& finalNormals) {
@@ -186,4 +238,16 @@ unsigned int Mesh::getNumOfVertices() {
 
 std::vector<glm::vec3>& Mesh::getVertices() {
     return vertices;
+}
+
+std::vector<glm::vec3>& Mesh::getNormals() {
+    return normals;
+}
+
+std::vector<glm::vec2>& Mesh::getTextureCoords() {
+    return textureCoords;
+}
+
+bool Mesh::isNormalMapped() {
+    return normalMapped;
 }
