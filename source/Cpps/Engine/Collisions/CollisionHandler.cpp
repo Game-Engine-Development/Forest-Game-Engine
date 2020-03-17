@@ -7,11 +7,27 @@ CollisionHandler::CollisionHandler(Entity *entity) {
     move.eRadius = m_entity->getScale();
 }
 
-void CollisionHandler::moveEntity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::vector<Terrain*>& terrains) {
+void CollisionHandler::moveEntity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::vector<Terrain*>& terrains, Entity* boundingBox, bool bound) {
     hitPlayer = false;
     currentTerrain = calculateCurrentTerrain(terrains);
     calculateTerrainCollisions(finalMove);
     collideAndSlide(finalMove, currentGravity, entities);
+    if(bound) {
+        if(m_entity->getPos().x > boundingBox->getScale().x - 5 + boundingBox->getPos().x) {
+            glm::vec3 newPos(boundingBox->getScale().x - 5 + boundingBox->getPos().x, m_entity->getPos().y, m_entity->getPos().z);
+            m_entity->setPos(newPos);
+        } else if(m_entity->getPos().x < -boundingBox->getScale().x + 5 + boundingBox->getPos().x) {
+            glm::vec3 newPos(-boundingBox->getScale().x + 5 + boundingBox->getPos().x, m_entity->getPos().y, m_entity->getPos().z);
+            m_entity->setPos(newPos);
+        }
+        if(m_entity->getPos().z > boundingBox->getScale().z - 5 + boundingBox->getPos().z) {
+            glm::vec3 newPos(m_entity->getPos().x, m_entity->getPos().y, boundingBox->getScale().z - 5 + boundingBox->getPos().z);
+            m_entity->setPos(newPos);
+        } else if(m_entity->getPos().z < -boundingBox->getScale().z + 5 + boundingBox->getPos().z) {
+            glm::vec3 newPos(m_entity->getPos().x, m_entity->getPos().y, -boundingBox->getScale().z + 5 + boundingBox->getPos().z);
+            m_entity->setPos(newPos);
+        }
+    }
     updateGravity();
 }
 

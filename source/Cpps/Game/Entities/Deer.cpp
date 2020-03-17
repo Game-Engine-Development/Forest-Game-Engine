@@ -12,7 +12,7 @@ Deer::Deer(Deer &deer) : m_entity(deer.getEntity()), m_collisionHandler(Collisio
 
 }
 
-void Deer::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
+void Deer::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terrains, Entity* boundingBox, bool bound) {
     if(m_health > 0) {
         if (m_entity.hit) {
             takeDamage(1);
@@ -26,7 +26,7 @@ void Deer::update(std::vector<Entity *> &entities, std::vector<Terrain *> &terra
                 }
             }
         }
-        followPlayer(entities, terrains);
+        followPlayer(entities, terrains, boundingBox, bound);
     }
 }
 
@@ -42,7 +42,7 @@ void Deer::render(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3
     m_entity.render(camera, shader, lightPos, lightColor);
 }
 
-void Deer::followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains) {
+void Deer::followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains, Entity* boundingBox, bool bound) {
     glm::vec3 move = m_player->getPlayerEntity().getPos() - m_entity.getPos();
     if(!m_damagedPlayer) {
         if (std::sqrt(move.x * move.x + move.y * move.y + move.z * move.z) < 20 && !m_collisionHandler.inAir) {
@@ -52,7 +52,7 @@ void Deer::followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &t
         move.y = 0;
         move = glm::normalize(move);
         move *= MOVE_SPEED;
-        m_collisionHandler.moveEntity(move, entities, terrains);
+        m_collisionHandler.moveEntity(move, entities, terrains, boundingBox, bound);
         if(m_collisionHandler.hitPlayer) {
             m_damagedPlayer = true;
             hitPlayer();

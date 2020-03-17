@@ -47,6 +47,6 @@ public:
 
     CollisionHandler();
     explicit CollisionHandler(Entity* entity);
-    void moveEntity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::vector<Terrain*>& terrains);
+    void moveEntity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::vector<Terrain*>& terrains, Entity* boundingBox, bool bound);
     void moveEntityWithoutGravity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::vector<Terrain*>& terrains);
 };

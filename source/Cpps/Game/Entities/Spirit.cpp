@@ -45,7 +45,7 @@ void Spirit::followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> 
         move.y = 0;
         move = glm::normalize(move);
         move *= MOVE_SPEED;
-        m_collisionHandler.moveEntity(move, entities, terrains);
+        m_collisionHandler.moveEntity(move, entities, terrains, m_boundingBox->getEntity(), m_playerBound);
         if(m_collisionHandler.hitPlayer) {
             m_damagedPlayer = true;
             hitPlayer();
@@ -94,13 +94,13 @@ void Spirit::spawnWolf(glm::vec3&& pos, std::vector<Entity*>& entities) {
 
 void Spirit::updateAnimals(std::vector<Entity *> &entities, std::vector<Terrain *> &terrains) {
     for(unsigned int i = 0; i < m_wolves.size(); ++i) {
-        m_wolves[i]->update(entities, terrains);
+        m_wolves[i]->update(entities, terrains, m_boundingBox->getEntity(), m_playerBound);
         if(m_wolves[i]->isDead()) {
             m_wolves.erase(m_wolves.begin() + i);
         }
     }
     for(unsigned int i = 0; i < m_deer.size(); ++i) {
-        m_deer[i]->update(entities, terrains);
+        m_deer[i]->update(entities, terrains, m_boundingBox->getEntity(), m_playerBound);
         if(m_deer[i]->isDead()) {
             m_deer.erase(m_deer.begin() + i);
         }
@@ -110,6 +110,7 @@ void Spirit::updateAnimals(std::vector<Entity *> &entities, std::vector<Terrain 
 void Spirit::spawn(std::vector<Entity*>& entities) {
     m_health = 1;
     m_alive = true;
+    bindPlayer(entities);
     int numOfWolves = rand() % 4 + 4;
     for(int i = 0; i < numOfWolves; ++i) {
         spawnWolf(glm::vec3(rand() % BoundingBox::SIZE + m_boundingBox->getEntity()->getPos().x - (BoundingBox::SIZE / 2) , 100, rand() % BoundingBox::SIZE + m_boundingBox->getEntity()->getPos().z - (BoundingBox::SIZE / 2)), entities);
@@ -118,7 +119,7 @@ void Spirit::spawn(std::vector<Entity*>& entities) {
     for(int i = 0; i < numOfDeer; ++i) {
         spawnDeer(glm::vec3(rand() % BoundingBox::SIZE + m_boundingBox->getEntity()->getPos().x - (BoundingBox::SIZE / 2), 100, rand() % BoundingBox::SIZE + m_boundingBox->getEntity()->getPos().z - (BoundingBox::SIZE / 2)), entities);
     }
-    bindPlayer(entities);
+    entities.push_back(&m_entity);
 }
 
 bool Spirit::isAlive() {

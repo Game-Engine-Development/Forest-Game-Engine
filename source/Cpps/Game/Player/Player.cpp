@@ -17,25 +17,9 @@ void Player::movePlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &t
     finalMove = glm::normalize(finalMove);
     finalMove *= currentSpeed;
     finalMove += lateralSpeed * camera->Right;
-    handler.moveEntity(finalMove, entities, terrains);
+    handler.moveEntity(finalMove, entities, terrains, boundingBox, bound);
     camera->Position = playerEntity->getPos();
     camera->setYPos(playerEntity->getPos().y + 4);
-    if(bound) {
-        if(playerEntity->getPos().x > boundingBox->getScale().x - 5 + boundingBox->getPos().x) {
-            glm::vec3 newPos(boundingBox->getScale().x - 5 + boundingBox->getPos().x, playerEntity->getPos().y, playerEntity->getPos().z);
-            playerEntity->setPos(newPos);
-        } else if(playerEntity->getPos().x < -boundingBox->getScale().x + 5 + boundingBox->getPos().x) {
-            glm::vec3 newPos(-boundingBox->getScale().x + 5 + boundingBox->getPos().x, playerEntity->getPos().y, playerEntity->getPos().z);
-            playerEntity->setPos(newPos);
-        }
-        if(playerEntity->getPos().z > boundingBox->getScale().z - 5 + boundingBox->getPos().z) {
-            glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y, boundingBox->getScale().z - 5 + boundingBox->getPos().z);
-            playerEntity->setPos(newPos);
-        } else if(playerEntity->getPos().z < -boundingBox->getScale().z + 5 + boundingBox->getPos().z) {
-            glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y, -boundingBox->getScale().z + 5 + boundingBox->getPos().z);
-            playerEntity->setPos(newPos);
-        }
-    }
 }
 
 void Player::render(Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor) {

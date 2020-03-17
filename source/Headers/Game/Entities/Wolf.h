@@ -10,11 +10,11 @@ public:
     Wolf(Entity&& entity, Player* player);
     Wolf(Wolf& wolf);
     void die();
-    void update(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains);
+    void update(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains, Entity* boundingBox, bool bound);
     Entity getEntity();
     Entity* getEntityPointer();
     void render(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor);
-    void followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains);
+    void followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains, Entity* boundingBox, bool bound);
     void hitPlayer();
     void takeDamage(int damage);
     bool isDead();
