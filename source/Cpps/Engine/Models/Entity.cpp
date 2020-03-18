@@ -178,6 +178,14 @@ bool Entity::checkIfAnimal() {
     return isAnimal;
 }
 
+void Entity::setAsItem() {
+    isItem = true;
+}
+
+bool Entity::checkIfItem() {
+    return isItem;
+}
+
 void Entity::setFlipped() {
     flipped = 1;
     moveEntityPlanes(mesh.getVertices());

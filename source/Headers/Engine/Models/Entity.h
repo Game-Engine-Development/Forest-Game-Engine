@@ -9,7 +9,6 @@
 class Entity {
 public:
     Entity(Mesh &mesh, const std::vector<Texture>& textures, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale);
-
     ~Entity();
 
     void render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
@@ -32,10 +31,13 @@ public:
     bool checkIfBullet();
     void setAsAnimal();
     bool checkIfAnimal();
+    void setAsItem();
+    bool checkIfItem();
     void setFlipped();
     glm::mat4 createModelMatrix();
     std::vector<Plane> planes;
     bool hit = false;
+    bool pickedUp = false;
 private:
     Mesh mesh;
     std::vector<Texture> textures;
@@ -44,6 +46,7 @@ private:
     bool isPlayerEntity = false;
     bool isBullet = false;
     bool isAnimal = false;
+    bool isItem = false;
     float flipped = -1;
     void limitRotation();
     void moveEntityPlanes(std::vector<glm::vec3>& vertices);

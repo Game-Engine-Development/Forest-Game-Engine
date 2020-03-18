@@ -15,6 +15,7 @@
 #include "Headers/Game/Player/Player.h"
 #include "Headers/Game/Entities/Wolf.h"
 #include "Headers/Game/Entities/Deer.h"
+#include "Headers/Game/Environment/Item.h"
 #include "Headers/Engine/IO/Input.h"
 #include "Headers/Engine/Skybox/Skybox.h"
 #include "Headers/Engine/GUI/Button.h"
@@ -47,6 +48,7 @@ int main() {
     Texture deerTexture("../res/deer.jpg", 0);
     Texture human("../res/human.jpg", 0);
     Texture ghostTexture("../res/ghost.png", 0);
+    Texture noteTexture("../res/note.png", 0);
     std::vector<Texture> currentTextures;
     Mesh containerMesh("../res/container.obj", true);
     currentTextures.push_back(human);
@@ -85,6 +87,13 @@ int main() {
     currentTextures.push_back(ghostTexture);
     Entity spiritEntity(containerMesh, currentTextures, glm::vec3(100, 100, 100), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
     spiritEntity.setAsAnimal();
+    currentTextures.clear();
+    currentTextures.push_back(noteTexture);
+    Entity noteEntity1(containerMesh, currentTextures, glm::vec3(10, 2, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+    Entity noteEntity2(noteEntity1);
+    noteEntity2.setPos(glm::vec3(0, 2, 10));
+    noteEntity1.setAsItem();
+    noteEntity2.setAsItem();
     TerrainTextureMap terrainMap("../res/blendMap.png", "../res/grass.png", "../res/mud.png", "../res/flowers.png", "../res/path.png");
     TerrainMesh terrainMesh("../res/heightMap.png");
     Terrain terrain1(terrainMap, terrainMesh, -1, -1);
@@ -134,6 +143,9 @@ int main() {
 
     spirit.spawn(entities);
 
+    Item item1(&noteEntity1, [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());}, entities);
+    Item item2(&noteEntity2, [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());}, entities);
+
     Button button((char*) "../res/white.png", glm::vec2(0.0f, 0.0f), glm::vec2(0.01, 0.01), [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());}, &window);
     Shader buttonShader("../source/Cpps/Engine/GUI/Shaders/vertexShader.glsl", "../source/Cpps/Engine/GUI/Shaders/fragmentShader.glsl");
 
@@ -155,6 +167,8 @@ int main() {
         skybox.render(skyboxShader, camera);
         player.movePlayer(entities, terrains, boundingBox.getEntity(), spirit.isBound());
         shooter.update();
+        item1.update(entities, &player);
+        item2.update(entities, &player);
         if(Input::getInstance()->isShouldShoot()) {
             shooter.shoot(entities, terrains);
             Input::getInstance()->setShouldShoot(false);

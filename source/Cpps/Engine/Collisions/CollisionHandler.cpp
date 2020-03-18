@@ -197,7 +197,7 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
 // Does this triangle qualify for the closest hit?
 // it does if it’s the first hit or the closest
             if (!move.foundCollision || distToCollision < move.nearestDistance) {
-                if(entity->checkIfAnimal() && m_entity->checkIfBullet()) {
+                if((entity->checkIfAnimal() || entity->checkIfItem()) && m_entity->checkIfBullet()) {
                     m_hitEntity = entity;
                 } else {
                     m_hitEntity = nullptr;
@@ -268,7 +268,11 @@ void CollisionHandler::collideAndSlide(const glm::vec3& vel, const glm::vec3& gr
         currentGravity.y = 0;
     }
     if(m_hitEntity != nullptr) {
-        m_hitEntity->hit = true;
+        if(m_hitEntity->checkIfAnimal()) {
+            m_hitEntity->hit = true;
+        } else {
+            m_hitEntity->pickedUp = true;
+        }
     }
     finalPosition *= move.eRadius;
     m_entity->setPos(finalPosition);
