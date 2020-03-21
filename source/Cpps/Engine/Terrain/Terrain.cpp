@@ -1,8 +1,8 @@
 #include "Headers/Engine/Terrain/Terrain.h"
 
 Terrain::Terrain(TerrainTextureMap &textureMap, TerrainMesh &mesh, int gridX, int gridZ) {
-    float x = gridX * TerrainMesh::SIZE;
-    float z = gridZ * TerrainMesh::SIZE;
+    float x = (float)gridX * TerrainMesh::SIZE;
+    float z = (float)gridZ * TerrainMesh::SIZE;
     terrainMesh = mesh;
     terrainTextureMap = textureMap;
     position = glm::vec3(x, 0, z);
@@ -23,7 +23,7 @@ void Terrain::render(Camera &camera, Shader &shader, glm::vec3& lightPos, glm::v
     glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));
     int viewPosLoc = glGetUniformLocation(shader.ID, "viewPos");
     glUniform3fv(viewPosLoc, 1, glm::value_ptr(camera.getPos()));
-    glDrawElements(GL_TRIANGLES, terrainMesh.getNumOfVertices(), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, terrainMesh.getNumOfVertices(), GL_UNSIGNED_INT, nullptr);
     terrainTextureMap.unBindTextures();
     terrainMesh.unbindVAO();
 }
@@ -39,7 +39,7 @@ glm::mat4 Terrain::createModelMatrix() {
 }
 
 float Terrain::getHeight(int vertexX, int vertexZ){
-    return terrainMesh.getHeight(vertexX, vertexZ);
+    return terrainMesh.getHeight((float)vertexX, (float)vertexZ);
 }
 
 float Terrain::getTerrainHeight(float worldX, float worldZ) {
@@ -61,10 +61,10 @@ float Terrain::getTerrainHeight(float worldX, float worldZ) {
 }
 
 float Terrain::getAverageHeight(float terrainX, float terrainZ) {
-    float bottomLeft = getHeight(terrainX, terrainZ);
-    float bottomRight = getHeight(terrainX, terrainZ + 1);
-    float topLeft = getHeight(terrainX + 1, terrainZ);
-    float topRight = getHeight(terrainX + 1, terrainZ + 1);
+    float bottomLeft = getHeight((int)terrainX, (int)terrainZ);
+    float bottomRight = getHeight((int)terrainX, (int)terrainZ + 1);
+    float topLeft = getHeight((int)terrainX + 1, (int)terrainZ);
+    float topRight = getHeight((int)terrainX + 1, (int)terrainZ + 1);
     float x = terrainX;
     float z = terrainZ;
     while(x > 1) {

@@ -1,14 +1,24 @@
 #pragma once
+
+#include <vector>
+#include <glm/gtc/type_ptr.hpp>
 #include "Headers/Engine/Models/Mesh.h"
 #include "Headers/Engine/Models/Texture.h"
 #include "Headers/Engine/Shader/Shader.h"
 #include "Headers/Engine/Camera/Camera.h"
-#include <glm/gtc/type_ptr.hpp>
-#include <Headers/Engine/Collisions/Plane.h>
+#include "Headers/Engine/Collisions/Plane.h"
 
 class Entity {
 public:
-    Entity(Mesh &mesh, const std::vector<Texture>& textures, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale);
+    Entity();
+
+    Entity(
+            Mesh &mesh,
+            const std::vector<Texture>& textures,
+            const glm::vec3& position,
+            const glm::vec3& rotation,
+            const glm::vec3& scale
+            );
 
     ~Entity();
 

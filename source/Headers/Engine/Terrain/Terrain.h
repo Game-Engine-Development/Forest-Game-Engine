@@ -1,13 +1,14 @@
 #pragma once
 
-#include <Headers/Engine/Camera/Camera.h>
-#include "Headers/Engine/Terrain/TerrainTextureMap.h"
-#include "Headers/Engine/Terrain/TerrainMesh.h"
-#include "Headers/Engine/Shader/Shader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
+
+#include "Headers/Engine/Camera/Camera.h"
+#include "Headers/Engine/Terrain/TerrainTextureMap.h"
+#include "Headers/Engine/Terrain/TerrainMesh.h"
+#include "Headers/Engine/Shader/Shader.h"
 
 class Terrain {
 public:
@@ -21,11 +22,11 @@ public:
 private:
     TerrainTextureMap terrainTextureMap;
     TerrainMesh terrainMesh;
-    glm::vec3 position;
-    glm::mat4 modelMatrix;
+    glm::vec3 position{};
+    glm::mat4 modelMatrix{};
     glm::mat4 createModelMatrix();
     float getHeight(int vertexX, int vertexZ);
     float getAverageHeight(float terrainX, float terrainZ);
-    float barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos);
+    static float barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos);
 };
 

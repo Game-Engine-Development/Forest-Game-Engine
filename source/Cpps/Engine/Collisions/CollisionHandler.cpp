@@ -7,23 +7,6 @@ CollisionHandler::CollisionHandler(Entity *entity) {
     move.eRadius = m_entity->getScale();
 }
 
-void CollisionHandler::moveEntity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::vector<Terrain*>& terrains) {
-    hitPlayer = false;
-    currentTerrain = calculateCurrentTerrain(terrains);
-    calculateTerrainCollisions(finalMove);
-    collideAndSlide(finalMove, currentGravity, entities);
-    updateGravity();
-}
-
-void CollisionHandler::moveEntityWithoutGravity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::vector<Terrain*>& terrains) {
-    hitPlayer = false;
-    currentTerrain = calculateCurrentTerrain(terrains);
-    calculateTerrainCollisions(finalMove);
-    currentGravity = glm::vec3(0, 0, 0);
-    collideAndSlide(finalMove, currentGravity, entities);
-    updateGravity();
-}
-
 void CollisionHandler::calculateCollisions(std::vector<Plane> &planes, Entity* entity) {
     std::vector nearbyPlanes = planes;//calculateCollidablePlanes(planes);
     for(const Plane& plane : nearbyPlanes) {
@@ -67,10 +50,10 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
         bool foundCollison = false;
         float t = 1.0;
         if (!embeddedInPlane) {
-            glm::vec3 planeIntersectionPoint = (move.eSpaceStartingPos - trianglePlane.normal + (float)t0 * move.eSpaceMovement);
+            glm::vec3 planeIntersectionPoint = (move.eSpaceStartingPos - trianglePlane.normal + static_cast<float>(t0) * move.eSpaceMovement);
             if (checkPointInTriangle(planeIntersectionPoint, trianglePlane.points[0], trianglePlane.points[1], trianglePlane.points[2])) {
                 foundCollison = true;
-                t = t0;
+                t = static_cast<float>(t0);
                 collisionPoint = planeIntersectionPoint;
             }
         }
@@ -82,27 +65,27 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
             float newT;
             a = velocitySquaredLength;
 // P1
-            b = 2.0*(glm::dot(base-trianglePlane.points[0], velocity));
+            b = 2.0f*(glm::dot(base-trianglePlane.points[0], velocity));
             glm::vec3 cTemp = trianglePlane.points[0] - base;
-            c = cTemp.x * cTemp.x + cTemp.y * cTemp.y + cTemp.z * cTemp.z - 1.0;
+            c = static_cast<float>(cTemp.x * cTemp.x + cTemp.y * cTemp.y + cTemp.z * cTemp.z - 1.0);
             if (getLowestRoot(a,b,c, t, &newT)) {
                 t = newT;
                 foundCollison = true;
                 collisionPoint = trianglePlane.points[0];
             }
 // P2
-            b = 2.0*(glm::dot(base-trianglePlane.points[1], velocity));
+            b = 2.0f*(glm::dot(base-trianglePlane.points[1], velocity));
             cTemp = trianglePlane.points[1] - base;
-            c = cTemp.x * cTemp.x + cTemp.y * cTemp.y + cTemp.z * cTemp.z - 1.0;
+            c = static_cast<float>(cTemp.x * cTemp.x + cTemp.y * cTemp.y + cTemp.z * cTemp.z - 1.0);
             if (getLowestRoot(a,b,c, t, &newT)) {
                 t = newT;
                 foundCollison = true;
                 collisionPoint = trianglePlane.points[1];
             }
 // P3
-            b = 2.0*(glm::dot(base-trianglePlane.points[2], velocity));
+            b = 2.0f*(glm::dot(base-trianglePlane.points[2], velocity));
             cTemp = trianglePlane.points[2] - base;
-            c = cTemp.x * cTemp.x + cTemp.y * cTemp.y + cTemp.z * cTemp.z - 1.0;
+            c = static_cast<float>(cTemp.x * cTemp.x + cTemp.y * cTemp.y + cTemp.z * cTemp.z - 1.0);
             if (getLowestRoot(a,b,c, t, &newT)) {
                 t = newT;
                 foundCollison = true;
@@ -117,7 +100,7 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
             float edgeDotBaseToVertex = glm::dot(baseToVertex, edge);
 // Calculate parameters for equation
             a = edgeSquaredLength*-velocitySquaredLength + edgeDotVelocity*edgeDotVelocity;
-            b = edgeSquaredLength*(2 * glm::dot(baseToVertex, velocity)) - 2.0*edgeDotVelocity*edgeDotBaseToVertex;
+            b = static_cast<float>(edgeSquaredLength*(2 * glm::dot(baseToVertex, velocity)) - 2.0*edgeDotVelocity*edgeDotBaseToVertex);
             c = edgeSquaredLength*(1 - (baseToVertex.x * baseToVertex.x + baseToVertex.y * baseToVertex.y + baseToVertex.z * baseToVertex.z)) + edgeDotBaseToVertex*edgeDotBaseToVertex;
 // Does the swept sphere collide against infinite edge?
             if (getLowestRoot(a,b,c, t, &newT)) {
@@ -139,9 +122,9 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
             edgeDotBaseToVertex = glm::dot(baseToVertex, edge);
             a = edgeSquaredLength*-velocitySquaredLength +
                 edgeDotVelocity*edgeDotVelocity;
-            b = edgeSquaredLength*(2 * glm::dot(baseToVertex, velocity))-2.0*edgeDotVelocity*edgeDotBaseToVertex;
+            b = static_cast<float>(edgeSquaredLength*(2 * glm::dot(baseToVertex, velocity))-2.0*edgeDotVelocity*edgeDotBaseToVertex);
             c = edgeSquaredLength*(1-(baseToVertex.x * baseToVertex.x + baseToVertex.y * baseToVertex.y + baseToVertex.z * baseToVertex.z))+edgeDotBaseToVertex*edgeDotBaseToVertex;
-            if (getLowestRoot(a,b,c, t, &newT)) {
+            if (getLowestRoot(a, b, c, t, &newT)) {
                 float f=(edgeDotVelocity*newT-edgeDotBaseToVertex)/
                         edgeSquaredLength;
                 if (f >= 0.0 && f <= 1.0) {
@@ -157,7 +140,7 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
             edgeDotVelocity = glm::dot(velocity, edge);
             edgeDotBaseToVertex = glm::dot(baseToVertex, edge);
             a = edgeSquaredLength*-velocitySquaredLength + edgeDotVelocity*edgeDotVelocity;
-            b = edgeSquaredLength*(2*glm::dot(baseToVertex, velocity)) - 2.0*edgeDotVelocity*edgeDotBaseToVertex;
+            b = static_cast<float>(edgeSquaredLength*(2*glm::dot(baseToVertex, velocity)) - 2.0*edgeDotVelocity*edgeDotBaseToVertex);
             c = edgeSquaredLength*(1-(baseToVertex.x * baseToVertex.x + baseToVertex.y * baseToVertex.y + baseToVertex.z * baseToVertex.z)) + edgeDotBaseToVertex*edgeDotBaseToVertex;
             if (getLowestRoot(a,b,c, t, &newT)) {
                 float f=(edgeDotVelocity*newT-edgeDotBaseToVertex)/
@@ -174,10 +157,9 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
 
 
 //shady
-
         if (foundCollison) {
 // distance to collision: ’t’ is time of collision
-            float distToCollision = t * move.eSpaceMovement.length();
+            float distToCollision = t * glm::vec3::length();
 // Does this triangle qualify for the closest hit?
 // it does if it’s the first hit or the closest
             if (!move.foundCollision || distToCollision < move.nearestDistance) {
@@ -255,6 +237,7 @@ void CollisionHandler::collideAndSlide(const glm::vec3& vel, const glm::vec3& gr
         m_hitEntity->hit = true;
     }
     finalPosition *= move.eRadius;
+    assert(m_entity != nullptr);
     m_entity->setPos(finalPosition);
 }
 
@@ -331,15 +314,15 @@ void CollisionHandler::calculateTerrainCollisions(glm::vec3 &finalMove) {
     float height;
     float currentHeight = m_entity->getPos().y;
     float dist = std::sqrt(finalMove.x*finalMove.x + finalMove.z*finalMove.z);
-    for(int i = 0; i < dist * 10; ++i) {
+    for(unsigned int i = 0; i < static_cast<int>(dist * 10); ++i) {
         newMove = glm::normalize(finalMove) * (float)i;
         height = m_entity->getScale().y + currentTerrain->getTerrainHeight(m_entity->getPos().x + newMove.x, m_entity->getPos().z + newMove.z);
-        if(height >= m_entity->getPos().y + simGravity(i) - 1) {
+        if(height >= m_entity->getPos().y + simGravity(static_cast<float>(i)) - 1) {
             cantGetOver = true;
             break;
         }
     }
-    for(int i = 0; i < dist; ++i) {
+    for(unsigned int i = 0; i < static_cast<int>(dist); ++i) {
         newMove = glm::normalize(finalMove) * (float)i;
         height = m_entity->getScale().y + currentTerrain->getTerrainHeight(m_entity->getPos().x + newMove.x, m_entity->getPos().z + newMove.z);
         if(height > currentHeight + m_entity->getScale().y && cantGetOver) {
@@ -364,13 +347,4 @@ void CollisionHandler::updateGravity() {
 
 float CollisionHandler::simGravity(float tics) {
     return currentGravity.y + (CollisionHandler::GRAVITY.y * tics);
-}
-
-Terrain* CollisionHandler::calculateCurrentTerrain(std::vector<Terrain *> &terrains) {
-    for(Terrain* terrain : terrains) {
-        if(m_entity->getPos().x >= terrain->getPos().x && m_entity->getPos().x <= terrain->getPos().x + TerrainMesh::SIZE && m_entity->getPos().z >= terrain->getPos().z && m_entity->getPos().z <= terrain->getPos().z + TerrainMesh::SIZE) {
-            return terrain;
-        }
-    }
-    return terrains[0];
 }

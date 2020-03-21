@@ -1,8 +1,5 @@
-//
-// Created by Alan on 10/8/2019.
-//
-#include "Headers/Engine/Models/stb_image.h"
-#include <iostream>
+#include <Headers/Engine/Models/stb_image.h>
+
 #include "Headers/Engine/Terrain/TerrainMesh.h"
 
 TerrainMesh::TerrainMesh() = default;
@@ -21,15 +18,15 @@ TerrainMesh::TerrainMesh(const char* filename) {
     bindVAO();
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
     glBindBuffer(GL_ARRAY_BUFFER, texCoordBuffer);
     glBufferData(GL_ARRAY_BUFFER, texCoords.size() * sizeof(glm::vec2), &texCoords[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), nullptr);
 
     glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
@@ -66,19 +63,19 @@ unsigned int TerrainMesh::getNumOfVertices() {
 void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm::vec3> &normals, std::vector<glm::vec2> &texCoords, std::vector<unsigned int> &indices, const char* filename) {
     int width, nrchannels;
     data = stbi_load(filename, &width, &height, &nrchannels, 1);
-    float VERTEX_COUNT = height;
-    for(int i = 0; i < VERTEX_COUNT; ++i){
-        for(int j = 0; j < VERTEX_COUNT; ++j){
-            vertices.push_back(glm::vec3((float)j/(float)(VERTEX_COUNT - 1) * SIZE, getHeight(j, i), (float)i/(float)(VERTEX_COUNT - 1) * SIZE));
-            normals.push_back(calculateNormal(j, i));
-            texCoords.push_back(glm::vec2((float)j/(float)(VERTEX_COUNT - 1), (float)i/(float)(VERTEX_COUNT - 1)));
+    float VERTEX_COUNT = static_cast<float>(height);
+    for(unsigned int i = 0; i < static_cast<int>(VERTEX_COUNT); ++i){
+        for(unsigned int j = 0; j < static_cast<int>(VERTEX_COUNT); ++j){
+            vertices.emplace_back(static_cast<float>(j)/static_cast<float>((VERTEX_COUNT - 1)) * SIZE, getHeight(static_cast<float>(j), static_cast<float>(i)), static_cast<float>(i)/static_cast<float>((VERTEX_COUNT - 1)) * SIZE);
+            normals.push_back(calculateNormal(static_cast<float>(j), static_cast<float>(i)));
+            texCoords.emplace_back(static_cast<float>(j)/static_cast<float>((VERTEX_COUNT - 1)), static_cast<float>(i)/static_cast<float>(VERTEX_COUNT - 1));
         }
     }
-    for(int gz = 0; gz < VERTEX_COUNT - 1; ++gz){
-        for(int gx = 0; gx < VERTEX_COUNT - 1; ++gx){
-            int topLeft = (gz*VERTEX_COUNT) + gx;
+    for(unsigned int gz = 0; gz < static_cast<int>(VERTEX_COUNT) - 1; ++gz){
+        for(unsigned int gx = 0; gx < static_cast<int>(VERTEX_COUNT - 1.0f); ++gx){
+            int topLeft = static_cast<int>((static_cast<float>(gz)*VERTEX_COUNT) + static_cast<float>(gx));
             int topRight = topLeft + 1;
-            int bottomLeft = ((gz+1)*VERTEX_COUNT) + gx;
+            int bottomLeft = static_cast<int>((static_cast<float>((gz+1))*VERTEX_COUNT) + static_cast<float>(gx));
             int bottomRight = bottomLeft + 1;
             indices.push_back(topLeft);
             indices.push_back(bottomLeft);
@@ -103,7 +100,7 @@ float TerrainMesh::getHeight(float x, float z) {
     } else if(pointZ >= getWidth()) {
         pointZ = getWidth();
     }
-    float terrainHeight = data[(int)(pointZ * height + pointX)];
+    float terrainHeight = data[static_cast<int>((pointZ * static_cast<float>(height) + pointX))];
     terrainHeight /= 127.5;
     terrainHeight -= 1;
     terrainHeight *= MAX_HEIGHT;
@@ -121,5 +118,5 @@ glm::vec3 TerrainMesh::calculateNormal(float x, float z) {
 }
 
 float TerrainMesh::getWidth() {
-    return height - 1;
+    return static_cast<float>(height - 1);
 }

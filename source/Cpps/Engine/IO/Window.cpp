@@ -21,15 +21,15 @@ Window::Window(Camera *camera) {
     glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
     glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
-    width = mode->width;
-    height = mode->height;
+    width = static_cast<float>(mode->width);
+    height = static_cast<float>(mode->height);
 
     camera->setAspectRatio(width/height);
 
     std::cout << "width: " << width << std::endl;
     std::cout << "height: " << height << std::endl;
 
-    window = glfwCreateWindow(width, height, "Forest", monitor, nullptr);
+    window = glfwCreateWindow(static_cast<int>(width), static_cast<int>(height), "Forest", monitor, nullptr);
     if (window == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();

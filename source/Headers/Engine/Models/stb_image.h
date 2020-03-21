@@ -297,7 +297,7 @@ RECENT REVISION HISTORY:
 
 
 #ifndef STBI_NO_STDIO
-#include <stdio.h>
+#include <cstdio>
 #endif // STBI_NO_STDIO
 
 #define STBI_VERSION 1
@@ -312,7 +312,7 @@ enum
     STBI_rgb_alpha  = 4
 };
 
-#include <stdlib.h>
+#include <cstdlib>
 typedef unsigned char stbi_uc;
 typedef unsigned short stbi_us;
 

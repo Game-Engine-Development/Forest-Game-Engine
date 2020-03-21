@@ -1,12 +1,11 @@
 #pragma once
 
-
-#include <Headers/Engine/Camera/Camera.h>
+#include "Headers/Engine/Camera/Camera.h"
 #include "CubeMapTexture.h"
 
 class Skybox {
 public:
-    Skybox(CubeMapTexture& texture);
+    explicit Skybox(CubeMapTexture& texture);
 
     ~Skybox();
 

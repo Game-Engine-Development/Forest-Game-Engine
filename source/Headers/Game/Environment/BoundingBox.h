@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Headers/Engine/Models/Entity.h>
-#include <Headers/Game/Entities/Spirit.h>
+#include "Headers/Engine/Models/Entity.h"
+#include "Headers/Game/Entities/Spirit.h"
 
 class BoundingBox {
 public:

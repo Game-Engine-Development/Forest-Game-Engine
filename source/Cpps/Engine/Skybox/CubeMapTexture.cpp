@@ -1,5 +1,6 @@
-#include "Headers/Engine/Skybox/CubeMapTexture.h"
 #include <Headers/Engine/Models/stb_image.h>
+
+#include "Headers/Engine/Skybox/CubeMapTexture.h"
 
 CubeMapTexture::CubeMapTexture() = default;
 

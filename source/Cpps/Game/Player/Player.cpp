@@ -9,35 +9,6 @@ Player::Player(Camera *camera1, Entity *container1, CollisionHandler &collisionH
     handler.move.eRadius = playerEntity->getScale();
 }
 
-void Player::movePlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains, Entity* boundingBox, bool bound) {
-    glm::vec3 newRotation(0, -camera->Yaw, 0);
-    playerEntity->setRotation(newRotation);
-    glm::vec3 finalMove = camera->Front;
-    finalMove.y = 0;
-    finalMove = glm::normalize(finalMove);
-    finalMove *= currentSpeed;
-    finalMove += lateralSpeed * camera->Right;
-    handler.moveEntity(finalMove, entities, terrains);
-    camera->Position = playerEntity->getPos();
-    camera->setYPos(playerEntity->getPos().y + 4);
-    if(bound) {
-        if(playerEntity->getPos().x > boundingBox->getScale().x - 5) {
-            glm::vec3 newPos(boundingBox->getScale().x - 5, playerEntity->getPos().y, playerEntity->getPos().z);
-            playerEntity->setPos(newPos);
-        } else if(playerEntity->getPos().x < -boundingBox->getScale().x + 5) {
-            glm::vec3 newPos(-boundingBox->getScale().x + 5, playerEntity->getPos().y, playerEntity->getPos().z);
-            playerEntity->setPos(newPos);
-        }
-        if(playerEntity->getPos().z > boundingBox->getScale().z - 5) {
-            glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y, boundingBox->getScale().z - 5);
-            playerEntity->setPos(newPos);
-        } else if(playerEntity->getPos().z < -boundingBox->getScale().z + 5) {
-            glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y, -boundingBox->getScale().z + 5);
-            playerEntity->setPos(newPos);
-        }
-    }
-}
-
 void Player::render(Shader &shader, glm::vec3 &lightPos, glm::vec3 &lightColor) {
     playerEntity->render(*camera, shader, lightPos, lightColor);
 }

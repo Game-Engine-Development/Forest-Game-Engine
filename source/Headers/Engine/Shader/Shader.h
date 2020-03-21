@@ -31,5 +31,5 @@ public:
 private:
     // utility function for checking shader compilation/linking errors.
     // ------------------------------------------------------------------------
-    void checkCompileErrors(unsigned int shader, std::string type);
+    static void checkCompileErrors(unsigned int shader, const std::string& type);
 };

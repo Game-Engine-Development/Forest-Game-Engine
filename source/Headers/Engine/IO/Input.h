@@ -15,14 +15,14 @@ public:
 
     void processInput(Player *player);
 
-    bool isKeyDown(int key);
-    bool isButtonDown(int button);
+    static bool isKeyDown(int key);
+    static bool isButtonDown(int button);
 
-    double getScrollY();
-    double getScrollX();
+    static double getScrollY();
+    static double getScrollX();
 
-    double getMouseY();
-    double getMouseX();
+    static double getMouseY();
+    static double getMouseX();
 
     bool isShouldShoot();
     void setShouldShoot(bool value);

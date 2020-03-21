@@ -38,12 +38,12 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
     unsigned int vertex, fragment;
     // vertex shader
     vertex = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertex, 1, &vShaderCode, NULL);
+    glShaderSource(vertex, 1, &vShaderCode, nullptr);
     glCompileShader(vertex);
     checkCompileErrors(vertex, "VERTEX");
     // fragment Shader
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragment, 1, &fShaderCode, NULL);
+    glShaderSource(fragment, 1, &fShaderCode, nullptr);
     glCompileShader(fragment);
     checkCompileErrors(fragment, "FRAGMENT");
     // shader Program
@@ -87,7 +87,7 @@ void Shader::setVec3(const std::string &name, float x, float y, float z){
 
 // utility function for checking shader compilation/linking errors.
 // ------------------------------------------------------------------------
-void Shader::checkCompileErrors(unsigned int shader, std::string type)
+void Shader::checkCompileErrors(unsigned int shader, const std::string& type)
 {
     int success;
     char infoLog[1024];
@@ -96,7 +96,7 @@ void Shader::checkCompileErrors(unsigned int shader, std::string type)
         glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
         if (!success)
         {
-            glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+            glGetShaderInfoLog(shader, 1024, nullptr, infoLog);
             std::cerr << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
         }
     }
@@ -105,7 +105,7 @@ void Shader::checkCompileErrors(unsigned int shader, std::string type)
         glGetProgramiv(shader, GL_LINK_STATUS, &success);
         if (!success)
         {
-            glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+            glGetProgramInfoLog(shader, 1024, nullptr, infoLog);
             std::cerr << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
         }
     }

@@ -1,7 +1,14 @@
 #include "Headers/Engine/Models/Entity.h"
 
-Entity::Entity(Mesh &mesh, const std::vector<Texture> &textures, const glm::vec3 &position = glm::vec3(0, 0, 0),
-               const glm::vec3 &rotation = glm::vec3(0,0,0), const glm::vec3& scale = glm::vec3(1,1,1)) {
+Entity::Entity() = default;
+
+Entity::Entity(
+        Mesh &mesh,
+        const std::vector<Texture> &textures,
+        const glm::vec3 &position = glm::vec3(0, 0, 0),
+        const glm::vec3 &rotation = glm::vec3(0,0,0),
+        const glm::vec3& scale = glm::vec3(1,1,1)
+        ) {
     this->mesh = mesh;
     this->textures = textures;
     this->position = position;
@@ -73,8 +80,8 @@ void Entity::setPos(glm::vec3& newPos) {
     moveEntityPlanes(mesh.getVertices());
 }
 
-void Entity::rotate(glm::vec3& rotation) {
-    this->rotation += rotation;
+void Entity::rotate(glm::vec3& rotationPar) {
+    rotation += rotationPar;
     limitRotation();
     createModelMatrix();
     moveEntityPlanes(mesh.getVertices());
@@ -99,8 +106,8 @@ void Entity::translate(float x, float y, float z) {
     moveEntityPlanes(mesh.getVertices());
 }
 
-void Entity::addScale(glm::vec3 &scale) {
-    this->scale += scale;
+void Entity::addScale(glm::vec3 &scalePar) {
+    scale += scalePar;
     createModelMatrix();
     moveEntityPlanes(mesh.getVertices());
 }
@@ -144,7 +151,7 @@ void Entity::moveEntityPlanes(std::vector<glm::vec3> &vertices) {
         point1 = modelMatrix * glm::vec4(vertices[i++], 1);
         point2 = modelMatrix * glm::vec4(vertices[i++], 1);
         point3 = modelMatrix * glm::vec4(vertices[i++], 1);
-        planes.push_back(Plane(point1, point2, point3, flipped));
+        planes.emplace_back(point1, point2, point3, flipped);
     }
 }
 

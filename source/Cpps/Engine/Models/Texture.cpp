@@ -1,11 +1,11 @@
-#include <regex>
-#include "Headers/Engine/Models/stb_image.h"
+#include <Headers/Engine/Models/stb_image.h> //must be included in cpp file
+
 #include "Headers/Engine/Models/Texture.h"
 
 Texture::Texture() = default;
 
 Texture::Texture(const char* filename, int unit) {
-    int type;
+    int type = 0;
     if (std::regex_match(filename, std::regex("(.+)(\\.png)"))) {
         type = PNG;
     }
@@ -18,10 +18,10 @@ Texture::Texture(const char* filename, int unit) {
     textureUnit = unit;
     glGenTextures(1, &ID);
     int width, height, nrchannels;
-    unsigned char* data = NULL;
+    unsigned char* data = nullptr;
     if (type == PNG) {
         data = stbi_load(filename, &width, &height, &nrchannels, STBI_rgb_alpha);
-    } else if(type == JPG) {
+    } else {
         data = stbi_load(filename, &width, &height, &nrchannels, STBI_rgb);
     }
     glActiveTexture(GL_TEXTURE0 + textureUnit);
@@ -33,7 +33,7 @@ Texture::Texture(const char* filename, int unit) {
     if(data){
         if(type == JPG) {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        } else if(type == PNG) {
+        } else {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
         }
         glGenerateMipmap(GL_TEXTURE_2D);

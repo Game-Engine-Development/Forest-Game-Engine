@@ -92,22 +92,17 @@ void Camera::updateCameraVectors()
 }
 
 glm::mat4 Camera::getProjectionMatrix() {
-    glm::mat4 projection = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(Zoom), aspectRatio, 0.1f, 100000.0f);
-    return projection;
+    return glm::perspective(glm::radians(Zoom), aspectRatio, 0.1f, 100000.0f);
 }
 
 glm::mat4 Camera::getViewMatrix() {
-    glm::mat4 view = glm::mat4(1.0f);
-    view = GetViewMatrix();
-    return view;
+    return GetViewMatrix();
 }
 
 void Camera::setMatrices(Shader &shader) {
-    glm::mat4 view = glm::mat4(1.0f);
-    view = GetViewMatrix();
-    glm::mat4 projection = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(Zoom), aspectRatio, 0.1f, 100000.0f);
+    glm::mat4 view = GetViewMatrix();
+    glm::mat4 projection = glm::perspective(glm::radians(Zoom), aspectRatio, 0.1f, 100000.0f);
+
     int viewLoc = glGetUniformLocation(shader.ID, "view");
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
     int projectionLoc = glGetUniformLocation(shader.ID, "projection");
@@ -115,11 +110,9 @@ void Camera::setMatrices(Shader &shader) {
 }
 
 void Camera::setSkyboxMatrices(Shader &shader) {
-    glm::mat4 view = glm::mat4(1.0f);
-    view = GetViewMatrix();
+    glm::mat4 view = GetViewMatrix();
     view = glm::mat4(glm::mat3(view));
-    glm::mat4 projection = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(Zoom), aspectRatio, 0.1f, 100000.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(Zoom), aspectRatio, 0.1f, 100000.0f);
     int viewLoc = glGetUniformLocation(shader.ID, "view");
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
     int projectionLoc = glGetUniformLocation(shader.ID, "projection");

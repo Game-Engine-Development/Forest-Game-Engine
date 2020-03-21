@@ -1,5 +1,6 @@
 #pragma once
 
+#include <regex>
 #include <glad/glad.h>
 #include <iostream>
 #include <string>

@@ -1,10 +1,6 @@
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/transform.hpp>
 #include "Headers/Engine/Animations/JointTransform.h"
 
-JointTransform::JointTransform(glm::vec3 &position, Quaternion &rotation) : position(position), rotation(rotation) {
-
-}
+JointTransform::JointTransform(glm::vec3 &position, Quaternion &rotation) : position(position), rotation(rotation) {}
 
 glm::mat4 JointTransform::getLocalTransform() {
     glm::mat4 matrix = glm::mat4(1.0f);

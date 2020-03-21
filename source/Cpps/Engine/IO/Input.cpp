@@ -77,14 +77,14 @@ void Input::processInput(Player *player) {
 
 void Input::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
     if(instance->firstMouse){
-        instance->lastX = xpos;
-        instance->lastY = ypos;
+        instance->lastX = static_cast<float>(xpos);
+        instance->lastY = static_cast<float>(ypos);
         instance->firstMouse = false;
     }
-    float xoffset = xpos - instance->lastX;
-    float yoffset = instance->lastY - ypos;
-    instance->lastX = xpos;
-    instance->lastY = ypos;
+    float xoffset = static_cast<float>(xpos - instance->lastX);
+    float yoffset = static_cast<float>(instance->lastY - ypos);
+    instance->lastX = static_cast<float>(xpos);
+    instance->lastY = static_cast<float>(ypos);
 
     float sensitivity = 0.05f;
     xoffset *= sensitivity;
@@ -94,7 +94,7 @@ void Input::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 }
 
 void Input::scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
-    instance->m_camera->ProcessMouseScroll(yoffset);
+    instance->m_camera->ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
 void Input::cursor_enter_callback(GLFWwindow* window, int entered) {}

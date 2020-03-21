@@ -14,8 +14,8 @@ glm::mat4 Joint::getAnimatedTransform() {
     return animatedTransform;
 }
 
-void Joint::setAnimatedTransform(glm::mat4 &animatedTransform) {
-    this->animatedTransform = animatedTransform;
+void Joint::setAnimatedTransform(glm::mat4 &animatedTransformPar) {
+    animatedTransform = animatedTransformPar;
 }
 
 glm::mat4 Joint::getInverseBindTransform() {

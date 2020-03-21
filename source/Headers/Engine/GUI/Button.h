@@ -16,7 +16,7 @@
 class Button {
 public:
     Button();
-    Button(char *textureLocation, glm::vec2 position, glm::vec2 scale, std::function<void(void)> action, Window *window);
+    Button(const char *textureLocation, glm::vec2 position, glm::vec2 scale, std::function<void(void)> action, Window *window);
     void render(Shader& shader);
 
 private:

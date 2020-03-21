@@ -1,7 +1,6 @@
 #include "Headers/Engine/Animations/AnimationHandler.h"
 
-AnimationHandler::AnimationHandler(Skeleton &skeleton) : skeleton(skeleton) {
-}
+AnimationHandler::AnimationHandler(Skeleton &skeleton) : skeleton(skeleton) {}
 
 void AnimationHandler::playAnimation(Animation &animation) {
     animationTime = 0;
@@ -45,12 +44,12 @@ std::vector<KeyFrame> AnimationHandler::getPreviousAndNextFrames() {
     std::vector<KeyFrame> allFrames = currentAnimation.getKeyFrames();
     KeyFrame previousFrame  = allFrames[0];
     KeyFrame nextFrame = allFrames[0];
-    for(int i = 0; i < allFrames.size(); ++i) {
-        nextFrame = allFrames[i];
+    for(const KeyFrame & allFrame : allFrames) {
+        nextFrame = allFrame;
         if(nextFrame.getTimeStamp() > animationTime) {
             break;
         }
-        previousFrame = allFrames[i];
+        previousFrame = allFrame;
     }
     return std::vector<KeyFrame> {previousFrame, nextFrame};
 }

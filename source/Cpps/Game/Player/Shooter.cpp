@@ -9,13 +9,6 @@ glm::vec3 Shooter::getCurrentRay() {
     return m_currentRay;
 }
 
-void Shooter::shoot(std::vector<Entity*>& entities, std::vector<Terrain*>& terrains) {
-    glm::vec3 newPos(m_camera->getPos());
-    m_bulletEntity->setPos(newPos);
-    glm::vec3 shotMove(m_currentRay * 1000.0f);
-    m_handler.moveEntityWithoutGravity(shotMove, entities, terrains);
-}
-
 void Shooter::update() {
     calculateCurrentRay();
 }
@@ -47,7 +40,7 @@ glm::vec4 Shooter::toEyeCoords(glm::vec4 clipCoords) {
 }
 
 glm::vec2 Shooter::getNormalizedDeviceCoords(glm::vec2 mouseCoords) {
-    float x = (2.0 * mouseCoords.x); //add division
-    float y = (2.0 * mouseCoords.y); //add division
+    float x = (2.0f * mouseCoords.x); //add division
+    float y = (2.0f * mouseCoords.y); //add division
     return glm::vec2(x, -y);
 }

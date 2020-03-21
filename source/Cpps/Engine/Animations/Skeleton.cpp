@@ -1,8 +1,8 @@
 #include "Headers/Engine/Animations/Skeleton.h"
 
-Skeleton::Skeleton(Joint* root, int jointCount) {
+Skeleton::Skeleton(Joint* root, int jointCountPar) {
     rootJoint = root;
-    this->jointCount = jointCount;
+    jointCount = jointCountPar;
     glm::mat4 defaultMatrix = glm::mat4(1.0f);
     rootJoint->calcInverseBindTransform(defaultMatrix);
 }

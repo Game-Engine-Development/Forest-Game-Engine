@@ -17,7 +17,7 @@ public:
     explicit Quad(const Texture& texturePar, glm::vec2 &position, glm::vec2 &scale, std::vector <glm::vec2> verts, std::vector <glm::vec2> texts, std::vector<unsigned int> inds);
 
     void render(Shader& shader);
-    
+
     std::vector<glm::vec2> getVertices();
 
     glm::vec2 getScale();
@@ -30,7 +30,7 @@ public:
     ~Quad();
 private:
     void bindVAO();
-    void unbindVAO();
+    static void unbindVAO();
     void createBuffers();
 
     std::vector<glm::vec2> vertices, textureCoords;
