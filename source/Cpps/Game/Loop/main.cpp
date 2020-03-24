@@ -152,30 +152,20 @@ int main() {
         entities.push_back(&containers[i]);
     }
 
-    std::array<Entity, 16> animalEntities;
-    { //scope deletes dangling pointer
-        Texture *animalTexture = nullptr;
-        for (int i = 0; i < animalEntities.size(); ++i) {
-            //wolves
-            if (i < 8) {
-                animalTexture = &wolfTexture;
-            }
-            //deer
-            else {
-                animalTexture = &deerTexture;
-            }
-
-            animalEntities[i].create(
-                    containerMesh,
-                    std::vector<Texture>{*animalTexture},
-                    glm::vec3(50, 10, 400),
-                    glm::vec3(0, 45, 0),
-                    glm::vec3(2, 3, 1)
-            );
-            animalEntities[i].setAsAnimal();
-        }
-        animalTexture = nullptr; //prevents possible undefined behavior
-    }
+    Entity wolfEntity(
+            containerMesh,
+            std::vector<Texture>{wolfTexture},
+            glm::vec3(50, 10, 400),
+            glm::vec3(0, 45, 0),
+            glm::vec3(2, 3, 1)
+    );
+    Entity deerEntity(
+            containerMesh,
+            std::vector<Texture>{deerTexture},
+            glm::vec3(50, 10, 400),
+            glm::vec3(0, 45, 0),
+            glm::vec3(2, 3, 1)
+    );
 
     CollisionHandler playerCollider(&playerEntity);
 
@@ -198,21 +188,25 @@ int main() {
     }
 
     std::array<Animal, 16> animals;
-    { //scope deletes unneeded floats variables below
+    { //scope deletes variables unneeded in rest of program
+        Entity *animalEntity = nullptr;
         float move_speed, jump_speed = 1.0f;
         for (int i = 0; i < animals.size(); ++i) {
             //wolves
             if (i < 8) {
+                animalEntity = &wolfEntity;
                 move_speed = 2.0f;
             }
             //deer
             else {
+                animalEntity = &deerEntity;
                 move_speed = 1.5f;
             }
 
-            animals[i].create(animalEntities[i], &player, &spirit, move_speed, jump_speed);
+            animals[i].create(*animalEntity, &player, &spirit, move_speed, jump_speed);
             entities.push_back(animals[i].getEntityPointer());
         }
+        animalEntity = nullptr; //prevents possible undefined behavior
     }
 
     while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
