@@ -72,7 +72,7 @@ int main() {
             "../res/flowers.png",
             "../res/path.png"
     );
-    std::vector<const char*> textures {
+    std::array<const char*, 6> textures {
             "../res/Standard-Cube-Map2/px.png",
             "../res/Standard-Cube-Map2/nx.png",
             "../res/Standard-Cube-Map2/py.png",
@@ -188,25 +188,17 @@ int main() {
     }
 
     std::array<Animal, 16> animals;
-    { //scope deletes variables unneeded in rest of program
-        Entity *animalEntity = nullptr;
-        float move_speed, jump_speed = 1.0f;
-        for (int i = 0; i < animals.size(); ++i) {
-            //wolves
-            if (i < 8) {
-                animalEntity = &wolfEntity;
-                move_speed = 2.0f;
-            }
-            //deer
-            else {
-                animalEntity = &deerEntity;
-                move_speed = 1.5f;
-            }
-
-            animals[i].create(*animalEntity, &player, &spirit, move_speed, jump_speed);
-            entities.push_back(animals[i].getEntityPointer());
+    for (int i = 0; i < animals.size(); ++i) {
+        //wolves
+        if (i < 8) {
+            animals[i].create(wolfEntity, &player, &spirit, 2.0f, 1.0f);
         }
-        animalEntity = nullptr; //prevents possible undefined behavior
+        //deer
+        else {
+            animals[i].create(deerEntity, &player, &spirit, 1.5f, 1.0f);
+        }
+
+        entities.push_back(animals[i].getEntityPointer());
     }
 
     while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
