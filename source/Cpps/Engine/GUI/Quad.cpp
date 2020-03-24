@@ -2,7 +2,21 @@
 
 Quad::Quad() = default;
 
-Quad::Quad(const Texture& texturePar, glm::vec2 &position, glm::vec2 &scale, std::vector <glm::vec2> verts, std::vector <glm::vec2> texts, std::vector<unsigned int> inds) : texture(texturePar), position(position), scale(scale), vertices(std::move(verts)), textureCoords(std::move(texts)), indices(std::move(inds)) {
+Quad::Quad(
+        const Texture& texturePar,
+        const glm::vec2 &position,
+        const glm::vec2 &scale,
+        std::vector <glm::vec2> &&verts,
+        std::vector <glm::vec2> &&texts,
+        std::vector<unsigned int> inds
+        ) :
+            texture(texturePar),
+            position(position),
+            scale(scale),
+            vertices(std::move(verts)),
+            textureCoords(std::move(texts)),
+            indices(std::move(inds)
+    ) {
     createBuffers();
 }
 
@@ -90,4 +104,25 @@ void Quad::setOffsetX(float x) {
 
 void Quad::setOffsetY(float y) {
     offset.y = y;
+}
+
+void Quad::operator()(Quad &&quad) {
+    VAO = quad.VAO;
+    quad.VAO = 0;
+    VBO = quad.VBO;
+    quad.VBO = 0;
+    TBO = quad.TBO;
+    quad.TBO = 0;
+    IBO = quad.IBO;
+    quad.IBO = 0;
+
+    vertices = std::move(quad.vertices);
+    textureCoords = std::move(quad.textureCoords);
+    indices = std::move(quad.indices);
+
+    position = quad.position;
+    scale = quad.scale;
+    offset = quad.offset;
+
+    texture(std::move(quad.texture));
 }

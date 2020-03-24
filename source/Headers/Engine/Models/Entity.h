@@ -18,7 +18,15 @@ public:
             const glm::vec3& position,
             const glm::vec3& rotation,
             const glm::vec3& scale
-            );
+    );
+
+    void create(
+            Mesh &mesh,
+            const std::vector<Texture>& textures,
+            const glm::vec3& position,
+            const glm::vec3& rotation,
+            const glm::vec3& scale
+    );
 
     ~Entity();
 

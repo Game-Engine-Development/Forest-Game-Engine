@@ -27,7 +27,7 @@ public:
     bool isShouldShoot();
     void setShouldShoot(bool value);
 
-    static std::shared_ptr<Input> getInstance();
+    static std::unique_ptr<Input>& getInstance();
 private:
     static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
     static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -44,7 +44,7 @@ private:
 
     bool firstMouse;
 
-    static std::shared_ptr<Input> instance;
+    static std::unique_ptr<Input> instance;
 
     bool cursor = false;
     bool held = false;

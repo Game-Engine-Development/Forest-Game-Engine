@@ -1,6 +1,6 @@
 #include "Headers/Engine/Skybox/Skybox.h"
 
-Skybox::Skybox(CubeMapTexture &texture) {
+Skybox::Skybox(const CubeMapTexture &texture) {
     skyboxTexture = texture;
     float skyboxVertices[] = {
             // positions

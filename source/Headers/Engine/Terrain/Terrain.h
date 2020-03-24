@@ -12,13 +12,18 @@
 
 class Terrain {
 public:
+    Terrain();
+
     Terrain(TerrainTextureMap& textureMap, TerrainMesh& terrainMesh, int gridX, int gridY);
-    ~Terrain();
+
+    void create(TerrainTextureMap &textureMap, TerrainMesh &mesh, int gridX, int gridZ);
+
     void render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
     float getTerrainHeight(float worldX, float worldZ);
     glm::vec3 getTerrainNormal(float worldX, float worldZ);
     glm::vec3 getPos();
     TerrainMesh &getTerrainMesh();
+    ~Terrain();
 private:
     TerrainTextureMap terrainTextureMap;
     TerrainMesh terrainMesh;

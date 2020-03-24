@@ -2,7 +2,6 @@
 
 #include <ctime>
 #include <utility>
-#include <memory>
 #include <array>
 #include <functional>
 #include <GLFW/glfw3.h>
@@ -16,7 +15,13 @@
 class Button {
 public:
     Button();
-    Button(const char *textureLocation, glm::vec2 position, glm::vec2 scale, std::function<void(void)> action, Window *window);
+    Button(
+            const char *textureLocation,
+            glm::vec2 position,
+            glm::vec2 scale,
+            std::function<void(void)> action,
+            Window *window
+    );
     void render(Shader& shader);
 
 private:
@@ -35,6 +40,6 @@ private:
 
     std::function<void(void)> action;
 
-    std::unique_ptr<Quad> quad;
+    Quad quad;
 };
 

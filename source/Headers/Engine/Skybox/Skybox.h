@@ -5,7 +5,7 @@
 
 class Skybox {
 public:
-    explicit Skybox(CubeMapTexture& texture);
+    explicit Skybox(const CubeMapTexture& texture);
 
     ~Skybox();
 

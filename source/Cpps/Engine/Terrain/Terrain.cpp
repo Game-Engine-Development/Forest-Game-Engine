@@ -1,5 +1,7 @@
 #include "Headers/Engine/Terrain/Terrain.h"
 
+Terrain::Terrain() = default;
+
 Terrain::Terrain(TerrainTextureMap &textureMap, TerrainMesh &mesh, int gridX, int gridZ) {
     float x = (float)gridX * TerrainMesh::SIZE;
     float z = (float)gridZ * TerrainMesh::SIZE;
@@ -25,7 +27,7 @@ void Terrain::render(Camera &camera, Shader &shader, glm::vec3& lightPos, glm::v
     glUniform3fv(viewPosLoc, 1, glm::value_ptr(camera.getPos()));
     glDrawElements(GL_TRIANGLES, terrainMesh.getNumOfVertices(), GL_UNSIGNED_INT, nullptr);
     terrainTextureMap.unBindTextures();
-    terrainMesh.unbindVAO();
+    TerrainMesh::unbindVAO();
 }
 
 glm::vec3 Terrain::getPos(){
@@ -110,4 +112,12 @@ float Terrain::barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 
 
 TerrainMesh &Terrain::getTerrainMesh() {
     return terrainMesh;
+}
+
+void Terrain::create(TerrainTextureMap &textureMap, TerrainMesh &mesh, int gridX, int gridZ) {
+    float x = (float)gridX * TerrainMesh::SIZE;
+    float z = (float)gridZ * TerrainMesh::SIZE;
+    terrainMesh = mesh;
+    terrainTextureMap = textureMap;
+    position = glm::vec3(x, 0, z);
 }

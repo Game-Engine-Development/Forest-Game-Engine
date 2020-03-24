@@ -8,7 +8,7 @@ Entity::Entity(
         const glm::vec3 &position = glm::vec3(0, 0, 0),
         const glm::vec3 &rotation = glm::vec3(0,0,0),
         const glm::vec3& scale = glm::vec3(1,1,1)
-        ) {
+    ) {
     this->mesh = mesh;
     this->textures = textures;
     this->position = position;
@@ -47,7 +47,7 @@ void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::ve
     for (Texture &texture : textures) {
         texture.unbind();
     }
-    mesh.unbindVAO();
+    Mesh::unbindVAO();
 }
 
 glm::mat4 Entity::createModelMatrix() {
@@ -181,5 +181,23 @@ bool Entity::checkIfAnimal() {
 
 void Entity::setFlipped() {
     flipped = 1;
+    moveEntityPlanes(mesh.getVertices());
+}
+
+void Entity::create(
+        Mesh &meshPar,
+        const std::vector<Texture>& texturesPar,
+        const glm::vec3& positionPar,
+        const glm::vec3& rotationPar,
+        const glm::vec3& scalePar
+    ) {
+    mesh = meshPar;
+    textures = texturesPar;
+    position = positionPar;
+    rotation = rotationPar;
+    scale = scalePar;
+
+    createModelMatrix();
+
     moveEntityPlanes(mesh.getVertices());
 }

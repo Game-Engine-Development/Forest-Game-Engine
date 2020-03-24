@@ -63,3 +63,11 @@ void Texture::unbind() {
     glActiveTexture(GL_TEXTURE0 + textureUnit);
     glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+void Texture::operator()(Texture &&quad) {
+    ID = quad.ID;
+    quad.ID = 0;
+
+    textureUnit = quad.textureUnit;
+    quad.textureUnit = 0;
+}

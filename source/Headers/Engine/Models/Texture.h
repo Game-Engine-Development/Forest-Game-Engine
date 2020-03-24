@@ -10,12 +10,17 @@ class Texture {
 public:
     Texture();
     explicit Texture(const char* filename, int unit);
-    ~Texture();
+    void operator()(Texture &&quad);
+
     void bind(Shader& shader);
     void unbind();
+
     static constexpr int PNG = 0;
     static constexpr int JPG = 1;
+
     unsigned int get_ID();
+
+    ~Texture();
 private:
     unsigned int ID;
     int textureUnit;

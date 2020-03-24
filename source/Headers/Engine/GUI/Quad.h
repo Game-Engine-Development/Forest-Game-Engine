@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include <functional>
 #include <glm/vec2.hpp>
 #include <vector>
@@ -14,7 +13,15 @@
 class Quad {
 public:
     Quad();
-    explicit Quad(const Texture& texturePar, glm::vec2 &position, glm::vec2 &scale, std::vector <glm::vec2> verts, std::vector <glm::vec2> texts, std::vector<unsigned int> inds);
+    explicit Quad(
+            const Texture& texturePar,
+            const glm::vec2 &position,
+            const glm::vec2 &scale,
+            std::vector <glm::vec2> &&verts,
+            std::vector <glm::vec2> &&texts,
+            std::vector<unsigned int> inds
+    );
+    void operator()(Quad &&quad);
 
     void render(Shader& shader);
 

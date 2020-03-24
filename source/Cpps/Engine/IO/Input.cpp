@@ -1,11 +1,11 @@
 #include "Headers/Engine/IO/Input.h"
 
-std::shared_ptr<Input> Input::instance;
+std::unique_ptr<Input> Input::instance;
 
 Input::Input() = default;
 
 Input::Input(Window *window, Camera *camera) {
-    instance = std::make_shared<Input>();
+    instance = std::make_unique<Input>();
 
     instance->m_window = window->getWindow();
     instance->m_camera = camera;
@@ -128,6 +128,6 @@ void Input::setShouldShoot(bool value) {
     shouldShoot = value;
 }
 
-std::shared_ptr<Input> Input::getInstance() {
+std::unique_ptr<Input>& Input::getInstance() {
     return instance;
 }
