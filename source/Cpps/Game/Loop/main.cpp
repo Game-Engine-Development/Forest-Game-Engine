@@ -152,109 +152,29 @@ int main() {
         entities.push_back(&containers[i]);
     }
 
-    std::array<Entity, 16> animalEntities = {
+    std::array<Entity, 16> animalEntities;
+    { //scope deletes dangling pointer
+        Texture *animalTexture = nullptr;
+        for (int i = 0; i < animalEntities.size(); ++i) {
             //wolves
-            Entity (containerMesh,
-                    std::vector<Texture>{wolfTexture},
-                    glm::vec3(-200, 10, -100),
-                    glm::vec3(0, 0, 0),
-                    glm::vec3(2, 1, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{wolfTexture},
-                    glm::vec3(200, 10, 100),
-                    glm::vec3(0, 45, 0),
-                    glm::vec3(2, 1, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{wolfTexture},
-                    glm::vec3(-100, 10, -100),
-                    glm::vec3(0, 0, 0),
-                    glm::vec3(2, 1, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{wolfTexture},
-                    glm::vec3(100, 10, 100),
-                    glm::vec3(0, 45, 0),
-                    glm::vec3(2, 1, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{wolfTexture},
-                    glm::vec3(-200, 10, -200),
-                    glm::vec3(0, 0, 0),
-                    glm::vec3(2, 1, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{wolfTexture},
-                    glm::vec3(200, 10, 200),
-                    glm::vec3(0, 45, 0),
-                    glm::vec3(2, 1, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{wolfTexture},
-                    glm::vec3(-200, 10, -10),
-                    glm::vec3(0, 0, 0),
-                    glm::vec3(2, 1, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{wolfTexture},
-                    glm::vec3(20, 10, 100),
-                    glm::vec3(0, 45, 0),
-                    glm::vec3(2, 1, 1)
-            ),
-
+            if (i < 8) {
+                animalTexture = &wolfTexture;
+            }
             //deer
-            Entity (containerMesh,
-                    std::vector<Texture>{deerTexture},
-                    glm::vec3(-300, 10, -200),
-                    glm::vec3(0, 0, 0),
-                    glm::vec3(2, 3, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{deerTexture},
-                    glm::vec3(100, 10, 100),
-                    glm::vec3(0, 45, 0),
-                    glm::vec3(2, 3, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{deerTexture},
-                    glm::vec3(-300, 10, -200),
-                    glm::vec3(0, 0, 0),
-                    glm::vec3(2, 3, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{deerTexture},
-                    glm::vec3(200, 10, 100),
-                    glm::vec3(0, 45, 0),
-                    glm::vec3(2, 3, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{deerTexture},
-                    glm::vec3(-100, 10, -400),
-                    glm::vec3(0, 0, 0),
-                    glm::vec3(2, 3, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{deerTexture},
-                    glm::vec3(300, 10, 200),
-                    glm::vec3(0, 45, 0),
-                    glm::vec3(2, 3, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{deerTexture},
-                    glm::vec3(-400, 10, -40),
-                    glm::vec3(0, 0, 0),
-                    glm::vec3(2, 3, 1)
-            ),
-            Entity (containerMesh,
-                    std::vector<Texture>{deerTexture},
+            else {
+                animalTexture = &deerTexture;
+            }
+
+            animalEntities[i].create(
+                    containerMesh,
+                    std::vector<Texture>{*animalTexture},
                     glm::vec3(50, 10, 400),
                     glm::vec3(0, 45, 0),
                     glm::vec3(2, 3, 1)
-            ),
-    };
-    for(Entity &animalEntity : animalEntities) {
-        animalEntity.setAsAnimal();
+            );
+            animalEntities[i].setAsAnimal();
+        }
+        animalTexture = nullptr; //prevents possible undefined behavior
     }
 
     CollisionHandler playerCollider(&playerEntity);
@@ -278,17 +198,21 @@ int main() {
     }
 
     std::array<Animal, 16> animals;
-    for(int i = 0; i < animals.size(); ++ i) {
-        //wolves
-        if(i < 8) {
-            animals[i].create(animalEntities[i], &player, &spirit, 2.0f, 1.0f);
-        }
-        //deer
-        else {
-            animals[i].create(animalEntities[i], &player, &spirit, 1.5f, 1.0f);
-        }
+    { //scope deletes unneeded floats variables below
+        float move_speed, jump_speed = 1.0f;
+        for (int i = 0; i < animals.size(); ++i) {
+            //wolves
+            if (i < 8) {
+                move_speed = 2.0f;
+            }
+            //deer
+            else {
+                move_speed = 1.5f;
+            }
 
-        entities.push_back(animals[i].getEntityPointer());
+            animals[i].create(animalEntities[i], &player, &spirit, move_speed, jump_speed);
+            entities.push_back(animals[i].getEntityPointer());
+        }
     }
 
     while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
