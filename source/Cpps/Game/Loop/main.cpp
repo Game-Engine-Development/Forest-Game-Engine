@@ -190,13 +190,9 @@ int main() {
     std::array<Animal, 16> animals;
     for (int i = 0; i < animals.size(); ++i) {
         //wolves
-        if (i < 8) {
-            animals[i].create(wolfEntity, &player, &spirit, 2.0f, 1.0f);
-        }
+        if (i < 8) animals[i].create(wolfEntity, &player, &spirit, 2.0f, 1.0f);
         //deer
-        else {
-            animals[i].create(deerEntity, &player, &spirit, 1.5f, 1.0f);
-        }
+        else animals[i].create(deerEntity, &player, &spirit, 1.5f, 1.0f);
 
         entities.push_back(animals[i].getEntityPointer());
     }
