@@ -44,6 +44,13 @@ void Deer::render(Camera &camera, Shader &shader, glm::vec3 &lightPos, glm::vec3
 
 void Deer::followPlayer(std::vector<Entity*> &entities, std::vector<Terrain*> &terrains, Entity* boundingBox, bool bound) {
     glm::vec3 move = m_player->getPlayerEntity().getPos() - m_entity.getPos();
+    double turn = glm::degrees(atan(move.x / move.z));
+    if(turn > 0) {
+        turn -= 180;
+    }
+    turn += 90;
+    glm::vec3 newRotation(m_entity.getRotation().x, turn, m_entity.getRotation().z);
+    m_entity.setRotation(newRotation);
     if(!m_damagedPlayer) {
         if (std::sqrt(move.x * move.x + move.y * move.y + move.z * move.z) < 20 && !m_collisionHandler.inAir) {
             m_collisionHandler.currentGravity.y = JUMP_POWER;

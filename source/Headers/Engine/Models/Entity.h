@@ -38,6 +38,7 @@ public:
     std::vector<Plane> planes;
     bool hit = false;
     bool pickedUp = false;
+    double verticalOffset = 0;
 private:
     Mesh mesh;
     std::vector<Texture> textures;

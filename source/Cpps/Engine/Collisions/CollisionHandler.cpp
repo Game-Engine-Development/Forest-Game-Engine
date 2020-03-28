@@ -349,7 +349,7 @@ void CollisionHandler::calculateTerrainCollisions(glm::vec3 &finalMove) {
     glm::vec3 newMove;
     bool cantGetOver = false;
     float height;
-    float currentHeight = m_entity->getPos().y;
+    float currentHeight = m_entity->getPos().y - m_entity->verticalOffset;
     float dist = std::sqrt(finalMove.x*finalMove.x + finalMove.z*finalMove.z);
     for(int i = 0; i < dist * 10; ++i) {
         newMove = glm::normalize(finalMove) * (float)i;

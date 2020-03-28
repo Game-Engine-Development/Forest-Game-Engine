@@ -60,6 +60,7 @@ Mesh::Mesh(Mesh& mesh) {
     numOfVertices = mesh.numOfVertices;
     normalMapped = mesh.isNormalMapped();
     vertices = mesh.getVertices();
+    collisionCube = mesh.collisionCube;
     textureCoords = mesh.getTextureCoords();
     normals = mesh.getNormals();
     glGenVertexArrays(1, &VAO);
@@ -154,6 +155,7 @@ void Mesh::loadOBJ(const char* filename, std::vector<glm::vec3>& finalVertices, 
             unsigned int vertexIndex = vertexIndices[i];
             glm::vec3 vertex = vertices[vertexIndex - 1];  //obj files are indexed starting at 1 not 0
             finalVertices.push_back(vertex);
+            updateCube(vertex);
 
             unsigned int textureIndex = textureIndices[i];
             glm::vec2 textureCoord = textureCoords[textureIndex - 1];
@@ -163,6 +165,7 @@ void Mesh::loadOBJ(const char* filename, std::vector<glm::vec3>& finalVertices, 
             glm::vec3 normal = normals[normalIndex - 1];
             finalNormals.push_back(normal);
         }
+        calculateCube();
     } else {
         std::cerr << "Failed to open " << filename << " model file!" << std::endl;
     }
@@ -250,4 +253,77 @@ std::vector<glm::vec2>& Mesh::getTextureCoords() {
 
 bool Mesh::isNormalMapped() {
     return normalMapped;
+}
+
+void Mesh::updateCube(glm::vec3 &vertex) {
+    if(vertex.x > greatestX) {
+        greatestX = vertex.x;
+    } else if(vertex.x < smallestX) {
+        smallestX = vertex.x;
+    }
+    if(vertex.y > greatestY) {
+        greatestY = vertex.y;
+    } else if(vertex.y < smallestY) {
+        smallestY = vertex.y;
+    }
+    if(vertex.z > greatestZ) {
+        greatestZ = vertex.z;
+    } else if(vertex.z < smallestZ) {
+        smallestZ = vertex.z;
+    }
+}
+
+std::vector<glm::vec3>& Mesh::getCollisionCube() {
+    return collisionCube;
+}
+
+void Mesh::calculateCube() {
+    glm::vec3 p1(smallestX, smallestY, smallestZ);
+    glm::vec3 p2(smallestX, smallestY, greatestZ);
+    glm::vec3 p3(smallestX, greatestY, smallestZ);
+    glm::vec3 p4(smallestX, greatestY, greatestZ);
+    glm::vec3 p5(greatestX, smallestY, smallestZ);
+    glm::vec3 p6(greatestX, smallestY, greatestZ);
+    glm::vec3 p7(greatestX, greatestY, smallestZ);
+    glm::vec3 p8(greatestX, greatestY, greatestZ);
+    collisionCube.push_back(p3);
+    collisionCube.push_back(p8);
+    collisionCube.push_back(p7);
+    collisionCube.push_back(p8);
+    collisionCube.push_back(p2);
+    collisionCube.push_back(p6);
+    collisionCube.push_back(p4);
+    collisionCube.push_back(p1);
+    collisionCube.push_back(p2);
+    collisionCube.push_back(p5);
+    collisionCube.push_back(p2);
+    collisionCube.push_back(p1);
+    collisionCube.push_back(p7);
+    collisionCube.push_back(p6);
+    collisionCube.push_back(p5);
+    collisionCube.push_back(p3);
+    collisionCube.push_back(p5);
+    collisionCube.push_back(p1);
+    collisionCube.push_back(p3);
+    collisionCube.push_back(p4);
+    collisionCube.push_back(p8);
+    collisionCube.push_back(p8);
+    collisionCube.push_back(p4);
+    collisionCube.push_back(p2);
+    collisionCube.push_back(p4);
+    collisionCube.push_back(p3);
+    collisionCube.push_back(p1);
+    collisionCube.push_back(p5);
+    collisionCube.push_back(p6);
+    collisionCube.push_back(p2);
+    collisionCube.push_back(p7);
+    collisionCube.push_back(p8);
+    collisionCube.push_back(p6);
+    collisionCube.push_back(p3);
+    collisionCube.push_back(p7);
+    collisionCube.push_back(p5);
+}
+
+double Mesh::getVerticalOffset() {
+    return -smallestY;
 }

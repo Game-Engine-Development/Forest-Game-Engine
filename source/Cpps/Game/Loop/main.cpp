@@ -45,12 +45,13 @@ int main() {
     Texture containerMap("../res/NormalMap.jpg", 2);
     Texture specularMap("../res/SpecularMap.jpg", 3);
     Texture wolfTexture("../res/wolf.jpg", 0);
-    Texture deerTexture("../res/deer.jpg", 0);
+    Texture deerTexture("../res/deerTexture.png", 0);
     Texture human("../res/human.jpg", 0);
     Texture ghostTexture("../res/ghost.png", 0);
     Texture noteTexture("../res/note.png", 0);
     std::vector<Texture> currentTextures;
     Mesh containerMesh("../res/container.obj", true);
+    Mesh deerMesh("../res/deer.obj", false);
     currentTextures.push_back(human);
     Entity playerEntity(containerMesh, currentTextures, glm::vec3(0, 10, 0), glm::vec3(0, 0, 0), glm::vec3(1,1,1));
     Entity bullet(containerMesh, currentTextures, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
@@ -81,7 +82,7 @@ int main() {
     wolfEntity.setAsAnimal();
     currentTextures.clear();
     currentTextures.push_back(deerTexture);
-    Entity deerEntity1(containerMesh, currentTextures, glm::vec3(-300, 10, -200), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+    Entity deerEntity1(deerMesh, currentTextures, glm::vec3(-300, 10, -200), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
     deerEntity1.setAsAnimal();
     currentTextures.clear();
     currentTextures.push_back(ghostTexture);
