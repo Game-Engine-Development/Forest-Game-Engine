@@ -11,8 +11,8 @@ Item::Item(Entity* entity, std::function<void()> action, std::vector<Entity*>& e
 void Item::update(std::vector<Entity*>& entities, Player* player) {
     if(m_entity->pickedUp && getDistanceToPlayer(player) < 20) {
         pickUp(entities);
-        m_entity->pickedUp = false;
     }
+    m_entity->pickedUp = false;
 }
 
 void Item::pickUp(std::vector<Entity*>& entities) {
