@@ -43,6 +43,7 @@ public:
     glm::vec3 getPos();
     glm::vec3 getRotation();
     void setPos(glm::vec3& newPos);
+    void setPos(glm::vec3&& newPos);
     void setRotation(glm::vec3& newRotation);
     void rotate(glm::vec3& rotation);
     void rotate(float x, float y, float z);
@@ -56,10 +57,14 @@ public:
     bool checkIfBullet();
     void setAsAnimal();
     bool checkIfAnimal();
+    void setAsItem();
+    bool checkIfItem();
     void setFlipped();
     glm::mat4 createModelMatrix();
     std::vector<Plane> planes;
     bool hit = false;
+    bool pickedUp = false;
+    double verticalOffset = 0;
 private:
     std::shared_ptr<Mesh> mesh = nullptr;
     std::vector<Texture> textures;
@@ -68,6 +73,7 @@ private:
     bool isPlayerEntity = false;
     bool isBullet = false;
     bool isAnimal = false;
+    bool isItem = false;
     float flipped = -1;
     void limitRotation();
     void moveEntityPlanes(std::vector<glm::vec3>& vertices);

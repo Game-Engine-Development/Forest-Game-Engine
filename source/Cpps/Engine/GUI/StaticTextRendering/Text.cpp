@@ -11,8 +11,8 @@ Text::Text(Text &&textObj) noexcept {
 }
 
 Text::Text(FontFileReader &fontInfo, ImageFileReader &imageData, const std::string &textString) {
-    unsigned long long maxHeight = 0;
-    unsigned long long lineWidth = 0;
+    size_t maxHeight = 0;
+    size_t lineWidth = 0;
 
     for(char c : textString) {
         text.push_back(fontInfo.getChar(c));

@@ -1,6 +1,6 @@
 #include "Headers/Game/Environment/BoundingBox.h"
 
-BoundingBox::BoundingBox(Entity *box, Spirit *spirit) : m_entity(box), m_spirit(spirit) {
+BoundingBox::BoundingBox(Entity *box) : m_entity(box) {
     resetSize();
 }
 
@@ -10,7 +10,9 @@ void BoundingBox::resetSize() {
 }
 
 void BoundingBox::shrink() {
-    m_entity->addScale(SPEED, SPEED, SPEED);
+    if(m_entity->getScale().x > 50) {
+        m_entity->addScale(SPEED, SPEED, SPEED);
+    }
 }
 
 void BoundingBox::turnOff(std::vector<Entity *> &entities) {
@@ -22,6 +24,7 @@ void BoundingBox::turnOff(std::vector<Entity *> &entities) {
 }
 
 void BoundingBox::turnOn(std::vector<Entity *> &entities) {
+    resetSize();
     entities.push_back(m_entity);
 }
 

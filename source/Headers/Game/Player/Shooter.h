@@ -13,7 +13,7 @@ public:
     glm::vec3 getCurrentRay();
     void update();
 
-    template <unsigned long N>
+    template <size_t N>
     void shoot(std::vector<Entity*>& entities, std::array<Terrain, N>& terrains) {
         glm::vec3 newPos(m_camera->getPos());
         m_bulletEntity->setPos(newPos);

@@ -8,8 +8,7 @@ CollisionHandler::CollisionHandler(Entity *entity) {
 }
 
 void CollisionHandler::calculateCollisions(std::vector<Plane> &planes, Entity* entity) {
-    std::vector nearbyPlanes = planes; //calculateCollidablePlanes(planes);
-    for(const Plane& plane : nearbyPlanes) {
+    for(const Plane& plane : planes) {
         checkTriangle(plane, entity);
     }
 }
@@ -220,7 +219,7 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
 // Does this triangle qualify for the closest hit?
 // it does if it’s the first hit or the closest
             if (!move.foundCollision || distToCollision < move.nearestDistance) {
-                if(entity->checkIfAnimal() && m_entity->checkIfBullet()) {
+                if((entity->checkIfAnimal() || entity->checkIfItem()) && m_entity->checkIfBullet()) {
                     m_hitEntity = entity;
                 } else {
                     m_hitEntity = nullptr;
@@ -307,7 +306,11 @@ void CollisionHandler::collideAndSlide(
         currentGravity.y = 0;
     }
     if(m_hitEntity != nullptr) {
-        m_hitEntity->hit = true;
+        if(m_hitEntity->checkIfAnimal()) {
+            m_hitEntity->hit = true;
+        } else {
+            m_hitEntity->pickedUp = true;
+        }
     }
     finalPosition *= move.eRadius;
     assert(m_entity != nullptr);
@@ -395,9 +398,9 @@ void CollisionHandler::calculateTerrainCollisions(glm::vec3 &finalMove) {
     glm::vec3 newMove;
     bool cantGetOver = false;
     float height;
-    float currentHeight = m_entity->getPos().y;
+    float currentHeight = m_entity->getPos().y - m_entity->verticalOffset;
     float dist = std::sqrt(finalMove.x*finalMove.x + finalMove.z*finalMove.z);
-    for(unsigned int i = 0; i < static_cast<int>(dist * 10); ++i) {
+    for(int i = 0; i < static_cast<int>(dist * 10); ++i) {
         newMove = glm::normalize(finalMove) * (float)i;
         height = m_entity->getScale().y + currentTerrain->getTerrainHeight(
                 m_entity->getPos().x + newMove.x,
@@ -408,7 +411,7 @@ void CollisionHandler::calculateTerrainCollisions(glm::vec3 &finalMove) {
             break;
         }
     }
-    for(unsigned int i = 0; i < static_cast<int>(dist); ++i) {
+    for(int i = 0; i < static_cast<int>(dist); ++i) {
         newMove = glm::normalize(finalMove) * (float)i;
         height = m_entity->getScale().y + currentTerrain->getTerrainHeight(
                 m_entity->getPos().x + newMove.x,

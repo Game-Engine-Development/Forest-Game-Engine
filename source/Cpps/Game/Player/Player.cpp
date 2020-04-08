@@ -34,7 +34,7 @@ void Player::jump() {
     handler.inAir = true;
 }
 
-void Player::takeDamage(float damage) {
+void Player::takeDamage(int damage) {
     currentHealth -= damage;
 }
 

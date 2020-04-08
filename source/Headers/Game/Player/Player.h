@@ -19,7 +19,7 @@ private:
     float currentSpeed = 0;
     float lateralSpeed = 0;
     float jumpingSpeed = 0;
-    float currentHealth = MAX_HEALTH;
+    int currentHealth = MAX_HEALTH;
 public:
     static constexpr float SPEED = 2.0f;
     static constexpr float LATERAL_SPEED = 1.5f;
@@ -29,7 +29,7 @@ public:
     Player();
     explicit Player(Camera *camera1, Entity *container1, CollisionHandler &collisionHandler);
 
-    template<unsigned int N>
+    template<size_t N>
     void movePlayer(std::vector<Entity*> &entities, std::array<Terrain, N> &terrains, Entity* boundingBox, bool bound) {
         glm::vec3 newRotation(0, -camera->Yaw, 0);
         playerEntity->setRotation(newRotation);
@@ -38,25 +38,9 @@ public:
         finalMove = glm::normalize(finalMove);
         finalMove *= currentSpeed;
         finalMove += lateralSpeed * camera->Right;
-        handler.moveEntity(finalMove, entities, terrains);
+        handler.moveEntity(finalMove, entities, terrains, boundingBox, bound);
         camera->Position = playerEntity->getPos();
         camera->setYPos(playerEntity->getPos().y + 4);
-        if(bound && boundingBox != nullptr) {
-            if(playerEntity->getPos().x > boundingBox->getScale().x - 5) {
-                glm::vec3 newPos(boundingBox->getScale().x - 5, playerEntity->getPos().y, playerEntity->getPos().z);
-                playerEntity->setPos(newPos);
-            } else if(playerEntity->getPos().x < -boundingBox->getScale().x + 5) {
-                glm::vec3 newPos(-boundingBox->getScale().x + 5, playerEntity->getPos().y, playerEntity->getPos().z);
-                playerEntity->setPos(newPos);
-            }
-            if(playerEntity->getPos().z > boundingBox->getScale().z - 5) {
-                glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y, boundingBox->getScale().z - 5);
-                playerEntity->setPos(newPos);
-            } else if(playerEntity->getPos().z < -boundingBox->getScale().z + 5) {
-                glm::vec3 newPos(playerEntity->getPos().x, playerEntity->getPos().y, -boundingBox->getScale().z + 5);
-                playerEntity->setPos(newPos);
-            }
-        }
     }
 
     void render(Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
@@ -65,7 +49,7 @@ public:
     Entity& getPlayerEntity();
     bool isInAir();
     void jump();
-    void takeDamage(float damage);
+    void takeDamage(int damage);
     float getHealth();
 
     float getCurrentHealth();
