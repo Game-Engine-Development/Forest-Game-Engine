@@ -29,7 +29,7 @@ public:
     Player();
     explicit Player(Camera *camera1, Entity *container1, CollisionHandler &collisionHandler);
 
-    template<unsigned long N>
+    template<unsigned int N>
     void movePlayer(std::vector<Entity*> &entities, std::array<Terrain, N> &terrains, Entity* boundingBox, bool bound) {
         glm::vec3 newRotation(0, -camera->Yaw, 0);
         playerEntity->setRotation(newRotation);

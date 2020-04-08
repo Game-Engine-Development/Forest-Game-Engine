@@ -15,7 +15,7 @@ class CubeMapTexture {
 public:
     CubeMapTexture();
 
-    template <unsigned long N>
+    template <unsigned int N>
     explicit CubeMapTexture(std::array<const char*, N>& files, int textureUnit) {
         unsigned int ID;
 
