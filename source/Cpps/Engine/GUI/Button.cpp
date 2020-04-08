@@ -7,9 +7,12 @@ Button::Button( //@todo make an interface for text and Texture to inherit from s
         glm::vec2 position,
         glm::vec2 scale,
         std::function<void(void)> action,
-        Window *window) : window(window), action(std::move(action)) {
+        Window *window,
+        bool isTransparentPar,
+        bool hasBackgroundImg,
+        Texture&& backgroundImg) : window(window), action(std::move(action)) {
 
-    quad = Quad(std::move(staticText), position, scale);
+    quad = Quad(std::move(staticText), position, scale, isTransparentPar, hasBackgroundImg, backgroundImg);
 
     clampToScreen();
 }
@@ -19,9 +22,12 @@ Button::Button(
         glm::vec2 position,
         glm::vec2 scale,
         std::function<void(void)> action,
-        Window *window) : window(window), action(std::move(action)) {
+        Window *window,
+        bool isTransparentPar,
+        bool hasBackgroundImg,
+        Texture&& backgroundImg) : window(window), action(std::move(action)) {
 
-    quad = Quad(Texture(textureLocation,0), position, scale);
+    quad = Quad(Texture(textureLocation,0), position, scale, isTransparentPar, hasBackgroundImg, backgroundImg);
 
     clampToScreen();
 }

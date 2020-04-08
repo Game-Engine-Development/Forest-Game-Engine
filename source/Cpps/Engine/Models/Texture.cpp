@@ -2,7 +2,9 @@
 
 #include "Headers/Engine/Models/Texture.h"
 
-Texture::Texture() = default;
+Texture::Texture() {
+    textureUnit = 0;
+};
 
 Texture::Texture(const char *filename, int unit) {
     textureFilename = std::string(filename);

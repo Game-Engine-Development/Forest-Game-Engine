@@ -5,9 +5,14 @@ Quad::Quad() = default;
 Quad::Quad( //@todo make an interface for text and Texture to inherit from so that polymorphic pointers can be used
         Text &&staticTextPar,
         const glm::vec2 &position,
-        const glm::vec2 &scale) : staticText(std::move(staticTextPar)), position(position), scale(scale) {
+        const glm::vec2 &scale,
+        bool isTransparentPar,
+        bool hasBackgroundImg,
+        Texture& backgroundImg) : staticText(std::move(staticTextPar)), position(position), scale(scale), backgroundTexture(backgroundImg) {
 
     usingText = true;
+    isTransparent = isTransparentPar;
+    this->hasBackgroundImg = hasBackgroundImg;
 
     createBuffers();
 }
@@ -15,9 +20,14 @@ Quad::Quad( //@todo make an interface for text and Texture to inherit from so th
 Quad::Quad(
         Texture&& texturePar,
         const glm::vec2 &position,
-        const glm::vec2 &scale) : texture(std::move(texturePar)), position(position), scale(scale) {
+        const glm::vec2 &scale,
+        bool isTransparentPar,
+        bool hasBackgroundImg,
+        Texture& backgroundImg) : texture(std::move(texturePar)), position(position), scale(scale), backgroundTexture(backgroundImg) {
 
     usingText = false;
+    isTransparent = isTransparentPar;
+    this->hasBackgroundImg = hasBackgroundImg;
 
     createBuffers();
 }
@@ -60,12 +70,15 @@ void Quad::render(Shader &shader) {
     shader.use();
 
     bindVAO();
-
     if(usingText) {
         staticText.bind(shader);
     }
     else {
         texture.bind(shader);
+    }
+
+    if(hasBackgroundImg) {
+        backgroundTexture.bind(shader);
     }
 
     int posInt = glGetUniformLocation(shader.ID, "position");
@@ -76,6 +89,12 @@ void Quad::render(Shader &shader) {
 
     int offsetInt = glGetUniformLocation(shader.ID, "offset");
     glUniform2fv(offsetInt, 1, glm::value_ptr(offset));
+
+    int isTransparentInt = glGetUniformLocation(shader.ID, "isTransparent");
+    glUniform1i(isTransparentInt, isTransparent);
+
+    int hasBackgroundInt = glGetUniformLocation(shader.ID, "backgroundImg");
+    glUniform1i(hasBackgroundInt, hasBackgroundImg);
 
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
 
@@ -122,6 +141,13 @@ void Quad::setOffsetY(float y) {
 
 Quad& Quad::operator=(Quad &&quad) noexcept {
     usingText = quad.usingText;
+    isTransparent = quad.isTransparent;
+    hasBackgroundImg = quad.hasBackgroundImg;
+    if(hasBackgroundImg) {
+        backgroundTexture = std::move(quad.backgroundTexture);
+    } else {
+        backgroundTexture = Texture();
+    }
 
     VAO = quad.VAO;
     quad.VAO = 0;

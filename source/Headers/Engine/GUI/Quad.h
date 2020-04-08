@@ -16,12 +16,18 @@ public:
     explicit Quad( //@todo make an interface for text and Texture to inherit from so that polymorphic pointers can be used
             Text &&staticTextPar,
             const glm::vec2 &position,
-            const glm::vec2 &scale
+            const glm::vec2 &scale,
+            bool isTransparentPar,
+            bool hasBackgroundImg,
+            Texture& backgroundImg
     );
     explicit Quad(
             Texture&& texturePar,
             const glm::vec2 &position,
-            const glm::vec2 &scale
+            const glm::vec2 &scale,
+            bool isTransparentPar,
+            bool hasBackgroundImg,
+            Texture& backgroundImg
     );
     Quad& operator=(Quad &&quad) noexcept ;
 
@@ -39,6 +45,8 @@ public:
     ~Quad();
 private:
     bool usingText; //@todo remove after making Text/Texture interface
+    bool hasBackgroundImg;
+    bool isTransparent;
 
     void bindVAO();
     static void unbindVAO();
@@ -68,4 +76,5 @@ private:
 
     Text staticText; //@todo make an interface for text and Texture to inherit from so that polymorphic pointers can be used
     Texture texture;
+    Texture backgroundTexture;
 };

@@ -117,11 +117,12 @@ int main() {
     );
 
     Button textureButton(
-            static_cast<const char*>("../res/white.png"),
+            Text(fontFile, imageFile, std::string("+")),
             glm::vec2(0.0f, 0.0f),
-            glm::vec2(0.01, 0.01),
+            glm::vec2(0.03, 0.05),
             [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());},
-            &window
+            &window,
+            true
     );
 
     Entity playerEntity(

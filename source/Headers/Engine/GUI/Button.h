@@ -23,14 +23,20 @@ public:
             glm::vec2 position,
             glm::vec2 scale,
             std::function<void(void)> action,
-            Window *window
+            Window *window,
+            bool isTransparentPar = false,
+            bool hasBackgroundImg = false,
+            Texture&& backgroundImg = Texture()
     );
     Button(
             const char *textureLocation,
             glm::vec2 position,
             glm::vec2 scale,
             std::function<void(void)> action,
-            Window *window
+            Window *window,
+            bool isTransparentPar = false,
+            bool hasBackgroundImg = false,
+            Texture&& backgroundImg = Texture()
     );
     void render(Shader& shader);
 
