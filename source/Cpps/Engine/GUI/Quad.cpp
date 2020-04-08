@@ -2,21 +2,23 @@
 
 Quad::Quad() = default;
 
-Quad::Quad(
-        const Texture& texturePar,
+Quad::Quad( //@todo make an interface for text and Texture to inherit from so that polymorphic pointers can be used
+        Text &&staticTextPar,
         const glm::vec2 &position,
-        const glm::vec2 &scale,
-        std::vector <glm::vec2> &&verts,
-        std::vector <glm::vec2> &&texts,
-        std::vector<unsigned int> inds
-        ) :
-            texture(texturePar),
-            position(position),
-            scale(scale),
-            vertices(std::move(verts)),
-            textureCoords(std::move(texts)),
-            indices(std::move(inds)
-    ) {
+        const glm::vec2 &scale) : staticText(std::move(staticTextPar)), position(position), scale(scale) {
+
+    usingText = true;
+
+    createBuffers();
+}
+
+Quad::Quad(
+        Texture&& texturePar,
+        const glm::vec2 &position,
+        const glm::vec2 &scale) : texture(std::move(texturePar)), position(position), scale(scale) {
+
+    usingText = false;
+
     createBuffers();
 }
 
@@ -58,7 +60,13 @@ void Quad::render(Shader &shader) {
     shader.use();
 
     bindVAO();
-    texture.bind(shader);
+
+    if(usingText) {
+        staticText.bind(shader);
+    }
+    else {
+        texture.bind(shader);
+    }
 
     int posInt = glGetUniformLocation(shader.ID, "position");
     glUniform2fv(posInt, 1, glm::value_ptr(position));
@@ -71,7 +79,13 @@ void Quad::render(Shader &shader) {
 
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
 
-    texture.unbind();
+    if(usingText) {
+        Text::unbind();
+    }
+    else {
+        texture.unbind();
+    }
+
     unbindVAO();
 }
 
@@ -106,7 +120,9 @@ void Quad::setOffsetY(float y) {
     offset.y = y;
 }
 
-void Quad::operator()(Quad &&quad) {
+Quad& Quad::operator=(Quad &&quad) noexcept {
+    usingText = quad.usingText;
+
     VAO = quad.VAO;
     quad.VAO = 0;
     VBO = quad.VBO;
@@ -124,5 +140,12 @@ void Quad::operator()(Quad &&quad) {
     scale = quad.scale;
     offset = quad.offset;
 
-    texture(std::move(quad.texture));
+    if(quad.usingText) {
+        staticText = std::move(quad.staticText); //@todo make an interface for text and Texture to inherit from so that polymorphic pointers can be used
+    }
+    else {
+        texture = std::move(quad.texture);
+    }
+
+    return *this;
 }

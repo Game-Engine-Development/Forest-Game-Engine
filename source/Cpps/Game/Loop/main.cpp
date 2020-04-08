@@ -1,6 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
-#include "Headers/Engine/Models/stb_image.h"
+#include <Headers/Engine/Models/stb_image.h>
 
+#include <memory>
 #include <vector>
 #include <array>
 
@@ -8,7 +9,6 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-#include "Headers/Game/Environment/BoundingBox.h"
 #include "Headers/Engine/Shader/Shader.h"
 #include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Models/Texture.h"
@@ -17,14 +17,18 @@
 #include "Headers/Engine/Terrain/Terrain.h"
 #include "Headers/Engine/Terrain/TerrainTextureMap.h"
 #include "Headers/Game/Player/Player.h"
-#include "Headers/Game/Entities/Animal.h"
 #include "Headers/Engine/IO/Input.h"
 #include "Headers/Engine/Skybox/Skybox.h"
 #include "Headers/Engine/GUI/Button.h"
-#include "Headers/Game/Player/Shooter.h"
 #include "Headers/Engine/IO/Window.h"
-#include "Headers/Game/Entities/Spirit.h"
 #include "Headers/Engine/Graphics/HDR.h"
+
+//@todo find out why collision engine broke
+//@todo find out why health and damage to player system is completely broken
+
+//@todo rewrite or refactor most of the code in the Game folder
+//@todo optimize startup time so that not so much time is spent (look into advanced C++, vectorization, allocators, etc.)
+//@todo move raii for opengl texture resources into a heap allocated data class managed by shared_ptr (stops leaking while avoiding copy constructor calls). This will speed up start up time quite a lot.
 
 int main() {
     Camera camera;
@@ -59,10 +63,11 @@ int main() {
             "../source/Cpps/Engine/GUI/Shaders/fragmentShader.glsl"
     );
 
-    Mesh containerMesh("../res/container.obj", true);
+    std::shared_ptr<Mesh> containerMesh = std::make_shared<Mesh>("../res/container.obj", true);
+
     std::array<TerrainMesh, 2> terrainMeshes {
-            TerrainMesh ("../res/heightmap.png"),
-            TerrainMesh ("../res/heightmap2.png"),
+            TerrainMesh("../res/heightmap.png"),
+            TerrainMesh("../res/heightmap2.png"),
     };
 
     TerrainTextureMap terrainMap (
@@ -73,58 +78,39 @@ int main() {
             "../res/path.png"
     );
     std::array<const char*, 6> textures {
-            "../res/Standard-Cube-Map2/px.png",
-            "../res/Standard-Cube-Map2/nx.png",
-            "../res/Standard-Cube-Map2/py.png",
-            "../res/Standard-Cube-Map2/ny.png",
-            "../res/Standard-Cube-Map2/pz.png",
-            "../res/Standard-Cube-Map2/nz.png",
+            "../res/Standard-Cube-Map2/px.bmp",
+            "../res/Standard-Cube-Map2/nx.bmp",
+            "../res/Standard-Cube-Map2/py.bmp",
+            "../res/Standard-Cube-Map2/ny.bmp",
+            "../res/Standard-Cube-Map2/pz.bmp",
+            "../res/Standard-Cube-Map2/nz.bmp",
     };
     Texture texture("../res/container.jpg", 0);
     Texture normalMap("../res/grass.png", 1);
     Texture containerMap("../res/NormalMap.jpg", 2);
     Texture specularMap("../res/SpecularMap.jpg", 3);
-    Texture wolfTexture("../res/wolf.jpg", 0);
-    Texture deerTexture("../res/deer.jpg", 0);
     Texture human("../res/human.jpg", 0);
-    Texture ghostTexture("../res/ghost.png", 0);
 
     Skybox skybox(CubeMapTexture (textures, 0));
 
-    Button button(
-            static_cast<const char*>("../res/white.png"),
+    FontFileReader fontFile("../res/calibri.fnt");
+    ImageFileReader imageFile("../res/calibri.png");
+
+    Button textButton(
+            Text(fontFile, imageFile, std::string("Donnette")),
             glm::vec2(0.0f, 0.0f),
-            glm::vec2(0.01, 0.01),
-            [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());},
+            glm::vec2(1.5, 1.5),
+            nullptr,
             &window
     );
 
-    Entity spiritEntity(
-            containerMesh,
-            std::vector<Texture>{ghostTexture},
-            glm::vec3(100, 100, 100),
-            glm::vec3(0, 0, 0),
-            glm::vec3(2, 4, 2)
+    Button textureButton(
+            static_cast<const char*>("../res/white.png"),
+            glm::vec2(2.0f, 2.0f),
+            glm::vec2(0.1, 0.1),
+            [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());},
+            &window
     );
-    spiritEntity.setAsAnimal();
-
-    Entity bullet(
-            containerMesh,
-            std::vector<Texture>{human},
-            glm::vec3(0, 0, 0),
-            glm::vec3(0, 0, 0),
-            glm::vec3(1, 1, 1)
-    );
-    bullet.setAsBullet();
-
-    Entity boundingBoxEntity(
-            containerMesh,
-            std::vector<Texture>{texture, normalMap, containerMap, specularMap},
-            glm::vec3(0, 0, 0),
-            glm::vec3(0, 0, 0),
-            glm::vec3(500, 500, 500)
-    );
-    boundingBoxEntity.setFlipped();
 
     Entity playerEntity(
             containerMesh,
@@ -139,9 +125,9 @@ int main() {
     std::array<Entity, 5> containers;
     //for loop values xTranslate, yTranslate, zTranslate build a staircase with containers
     for (int i = 0, xTranslate = 0, yTranslate = 0, zTranslate = 0;
-         i < containers.size();
-         ++i, xTranslate += 0, yTranslate += 20, zTranslate += 25
-    ) {
+            i < containers.size();
+            ++i, xTranslate += 0, yTranslate += 20, zTranslate += 25) {
+
         containers[i].create(
                 containerMesh,
                 std::vector<Texture>{texture, normalMap, containerMap, specularMap},
@@ -152,33 +138,9 @@ int main() {
         entities.push_back(&containers[i]);
     }
 
-    Entity wolfEntity(
-            containerMesh,
-            std::vector<Texture>{wolfTexture},
-            glm::vec3(50, 10, 400),
-            glm::vec3(0, 45, 0),
-            glm::vec3(2, 3, 1)
-    );
-    Entity deerEntity(
-            containerMesh,
-            std::vector<Texture>{deerTexture},
-            glm::vec3(50, 10, 400),
-            glm::vec3(0, 45, 0),
-            glm::vec3(2, 3, 1)
-    );
-
     CollisionHandler playerCollider(&playerEntity);
 
     Player player(&camera, &playerEntity, playerCollider);
-
-    Shooter shooter(&camera, &bullet, &player);
-
-    Spirit spirit(spiritEntity, &player);
-    entities.push_back(spirit.getEntityPointer());
-
-    BoundingBox boundingBox(&boundingBoxEntity, &spirit);
-    boundingBox.turnOn(entities);
-    boundingBox.turnOff(entities);
 
     std::array<Terrain, 9> terrains;
     for (int x0 = -1, index = 0; x0 < 2 && index < terrains.size(); ++x0) {
@@ -187,17 +149,7 @@ int main() {
         }
     }
 
-    std::array<Animal, 16> animals;
-    for (int i = 0; i < animals.size(); ++i) {
-        //wolves
-        if (i < 8) animals[i].create(wolfEntity, &player, &spirit, 2.0f, 1.0f);
-        //deer
-        else animals[i].create(deerEntity, &player, &spirit, 1.5f, 1.0f);
-
-        entities.push_back(animals[i].getEntityPointer());
-    }
-
-    while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
+    while (!glfwWindowShouldClose(window.getWindow())) {
         Input::getInstance()->processInput(&player);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -207,24 +159,9 @@ int main() {
 
         skybox.render(skyboxShader, camera);
 
-        player.movePlayer(entities, terrains, boundingBox.getEntity(), false);
-
-        shooter.update();
-
-        boundingBox.shrink();
-
-        if(Input::getInstance()->isShouldShoot()) {
-            shooter.shoot(entities, terrains);
-            Input::getInstance()->setShouldShoot(false);
-        }
+        player.movePlayer(entities, terrains, nullptr, false);
 
         player.render(normalMappedShader, lightPos, lightColor);
-
-        spirit.update(entities, terrains);
-
-        for(Animal &animal : animals) {
-            animal.update<terrains.size()>(entities, terrains);
-        }
 
         for(Entity *entity : entities) {
             entity->render(camera, normalMappedShader, lightPos, lightColor);
@@ -234,7 +171,8 @@ int main() {
             terrain.render(camera, terrainShader, lightPos, lightColor);
         }
 
-        button.render(buttonShader);
+        textureButton.render(buttonShader);
+        textButton.render(buttonShader); //@todo get rid of the order of rendering of quads mattering
 
         hdr.render(entityShader, 1.5);
 

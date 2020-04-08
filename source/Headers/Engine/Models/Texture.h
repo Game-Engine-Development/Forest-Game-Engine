@@ -1,16 +1,23 @@
 #pragma once
 
+#include <memory>
 #include <regex>
 #include <glad/glad.h>
 #include <iostream>
 #include <string>
-#include <Headers/Engine/Shader/Shader.h>
+
+#include "Headers/Engine/Shader/Shader.h"
+#include "Headers/Engine/GUI/TextureResourceContainer.h"
 
 class Texture {
 public:
     Texture();
-    explicit Texture(const char* filename, int unit);
-    void operator()(Texture &&quad);
+    explicit Texture(const char *filename, int unit);
+    Texture(Texture &&oldTexture) noexcept;
+    Texture(const Texture &original);
+
+    Texture& operator=(Texture &&oldTexture) noexcept;
+    Texture& operator=(const Texture &original);
 
     void bind(Shader& shader);
     void unbind();
@@ -22,7 +29,8 @@ public:
 
     ~Texture();
 private:
-    unsigned int ID;
+    std::string textureFilename;
+
+    std::shared_ptr<TextureResourceContainer> IDContainer = nullptr;
     int textureUnit;
 };
-

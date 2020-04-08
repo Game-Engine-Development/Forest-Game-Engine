@@ -2,11 +2,11 @@
 
 Terrain::Terrain() = default;
 
-Terrain::Terrain(TerrainTextureMap &textureMap, TerrainMesh &mesh, int gridX, int gridZ) {
+Terrain::Terrain(TerrainTextureMap textureMap, TerrainMesh &mesh, int gridX, int gridZ) {
     float x = (float)gridX * TerrainMesh::SIZE;
     float z = (float)gridZ * TerrainMesh::SIZE;
     terrainMesh = mesh;
-    terrainTextureMap = textureMap;
+    terrainTextureMap = std::move(textureMap);
     position = glm::vec3(x, 0, z);
 }
 
@@ -114,10 +114,10 @@ TerrainMesh &Terrain::getTerrainMesh() {
     return terrainMesh;
 }
 
-void Terrain::create(TerrainTextureMap &textureMap, TerrainMesh &mesh, int gridX, int gridZ) {
+void Terrain::create(TerrainTextureMap textureMap, TerrainMesh &mesh, int gridX, int gridZ) {
     float x = (float)gridX * TerrainMesh::SIZE;
     float z = (float)gridZ * TerrainMesh::SIZE;
     terrainMesh = mesh;
-    terrainTextureMap = textureMap;
+    terrainTextureMap = std::move(textureMap);
     position = glm::vec3(x, 0, z);
 }

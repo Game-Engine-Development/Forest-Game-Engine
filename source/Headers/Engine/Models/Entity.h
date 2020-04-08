@@ -1,7 +1,9 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 #include <glm/gtc/type_ptr.hpp>
+
 #include "Headers/Engine/Models/Mesh.h"
 #include "Headers/Engine/Models/Texture.h"
 #include "Headers/Engine/Shader/Shader.h"
@@ -13,7 +15,7 @@ public:
     Entity();
 
     Entity(
-            Mesh &mesh,
+            const std::shared_ptr<Mesh> &mesh,
             const std::vector<Texture>& textures,
             const glm::vec3& position,
             const glm::vec3& rotation,
@@ -21,7 +23,7 @@ public:
     );
 
     void create(
-            Mesh &mesh,
+            const std::shared_ptr<Mesh> &mesh,
             const std::vector<Texture>& textures,
             const glm::vec3& position,
             const glm::vec3& rotation,
@@ -30,7 +32,12 @@ public:
 
     ~Entity();
 
-    void render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor);
+    void render(
+            Camera& camera,
+            Shader& shader,
+            glm::vec3& lightPos,
+            glm::vec3& lightColor
+    );
 
     glm::vec3 getScale();
     glm::vec3 getPos();
@@ -54,7 +61,7 @@ public:
     std::vector<Plane> planes;
     bool hit = false;
 private:
-    Mesh mesh;
+    std::shared_ptr<Mesh> mesh = nullptr;
     std::vector<Texture> textures;
     glm::vec3 rotation, position, scale;
     glm::mat4 modelMatrix;

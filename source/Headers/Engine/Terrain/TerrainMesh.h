@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+#include <iostream>
 #include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -25,8 +27,8 @@ public:
     float getHeight(float x, float z);
     glm::vec3 calculateNormal(float x, float z);
 private:
-    unsigned char *data;
+    unsigned char *data = nullptr; //@todo find where data heap memory is freed. I suspect this is a heap memory leak.
     int height;
-    void loadTerrain(std::vector<glm::vec3>& verticies, std::vector<glm::vec3>& normals, std::vector<glm::vec2>& texCoords, std::vector<unsigned int>& indices, const char*);
-    unsigned int VAO, VBO, EBO, texCoordBuffer, normalBuffer, numOfVertices;
+    void loadTerrain(std::vector<glm::vec3>& verticies, std::vector<glm::vec3>& normals, std::vector<glm::vec2>& texCoords, std::vector<unsigned int>& indices, const char* filename);
+    unsigned int VAO, VBO, EBO, texCoordBuffer, normalBuffer, numOfVertices; //be careful with making numOfVertices unsigned. unsigned and signed number can NOT mix. //@todo decide whether it is ok to have numOfVertices be unsigned
 };

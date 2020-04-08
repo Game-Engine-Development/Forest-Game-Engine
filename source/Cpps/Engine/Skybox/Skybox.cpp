@@ -57,7 +57,10 @@ Skybox::Skybox(const CubeMapTexture &texture) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-Skybox::~Skybox() = default;
+Skybox::~Skybox() {
+    glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(1, &VAO);
+}
 
 void Skybox::render(Shader &shader, Camera &camera) {
     glDepthMask(false);

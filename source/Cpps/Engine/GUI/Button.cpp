@@ -2,37 +2,26 @@
 
 Button::Button() = default;
 
+Button::Button( //@todo make an interface for text and Texture to inherit from so that polymorphic pointers can be used
+        Text &&staticText,
+        glm::vec2 position,
+        glm::vec2 scale,
+        std::function<void(void)> action,
+        Window *window) : window(window), action(std::move(action)) {
+
+    quad = Quad(std::move(staticText), position, scale);
+
+    clampToScreen();
+}
+
 Button::Button(
         const char *textureLocation,
         glm::vec2 position,
         glm::vec2 scale,
         std::function<void(void)> action,
-        Window *window
-        ) :
-            window(window),
-            action(std::move(action)
-    ) {
-    quad(Quad(
-                Texture(textureLocation,0),
-                position,
-                scale,
-                std::vector<glm::vec2> {
-                    glm::vec2(0.5f,  0.5f),
-                    glm::vec2(0.5f, -0.5f),
-                    glm::vec2(-0.5f,  0.5f),
-                    glm::vec2(-0.5f, -0.5f)
-                },
-                std::vector<glm::vec2> {
-                    glm::vec2(0,  0),
-                    glm::vec2(0, 1),
-                    glm::vec2(1,  0),
-                    glm::vec2(1, 1)
-                },
-                std::vector<unsigned int> {
-                    0, 1, 2, 1, 3, 2
-                }
-           )
-    );
+        Window *window) : window(window), action(std::move(action)) {
+
+    quad = Quad(Texture(textureLocation,0), position, scale);
 
     clampToScreen();
 }

@@ -30,7 +30,12 @@ private:
     template <unsigned long N>
     Terrain* calculateCurrentTerrain(std::array<Terrain, N> &terrains) {
         for(Terrain& terrain : terrains) {
-            if(m_entity->getPos().x >= terrain.getPos().x && m_entity->getPos().x <= terrain.getPos().x + TerrainMesh::SIZE && m_entity->getPos().z >= terrain.getPos().z && m_entity->getPos().z <= terrain.getPos().z + TerrainMesh::SIZE) {
+            if(
+                    m_entity->getPos().x >= terrain.getPos().x
+                    && m_entity->getPos().x <= terrain.getPos().x + TerrainMesh::SIZE
+                    && m_entity->getPos().z >= terrain.getPos().z
+                    && m_entity->getPos().z <= terrain.getPos().z + TerrainMesh::SIZE
+                ) {
                 return &terrain;
             }
         }
@@ -39,10 +44,23 @@ private:
 
     std::vector<Plane> calculateCollidablePlanes(std::vector<Plane>& planes);
     static bool getLowestRoot(float a, float b, float c, float maxR, float* root);
-    static bool checkPointInTriangle(const glm::vec3& point, const glm::vec3& pa,const glm::vec3& pb, const glm::vec3& pc);
+    static bool checkPointInTriangle(
+            const glm::vec3& point,
+            const glm::vec3& pa,
+            const glm::vec3& pb,
+            const glm::vec3& pc
+    );
     void checkTriangle(const Plane &trianglePlane, Entity* entity);
-    void collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity*>& entities);
-    glm::vec3 collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, std::vector<Entity*>& entities);
+    void collideAndSlide(
+            const glm::vec3& vel,
+            const glm::vec3& gravity,
+            std::vector<Entity*>& entities
+    );
+    glm::vec3 collideWithWorld(
+            const glm::vec3& pos,
+            const glm::vec3& vel,
+            std::vector<Entity*>& entities
+    );
     void calculateCollisions(std::vector<Plane>& planes, Entity* entity);
     void calculateTerrainCollisions(glm::vec3 &finalMove);
     void updateGravity();
@@ -60,7 +78,11 @@ public:
     explicit CollisionHandler(Entity* entity);
 
     template<unsigned long N>
-    void moveEntity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::array<Terrain, N>& terrains) {
+    void moveEntity(
+            glm::vec3 &finalMove,
+            std::vector<Entity*>& entities,
+            std::array<Terrain, N>& terrains
+        ) {
         hitPlayer = false;
         currentTerrain = calculateCurrentTerrain(terrains);
         calculateTerrainCollisions(finalMove);
@@ -69,7 +91,11 @@ public:
     }
 
     template <unsigned long N>
-    void moveEntityWithoutGravity(glm::vec3 &finalMove, std::vector<Entity*>& entities, std::array<Terrain, N>& terrains) {
+    void moveEntityWithoutGravity(
+            glm::vec3 &finalMove,
+            std::vector<Entity*>& entities,
+            std::array<Terrain, N>& terrains
+        ) {
         hitPlayer = false;
         currentTerrain = calculateCurrentTerrain(terrains);
         calculateTerrainCollisions(finalMove);

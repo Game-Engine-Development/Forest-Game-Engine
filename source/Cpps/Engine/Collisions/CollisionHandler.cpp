@@ -8,7 +8,7 @@ CollisionHandler::CollisionHandler(Entity *entity) {
 }
 
 void CollisionHandler::calculateCollisions(std::vector<Plane> &planes, Entity* entity) {
-    std::vector nearbyPlanes = planes;//calculateCollidablePlanes(planes);
+    std::vector nearbyPlanes = planes; //calculateCollidablePlanes(planes);
     for(const Plane& plane : nearbyPlanes) {
         checkTriangle(plane, entity);
     }
@@ -50,8 +50,17 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
         bool foundCollison = false;
         float t = 1.0;
         if (!embeddedInPlane) {
-            glm::vec3 planeIntersectionPoint = (move.eSpaceStartingPos - trianglePlane.normal + static_cast<float>(t0) * move.eSpaceMovement);
-            if (checkPointInTriangle(planeIntersectionPoint, trianglePlane.points[0], trianglePlane.points[1], trianglePlane.points[2])) {
+            glm::vec3 planeIntersectionPoint = (
+                    move.eSpaceStartingPos - trianglePlane.normal
+                    + static_cast<float>(t0) *
+                    move.eSpaceMovement
+            );
+            if (checkPointInTriangle(
+                    planeIntersectionPoint,
+                    trianglePlane.points[0],
+                    trianglePlane.points[1],
+                    trianglePlane.points[2]
+                )) {
                 foundCollison = true;
                 t = static_cast<float>(t0);
                 collisionPoint = planeIntersectionPoint;
@@ -60,14 +69,20 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
         if (!foundCollison) {
             glm::vec3 velocity = move.eSpaceMovement;
             glm::vec3 base = move.eSpaceStartingPos;
-            float velocitySquaredLength = velocity.x * velocity.x + velocity.y * velocity.y + velocity.z * velocity.z;
+            float velocitySquaredLength = velocity.x * velocity.x
+                    + velocity.y * velocity.y
+                    + velocity.z * velocity.z;
             float a,b,c;
             float newT;
             a = velocitySquaredLength;
 // P1
             b = 2.0f*(glm::dot(base-trianglePlane.points[0], velocity));
             glm::vec3 cTemp = trianglePlane.points[0] - base;
-            c = static_cast<float>(cTemp.x * cTemp.x + cTemp.y * cTemp.y + cTemp.z * cTemp.z - 1.0);
+            c = static_cast<float>(
+                    cTemp.x * cTemp.x
+                    + cTemp.y * cTemp.y
+                    + cTemp.z * cTemp.z - 1.0
+            );
             if (getLowestRoot(a,b,c, t, &newT)) {
                 t = newT;
                 foundCollison = true;
@@ -76,7 +91,12 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
 // P2
             b = 2.0f*(glm::dot(base-trianglePlane.points[1], velocity));
             cTemp = trianglePlane.points[1] - base;
-            c = static_cast<float>(cTemp.x * cTemp.x + cTemp.y * cTemp.y + cTemp.z * cTemp.z - 1.0);
+            c = static_cast<float>(
+                    cTemp.x * cTemp.x
+                    + cTemp.y * cTemp.y
+                    + cTemp.z * cTemp.z
+                    - 1.0
+            );
             if (getLowestRoot(a,b,c, t, &newT)) {
                 t = newT;
                 foundCollison = true;
@@ -85,7 +105,12 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
 // P3
             b = 2.0f*(glm::dot(base-trianglePlane.points[2], velocity));
             cTemp = trianglePlane.points[2] - base;
-            c = static_cast<float>(cTemp.x * cTemp.x + cTemp.y * cTemp.y + cTemp.z * cTemp.z - 1.0);
+            c = static_cast<float>(
+                    cTemp.x * cTemp.x
+                    + cTemp.y * cTemp.y
+                    + cTemp.z * cTemp.z
+                    - 1.0
+            );
             if (getLowestRoot(a,b,c, t, &newT)) {
                 t = newT;
                 foundCollison = true;
@@ -100,8 +125,19 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
             float edgeDotBaseToVertex = glm::dot(baseToVertex, edge);
 // Calculate parameters for equation
             a = edgeSquaredLength*-velocitySquaredLength + edgeDotVelocity*edgeDotVelocity;
-            b = static_cast<float>(edgeSquaredLength*(2 * glm::dot(baseToVertex, velocity)) - 2.0*edgeDotVelocity*edgeDotBaseToVertex);
-            c = edgeSquaredLength*(1 - (baseToVertex.x * baseToVertex.x + baseToVertex.y * baseToVertex.y + baseToVertex.z * baseToVertex.z)) + edgeDotBaseToVertex*edgeDotBaseToVertex;
+            b = static_cast<float>(
+                    edgeSquaredLength
+                    * (2 * glm::dot(baseToVertex, velocity))
+                    - 2.0 * edgeDotVelocity*edgeDotBaseToVertex
+            );
+            c = edgeSquaredLength * (
+                    1 - (
+                            baseToVertex.x * baseToVertex.x
+                            + baseToVertex.y * baseToVertex.y
+                            + baseToVertex.z * baseToVertex.z
+                         )
+            ) + edgeDotBaseToVertex*edgeDotBaseToVertex;
+
 // Does the swept sphere collide against infinite edge?
             if (getLowestRoot(a,b,c, t, &newT)) {
 // Check if intersection is within line segment:
@@ -120,10 +156,21 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
             edgeSquaredLength = edge.x * edge.x + edge.y * edge.y + edge.z * edge.z;
             edgeDotVelocity = glm::dot(velocity, edge);
             edgeDotBaseToVertex = glm::dot(baseToVertex, edge);
-            a = edgeSquaredLength*-velocitySquaredLength +
-                edgeDotVelocity*edgeDotVelocity;
-            b = static_cast<float>(edgeSquaredLength*(2 * glm::dot(baseToVertex, velocity))-2.0*edgeDotVelocity*edgeDotBaseToVertex);
-            c = edgeSquaredLength*(1-(baseToVertex.x * baseToVertex.x + baseToVertex.y * baseToVertex.y + baseToVertex.z * baseToVertex.z))+edgeDotBaseToVertex*edgeDotBaseToVertex;
+            a = edgeSquaredLength
+                    * -velocitySquaredLength
+                    + edgeDotVelocity*edgeDotVelocity;
+            b = static_cast<float>(edgeSquaredLength
+                    * (2 * glm::dot(baseToVertex, velocity))
+                    -2.0 * edgeDotVelocity * edgeDotBaseToVertex
+            );
+            c = edgeSquaredLength * (
+                    1 - (
+                            baseToVertex.x * baseToVertex.x
+                            + baseToVertex.y * baseToVertex.y +
+                            baseToVertex.z * baseToVertex.z
+                         )
+            ) + edgeDotBaseToVertex*edgeDotBaseToVertex;
+
             if (getLowestRoot(a, b, c, t, &newT)) {
                 float f=(edgeDotVelocity*newT-edgeDotBaseToVertex)/
                         edgeSquaredLength;
@@ -140,8 +187,18 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
             edgeDotVelocity = glm::dot(velocity, edge);
             edgeDotBaseToVertex = glm::dot(baseToVertex, edge);
             a = edgeSquaredLength*-velocitySquaredLength + edgeDotVelocity*edgeDotVelocity;
-            b = static_cast<float>(edgeSquaredLength*(2*glm::dot(baseToVertex, velocity)) - 2.0*edgeDotVelocity*edgeDotBaseToVertex);
-            c = edgeSquaredLength*(1-(baseToVertex.x * baseToVertex.x + baseToVertex.y * baseToVertex.y + baseToVertex.z * baseToVertex.z)) + edgeDotBaseToVertex*edgeDotBaseToVertex;
+            b = static_cast<float>(edgeSquaredLength*(2*glm::dot(baseToVertex, velocity))
+                    - 2.0*edgeDotVelocity*edgeDotBaseToVertex
+            );
+
+            c = edgeSquaredLength * (
+                    1 - (
+                            baseToVertex.x * baseToVertex.x
+                            + baseToVertex.y * baseToVertex.y
+                            + baseToVertex.z * baseToVertex.z
+                         )
+            ) + edgeDotBaseToVertex*edgeDotBaseToVertex;
+
             if (getLowestRoot(a,b,c, t, &newT)) {
                 float f=(edgeDotVelocity*newT-edgeDotBaseToVertex)/
                         edgeSquaredLength;
@@ -178,11 +235,20 @@ void CollisionHandler::checkTriangle(const Plane &trianglePlane, Entity* entity)
     }
 }
 
-std::vector<Plane> CollisionHandler::calculateCollidablePlanes(std::vector<Plane> &planes) {
+std::vector<Plane> CollisionHandler::calculateCollidablePlanes(
+        std::vector<Plane> &planes
+    ) {
     std::vector<Plane> nearbyPlanes;
     for(const Plane& plane : planes) {
         for(const glm::vec3& point : plane.points) {
-            if(point.x < m_entity->getPos().x + 10 && point.x > m_entity->getPos().x - 10 && point.y < m_entity->getPos().y + 10 && point.y > m_entity->getPos().y - 10 && point.z < m_entity->getPos().z + 10 && point.z > m_entity->getPos().z - 10) {
+            if(
+                    point.x < m_entity->getPos().x + 10
+                    && point.x > m_entity->getPos().x - 10
+                    && point.y < m_entity->getPos().y + 10
+                    && point.y > m_entity->getPos().y - 10
+                    && point.z < m_entity->getPos().z + 10
+                    && point.z > m_entity->getPos().z - 10
+                ) {
                 nearbyPlanes.push_back(plane);
                 break;
             }
@@ -193,8 +259,12 @@ std::vector<Plane> CollisionHandler::calculateCollidablePlanes(std::vector<Plane
 
 typedef unsigned int uint32;
 #define in(a) ((uint32&) a)
-bool CollisionHandler::checkPointInTriangle(const glm::vec3& point, const glm::vec3& pa, const glm::vec3& pb, const glm::vec3& pc)
-{
+bool CollisionHandler::checkPointInTriangle(
+        const glm::vec3& point,
+        const glm::vec3& pa,
+        const glm::vec3& pb,
+        const glm::vec3& pc
+    ) {
     glm::vec3 e10=pb-pa;
     glm::vec3 e20=pc-pa;
     float a = glm::dot(e10, e10);
@@ -210,8 +280,11 @@ bool CollisionHandler::checkPointInTriangle(const glm::vec3& point, const glm::v
     return (( in(z)& ~(in(x)|in(y)) ) & 0x80000000);
 }
 
-void CollisionHandler::collideAndSlide(const glm::vec3& vel, const glm::vec3& gravity, std::vector<Entity*> &entities)
-{
+void CollisionHandler::collideAndSlide(
+        const glm::vec3& vel,
+        const glm::vec3& gravity,
+        std::vector<Entity*> &entities
+    ) {
     m_hitEntity = nullptr;
     move.startingPos = m_entity->getPos();
     move.movement = vel;
@@ -241,7 +314,11 @@ void CollisionHandler::collideAndSlide(const glm::vec3& vel, const glm::vec3& gr
     m_entity->setPos(finalPosition);
 }
 
-glm::vec3 CollisionHandler::collideWithWorld(const glm::vec3& pos, const glm::vec3& vel, std::vector<Entity*> &entities) {
+glm::vec3 CollisionHandler::collideWithWorld(
+        const glm::vec3& pos,
+        const glm::vec3& vel,
+        std::vector<Entity*> &entities
+    ) {
     float unitScale = unitsPerMeter / 100.0f;
     float veryCloseDistance = 0.005f * unitScale;
     if (collisionRecursionDepth > 5) {
@@ -274,10 +351,16 @@ glm::vec3 CollisionHandler::collideWithWorld(const glm::vec3& pos, const glm::ve
     glm::vec3 slidePlaneNormal = newBasePoint-move.intersectionPoint;
     slidePlaneNormal = glm::normalize(slidePlaneNormal);
     Plane slidingPlane(slidePlaneOrigin, slidePlaneNormal);
-    glm::vec3 newDestinationPoint = destinationPoint - (float)slidingPlane.signedDistanceTo(destinationPoint) * slidePlaneNormal;
+    glm::vec3 newDestinationPoint = destinationPoint
+            - static_cast<float>(slidingPlane.signedDistanceTo(destinationPoint)
+    ) * slidePlaneNormal;
     glm::vec3 newVelocityVector = newDestinationPoint - move.intersectionPoint;
 
-    if (std::sqrt(std::pow(newVelocityVector.x, 2) + std::pow(newVelocityVector.y, 2) + std::pow(newVelocityVector.z, 2)) < veryCloseDistance || m_entity->checkIfBullet()) {
+    if (std::sqrt(
+            std::pow(newVelocityVector.x, 2)
+            + std::pow(newVelocityVector.y, 2)
+            + std::pow(newVelocityVector.z, 2)
+        ) < veryCloseDistance || m_entity->checkIfBullet()) {
         return newBasePoint;
     }
 
@@ -316,7 +399,10 @@ void CollisionHandler::calculateTerrainCollisions(glm::vec3 &finalMove) {
     float dist = std::sqrt(finalMove.x*finalMove.x + finalMove.z*finalMove.z);
     for(unsigned int i = 0; i < static_cast<int>(dist * 10); ++i) {
         newMove = glm::normalize(finalMove) * (float)i;
-        height = m_entity->getScale().y + currentTerrain->getTerrainHeight(m_entity->getPos().x + newMove.x, m_entity->getPos().z + newMove.z);
+        height = m_entity->getScale().y + currentTerrain->getTerrainHeight(
+                m_entity->getPos().x + newMove.x,
+                m_entity->getPos().z + newMove.z
+        );
         if(height >= m_entity->getPos().y + simGravity(static_cast<float>(i)) - 1) {
             cantGetOver = true;
             break;
@@ -324,7 +410,10 @@ void CollisionHandler::calculateTerrainCollisions(glm::vec3 &finalMove) {
     }
     for(unsigned int i = 0; i < static_cast<int>(dist); ++i) {
         newMove = glm::normalize(finalMove) * (float)i;
-        height = m_entity->getScale().y + currentTerrain->getTerrainHeight(m_entity->getPos().x + newMove.x, m_entity->getPos().z + newMove.z);
+        height = m_entity->getScale().y + currentTerrain->getTerrainHeight(
+                m_entity->getPos().x + newMove.x,
+                m_entity->getPos().z + newMove.z
+        );
         if(height > currentHeight + m_entity->getScale().y && cantGetOver) {
             finalMove = glm::normalize(finalMove) * (float)(i - 1);
             break;
@@ -335,8 +424,17 @@ void CollisionHandler::calculateTerrainCollisions(glm::vec3 &finalMove) {
 }
 
 void CollisionHandler::updateGravity() {
-    if(m_entity->getPos().y <= currentTerrain->getTerrainHeight(m_entity->getPos().x, m_entity->getPos().z) + 1) {
-        glm::vec3 newPos(m_entity->getPos().x, currentTerrain->getTerrainHeight(m_entity->getPos().x, m_entity->getPos().z) + 1, m_entity->getPos().z);
+    if(m_entity->getPos().y <= currentTerrain->getTerrainHeight(
+            m_entity->getPos().x,
+            m_entity->getPos().z) + 1
+        ) {
+        glm::vec3 newPos(
+                m_entity->getPos().x,
+                currentTerrain->getTerrainHeight(
+                        m_entity->getPos().x,
+                        m_entity->getPos().z) + 1,
+                        m_entity->getPos().z
+                );
         m_entity->setPos(newPos);
         currentGravity.y = 0;
         inAir = false;

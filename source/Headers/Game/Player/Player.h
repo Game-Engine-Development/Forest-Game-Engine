@@ -25,6 +25,7 @@ public:
     static constexpr float LATERAL_SPEED = 1.5f;
     static constexpr float JUMP_POWER = 2.0f;
     static constexpr int MAX_HEALTH = 20;
+
     Player();
     explicit Player(Camera *camera1, Entity *container1, CollisionHandler &collisionHandler);
 
@@ -40,7 +41,7 @@ public:
         handler.moveEntity(finalMove, entities, terrains);
         camera->Position = playerEntity->getPos();
         camera->setYPos(playerEntity->getPos().y + 4);
-        if(bound) {
+        if(bound && boundingBox != nullptr) {
             if(playerEntity->getPos().x > boundingBox->getScale().x - 5) {
                 glm::vec3 newPos(boundingBox->getScale().x - 5, playerEntity->getPos().y, playerEntity->getPos().z);
                 playerEntity->setPos(newPos);
@@ -66,4 +67,6 @@ public:
     void jump();
     void takeDamage(float damage);
     float getHealth();
+
+    float getCurrentHealth();
 };

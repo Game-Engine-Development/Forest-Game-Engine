@@ -3,7 +3,7 @@
 Entity::Entity() = default;
 
 Entity::Entity(
-        Mesh &mesh,
+        const std::shared_ptr<Mesh> &mesh,
         const std::vector<Texture> &textures,
         const glm::vec3 &position = glm::vec3(0, 0, 0),
         const glm::vec3 &rotation = glm::vec3(0,0,0),
@@ -15,7 +15,7 @@ Entity::Entity(
     this->rotation = rotation;
     this->scale = scale;
     createModelMatrix();
-    moveEntityPlanes(mesh.getVertices());
+    moveEntityPlanes(mesh->getVertices());
 }
 
 Entity::~Entity() = default;
@@ -23,7 +23,7 @@ Entity::~Entity() = default;
 void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor) {
     shader.use();
 
-    mesh.bindVAO();
+    mesh->bindVAO();
     for(Texture &texture : textures) {
         texture.bind(shader);
     }
@@ -42,7 +42,7 @@ void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::ve
     int viewLoc = glGetUniformLocation(shader.ID, "viewPos");
     glUniform3fv(viewLoc, 1, glm::value_ptr(camera.getPos()));
 
-    glDrawArrays(GL_TRIANGLES, 0, mesh.getNumOfVertices());
+    glDrawArrays(GL_TRIANGLES, 0, mesh->getNumOfVertices());
 
     for (Texture &texture : textures) {
         texture.unbind();
@@ -71,51 +71,51 @@ glm::vec3 Entity::getRotation() {
 void Entity::setRotation(glm::vec3& newRotation) {
     rotation = newRotation;
     createModelMatrix();
-    moveEntityPlanes(mesh.getVertices());
+    moveEntityPlanes(mesh->getVertices());
 }
 
 void Entity::setPos(glm::vec3& newPos) {
     position = newPos;
     createModelMatrix();
-    moveEntityPlanes(mesh.getVertices());
+    moveEntityPlanes(mesh->getVertices());
 }
 
 void Entity::rotate(glm::vec3& rotationPar) {
     rotation += rotationPar;
     limitRotation();
     createModelMatrix();
-    moveEntityPlanes(mesh.getVertices());
+    moveEntityPlanes(mesh->getVertices());
 }
 
 void Entity::rotate(float x, float y, float z) {
     rotation += glm::vec3(x,y,z);
     limitRotation();
     createModelMatrix();
-    moveEntityPlanes(mesh.getVertices());
+    moveEntityPlanes(mesh->getVertices());
 }
 
 void Entity::translate(glm::vec3 &translation) {
     position += translation;
     createModelMatrix();
-    moveEntityPlanes(mesh.getVertices());
+    moveEntityPlanes(mesh->getVertices());
 }
 
 void Entity::translate(float x, float y, float z) {
     position += glm::vec3(x,y,z);
     createModelMatrix();
-    moveEntityPlanes(mesh.getVertices());
+    moveEntityPlanes(mesh->getVertices());
 }
 
 void Entity::addScale(glm::vec3 &scalePar) {
     scale += scalePar;
     createModelMatrix();
-    moveEntityPlanes(mesh.getVertices());
+    moveEntityPlanes(mesh->getVertices());
 }
 
 void Entity::addScale(float x, float y, float z) {
     this->scale += glm::vec3(x,y,z);
     createModelMatrix();
-    moveEntityPlanes(mesh.getVertices());
+    moveEntityPlanes(mesh->getVertices());
 }
 
 void Entity::limitRotation() {
@@ -181,11 +181,11 @@ bool Entity::checkIfAnimal() {
 
 void Entity::setFlipped() {
     flipped = 1;
-    moveEntityPlanes(mesh.getVertices());
+    moveEntityPlanes(mesh->getVertices());
 }
 
 void Entity::create(
-        Mesh &meshPar,
+        const std::shared_ptr<Mesh> &meshPar,
         const std::vector<Texture>& texturesPar,
         const glm::vec3& positionPar,
         const glm::vec3& rotationPar,
@@ -199,5 +199,5 @@ void Entity::create(
 
     createModelMatrix();
 
-    moveEntityPlanes(mesh.getVertices());
+    moveEntityPlanes(mesh->getVertices());
 }

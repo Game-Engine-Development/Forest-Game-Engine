@@ -1,6 +1,7 @@
 #include "Headers/Game/Player/Shooter.h"
 
-Shooter::Shooter(Camera *camera, Entity* entity, Player* player) : m_camera(camera), m_bulletEntity(entity), m_player(player) {
+Shooter::Shooter(Camera *camera, Entity* entity, Player* player)
+        : m_camera(camera), m_bulletEntity(entity), m_player(player) {
     m_handler = CollisionHandler(m_bulletEntity);
     update();
 }

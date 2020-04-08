@@ -41,3 +41,7 @@ void Player::takeDamage(float damage) {
 float Player::getHealth() {
     return currentHealth;
 }
+
+float Player::getCurrentHealth() {
+    return currentHealth;
+}
