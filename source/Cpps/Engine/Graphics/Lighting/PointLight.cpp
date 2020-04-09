@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <iostream>
-#include <Headers/Engine/PointLight.h>
+#include <Headers/Engine/Graphics/Lighting/PointLight.h>
 
 
 

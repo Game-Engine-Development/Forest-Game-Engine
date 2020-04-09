@@ -2,8 +2,8 @@
 // Created by dwest7928 on 11/15/2019.
 //
 
-#include "Headers/Engine/IBL/HDR/HDRI.h"
-#include "Headers/stb_image.h"
+#include "Headers/Engine/Graphics/Lighting/IBL/HDRI.h"
+#include "Headers/Engine/Models/stb_image.h"
 
 
 HDRI::HDRI(const char* fileName) {

@@ -6,9 +6,9 @@ Texture::Texture() {
     textureUnit = 0;
 };
 
-Texture::Texture(const char *filename, int unit) {
+Texture::Texture(const char *filename, int unit, const char* nameInShader) {
     textureFilename = std::string(filename);
-
+    shaderName = nameInShader;
     unsigned int ID;
 
     int type = 0;
@@ -59,6 +59,8 @@ Texture::Texture(Texture &&oldTexture) noexcept {
 
     textureUnit = oldTexture.textureUnit;
     oldTexture.textureUnit = 0;
+
+    shaderName = oldTexture.shaderName;
 }
 
 Texture::Texture(const Texture &original) {
@@ -66,6 +68,8 @@ Texture::Texture(const Texture &original) {
         textureFilename = original.textureFilename;
 
         textureUnit = original.textureUnit;
+
+        shaderName = original.shaderName;
 
         assert(IDContainer == nullptr);
         IDContainer = original.IDContainer;

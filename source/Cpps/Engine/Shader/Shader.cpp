@@ -58,6 +58,8 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 }
 // activate the shader
 // ------------------------------------------------------------------------
+
+Shader::Shader() = default;
 void Shader::use()
 {
     glUseProgram(Shader::ID);
@@ -83,6 +85,10 @@ void Shader::setVec3(const std::string &name, glm::vec3 value){
 }
 void Shader::setVec3(const std::string &name, float x, float y, float z){
     glUniform3f(glGetUniformLocation(Shader::ID, name.c_str()), x, y, z);
+}
+
+void Shader::setMat4(const std::string &name, glm::mat4 &mat) {
+    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);;
 }
 
 // utility function for checking shader compilation/linking errors.

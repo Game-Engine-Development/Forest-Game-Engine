@@ -92,15 +92,15 @@ int main() {
             "../res/Standard-Cube-Map2/pz.bmp",
             "../res/Standard-Cube-Map2/nz.bmp",
     };
-    Texture texture("../res/container.jpg", 0);
-    Texture normalMap("../res/grass.png", 1);
-    Texture containerMap("../res/NormalMap.jpg", 2);
-    Texture specularMap("../res/SpecularMap.jpg", 3);
-    Texture wolfTexture("../res/wolfTexture.png", 0);
-    Texture deerTexture("../res/deerTexture.png", 0);
-    Texture human("../res/human.jpg", 0);
-    Texture ghostTexture("../res/ghost.png", 0);
-    Texture noteTexture("../res/note.png", 0);
+    Texture texture("../res/container.jpg", 0, "texture0");
+    Texture normalMap("../res/grass.png", 1, "texture1");
+    Texture containerMap("../res/NormalMap.jpg", 2, "texture2");
+    Texture specularMap("../res/SpecularMap.jpg", 3, "texture3");
+    Texture wolfTexture("../res/wolfTexture.png", 0, "texture0");
+    Texture deerTexture("../res/deerTexture.png", 0, "texture0");
+    Texture human("../res/human.jpg", 0, "texture0");
+    Texture ghostTexture("../res/ghost.png", 0, "texture0");
+    Texture noteTexture("../res/note.png", 0, "texture0");
     std::vector<Texture> currentTextures;
 
     Skybox skybox(CubeMapTexture (textures, 0));

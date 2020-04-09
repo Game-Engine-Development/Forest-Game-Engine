@@ -2,7 +2,7 @@
 
 #pragma once
 
-class MaterialParameterSet {
+class Material {
 private:
     Texture albedo;
     Texture ao;
@@ -11,8 +11,8 @@ private:
     Texture roughness;
 public:
     //takes the directory of a folder containing textures with correct names
-    MaterialParameterSet(const char* directory, int type);
-    MaterialParameterSet();
+    Material(const char* directory, int type);
+    Material();
 
     Texture &getAlbedo();
 

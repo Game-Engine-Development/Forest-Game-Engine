@@ -2,8 +2,8 @@
 
 #include <glm/glm.hpp>
 #include <glad/glad.h>
-#include "Headers/Engine/Shader.h"
-#include <Headers/Engine/IBL/HDR/HDRI.h>
+#include "Headers/Engine/Shader/Shader.h"
+#include <Headers/Engine/Graphics/Lighting/IBL/HDRI.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 

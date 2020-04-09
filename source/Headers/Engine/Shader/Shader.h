@@ -11,6 +11,8 @@
 class Shader
 {
 public:
+
+    Shader();
     unsigned int ID;
     // constructor generates the shader on the fly
     // ------------------------------------------------------------------------
@@ -27,6 +29,7 @@ public:
     void setFloat(const std::string &name, float value) const;
     void setVec3(const std::string &name, glm::vec3 value);
     void setVec3(const std::string &name, float x, float y, float z);
+    void setMat4(const std::string &name, glm::mat4 &mat);
 
 private:
     // utility function for checking shader compilation/linking errors.

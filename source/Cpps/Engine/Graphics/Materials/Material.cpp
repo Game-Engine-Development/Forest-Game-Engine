@@ -1,34 +1,34 @@
 
-#include "Headers/Engine/Graphics/Materials/MaterialParameterSet.h"
+#include "Headers/Engine/Graphics/Materials/Material.h"
 
-MaterialParameterSet::MaterialParameterSet(const char* directory, int type) {
+Material::Material(const char* directory, int type) {
     std::string extension = type == Texture::PNG ? "png" : "jpg";
-    this -> albedo = Texture(((std::string(directory) + std::string("/albedo."))+ extension).c_str() , type, 0, "albedo");
-    this -> ao = Texture(((std::string(directory) + std::string("/ao."))+ extension).c_str() , type, 1, "ao");
-    this -> metallic = Texture(((std::string(directory) + std::string("/metallic."))+ extension).c_str() , type, 2, "metallic");
-    this -> normal = Texture(((std::string(directory) + std::string("/normal."))+ extension).c_str() , type, 3, "normal");
-    this -> roughness = Texture(((std::string(directory) + std::string("/roughness."))+ extension).c_str() , type, 4, "roughness");
+    this -> albedo = Texture(((std::string(directory) + std::string("/albedo."))+ extension).c_str(), 0, "albedo");
+    this -> ao = Texture(((std::string(directory) + std::string("/ao."))+ extension).c_str() , 1, "ao");
+    this -> metallic = Texture(((std::string(directory) + std::string("/metallic."))+ extension).c_str() , 2, "metallic");
+    this -> normal = Texture(((std::string(directory) + std::string("/normal."))+ extension).c_str() , 3, "normal");
+    this -> roughness = Texture(((std::string(directory) + std::string("/roughness."))+ extension).c_str() , 4, "roughness");
 }
 
-MaterialParameterSet::MaterialParameterSet() = default;
+Material::Material() = default;
 
-Texture &MaterialParameterSet::getAlbedo() {
+Texture &Material::getAlbedo() {
     return albedo;
 }
 
-Texture &MaterialParameterSet::getAo() {
+Texture &Material::getAo() {
     return ao;
 }
 
-Texture &MaterialParameterSet::getMetallic() {
+Texture &Material::getMetallic() {
     return metallic;
 }
 
-Texture &MaterialParameterSet::getNormal() {
+Texture &Material::getNormal() {
     return normal;
 }
 
-Texture &MaterialParameterSet::getRoughness() {
+Texture &Material::getRoughness() {
     return roughness;
 }
 

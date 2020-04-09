@@ -27,7 +27,7 @@ Button::Button(
         bool hasBackgroundImg,
         Texture&& backgroundImg) : window(window), action(std::move(action)) {
 
-    quad = Quad(Texture(textureLocation,0), position, scale, isTransparentPar, hasBackgroundImg, backgroundImg);
+    quad = Quad(Texture(textureLocation,0, "texture0"), position, scale, isTransparentPar, hasBackgroundImg, backgroundImg);
 
     clampToScreen();
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IBL.h"
+#include "Headers/Engine/Graphics/Lighting/IBL/IBL.h"
 
  IBL::IBL(HDRI hdr, Shader equirectangularToCubemapShader, Shader irradianceShader, Shader prefilterShader, Shader brdfShader, Shader backgroundShader) {
     this->backgroundShader = backgroundShader;
