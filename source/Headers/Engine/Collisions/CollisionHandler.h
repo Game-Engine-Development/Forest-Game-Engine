@@ -27,7 +27,7 @@ private:
 
     Entity* m_hitEntity = nullptr;
 
-    template <unsigned int N>
+    template <size_t N>
     Terrain* calculateCurrentTerrain(std::array<Terrain, N> &terrains) {
         for(Terrain& terrain : terrains) {
             if(
@@ -77,7 +77,7 @@ public:
     CollisionHandler();
     explicit CollisionHandler(Entity* entity);
 
-    template<unsigned int N>
+    template<size_t N>
     void moveEntity(
             glm::vec3 &finalMove,
             std::vector<Entity*>& entities,
@@ -108,7 +108,7 @@ public:
         updateGravity();
     }
 
-    template <unsigned int N>
+    template <size_t N>
     void moveEntityWithoutGravity(
             glm::vec3 &finalMove,
             std::vector<Entity*>& entities,

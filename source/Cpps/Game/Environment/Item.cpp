@@ -1,7 +1,3 @@
-//
-// Created by Alan on 3/17/2020.
-//
-
 #include "Headers/Game/Environment/Item.h"
 
 Item::Item(Entity* entity, std::function<void()> action, std::vector<Entity*>& entities) : m_entity{entity}, m_action{action} {
