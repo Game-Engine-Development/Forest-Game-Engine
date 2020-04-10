@@ -5,11 +5,11 @@
 
 struct PointLight{
 public:
-    glm::vec3 position;
-    glm::vec3 color;
-    float attenuation;
+    glm::vec3 position{};
+    glm::vec3 color{};
+    float intensity;
 
-    PointLight(glm::vec3 position, glm::vec3 color, float attenuation);
+    PointLight(glm::vec3 position, glm::vec3 color, float intensity);
 
 };
 

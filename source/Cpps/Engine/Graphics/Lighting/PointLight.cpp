@@ -10,8 +10,8 @@
 
 
 
-PointLight::PointLight(glm::vec3 position, glm::vec3 color, float attenuation) {
+PointLight::PointLight(glm::vec3 position, glm::vec3 color, float intensity) {
     this->position = position;
     this->color = color;
-    this->attenuation = attenuation;
+    this->intensity = intensity;
 }

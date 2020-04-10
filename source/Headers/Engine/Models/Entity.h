@@ -9,6 +9,9 @@
 #include "Headers/Engine/Shader/Shader.h"
 #include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Collisions/Plane.h"
+#include "Headers/Engine/Graphics/Materials/Material.h"
+#include <Headers/Engine/Graphics/Lighting/PointLight.h>
+
 
 class Entity {
 public:
@@ -22,6 +25,14 @@ public:
             const glm::vec3& scale
     );
 
+    Entity(
+            const std::shared_ptr<Mesh> &mesh,
+            const Material &material,
+            const Shader shader,
+            const glm::vec3 &position,
+            const glm::vec3 &rotation,
+            const glm::vec3& scale
+    );
     void create(
             const std::shared_ptr<Mesh> &mesh,
             const std::vector<Texture>& textures,
@@ -38,6 +49,12 @@ public:
             glm::vec3& lightPos,
             glm::vec3& lightColor
     );
+
+    void render(
+            Camera &camera,
+            std::vector<PointLight> pointLights
+    );
+
 
     glm::vec3 getScale();
     glm::vec3 getPos();
@@ -68,6 +85,8 @@ public:
 private:
     std::shared_ptr<Mesh> mesh = nullptr;
     std::vector<Texture> textures;
+    Shader shader;
+    Material material;
     glm::vec3 rotation, position, scale;
     glm::mat4 modelMatrix;
     bool isPlayerEntity = false;
@@ -77,6 +96,7 @@ private:
     float flipped = -1;
     void limitRotation();
     void moveEntityPlanes(std::vector<glm::vec3>& vertices);
+
 };
 
 

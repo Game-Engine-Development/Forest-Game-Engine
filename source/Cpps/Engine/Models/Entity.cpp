@@ -18,6 +18,25 @@ Entity::Entity(
     moveEntityPlanes(mesh->getVertices());
 }
 
+//takes a shader and a Material instead of an array of textures.
+Entity::Entity(
+        const std::shared_ptr<Mesh> &mesh,
+        const Material &material,
+        const Shader shader,
+        const glm::vec3 &position,
+        const glm::vec3 &rotation,
+        const glm::vec3& scale
+) {
+    this->mesh = mesh;
+    this->shader = shader;
+    this->material = material;
+    this->position = position;
+    this->rotation = rotation;
+    this->scale = scale;
+    createModelMatrix();
+    moveEntityPlanes(mesh->getVertices());
+}
+
 Entity::~Entity() = default;
 
 void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor) {
@@ -47,6 +66,45 @@ void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::ve
     for (Texture &texture : textures) {
         texture.unbind();
     }
+    Mesh::unbindVAO();
+}
+
+void Entity::render(Camera& camera, std::vector<PointLight> pointLights) {
+    shader.use();
+
+    mesh->bindVAO();
+
+    material.getAlbedo().bind(shader);
+    material.getAo().bind(shader);
+    material.getMetallic().bind(shader);
+    material.getNormal().bind(shader);
+    material.getRoughness().bind(shader);
+
+    camera.setMatrices(shader);
+
+    int modelLoc = glGetUniformLocation(shader.ID, "model");
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
+    int viewLoc = glGetUniformLocation(shader.ID, "viewPos");
+    glUniform3fv(viewLoc, 1, glm::value_ptr(camera.getPos()));
+
+    for(int i = 0; i < pointLights.size(); ++i) {
+        shader.setVec3("pointLights[" + std::to_string(i) + "].position", pointLights[i].position);
+        shader.setVec3("pointLights[" + std::to_string(i) + "].color", pointLights[i].color);
+        shader.setFloat("pointLights[" + std::to_string(i) + "].intensity", pointLights[i].intensity);
+    }
+
+    shader.setFloat("nLights", pointLights.size());
+    //shader.setVec3("test", glm::vec3(1,0,0));
+
+    glDrawArrays(GL_TRIANGLES, 0, mesh->getNumOfVertices());
+
+    material.getAlbedo().unbind();
+    material.getAo().unbind();
+    material.getMetallic().unbind();
+    material.getNormal().unbind();
+    material.getRoughness().unbind();
+    
     Mesh::unbindVAO();
 }
 

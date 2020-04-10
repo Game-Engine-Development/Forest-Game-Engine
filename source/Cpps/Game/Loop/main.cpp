@@ -26,10 +26,11 @@
 #include "Headers/Engine/GUI/Button.h"
 #include "Headers/Engine/IO/Window.h"
 #include "Headers/Engine/Graphics/HDR.h"
+#include "Headers/Engine/Graphics/Lighting/PointLight.h"
+#include "Headers/Engine/Graphics/Materials/Material.h"
 
 //@todo find out why collision engine broke
 //@todo find out why health and damage to player system is completely broken
-
 //@todo rewrite or refactor most of the code in the Game folder
 //@todo optimize startup time so that not so much time is spent (look into advanced C++, vectorization, allocators, etc.)
 //@todo move raii for opengl texture resources into a heap allocated data class managed by shared_ptr (stops leaking while avoiding copy constructor calls). This will speed up start up time quite a lot.
@@ -45,8 +46,20 @@ int main() {
     glm::vec3 lightPos(-3200, 3200, -3200);
     glm::vec3 lightColor(0.7, 0.7, 0.7);
 
+    std::vector<PointLight> pointLights {
+            PointLight(glm::vec3(-10, 10, 16)+glm::vec3(-8.75,-8.75,0), glm::vec3(1), 100),
+            PointLight(glm::vec3(-10, -10, 16)+glm::vec3(-8.75,-8.75,0), glm::vec3(1), 100),
+            PointLight(glm::vec3(10, -10, 16)+glm::vec3(-8.75,-8.75,0), glm::vec3(1), 100),
+            PointLight(glm::vec3(10, 10, 16)+glm::vec3(-8.75,-8.75,0), glm::vec3(1), 100)
+
+    };
+
     std::vector<Entity*> entities;
 
+    Shader pbrShader(
+            "../source/Cpps/Engine/Models/Shaders/PBR/pbrVertexShader.glsl",
+            "../source/Cpps/Engine/Models/Shaders/PBR/pbrFragmentShader.glsl"
+    );
     Shader entityShader(
             "../source/Cpps/Engine/Models/Shaders/vertexShader.glsl",
             "../source/Cpps/Engine/Models/Shaders/fragmentShader.glsl"
@@ -92,6 +105,7 @@ int main() {
             "../res/Standard-Cube-Map2/pz.bmp",
             "../res/Standard-Cube-Map2/nz.bmp",
     };
+
     Texture texture("../res/container.jpg", 0, "texture0");
     Texture normalMap("../res/grass.png", 1, "texture1");
     Texture containerMap("../res/NormalMap.jpg", 2, "texture2");
@@ -102,6 +116,8 @@ int main() {
     Texture ghostTexture("../res/ghost.png", 0, "texture0");
     Texture noteTexture("../res/note.png", 0, "texture0");
     std::vector<Texture> currentTextures;
+
+    Material pavement("../res/pavement", 1);
 
     Skybox skybox(CubeMapTexture (textures, 0));
 
@@ -124,6 +140,8 @@ int main() {
             &window,
             true
     );
+
+    Entity centerEntity(containerMesh, pavement, pbrShader, glm::vec3(0,5,0), glm::vec3(0,0,0), glm::vec3(5,5,5));
 
     Entity playerEntity(
             containerMesh,
@@ -238,12 +256,14 @@ int main() {
 
         hdr.bind();
 
+        /*
         if(!spirit.isAlive()) {
             double respawnChance = rand() % 500;
             if(respawnChance == 0) {
                 spirit.spawn(entities);
             }
         }
+         */
 
         skybox.render(skyboxShader, camera);
         player.movePlayer(entities, terrains, boundingBox.getEntity(), spirit.isBound());
@@ -258,8 +278,8 @@ int main() {
         player.movePlayer(entities, terrains, nullptr, false);
 
         player.render(normalMappedShader, lightPos, lightColor);
-        spirit.updateAnimals(entities, terrains);
-        spirit.update(entities, terrains);
+        //spirit.updateAnimals(entities, terrains);
+        //spirit.update(entities, terrains);
         for(Entity* entity : entities) {
             entity->render(camera, normalMappedShader, lightPos, lightColor);
         }
@@ -267,6 +287,8 @@ int main() {
         for(Terrain &terrain : terrains) {
             terrain.render(camera, terrainShader, lightPos, lightColor);
         }
+
+        centerEntity.render(camera, pointLights);
 
         textureButton.render(buttonShader);
         //textButton.render(buttonShader); //@todo get rid of the order of rendering of quads mattering
