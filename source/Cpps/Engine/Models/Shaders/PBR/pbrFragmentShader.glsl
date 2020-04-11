@@ -118,6 +118,9 @@ void main()
         //normal = flatNormal;
     }
 
+    metallic = 0;
+    ao=1;
+
 
     //metallic = 0;
     albedo = pow(albedo, vec3(2.2));
@@ -194,7 +197,7 @@ void main()
 
     vec3 ambient = (kD * diffuse + specular) * ao;
 
-    vec3 color = Lo;
+    vec3 color = ambient + Lo;
 
     color = pow(color, vec3(1.0/2.2));
 

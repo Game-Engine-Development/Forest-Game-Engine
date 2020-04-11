@@ -45,8 +45,6 @@ int main() {
 
     HDR hdr(window);
 
-    
-
     glm::vec3 lightPos(-3200, 3200, -3200);
     glm::vec3 lightColor(0.7, 0.7, 0.7);
 
@@ -85,6 +83,38 @@ int main() {
             "../source/Cpps/Engine/GUI/Shaders/fragmentShader.glsl"
     );
 
+    //IBL Shaders
+    Shader backgroundShader(
+            "../source/Cpps/Engine/Graphics/Lighting/IBL/Shaders/backgroundVertex.glsl",
+            "../source/Cpps/Engine/Graphics/Lighting/IBL/Shaders/backgroundFragment.glsl"
+            );
+    Shader equirectangularToCubemapShader(
+            "../source/Cpps/Engine/Graphics/Lighting/IBL/Shaders/cubemapVertex.glsl",
+            "../source/Cpps/Engine/Graphics/Lighting/IBL/Shaders/equirectangularToCubemapFragment.glsl"
+            );
+    Shader irradianceShader(
+            "../source/Cpps/Engine/Graphics/Lighting/IBL/Shaders/cubemapVertex.glsl",
+            "../source/Cpps/Engine/Graphics/Lighting/IBL/Shaders/irradianceConvolution.glsl"
+            );
+    Shader prefilterShader(
+            "../source/Cpps/Engine/Graphics/Lighting/IBL/Shaders/cubemapVertex.glsl",
+            "../source/Cpps/Engine/Graphics/Lighting/IBL/Shaders/prefilterFragment.glsl"
+            );
+    Shader brdfShader(
+            "../source/Cpps/Engine/Graphics/Lighting/IBL/Shaders/brdfVertex.glsl",
+            "../source/Cpps/Engine/Graphics/Lighting/IBL/Shaders/brdfFragment.glsl"
+            );
+
+/*
+    HDRI hdri("../res/Creek.hdr");
+    IBL ibl(hdri, equirectangularToCubemapShader, irradianceShader, prefilterShader, brdfShader, backgroundShader);
+    ibl.setProjection(glm::perspective(glm::radians(camera.Zoom), (float)window.getWidth() / (float)window.getHeight(), 0.1f, 100.0f));
+
+    pbrShader.use();
+    pbrShader.setInt("irradianceMap", 0);
+    pbrShader.setInt("prefilterMap", 1);
+    pbrShader.setInt("brdfLUT", 6);
+*/
     std::shared_ptr<Mesh> containerMesh = std::make_shared<Mesh>("../res/container.obj", true);
     std::shared_ptr<Mesh> wolfMesh = std::make_shared<Mesh>("../res/wolf.obj", false);
     std::shared_ptr<Mesh> deerMesh = std::make_shared<Mesh>("../res/deer.obj", false);
@@ -256,6 +286,11 @@ int main() {
         }
     }
 
+
+    int scrWidth, scrHeight;
+    glfwGetFramebufferSize(window.getWindow(), &scrWidth, &scrHeight);
+    glViewport(0, 0, scrWidth, scrHeight);
+
     while (!glfwWindowShouldClose(window.getWindow()) && player.getHealth() > 0) {
         Input::getInstance()->processInput(&player);
 
@@ -287,8 +322,8 @@ int main() {
         player.movePlayer(entities, terrains, nullptr, false);
 
         player.render(normalMappedShader, lightPos, lightColor);
-        //spirit.updateAnimals(entities, terrains);
-        //spirit.update(entities, terrains);
+        spirit.updateAnimals(entities, terrains);
+        spirit.update(entities, terrains);
         for(Entity* entity : entities) {
             entity->render(camera, normalMappedShader, lightPos, lightColor);
         }
@@ -300,10 +335,12 @@ int main() {
         textureButton.render(buttonShader);
         //textButton.render(buttonShader); //@todo get rid of the order of rendering of quads mattering
 
-        centerEntity.render(camera, pointLights);
-
         pbrShader.use();
         pbrShader.setInt("textured", false);
+        //ibl.bindMaps();
+        centerEntity.render(camera, pointLights);
+
+
         hdr.render(entityShader, 1);
 
         glfwSwapBuffers(window.getWindow());
