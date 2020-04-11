@@ -37,6 +37,7 @@ void HDR::render(Shader &entityShader, float exposure) {
     glBindTexture(GL_TEXTURE_2D, colorBuffer);
     entityShader.setInt("hdr", HDROn);
     entityShader.setFloat("exposure", exposure);
+    entityShader.setInt("gammaOn", false);
     renderQuad();
 }
 

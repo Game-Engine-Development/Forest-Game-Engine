@@ -28,6 +28,8 @@
 #include "Headers/Engine/Graphics/HDR.h"
 #include "Headers/Engine/Graphics/Lighting/PointLight.h"
 #include "Headers/Engine/Graphics/Materials/Material.h"
+#include "Headers/Engine/Graphics/Lighting/IBL/HDRI.h"
+#include "Headers/Engine/Graphics/Lighting/IBL/IBL.h"
 
 //@todo find out why collision engine broke
 //@todo find out why health and damage to player system is completely broken
@@ -43,14 +45,16 @@ int main() {
 
     HDR hdr(window);
 
+    
+
     glm::vec3 lightPos(-3200, 3200, -3200);
     glm::vec3 lightColor(0.7, 0.7, 0.7);
 
     std::vector<PointLight> pointLights {
-            PointLight(glm::vec3(-10, 10, 16)+glm::vec3(-8.75,-8.75,0), glm::vec3(1), 100),
-            PointLight(glm::vec3(-10, -10, 16)+glm::vec3(-8.75,-8.75,0), glm::vec3(1), 100),
-            PointLight(glm::vec3(10, -10, 16)+glm::vec3(-8.75,-8.75,0), glm::vec3(1), 100),
-            PointLight(glm::vec3(10, 10, 16)+glm::vec3(-8.75,-8.75,0), glm::vec3(1), 100)
+            PointLight(glm::vec3(-10, 10, 16)+glm::vec3(-8.75,-8.75,0), glm::vec3(1), 1000),
+            PointLight(glm::vec3(-10, -10, 16)+glm::vec3(-8.75,-8.75,0), glm::vec3(1), 1000),
+            PointLight(glm::vec3(10, -10, 16)+glm::vec3(-8.75,-8.75,0), glm::vec3(1), 1000),
+            PointLight(glm::vec3(10, 10, 16)+glm::vec3(-8.75,-8.75,0), glm::vec3(1), 1000)
 
     };
 
@@ -84,11 +88,16 @@ int main() {
     std::shared_ptr<Mesh> containerMesh = std::make_shared<Mesh>("../res/container.obj", true);
     std::shared_ptr<Mesh> wolfMesh = std::make_shared<Mesh>("../res/wolf.obj", false);
     std::shared_ptr<Mesh> deerMesh = std::make_shared<Mesh>("../res/deer.obj", false);
+    std::shared_ptr<Mesh> sphereMesh = std::make_shared<Mesh>("../res/Sphere.obj", true);
+
 
     std::array<TerrainMesh, 2> terrainMeshes {
             TerrainMesh("../res/heightmap.png"),
             TerrainMesh("../res/heightmap2.png"),
     };
+
+    Material pavement("../res/mud", 0);
+
 
     TerrainTextureMap terrainMap (
             "../res/blendMap.png",
@@ -117,7 +126,6 @@ int main() {
     Texture noteTexture("../res/note.png", 0, "texture0");
     std::vector<Texture> currentTextures;
 
-    Material pavement("../res/pavement", 1);
 
     Skybox skybox(CubeMapTexture (textures, 0));
 
@@ -141,7 +149,7 @@ int main() {
             true
     );
 
-    Entity centerEntity(containerMesh, pavement, pbrShader, glm::vec3(0,5,0), glm::vec3(0,0,0), glm::vec3(5,5,5));
+    Entity centerEntity(sphereMesh, pavement, pbrShader, glm::vec3(0,5,0), glm::vec3(0,0,0), glm::vec3(5,5,5));
 
     Entity playerEntity(
             containerMesh,
@@ -265,6 +273,7 @@ int main() {
         }
          */
 
+
         skybox.render(skyboxShader, camera);
         player.movePlayer(entities, terrains, boundingBox.getEntity(), spirit.isBound());
         shooter.update();
@@ -288,15 +297,18 @@ int main() {
             terrain.render(camera, terrainShader, lightPos, lightColor);
         }
 
-        centerEntity.render(camera, pointLights);
-
         textureButton.render(buttonShader);
         //textButton.render(buttonShader); //@todo get rid of the order of rendering of quads mattering
 
-        hdr.render(entityShader, 1.5);
+        centerEntity.render(camera, pointLights);
+
+        pbrShader.use();
+        pbrShader.setInt("textured", false);
+        hdr.render(entityShader, 1);
 
         glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
+
     }
 
     // glfw: terminate, clearing all previously allocated GLFW resources.

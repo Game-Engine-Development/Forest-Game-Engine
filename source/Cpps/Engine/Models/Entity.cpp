@@ -22,7 +22,7 @@ Entity::Entity(
 Entity::Entity(
         const std::shared_ptr<Mesh> &mesh,
         const Material &material,
-        const Shader shader,
+        const Shader &shader,
         const glm::vec3 &position,
         const glm::vec3 &rotation,
         const glm::vec3& scale
@@ -39,26 +39,26 @@ Entity::Entity(
 
 Entity::~Entity() = default;
 
-void Entity::render(Camera& camera, Shader& shader, glm::vec3& lightPos, glm::vec3& lightColor) {
-    shader.use();
+void Entity::render(Camera& camera, Shader& inputShader, glm::vec3& lightPos, glm::vec3& lightColor) {
+    inputShader.use();
 
     mesh->bindVAO();
     for(Texture &texture : textures) {
-        texture.bind(shader);
+        texture.bind(inputShader);
     }
 
-    camera.setMatrices(shader);
+    camera.setMatrices(inputShader);
 
-    int modelLoc = glGetUniformLocation(shader.ID, "model");
+    int modelLoc = glGetUniformLocation(inputShader.ID, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-    int lightLoc = glGetUniformLocation(shader.ID, "lightPos");
+    int lightLoc = glGetUniformLocation(inputShader.ID, "lightPos");
     glUniform3fv(lightLoc, 1, glm::value_ptr(lightPos));
 
-    int lightCol = glGetUniformLocation(shader.ID, "lightColor");
+    int lightCol = glGetUniformLocation(inputShader.ID, "lightColor");
     glUniform3fv(lightCol, 1, glm::value_ptr(lightColor));
 
-    int viewLoc = glGetUniformLocation(shader.ID, "viewPos");
+    int viewLoc = glGetUniformLocation(inputShader.ID, "viewPos");
     glUniform3fv(viewLoc, 1, glm::value_ptr(camera.getPos()));
 
     glDrawArrays(GL_TRIANGLES, 0, mesh->getNumOfVertices());

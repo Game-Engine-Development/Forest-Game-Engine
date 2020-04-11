@@ -6,7 +6,7 @@ Texture::Texture() {
     textureUnit = 0;
 };
 
-Texture::Texture(const char *filename, int unit, const char* nameInShader) {
+Texture::Texture(const char *filename, int unit, std::string nameInShader) {
     textureFilename = std::string(filename);
     shaderName = nameInShader;
     unsigned int ID;
@@ -81,6 +81,8 @@ Texture& Texture::operator=(Texture &&oldTexture) noexcept {
     oldTexture.IDContainer = nullptr;
 
     textureUnit = oldTexture.textureUnit;
+
+    shaderName = oldTexture.shaderName;
     oldTexture.textureUnit = 0;
 
     return *this;
@@ -94,6 +96,8 @@ Texture& Texture::operator=(const Texture &original) {
     textureFilename = original.textureFilename;
 
     textureUnit = original.textureUnit;
+
+    shaderName = original.shaderName;
 
     assert(IDContainer == nullptr);
     IDContainer = original.IDContainer;
@@ -110,9 +114,9 @@ unsigned int Texture::get_ID(){
 void Texture::bind(Shader &shader) {
     glActiveTexture(GL_TEXTURE0 + textureUnit);
     glBindTexture(GL_TEXTURE_2D, IDContainer->getID());
-    std::string name("texture");
-    name += std::to_string(textureUnit);
-    int textureLoc = glGetUniformLocation(shader.ID, name.c_str());
+    //std::string name("texture");
+    //name += std::to_string(textureUnit);
+    int textureLoc = glGetUniformLocation(shader.ID, shaderName.c_str());
     glUniform1i(textureLoc, textureUnit);
 }
 

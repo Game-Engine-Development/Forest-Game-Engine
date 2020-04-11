@@ -18,6 +18,7 @@ uniform samplerCube irradianceMap;
 uniform samplerCube prefilterMap;
 uniform sampler2D   brdfLUT;
 
+
 uniform vec3 vAlbedo;
 uniform float vAo;
 uniform float vMetallic;
@@ -97,7 +98,7 @@ void main()
 
 
     vec3 albedo = texture(albedo, texCoord).rgb;
-    float roughness = texture(roughness, texCoord).r;
+    float roughness = texture(roughness, texCoord).r ;
     float metallic = texture(metallic, texCoord).r;
     float ao = texture(ao, texCoord).r;
     vec3 normal = texture(normal, texCoord).rgb;
@@ -110,11 +111,11 @@ void main()
     // uncomment for untextured rendering
 
     if(textured) {
-        albedo = vAlbedo;
-        roughness = vRoughness;
-        metallic = vMetallic;
-        ao = vAo;
-        normal = flatNormal;
+        //albedo = vec3(1,0,0);
+        //roughness = .5;
+        metallic = 0;
+        ao = 1;
+        //normal = flatNormal;
     }
 
 

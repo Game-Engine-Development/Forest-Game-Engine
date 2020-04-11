@@ -12,7 +12,7 @@
 class Texture {
 public:
     Texture();
-    explicit Texture(const char *filename, int unit, const char* nameInShader);
+    explicit Texture(const char *filename, int unit, std::string nameInShader);
     Texture(Texture &&oldTexture) noexcept;
     Texture(const Texture &original);
 
@@ -33,5 +33,5 @@ private:
 
     std::shared_ptr<TextureResourceContainer> IDContainer = nullptr;
     int textureUnit;
-    const char* shaderName;
+    std::string shaderName;
 };

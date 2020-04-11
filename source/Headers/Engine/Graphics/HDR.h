@@ -22,7 +22,7 @@ private:
 
     void renderQuad();
 
-    bool HDROn = false;
+    bool HDROn = true;
 
     unsigned int hdrFBO;
     unsigned int colorBuffer;

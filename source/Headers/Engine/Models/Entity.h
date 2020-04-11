@@ -28,7 +28,7 @@ public:
     Entity(
             const std::shared_ptr<Mesh> &mesh,
             const Material &material,
-            const Shader shader,
+            const Shader &shader,
             const glm::vec3 &position,
             const glm::vec3 &rotation,
             const glm::vec3& scale
