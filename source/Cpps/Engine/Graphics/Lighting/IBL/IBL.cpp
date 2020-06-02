@@ -1,8 +1,10 @@
-#pragma once
-
 #include "Headers/Engine/Graphics/Lighting/IBL/IBL.h"
 
  IBL::IBL(HDRI hdr, Shader equirectangularToCubemapShader, Shader irradianceShader, Shader prefilterShader, Shader brdfShader, Shader backgroundShader) {
+     glEnable(GL_DEPTH_TEST);
+     glDepthFunc(GL_LEQUAL);
+     glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+
     this->backgroundShader = backgroundShader;
     //unsigned int captureFBO;
     //unsigned int captureRBO;
@@ -181,14 +183,15 @@
     renderQuad();
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 }
 
 void IBL::bindMaps() {
-    glActiveTexture(GL_TEXTURE0);
+    glActiveTexture(GL_TEXTURE13);
     glBindTexture(GL_TEXTURE_CUBE_MAP, irradianceMap);
-    glActiveTexture(GL_TEXTURE1);
+    glActiveTexture(GL_TEXTURE14);
     glBindTexture(GL_TEXTURE_CUBE_MAP, prefilterMap);
-    glActiveTexture(GL_TEXTURE6);
+    glActiveTexture(GL_TEXTURE5);
     glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
 }
 

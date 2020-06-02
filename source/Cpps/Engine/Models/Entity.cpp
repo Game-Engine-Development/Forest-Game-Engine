@@ -1,4 +1,5 @@
-#include "Headers/Engine/Models/Entity.h"
+    #include "Headers/Engine/Models/Entity.h"
+
 
 Entity::Entity() = default;
 
@@ -71,6 +72,7 @@ void Entity::render(Camera& camera, Shader& inputShader, glm::vec3& lightPos, gl
 
 void Entity::render(Camera& camera, std::vector<PointLight> pointLights) {
     shader.use();
+    //glCheckError();
 
     mesh->bindVAO();
 
@@ -95,9 +97,10 @@ void Entity::render(Camera& camera, std::vector<PointLight> pointLights) {
     }
 
     shader.setFloat("nLights", pointLights.size());
-    //shader.setVec3("test", glm::vec3(1,0,0));
 
+    //swsw w wglCheckError();
     glDrawArrays(GL_TRIANGLES, 0, mesh->getNumOfVertices());
+    //glCheckError();
 
     material.getAlbedo().unbind();
     material.getAo().unbind();

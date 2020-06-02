@@ -5,17 +5,35 @@
 TerrainMesh::TerrainMesh() = default;
 
 TerrainMesh::TerrainMesh(const char* filename) {
-    std::vector<glm::vec3> vertices, normals;
+    std::vector<glm::vec3> vertices, normals, tangents, bitangents;
     std::vector<glm::vec2> texCoords;
     std::vector<unsigned int> indices;
     loadTerrain(vertices, normals, texCoords, indices, filename);
+
+
     numOfVertices = indices.size();
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &texCoordBuffer);
     glGenBuffers(1, &EBO);
     glGenBuffers(1, &normalBuffer);
+    glGenBuffers(1, &tangentsBuffer);
+    glGenBuffers(1, &bitangentsBuffer);
+
     bindVAO();
+    CalculateTangentsAndBitangents(vertices, texCoords, normals, tangents, bitangents);
+
+    /*
+    for(int i = 0; i < 100; ++i) {
+        std::cout << normals[i].x << " " << normals[i].y << " " << normals[i].z << std::endl;
+        std::cout << tangents[i].x << " " << tangents[i].y << " " << tangents[i].z << std::endl;
+        std::cout << bitangents[i].x << " " << bitangents[i].y << " " << bitangents[i].z << std::endl;
+        std::cout << std::endl;
+    }
+
+    //std::exit(-1);
+     */
+
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
@@ -28,12 +46,23 @@ TerrainMesh::TerrainMesh(const char* filename) {
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
+    glBindBuffer(GL_ARRAY_BUFFER, tangentsBuffer);
+    glBufferData(GL_ARRAY_BUFFER, tangents.size() * sizeof(glm::vec3), &tangents[0], GL_STATIC_DRAW);
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+
+    glBindBuffer(GL_ARRAY_BUFFER, bitangentsBuffer);
+    glBufferData(GL_ARRAY_BUFFER, bitangents.size() * sizeof(glm::vec3), &bitangents[0], GL_STATIC_DRAW);
+    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+
 
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
+    glEnableVertexAttribArray(3);
+    glEnableVertexAttribArray(4);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     unbindVAO();
@@ -43,6 +72,8 @@ TerrainMesh::~TerrainMesh() {
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &texCoordBuffer);
     glDeleteBuffers(1, &normalBuffer);
+    glDeleteBuffers(1, &tangentsBuffer);
+    glDeleteBuffers(1, &bitangentsBuffer);
     glDeleteBuffers(1, &EBO);
     glDeleteVertexArrays(1, &VAO);
 }
@@ -83,6 +114,52 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
             indices.push_back(bottomLeft);
             indices.push_back(bottomRight);
         }
+    }
+}
+
+void TerrainMesh::CalculateTangentsAndBitangents(
+        // inputs
+        std::vector<glm::vec3> & vertices,
+        std::vector<glm::vec2> & uvs,
+        std::vector<glm::vec3> & normals,
+        // outputs
+        std::vector<glm::vec3> & tangents,
+        std::vector<glm::vec3> & bitangents) {
+
+    for (int i = 0; i < vertices.size(); i += 3) {
+
+        // Shortcuts for vertices
+        glm::vec3 &v0 = vertices[i + 0];
+        glm::vec3 &v1 = vertices[i + 1];
+        glm::vec3 &v2 = vertices[i + 2];
+
+        // Shortcuts for UVs
+        glm::vec2 &uv0 = uvs[i + 0];
+        glm::vec2 &uv1 = uvs[i + 1];
+        glm::vec2 &uv2 = uvs[i + 2];
+
+        // Edges of the triangle : position delta
+        glm::vec3 deltaPos1 = v1 - v0;
+        glm::vec3 deltaPos2 = v2 - v0;
+
+        // UV delta
+        glm::vec2 deltaUV1 = uv1 - uv0;
+        glm::vec2 deltaUV2 = uv2 - uv0;
+
+        float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+        glm::vec3 tangent = (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y) * r;
+        glm::vec3 bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x) * r;
+
+        // Set the same tangent for all three vertices of the triangle.
+        // They will be merged later, in vboindexer.cpp
+        tangents.push_back(tangent);
+        tangents.push_back(tangent);
+        tangents.push_back(tangent);
+
+        // Same thing for bitangents
+        bitangents.push_back(bitangent);
+        bitangents.push_back(bitangent);
+        bitangents.push_back(bitangent);
     }
 }
 

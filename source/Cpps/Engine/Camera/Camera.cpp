@@ -123,6 +123,10 @@ glm::vec3 Camera::getPos() {
     return Position;
 }
 
+glm::vec3 Camera::getViewVector() {
+    return Front;
+}
+
 void Camera::setYPos(float newY){
     Position.y = newY;
 }

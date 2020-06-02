@@ -30,6 +30,8 @@
 #include "Headers/Engine/Graphics/Materials/Material.h"
 #include "Headers/Engine/Graphics/Lighting/IBL/HDRI.h"
 #include "Headers/Engine/Graphics/Lighting/IBL/IBL.h"
+#include "Headers/Engine/Debugging/CheckError.h"
+
 
 //@todo find out why collision engine broke
 //@todo find out why health and damage to player system is completely broken
@@ -37,7 +39,10 @@
 //@todo optimize startup time so that not so much time is spent (look into advanced C++, vectorization, allocators, etc.)
 //@todo move raii for opengl texture resources into a heap allocated data class managed by shared_ptr (stops leaking while avoiding copy constructor calls). This will speed up start up time quite a lot.
 
+
+
 int main() {
+
     Camera camera;
     Window window(&camera);
     Player player;
@@ -105,16 +110,17 @@ int main() {
             "../source/Cpps/Engine/Graphics/Lighting/IBL/Shaders/brdfFragment.glsl"
             );
 
-/*
+
     HDRI hdri("../res/Creek.hdr");
     IBL ibl(hdri, equirectangularToCubemapShader, irradianceShader, prefilterShader, brdfShader, backgroundShader);
     ibl.setProjection(glm::perspective(glm::radians(camera.Zoom), (float)window.getWidth() / (float)window.getHeight(), 0.1f, 100.0f));
 
     pbrShader.use();
-    pbrShader.setInt("irradianceMap", 0);
-    pbrShader.setInt("prefilterMap", 1);
-    pbrShader.setInt("brdfLUT", 6);
-*/
+    pbrShader.setInt("irradianceMap", 13);
+    pbrShader.setInt("prefilterMap", 14);
+    pbrShader.setInt("brdfLUT", 5);
+
+
     std::shared_ptr<Mesh> containerMesh = std::make_shared<Mesh>("../res/container.obj", true);
     std::shared_ptr<Mesh> wolfMesh = std::make_shared<Mesh>("../res/wolf.obj", false);
     std::shared_ptr<Mesh> deerMesh = std::make_shared<Mesh>("../res/deer.obj", false);
@@ -126,7 +132,8 @@ int main() {
             TerrainMesh("../res/heightmap2.png"),
     };
 
-    Material pavement("../res/mud", 0);
+    Material mud("../res/mud", 0);
+    Material pavement("../res/pavement", 1);
 
 
     TerrainTextureMap terrainMap (
@@ -134,7 +141,7 @@ int main() {
             "../res/grass.png",
             "../res/mud.png",
             "../res/flowers.png",
-            "../res/path.png"
+            "../res/normal.png"
     );
     std::array<const char*, 6> textures {
             "../res/Standard-Cube-Map2/px.bmp",
@@ -157,7 +164,7 @@ int main() {
     std::vector<Texture> currentTextures;
 
 
-    Skybox skybox(CubeMapTexture (textures, 0));
+    //Skybox skybox(CubeMapTexture (textures, 12));
 
     FontFileReader fontFile("../res/calibri.fnt");
     ImageFileReader imageFile("../res/calibri.png");
@@ -188,6 +195,7 @@ int main() {
             glm::vec3(0, 0, 0),
             glm::vec3(1, 1, 1)
     );
+
     playerEntity.setAsPlayerEntity();
     entities.push_back(&playerEntity);
 
@@ -271,10 +279,11 @@ int main() {
 
     Animal wolf1(wolfEntity, &player, 1, 5, 2.0, 1.0);
     Animal deer1(deerEntity, &player, 3, 3, 1.5, 1.0);
-    BoundingBox boundingBox(&boundingBoxEntity);
+    /*BoundingBox boundingBox(&boundingBoxEntity);
     Spirit spirit(spiritEntity, &player, &boundingBox, wolf1, deer1);
     entities.push_back(spirit.getEntityPointer());
     spirit.spawn(entities);
+     */
 
     Item item1(&noteEntity1, [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());}, entities);
     Item item2(&noteEntity2, [&hdr]()->void{hdr.setHDRStatus(!hdr.getHDRStatus());}, entities);
@@ -297,7 +306,12 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(static_cast<unsigned int>(GL_COLOR_BUFFER_BIT) | static_cast<unsigned int>(GL_DEPTH_BUFFER_BIT));
 
+        hdr.setHDRStatus(true);
         hdr.bind();
+
+        glm::mat4 view = camera.GetViewMatrix();
+
+        ibl.bindMaps();
 
         /*
         if(!spirit.isAlive()) {
@@ -308,9 +322,8 @@ int main() {
         }
          */
 
-
-        skybox.render(skyboxShader, camera);
-        player.movePlayer(entities, terrains, boundingBox.getEntity(), spirit.isBound());
+        //skybox.render(skyboxShader, camera);
+        player.movePlayer(entities, terrains, nullptr, false);
         shooter.update();
         item1.update(entities, &player);
         item2.update(entities, &player);
@@ -322,24 +335,33 @@ int main() {
         player.movePlayer(entities, terrains, nullptr, false);
 
         player.render(normalMappedShader, lightPos, lightColor);
-        spirit.updateAnimals(entities, terrains);
-        spirit.update(entities, terrains);
+        //spirit.updateAnimals(entities, terrains);
+        //spirit.update(entities, terrains);
         for(Entity* entity : entities) {
             entity->render(camera, normalMappedShader, lightPos, lightColor);
         }
 
+
+
+
         for(Terrain &terrain : terrains) {
+            //terrain.render(camera, pbrShader, pointLights, mud);
             terrain.render(camera, terrainShader, lightPos, lightColor);
         }
+
 
         textureButton.render(buttonShader);
         //textButton.render(buttonShader); //@todo get rid of the order of rendering of quads mattering
 
+        //pbrShader.use();
+        //pbrShader.setInt("textured", false);
+
         pbrShader.use();
-        pbrShader.setInt("textured", false);
-        //ibl.bindMaps();
+        pbrShader.setBool("isTiled", false);
+
         centerEntity.render(camera, pointLights);
 
+        ibl.renderBackground(view);
 
         hdr.render(entityShader, 1);
 

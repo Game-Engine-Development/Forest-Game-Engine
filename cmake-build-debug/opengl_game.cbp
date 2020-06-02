@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="opengl_game"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\libraries\;CMake Files\libraries\glfw\;CMake Files\libraries\glfw\src\;CMake Files\libraries\glm\;CMake Files\libraries\glm\glm\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="opengl_game">
+				<Option output="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/opengl_game.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DGLFW_INCLUDE_NONE"/>
+					<Add option="-DGLM_INCLUDE_NONE"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/include"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glm/include"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glad/include"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glm/glm/.."/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 opengl_game"/>
+					<CompileFile command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="opengl_game/fast">
+				<Option output="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/opengl_game.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DGLFW_INCLUDE_NONE"/>
+					<Add option="-DGLM_INCLUDE_NONE"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/include"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glm/include"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glad/include"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glm/glm/.."/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 opengl_game/fast"/>
+					<CompileFile command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="glad">
+				<Option output="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libglad.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glad/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 glad"/>
+					<CompileFile command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="glad/fast">
+				<Option output="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libglad.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glad/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 glad/fast"/>
+					<CompileFile command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="glfw">
+				<Option output="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/libglfw3.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GLFW_USE_CONFIG_H"/>
+					<Add option="-DUNICODE"/>
+					<Add option="-DWINVER=0x0501"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/include"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/deps/mingw"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/Makefile&quot;  VERBOSE=1 glfw"/>
+					<CompileFile command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="glfw/fast">
+				<Option output="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/libglfw3.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GLFW_USE_CONFIG_H"/>
+					<Add option="-DUNICODE"/>
+					<Add option="-DWINVER=0x0501"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/include"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src"/>
+					<Add directory="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/deps/mingw"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/9.2.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/Makefile&quot;  VERBOSE=1 glfw/fast"/>
+					<CompileFile command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/glfw_config.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glad/src/glad.c">
+			<Option target="glad"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/include/GLFW/glfw3.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/include/GLFW/glfw3native.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/context.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/egl_context.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/egl_context.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/init.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/input.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/internal.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/mappings.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/monitor.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/osmesa_context.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/vulkan.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wgl_context.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/wgl_context.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_init.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_joystick.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_joystick.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_monitor.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_platform.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_thread.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_time.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/win32_window.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/window.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Animations/Animation.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Animations/AnimationHandler.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Animations/Joint.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Animations/JointTransform.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Animations/KeyFrame.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Animations/Quaternion.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Animations/Skeleton.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Camera/Camera.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Collisions/CollisionHandler.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Collisions/Plane.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Debugging/CheckError.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/GUI/Button.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/GUI/Quad.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/GUI/StaticTextRendering/Character.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/GUI/StaticTextRendering/FontFileReader.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/GUI/StaticTextRendering/ImageFileReader.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/GUI/StaticTextRendering/Text.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/GUI/TextureResourceContainer.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Graphics/HDR.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Graphics/Lighting/IBL/HDRI.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Graphics/Lighting/IBL/IBL.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Graphics/Lighting/PointLight.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Graphics/Materials/Material.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/IO/Input.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/IO/Window.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Math/MathUtils.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Models/Entity.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Models/Mesh.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Models/Texture.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Shader/Shader.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Skybox/CubeMapTexture.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Skybox/Skybox.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Terrain/Terrain.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Terrain/TerrainMesh.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Engine/Terrain/TerrainTextureMap.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Game/Entities/Animal.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Game/Entities/Spirit.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Game/Environment/BoundingBox.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Game/Environment/Item.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Game/Loop/main.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Game/Player/Player.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Cpps/Game/Player/Shooter.cpp">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Animations/Animation.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Animations/AnimationHandler.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Animations/Joint.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Animations/JointTransform.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Animations/KeyFrame.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Animations/Quaternion.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Animations/Skeleton.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Camera/Camera.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Collisions/CollisionHandler.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Collisions/Plane.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Debugging/CheckError.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/GUI/Button.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/GUI/Quad.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/GUI/StaticTextRendering/Character.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/GUI/StaticTextRendering/FontFileReader.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/GUI/StaticTextRendering/ImageFileReader.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/GUI/StaticTextRendering/Text.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/GUI/TextureResourceContainer.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Graphics/HDR.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Graphics/Lighting/IBL/HDRI.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Graphics/Lighting/IBL/IBL.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Graphics/Lighting/PointLight.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Graphics/Materials/Material.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/IO/Input.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/IO/Window.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Math/MathUtils.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Models/Entity.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Models/Mesh.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Models/Texture.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Models/stb_image.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Shader/Shader.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Skybox/CubeMapTexture.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Skybox/Skybox.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Terrain/Terrain.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Terrain/TerrainMesh.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Engine/Terrain/TerrainTextureMap.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Game/Entities/Animal.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Game/Entities/Spirit.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Game/Environment/BoundingBox.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Game/Environment/Item.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Game/Player/Player.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/source/Headers/Game/Player/Shooter.h">
+			<Option target="opengl_game"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glfw\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glfw\src\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/glfw3.pc.in">
+			<Option virtualFolder="CMake Files\libraries\glfw\src\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/glfw3Config.cmake.in">
+			<Option virtualFolder="CMake Files\libraries\glfw\src\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/glfw_config.h.in">
+			<Option virtualFolder="CMake Files\libraries\glfw\src\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glm\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glm/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glm\glm\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

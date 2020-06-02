@@ -1,0 +1,13 @@
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/opengl_game.dir
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/glad.dir
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/CMakeFiles/edit_cache.dir
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/CMakeFiles/rebuild_cache.dir
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/CMakeFiles/rebuild_cache.dir
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/CMakeFiles/glfw.dir
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glfw/src/CMakeFiles/edit_cache.dir
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glm/CMakeFiles/edit_cache.dir
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glm/CMakeFiles/rebuild_cache.dir
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glm/glm/CMakeFiles/edit_cache.dir
+C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glm/glm/CMakeFiles/rebuild_cache.dir

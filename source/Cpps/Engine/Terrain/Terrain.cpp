@@ -30,6 +30,44 @@ void Terrain::render(Camera &camera, Shader &shader, glm::vec3& lightPos, glm::v
     TerrainMesh::unbindVAO();
 }
 
+void Terrain::render(Camera &camera, Shader &shader, std::vector<PointLight> pointLights, Material material) {
+    shader.use();
+
+    terrainMesh.bindVAO();
+
+    material.getAlbedo().bind(shader);
+    material.getAo().bind(shader);
+    material.getMetallic().bind(shader);
+    material.getNormal().bind(shader);
+    material.getRoughness().bind(shader);
+
+    camera.setMatrices(shader);
+
+    int modelLoc = glGetUniformLocation(shader.ID, "model");
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(createModelMatrix()));
+
+    int viewLoc = glGetUniformLocation(shader.ID, "viewPos");
+    glUniform3fv(viewLoc, 1, glm::value_ptr(camera.getPos()));
+
+    for(int i = 0; i < pointLights.size(); ++i) {
+        shader.setVec3("pointLights[" + std::to_string(i) + "].position", pointLights[i].position);
+        shader.setVec3("pointLights[" + std::to_string(i) + "].color", pointLights[i].color);
+        shader.setFloat("pointLights[" + std::to_string(i) + "].intensity", pointLights[i].intensity);
+    }
+
+    shader.setFloat("nLights", pointLights.size());
+    //shader.setVec3("test", glm::vec3(1,0,0));
+
+    glDrawElements(GL_TRIANGLES, terrainMesh.getNumOfVertices(), GL_UNSIGNED_INT, nullptr);
+
+    material.getAlbedo().unbind();
+    material.getAo().unbind();
+    material.getMetallic().unbind();
+    material.getNormal().unbind();
+    material.getRoughness().unbind();
+    TerrainMesh::unbindVAO();
+}
+
 glm::vec3 Terrain::getPos(){
     return position;
 }

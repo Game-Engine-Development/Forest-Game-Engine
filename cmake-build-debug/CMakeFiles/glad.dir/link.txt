@@ -1,0 +1,2 @@
+C:\mingw\bin\ar.exe qc libglad.a  CMakeFiles/glad.dir/libraries/glad/src/glad.c.obj
+C:\mingw\bin\ranlib.exe libglad.a

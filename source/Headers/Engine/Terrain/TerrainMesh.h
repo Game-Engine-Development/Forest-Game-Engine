@@ -30,5 +30,6 @@ private:
     unsigned char *data = nullptr; //@todo find where data heap memory is freed. I suspect this is a heap memory leak.
     int height;
     void loadTerrain(std::vector<glm::vec3>& verticies, std::vector<glm::vec3>& normals, std::vector<glm::vec2>& texCoords, std::vector<unsigned int>& indices, const char* filename);
-    unsigned int VAO, VBO, EBO, texCoordBuffer, normalBuffer, numOfVertices; //be careful with making numOfVertices unsigned. unsigned and signed number can NOT mix. //@todo decide whether it is ok to have numOfVertices be unsigned
+    void CalculateTangentsAndBitangents(std::vector<glm::vec3> & vertices, std::vector<glm::vec2> & uvs, std::vector<glm::vec3> & normals, std::vector<glm::vec3> & tangents, std::vector<glm::vec3> & bitangents);
+    unsigned int VAO, VBO, EBO, texCoordBuffer, normalBuffer, numOfVertices, tangentsBuffer, bitangentsBuffer; //be careful with making numOfVertices unsigned. unsigned and signed number can NOT mix. //@todo decide whether it is ok to have numOfVertices be unsigned
 };

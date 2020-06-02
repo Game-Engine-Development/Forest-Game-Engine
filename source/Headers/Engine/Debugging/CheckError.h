@@ -1,8 +1,12 @@
-//
-// Created by TRAG4 on 4/23/2020.
-//
+#pragma once
 
-#ifndef OPENGL_GAME_CHECKERROR_H
-#define OPENGL_GAME_CHECKERROR_H
+#include <glad/glad.h>
+#include <string>
+#include <iostream>
 
-#endif //OPENGL_GAME_CHECKERROR_H
+GLenum glCheckErrorThenExit_(const char *file, int line);
+
+GLenum glCheckError_(const char *file, int line);
+
+#define glCheckError() glCheckError_(__FILE__, __LINE__)
+#define glCheckErrorThenExit() glCheckErrorThenExit_(__FILE__, __LINE__)

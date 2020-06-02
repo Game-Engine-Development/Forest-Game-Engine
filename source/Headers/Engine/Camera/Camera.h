@@ -68,6 +68,7 @@ public:
     void setSkyboxMatrices(Shader& shader);
 
     glm::vec3 getPos();
+    glm::vec3 getViewVector();
 
     void setYPos(float y);
 

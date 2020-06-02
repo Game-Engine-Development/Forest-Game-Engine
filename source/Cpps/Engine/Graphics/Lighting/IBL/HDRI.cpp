@@ -8,7 +8,7 @@
 
 HDRI::HDRI(const char* fileName) {
     stbi_set_flip_vertically_on_load(true);
-    int width = 16500, height = 8250, nrComponents;
+    int width = 8000, height = 4000, nrComponents;
     float *data = stbi_loadf(fileName, &width, &height, &nrComponents, 0);
     if (data)
     {

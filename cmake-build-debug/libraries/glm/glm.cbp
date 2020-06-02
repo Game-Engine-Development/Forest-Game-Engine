@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="glm"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\libraries\;CMake Files\libraries\glfw\;CMake Files\libraries\glfw\src\;CMake Files\libraries\glm\;CMake Files\libraries\glm\glm\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glm"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glm/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glm/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glm/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw/bin/mingw32-make.exe -f &quot;C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/cmake-build-debug/libraries/glm/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glfw\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glfw\src\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/glfw3.pc.in">
+			<Option virtualFolder="CMake Files\libraries\glfw\src\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/glfw3Config.cmake.in">
+			<Option virtualFolder="CMake Files\libraries\glfw\src\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glfw/src/glfw_config.h.in">
+			<Option virtualFolder="CMake Files\libraries\glfw\src\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glm\"/>
+		</Unit>
+		<Unit filename="C:/Users/TRAG4/CLionProjects/OpenGL_Android_Game/libraries/glm/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libraries\glm\glm\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

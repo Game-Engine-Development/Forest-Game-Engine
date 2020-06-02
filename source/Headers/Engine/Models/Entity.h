@@ -11,6 +11,7 @@
 #include "Headers/Engine/Collisions/Plane.h"
 #include "Headers/Engine/Graphics/Materials/Material.h"
 #include <Headers/Engine/Graphics/Lighting/PointLight.h>
+#include "Headers/Engine/Debugging/CheckError.h"
 
 
 class Entity {

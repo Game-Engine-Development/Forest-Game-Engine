@@ -8,23 +8,25 @@ uniform bool hdr;
 uniform bool gammaOn;
 uniform float exposure;
 
+vec3 tonemap() {
+    vec3 result = texture(hdrBuffer, TexCoords).rgb;
+    return vec3(1.0) - exp(-result * exposure);
+}
+
+vec3 gammaCorrect(vec3 uncorrected, float gamma){
+            return pow(uncorrected, vec3(1.0 / gamma));
+    }
+
 void main()
 {
     const float gamma = 2.2;
-    vec3 result = texture(hdrBuffer, TexCoords).rgb;
-    if(hdr)
-    {
-        // reinhard
-        // vec3 result = hdrColor / (hdrColor + vec3(1.0));
-        // exposure
-        result = vec3(1.0) - exp(-result * exposure);
-        // also gamma correct while we're at it
-    }
-    if(gammaOn)
-    {
-        result = pow(result, vec3(1.0 / gamma));
-    }
-    FragColor = vec4(result, 1.0);
+
+    vec3 color;
+
+    if(hdr) { color = tonemap(); }
+    if(gammaOn) { color = gammaCorrect(color, gamma); }
+
+    FragColor = vec4(color, 1.0);
 
 
 }
