@@ -1,0 +1,8 @@
+//
+// Created by TRAG4 on 4/23/2020.
+//
+
+#ifndef OPENGL_GAME_CHECKERROR_H
+#define OPENGL_GAME_CHECKERROR_H
+
+#endif //OPENGL_GAME_CHECKERROR_H
