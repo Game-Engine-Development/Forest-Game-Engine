@@ -73,7 +73,7 @@ struct MemoryEditor
     };
 
     // Settings
-    bool            Open;                                       // = true   // set to false when DrawWindow() was closed. ignore if not using DrawWindow().
+    bool            Open = true;                                // = true   // set to false when DrawWindow() was closed. ignore if not using DrawWindow().
     bool            ReadOnly;                                   // = false  // disable any editing.
     int             Cols;                                       // = 16     // number of columns to display.
     bool            OptShowOptions;                             // = true   // display options button/context menu. when disabled, options will be locked unless you provide your own UI for them.
@@ -186,19 +186,19 @@ struct MemoryEditor
         CalcSizes(s, mem_size, base_display_addr);
         ImGui::SetNextWindowSizeConstraints(ImVec2(0.0f, 0.0f), ImVec2(s.WindowWidth, FLT_MAX));
 
-        Open = true;
-        if (ImGui::Begin(title, &Open, ImGuiWindowFlags_NoScrollbar))
-        {
-            if (ImGui::IsWindowHovered(ImGuiHoveredFlags_RootAndChildWindows) && ImGui::IsMouseClicked(1))
-                ImGui::OpenPopup("context");
-            DrawContents(mem_data, mem_size, base_display_addr);
-            if (ContentsWidthChanged)
-            {
-                CalcSizes(s, mem_size, base_display_addr);
-                ImGui::SetWindowSize(ImVec2(s.WindowWidth, ImGui::GetWindowSize().y));
+        //Open = true;
+        if(Open) {
+            if (ImGui::Begin(title, &Open, ImGuiWindowFlags_NoScrollbar)) {
+                if (ImGui::IsWindowHovered(ImGuiHoveredFlags_RootAndChildWindows) && ImGui::IsMouseClicked(1))
+                    ImGui::OpenPopup("context");
+                DrawContents(mem_data, mem_size, base_display_addr);
+                if (ContentsWidthChanged) {
+                    CalcSizes(s, mem_size, base_display_addr);
+                    ImGui::SetWindowSize(ImVec2(s.WindowWidth, ImGui::GetWindowSize().y));
+                }
             }
+            ImGui::End();
         }
-        ImGui::End();
     }
 
     // Memory Editor contents only
