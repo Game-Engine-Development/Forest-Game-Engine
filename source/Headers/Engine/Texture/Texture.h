@@ -51,8 +51,6 @@ class Texture {
     void pollIsLoaded();
     void addNullEntry();
 
-    static void func(std::optional<EntryType> *entry, const std::string *const textureCacheKey, std::mutex *entryMutex);
-
 public:
     explicit Texture(const std::string& filename, int unit, const std::optional<std::string>& nameInShader = std::nullopt);
 

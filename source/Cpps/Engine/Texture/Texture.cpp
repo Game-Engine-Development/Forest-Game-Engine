@@ -1,9 +1,5 @@
 #include "Headers/Engine/Texture/Texture.h"
 
-void Texture::func(std::optional<EntryType> *entry, const std::string *const textureCacheKey, std::mutex *entryMutex) {
-    std::cout << "thread func\n";
-}
-
 void swap(Texture &tex1, Texture &tex2) {
     std::swap(tex1.textureCacheKey, tex2.textureCacheKey);
     std::swap(tex1.IDCache, tex2.IDCache);
@@ -25,60 +21,7 @@ Texture::Texture(const std::string& filename, const int unit, const std::optiona
     else {
         addNullEntry();
 
-        //std::cout << "preLoad: " << textureCacheKey << std::endl;
         thread = std::async(std::launch::async, loadFromDisk, &entry, &textureCacheKey, &entryMutex);
-        //thread = std::async(std::launch::async, func, &entry, &textureCacheKey, &entryMutex);
-        //loadFromDisk(&entry, &textureCacheKey, &entryMutex);
-
-        /*int width{}, height{}, nrchannels{};
-        unsigned char *data = nullptr;
-
-        ImageType type{};
-        if (std::regex_match(filename, std::regex("(.+)(\\.png)")) ||
-            std::regex_match(filename, std::regex("(.+)(\\.bmp)")))
-        {
-            type = ImageType::RGBA_IMG;
-            data = stbi_load(filename.c_str(), &width, &height, &nrchannels, STBI_rgb_alpha);
-        } else if (std::regex_match(filename, std::regex("(.+)(\\.jpg)")) ||
-            std::regex_match(filename, std::regex("(.+)(\\.jpeg)")))
-        {
-            type = ImageType::RGB_IMG;
-            data = stbi_load(filename.c_str(), &width, &height, &nrchannels, STBI_rgb);
-        } else {
-            std::cerr << "File type not supported!. Please supply a JPG or PNG!" << std::endl;
-        }
-
-        unsigned int ID{};
-
-        glGenTextures(1, &ID);
-        std::cout << "ID in Texture contructor: " << ID << '\n';
-
-        glActiveTexture(GL_TEXTURE0 + textureUnit);
-        glBindTexture(GL_TEXTURE_2D, ID);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        if (data) {
-            if (type == ImageType::RGB_IMG) {
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-            } else {
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-            }
-            glGenerateMipmap(GL_TEXTURE_2D);
-        } else {
-            std::cerr << "Failed to load " << filename << " texture!" << std::endl;
-        }
-        stbi_image_free(data);
-        glBindTexture(GL_TEXTURE_2D, 0);
-
-        IDCache = ID; //denormalizes data
-        //std::cout << "ID in Texture contructor: " << ID << '\n';
-        textureCache.at(textureCacheKey).first = TextureResourceContainer(ID);*/
     }
 }
 
