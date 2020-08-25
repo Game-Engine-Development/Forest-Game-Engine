@@ -145,8 +145,7 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
     const double fPeriodZ = fScaleZ * 2 * M_PI;
     z = fRadius * (std::cos(fPeriodZ) + 1);
 
-    //return static_cast<float>(noise->Noise2(x/1000.0, z/1000.0) + noise->Noise2(x/100.0, z/100.0) + noise->Noise2(x, z)) * multiplier;
-    return 0;
+    return static_cast<float>(noise->Noise2(x/1000.0, z/1000.0) + noise->Noise2(x/100.0, z/100.0) + noise->Noise2(x, z)) * multiplier;
 }
 
 [[nodiscard]] float TerrainMesh::getHeightFromHeightmap(const int x, const int z) const {

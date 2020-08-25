@@ -21,6 +21,9 @@ Texture::Texture(const std::string& filename, const int unit, const std::optiona
     else {
         addNullEntry();
 
+        //loadFromDisk(&entry, &textureCacheKey, &entryMutex);
+        //pollIsLoaded();
+
         thread = std::async(std::launch::async, loadFromDisk, &entry, &textureCacheKey, &entryMutex);
     }
 }

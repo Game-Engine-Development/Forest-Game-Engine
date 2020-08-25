@@ -82,7 +82,7 @@ float Terrain::getAverageHeight(float terrainX, float terrainZ) const noexcept {
     return height;
 }
 
-[[nodiscard]] glm::vec3 Terrain::getTerrainNormal(float worldX, float worldZ) const noexcept {
+[[nodiscard]] glm::vec3 Terrain::getTerrainNormal(const float worldX, const float worldZ) const noexcept {
     float x = worldX / TerrainMesh::SIZE * terrainMesh->getWidth();
     while(x > terrainMesh->getWidth()) {
         x -= terrainMesh->getWidth();

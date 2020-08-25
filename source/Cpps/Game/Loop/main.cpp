@@ -59,7 +59,7 @@ int main() {
     );
     Shader simpleTerrainShader(
             "../source/Cpps/Engine/Terrain/Shaders/terrainVertexShader.glsl",
-            "../source/Cpps/Engine/Terrain/Shaders/terrainFragmentShader.glsl"
+            "../source/Cpps/Engine/Terrain/Shaders/simpleTerrainFragmentShader.glsl"
     );
     Shader normalMappedShader(
             "../source/Cpps/Engine/Models/Shaders/normalMappedVertex.glsl",
@@ -75,17 +75,8 @@ int main() {
             TerrainMesh("../res/heightmap2.png", 150),
     };
 
-    Material pavement("../res/mud", ImageType::RGBA_IMG);
+    Texture terrainTexture("../res/repeating_mud_texture.jpeg", 0);
 
-    Texture terrainTexture ("../res/repeating_mud_texture.jpeg", 0);
-
-    TerrainTextureMap terrainMap (
-            "../res/blendMap.png",
-            "../res/grass.png",
-            "../res/mud.png",
-            "../res/flowers.png",
-            "../res/path.png"
-    );
     std::array<const char*, 6> textures {
             "../res/Standard-Cube-Map2/px.bmp",
             "../res/Standard-Cube-Map2/nx.bmp",
@@ -149,8 +140,6 @@ int main() {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
     while (!glfwWindowShouldClose(window.getWindow())) {
-        std::cout << "update loop\n";
-
         Input::processInput(player, gSoloud, gWave, window);
 
         glClear(static_cast<unsigned int>(GL_COLOR_BUFFER_BIT) | static_cast<unsigned int>(GL_DEPTH_BUFFER_BIT));
@@ -166,9 +155,9 @@ int main() {
             entity.render(camera, normalMappedShader, lightPos, lightColor);
         }
 
-        //for(Terrain &terrain : terrains) {
-        //    terrain.render(camera, simpleTerrainShader, lightPos, lightColor);
-        //}
+        for(Terrain &terrain : terrains) {
+            //terrain.render(camera, simpleTerrainShader, lightPos, lightColor);
+        }
 
         hdr.render(entityShader, 1);
 
@@ -185,14 +174,13 @@ int main() {
 
         mem_edit.DrawWindow("Memory Editor", data, DATA_SIZE);
 
-        if(show) ImGui::ShowDemoWindow(&show);
+        if (show) ImGui::ShowDemoWindow(&show);
 
         // Rendering
         ImGui::Render();
         int display_w, display_h;
         glfwGetFramebufferSize(window.getWindow(), &display_w, &display_h);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
 
 
         glfwSwapBuffers(window.getWindow());
