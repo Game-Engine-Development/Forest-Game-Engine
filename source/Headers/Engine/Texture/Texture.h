@@ -7,7 +7,6 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
-#include <mutex>
 #include <future>
 
 #include <glad/glad.h>
@@ -22,14 +21,18 @@
 #include "Headers/Engine/Constants.h"
 #include "Headers/Engine/Utils/MiscUtils.h"
 
-class Texture {
-    struct EntryType {
-        int width{}, height{}, nrchannels{};
-        unsigned char *data = nullptr;
-        ImageType type{};
-    };
+struct EntryType {
+    int width{}, height{}, nrchannels{};
+    unsigned char *data = nullptr;
+    ImageType type{};
+};
 
-    std::future<void> thread;
+class Texture {
+    bool isLoading = false;
+
+    std::future<EntryType> thread;
+
+    std::optional<EntryType> entry = std::nullopt;
 
     friend void swap(Texture &tex1, Texture &tex2);
 
@@ -40,13 +43,10 @@ class Texture {
 
     bool isLoaded = false;
 
-    std::mutex entryMutex;
-    std::optional<EntryType> entry = std::nullopt;
-
     int textureUnit{};
     std::string shaderName;
 
-    static void loadFromDisk(std::optional<EntryType> *entry, const std::string *textureCacheKey, std::mutex *entryMutex);
+    static EntryType loadFromDisk(const std::string textureCacheKey);
     void loadOnMain();
 
     void pollIsLoaded();

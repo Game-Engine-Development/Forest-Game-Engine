@@ -22,7 +22,7 @@ void reverse(unsigned char *start, std::size_t block_size, std::size_t numOfBloc
 void screenshot(const char *filename, const Window &window);
 
 template<typename T>
-bool future_is_ready(std::future<T>& t);
+bool future_is_ready(const std::future<T>& t);
 
 
 
@@ -30,6 +30,7 @@ bool future_is_ready(std::future<T>& t);
 
 //implementation:
 template<typename T>
-bool future_is_ready(std::future<T>& t) {
+bool future_is_ready(const std::future<T>& t) {
+    if(!t.valid()) return false;
     return t.wait_for(std::chrono::seconds(0)) == std::future_status::ready;
 }

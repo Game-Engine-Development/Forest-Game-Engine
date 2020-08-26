@@ -6,6 +6,12 @@ void swap(Texture &tex1, Texture &tex2) {
 
     std::swap(tex1.textureUnit, tex2.textureUnit);
     std::swap(tex1.shaderName, tex2.shaderName);
+
+    std::swap(tex1.entry, tex2.entry);
+    std::swap(tex1.isLoaded, tex2.isLoaded);
+
+    std::swap(tex1.thread, tex2.thread);
+    std::swap(tex1.isLoading, tex2.isLoading);
 }
 
 Texture::Texture(const std::string& filename, const int unit, const std::optional<std::string>& nameInShader)
@@ -16,15 +22,21 @@ Texture::Texture(const std::string& filename, const int unit, const std::optiona
     if(textureCache.count(filename)) {
         textureCache.at(filename).second += 1;
 
+        std::cout << "textureCacheKey: " << textureCacheKey << ", isLoading: " << isLoading << '\n';
+
         pollIsLoaded();
     }
     else {
+        isLoading = true;
+
+        std::cout << "textureCacheKey: " << textureCacheKey << ", isLoading: " << isLoading << '\n';
+
         addNullEntry();
 
-        //loadFromDisk(&entry, &textureCacheKey, &entryMutex);
+        //loadFromDisk(&textureCacheKey);
         //pollIsLoaded();
 
-        thread = std::async(std::launch::async, loadFromDisk, &entry, &textureCacheKey, &entryMutex);
+        thread = std::async(std::launch::async, loadFromDisk, textureCacheKey);
     }
 }
 
@@ -32,34 +44,29 @@ void Texture::addNullEntry() {
     textureCache.emplace(std::string(textureCacheKey), std::make_pair<std::optional<TextureResourceContainer>, std::size_t>(std::nullopt, 1));
 }
 
-void Texture::loadFromDisk(std::optional<EntryType> *entry, const std::string *const textureCacheKey, std::mutex *entryMutex) {
-    std::cout << "loadFromDisk: " << (*textureCacheKey) << std::endl;
+EntryType Texture::loadFromDisk(const std::string textureCacheKey) {
+    std::cout << "loadFromDisk: " << textureCacheKey << std::endl;
 
     int width{}, height{}, nrchannels{};
     unsigned char *data = nullptr;
 
     ImageType type{};
-    if (std::regex_match((*textureCacheKey), std::regex("(.+)(\\.png)")) ||
-        std::regex_match((*textureCacheKey), std::regex("(.+)(\\.bmp)")))
+    if (std::regex_match(textureCacheKey, std::regex("(.+)(\\.png)")) ||
+        std::regex_match(textureCacheKey, std::regex("(.+)(\\.bmp)")))
     {
         type = ImageType::RGBA_IMG;
-        data = stbi_load(textureCacheKey->c_str(), &width, &height, &nrchannels, STBI_rgb_alpha);
-    } else if (std::regex_match((*textureCacheKey), std::regex("(.+)(\\.jpg)")) ||
-               std::regex_match((*textureCacheKey), std::regex("(.+)(\\.jpeg)")))
+        data = stbi_load(textureCacheKey.c_str(), &width, &height, &nrchannels, STBI_rgb_alpha);
+    } else if (std::regex_match(textureCacheKey, std::regex("(.+)(\\.jpg)")) ||
+               std::regex_match(textureCacheKey, std::regex("(.+)(\\.jpeg)")))
     {
         type = ImageType::RGB_IMG;
-        data = stbi_load(textureCacheKey->c_str(), &width, &height, &nrchannels, STBI_rgb);
+        data = stbi_load(textureCacheKey.c_str(), &width, &height, &nrchannels, STBI_rgb);
     } else {
         std::cerr << "File type not supported!. Please supply a JPG or PNG!" << std::endl;
-        std::cerr << (*textureCacheKey) << std::endl;
+        std::cerr << textureCacheKey << std::endl;
     }
 
-    EntryType entryTmp {
-        width, height, nrchannels, data, type
-    };
-
-    std::lock_guard<std::mutex> lock(*entryMutex);
-    *entry = entryTmp;
+    return EntryType { width, height, nrchannels, data, type };
 }
 
 void Texture::loadOnMain() {
@@ -105,12 +112,16 @@ Texture::Texture(const Texture &tex)
 }
 Texture::Texture(Texture &&oldTexture) noexcept
 : textureCacheKey(std::move(oldTexture.textureCacheKey)), IDCache(oldTexture.IDCache),
-  textureUnit(oldTexture.textureUnit), shaderName(std::move(oldTexture.shaderName))
+  textureUnit(oldTexture.textureUnit), shaderName(std::move(oldTexture.shaderName)),
+  thread(std::move(oldTexture.thread)), isLoading(oldTexture.isLoading),
+  isLoaded(oldTexture.isLoaded), entry(oldTexture.entry)
 {
+    std::cout << "Move constructor, textureCachekey: " << textureCacheKey << ", isLoading: " << isLoading << ", oldTexture.isLoading: " << oldTexture.isLoading << '\n';
     oldTexture.textureCacheKey.clear();
     oldTexture.IDCache = 0;
     oldTexture.textureUnit = 0;
     oldTexture.shaderName.clear();
+    oldTexture.isLoading = false;
 }
 
 Texture& Texture::operator=(const Texture &tex) {
@@ -119,6 +130,7 @@ Texture& Texture::operator=(const Texture &tex) {
     return *this;
 }
 Texture& Texture::operator=(Texture &&oldTexture) noexcept {
+    std::cout << "move assignment\n";
     Texture move(std::move(oldTexture));
     swap(*this, move);
     return *this;
@@ -126,17 +138,44 @@ Texture& Texture::operator=(Texture &&oldTexture) noexcept {
 
 void Texture::pollIsLoaded() {
     if(!isLoaded) {
+        using namespace std::string_literals;
+        if(textureCacheKey == "../res/repeating_mud_texture.jpeg"s) {
+            std::cout << "textureCacheKey: " << textureCacheKey << '\n';
+            if(isLoading) {
+                std::cout << "isLoading: " << isLoading << '\n';
+                std::cout << "!entry.has_value(): " << !entry.has_value() << '\n';
+                std::cout << "!textureCache.at(textureCacheKey).first.has_value(): "
+                          << !textureCache.at(textureCacheKey).first.has_value() << '\n';
+                std::cout << "future_is_ready(thread): " << future_is_ready(thread) << '\n';
+            }
+        }
+
+        if(isLoading && !entry.has_value() && !textureCache.at(textureCacheKey).first.has_value() && future_is_ready(thread)) {
+            using namespace std::string_literals;
+            if(textureCacheKey == "../res/repeating_mud_texture.jpeg"s) {
+                std::cout << "entry = thread.get();\n";
+            }
+            entry = thread.get();
+        }
+
         if(textureCache.at(textureCacheKey).first.has_value()) {
             assert(!entry.has_value());
+            assert(!isLoading);
 
-            std::cout << "pollIsLoaded first option\n";
+            using namespace std::string_literals;
+            if(textureCacheKey == "../res/repeating_mud_texture.jpeg"s) {
+                std::cout << "pollIsLoaded first option\n";
+            }
             IDCache = textureCache.at(textureCacheKey).first->getID();
             isLoaded = true;
         }
+        else if(entry.has_value() && !textureCache.at(textureCacheKey).first.has_value()) {
+            assert(isLoading);
 
-        std::lock_guard<std::mutex> lock(entryMutex);
-        if(entry.has_value() && !textureCache.at(textureCacheKey).first.has_value()) {
-            std::cout << "pollIsLoaded second option\n";
+            using namespace std::string_literals;
+            if(textureCacheKey == "../res/repeating_mud_texture.jpeg"s) {
+                std::cout << "pollIsLoaded second option\n";
+            }
             loadOnMain();
             isLoaded = true;
             entry = std::nullopt;

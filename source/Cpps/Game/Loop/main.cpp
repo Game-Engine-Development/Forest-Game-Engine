@@ -149,14 +149,20 @@ int main() {
         //render
         hdr.bind();
 
+        //@todo get rid of polling to fix garbage like this:
+        terrainTexture.bind(entityShader);
+        terrainTexture.unbind();
+
         skybox.render(skyboxShader, camera);
+
+        //playerEntity.render(camera, entityShader, lightPos, lightColor);
 
         for (Entity &entity : entities) {
             entity.render(camera, normalMappedShader, lightPos, lightColor);
         }
 
         for(Terrain &terrain : terrains) {
-            //terrain.render(camera, simpleTerrainShader, lightPos, lightColor);
+            terrain.render(camera, simpleTerrainShader, lightPos, lightColor);
         }
 
         hdr.render(entityShader, 1);
