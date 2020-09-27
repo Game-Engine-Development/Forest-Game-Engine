@@ -15,8 +15,8 @@ bool isIntegral(const char num) {
     return ZERO <= num && num <= NINE;
 }
 
-void reverse(unsigned char *start, const std::size_t block_size, const std::size_t numOfBlocks) {
-    unsigned char *end = (start+(block_size*numOfBlocks))-1; //-1 because arrays are 0 indexed
+void reverse(unsigned char *const start, const std::size_t block_size, const std::size_t numOfBlocks) {
+    unsigned char *const end = (start+(block_size*numOfBlocks))-1; //-1 because arrays are 0 indexed
     for(int x1 = 0; x1 < numOfBlocks/2; ++x1) {
         for(int x2 = 0; x2 < block_size; ++x2) {
             std::swap(start[x1*block_size + x2], end[-(x1*block_size) - (block_size-1) + x2]);

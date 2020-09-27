@@ -1,6 +1,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../../../../libraries/stb_image.h" //needs to be imported here because of an issue in stb_image
 
+#include "Headers/Engine/Scene/ENTTWrapper.h"
+#include "Headers/Engine/Utils/DataStructures/Octtree.h"
+
 #include <vector>
 #include <array>
 
@@ -24,13 +27,12 @@
 #include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Models/Entity.h"
 #include "Headers/Engine/Terrain/Terrain.h"
-#include "Headers/Engine/Terrain/TerrainTextureMap.h"
 #include "Headers/Engine/IO/Input.h"
 #include "Headers/Engine/Skybox/Skybox.h"
 #include "Headers/Engine/IO/Window.h"
 #include "Headers/Engine/Graphics/HDR.h"
 #include "Headers/Engine/Graphics/Materials/Material.h"
-#include "Headers/Engine/Constants.h"
+#include "Headers/Engine/Scene/LevelEditor.h"
 
 //@todo optimize startup time so that not so much time is spent loading files (using async multithreading)
 
@@ -43,6 +45,7 @@ int main() {
     SoLoud::Wav gWave;      // One wave file
 
     HDR hdr(window);
+
 
     gSoloud.init(); // Initialize SoLoud
 
@@ -117,25 +120,8 @@ int main() {
         }
     }
 
-    // Setup Dear ImGui context
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
-    // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsClassic();
-
-    const char *const glsl_version = "#version 330 core";
-    ImGui_ImplGlfw_InitForOpenGL(window.getWindow(), true);
-    ImGui_ImplOpenGL3_Init(glsl_version);
-
-    constexpr int DATA_SIZE = 50;
-    char data[DATA_SIZE];
-
-    static MemoryEditor mem_edit;
+    LevelEditor editor(&window);
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
@@ -169,34 +155,15 @@ int main() {
 
 
 
-
-
-        // Start the Dear ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-
-        static bool show = false;
-
-        mem_edit.DrawWindow("Memory Editor", data, DATA_SIZE);
-
-        if (show) ImGui::ShowDemoWindow(&show);
-
-        // Rendering
-        ImGui::Render();
-        int display_w, display_h;
-        glfwGetFramebufferSize(window.getWindow(), &display_w, &display_h);
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        LevelEditor::update(terrainMeshes);
 
 
         glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
     }
 
-    // IMGUI Cleanup
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    std::cout << "program closing\n";
+
 
     gSoloud.deinit(); // Clean up!
 

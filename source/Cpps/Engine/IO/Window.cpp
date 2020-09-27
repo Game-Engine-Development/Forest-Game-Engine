@@ -26,9 +26,6 @@ Window::Window(Camera &camera) {
 
     camera.setAspectRatio(width/height);
 
-    std::cout << "width: " << width << std::endl;
-    std::cout << "height: " << height << std::endl;
-
     window = glfwCreateWindow(static_cast<int>(width), static_cast<int>(height), "Forest", monitor, nullptr);
     if (window == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;

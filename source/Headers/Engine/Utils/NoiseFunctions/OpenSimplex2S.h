@@ -448,8 +448,6 @@ namespace Noise
 
         struct StaticConstructor {
             StaticConstructor() {
-                std::cout << "StaticConstructor called\n";
-
                 for (unsigned int i = 0; i < 8u; i++) {
                     int i1, j1, i2, j2;
                     if ((i & 1u) == 0) {

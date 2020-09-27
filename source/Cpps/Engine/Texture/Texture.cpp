@@ -21,21 +21,11 @@ Texture::Texture(const std::string& filename, const int unit, const std::optiona
 
     if(textureCache.count(filename)) {
         textureCache.at(filename).second += 1;
-
-        std::cout << "textureCacheKey: " << textureCacheKey << ", isLoading: " << isLoading << '\n';
-
         pollIsLoaded();
     }
     else {
         isLoading = true;
-
-        std::cout << "textureCacheKey: " << textureCacheKey << ", isLoading: " << isLoading << '\n';
-
         addNullEntry();
-
-        //loadFromDisk(&textureCacheKey);
-        //pollIsLoaded();
-
         thread = std::async(std::launch::async, loadFromDisk, textureCacheKey);
     }
 }
@@ -45,8 +35,6 @@ void Texture::addNullEntry() {
 }
 
 EntryType Texture::loadFromDisk(const std::string textureCacheKey) {
-    std::cout << "loadFromDisk: " << textureCacheKey << std::endl;
-
     int width{}, height{}, nrchannels{};
     unsigned char *data = nullptr;
 
@@ -70,12 +58,9 @@ EntryType Texture::loadFromDisk(const std::string textureCacheKey) {
 }
 
 void Texture::loadOnMain() {
-    std::cout << "loadOnMain: " << textureCacheKey << std::endl;
-
     unsigned int ID{};
 
     glGenTextures(1, &ID);
-    std::cout << "ID in Texture contructor: " << ID << '\n';
 
     glActiveTexture(GL_TEXTURE0 + textureUnit);
     glBindTexture(GL_TEXTURE_2D, ID);
@@ -116,7 +101,6 @@ Texture::Texture(Texture &&oldTexture) noexcept
   thread(std::move(oldTexture.thread)), isLoading(oldTexture.isLoading),
   isLoaded(oldTexture.isLoaded), entry(oldTexture.entry)
 {
-    std::cout << "Move constructor, textureCachekey: " << textureCacheKey << ", isLoading: " << isLoading << ", oldTexture.isLoading: " << oldTexture.isLoading << '\n';
     oldTexture.textureCacheKey.clear();
     oldTexture.IDCache = 0;
     oldTexture.textureUnit = 0;
@@ -130,7 +114,6 @@ Texture& Texture::operator=(const Texture &tex) {
     return *this;
 }
 Texture& Texture::operator=(Texture &&oldTexture) noexcept {
-    std::cout << "move assignment\n";
     Texture move(std::move(oldTexture));
     swap(*this, move);
     return *this;
@@ -138,23 +121,7 @@ Texture& Texture::operator=(Texture &&oldTexture) noexcept {
 
 void Texture::pollIsLoaded() {
     if(!isLoaded) {
-        using namespace std::string_literals;
-        if(textureCacheKey == "../res/repeating_mud_texture.jpeg"s) {
-            std::cout << "textureCacheKey: " << textureCacheKey << '\n';
-            if(isLoading) {
-                std::cout << "isLoading: " << isLoading << '\n';
-                std::cout << "!entry.has_value(): " << !entry.has_value() << '\n';
-                std::cout << "!textureCache.at(textureCacheKey).first.has_value(): "
-                          << !textureCache.at(textureCacheKey).first.has_value() << '\n';
-                std::cout << "future_is_ready(thread): " << future_is_ready(thread) << '\n';
-            }
-        }
-
         if(isLoading && !entry.has_value() && !textureCache.at(textureCacheKey).first.has_value() && future_is_ready(thread)) {
-            using namespace std::string_literals;
-            if(textureCacheKey == "../res/repeating_mud_texture.jpeg"s) {
-                std::cout << "entry = thread.get();\n";
-            }
             entry = thread.get();
         }
 
@@ -162,20 +129,12 @@ void Texture::pollIsLoaded() {
             assert(!entry.has_value());
             assert(!isLoading);
 
-            using namespace std::string_literals;
-            if(textureCacheKey == "../res/repeating_mud_texture.jpeg"s) {
-                std::cout << "pollIsLoaded first option\n";
-            }
             IDCache = textureCache.at(textureCacheKey).first->getID();
             isLoaded = true;
         }
         else if(entry.has_value() && !textureCache.at(textureCacheKey).first.has_value()) {
             assert(isLoading);
 
-            using namespace std::string_literals;
-            if(textureCacheKey == "../res/repeating_mud_texture.jpeg"s) {
-                std::cout << "pollIsLoaded second option\n";
-            }
             loadOnMain();
             isLoaded = true;
             entry = std::nullopt;

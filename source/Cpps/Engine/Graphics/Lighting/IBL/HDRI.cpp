@@ -22,7 +22,7 @@ HDRI::HDRI(const char* fileName) {
     }
     else
     {
-        std::cout << "Failed to load HDR image." << std::endl;
+        std::cerr << "Failed to load HDR image." << std::endl;
     }
 }
 

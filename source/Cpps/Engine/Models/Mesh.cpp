@@ -245,11 +245,9 @@ Mesh::~Mesh() {
 
 void Mesh::pollIsLoaded() {
     if(!isLoaded && meshCache.at(meshCacheKey).first.has_value()) {
-        //std::cout << "Mesh::pollIsLoaded()\n";
         VAOCache = meshCache.at(meshCacheKey).first->getVAO();
         numOfVerticesCache = meshCache.at(meshCacheKey).first->getNumOfVertices();
         isLoaded = true;
-        //std::cout << "VAOCache: " << VAOCache << ", numOfVerticesCache: " << numOfVerticesCache << '\n';
     }
 }
 

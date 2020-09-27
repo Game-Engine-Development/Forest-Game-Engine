@@ -68,9 +68,12 @@ TerrainMesh::TerrainMesh(const char *const filename, const long seed) : noise(No
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     unbindVAO();
+
+    std::cout << "Construction VAO: " << VAO << '\n';
 }
 
 TerrainMesh::~TerrainMesh() {
+    std::cout << "Destruction VAO: " << VAO << '\n';
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &texCoordBuffer);
     glDeleteBuffers(1, &normalBuffer);
@@ -95,7 +98,6 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
     unsigned char *const data = stbi_load(filename, &width, &height, &nrchannels, 1);
     dataContainer = std::make_shared<stb_PointerContainer>(data, width, height, nrchannels);
 
-    std::cout << "height: " << height << ", width: " << width << '\n';
     for(int i = 0; i < height; ++i) {
         for(int j = 0; j < height; ++j) {
             const auto floatI = static_cast<float>(i);

@@ -7,7 +7,6 @@ void swap(TextureResourceContainer &texContainer1, TextureResourceContainer &tex
 TextureResourceContainer::TextureResourceContainer(const unsigned int IDPar) noexcept : ID(IDPar)
 {
     //assert(!ID);
-    std::cout << "TextureResourceContainer ID: " << ID << '\n';
 }
 
 [[nodiscard]] unsigned int TextureResourceContainer::getID() const noexcept {
