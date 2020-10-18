@@ -43,7 +43,7 @@ void Button::onClick() noexcept {
 void Button::detectEdges() noexcept {
     edges = {1.0, -1.0, 1.0, -1.0};
 
-    for (const glm::vec2 vertex : quad.getVertices()){
+    for (const glm::vec2 vertex : Quad::getVertices()){
         const float cursorEdgeX = mathRound(vertex.x*quad.getScale().x + quad.getPos().x + quad.getOffset().x);
         edges[0] = std::clamp(edges[0], edges[0], cursorEdgeX);
         edges[1] = std::clamp(edges[1], cursorEdgeX, edges[1]);
@@ -59,7 +59,7 @@ void Button::clampToScreen() {
 
     offscreen.fill(false);
 
-    for (const glm::vec2 vertex : quad.getVertices()){
+    for (const glm::vec2 vertex : Quad::getVertices()){
         const glm::vec2 cursorEdge = vertex*quad.getScale() + quad.getPos();
         quad.setOffset(clampSides(cursorEdge, quad.getOffset()));
 

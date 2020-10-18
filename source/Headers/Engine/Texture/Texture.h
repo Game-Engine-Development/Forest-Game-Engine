@@ -18,7 +18,7 @@
 
 #include "Headers/Engine/Shader/Shader.h"
 #include "Headers/Engine/ResourceContainers/TextureResourceContainer.h"
-#include "Headers/Engine/Constants.h"
+#include "Headers/Engine/Utils/CommonDeclarations.h"
 #include "Headers/Engine/Utils/MiscUtils.h"
 
 struct EntryType {

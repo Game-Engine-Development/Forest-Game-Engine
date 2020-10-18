@@ -24,7 +24,7 @@
 #include "Headers/Engine/ResourceContainers/TextureResourceContainer.h"
 #include "Headers/Engine/Utils/MiscUtils.h"
 #include "Headers/Engine/Shader/Shader.h"
-#include "Headers/Engine/Constants.h"
+#include "Headers/Engine/Utils/CommonDeclarations.h"
 
 struct Character {
     explicit Character(const std::array<int, 8> &numbersInLine)

@@ -2,7 +2,7 @@
 #include "../../../../libraries/stb_image.h" //needs to be imported here because of an issue in stb_image
 
 #include "Headers/Engine/Scene/ENTTWrapper.h"
-#include "Headers/Engine/Utils/DataStructures/Octtree.h"
+#include "Headers/Engine/Utils/DataStructures/Ntree.h"
 
 #include <vector>
 #include <array>
@@ -10,13 +10,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
-#include <imgui.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
+
 
 #include "../libraries/entt/single_include/entt/entt.hpp"
-
-#include "../temporary_lib/imgui_club/imgui_memory_editor/imgui_memory_editor.h"
 
 #define WITH_MINIAUDIO
 #include "../libraries/soloud/src/backend/miniaudio/miniaudio.h"
@@ -33,13 +29,28 @@
 #include "Headers/Engine/Graphics/HDR.h"
 #include "Headers/Engine/Graphics/Materials/Material.h"
 #include "Headers/Engine/Scene/LevelEditor.h"
+#include "Headers/Engine/Utils/Raycast.h"
+#include "Headers/Engine/Utils/CommonDeclarations.h"
+
+#include "Headers/Engine/Models/Sphere.h"
 
 //@todo optimize startup time so that not so much time is spent loading files (using async multithreading)
 
 int main() {
     Camera camera;
     Window window(camera);
-    Input input(&window, &camera);
+
+    using namespace std::string_literals;
+    Entity plane("../res/container.obj"s, false, std::vector{"../res/human.jpg"s},
+                 glm::vec3(0), glm::vec3(0), glm::vec3(1000, 0.0, 1000));
+
+
+    std::vector<Sphere> spheres;
+    spheres.reserve(5);
+    for(int i = 0; i < 5; ++i) {
+        spheres.emplace_back(Transform{glm::vec3(i*10), glm::vec3(0), glm::vec3(1)}, Mesh("../res/Sphere.obj"s, false));
+    }
+
 
     SoLoud::Soloud gSoloud; // SoLoud engine
     SoLoud::Wav gWave;      // One wave file
@@ -72,11 +83,12 @@ int main() {
             "../source/Cpps/Engine/Skybox/Shaders/skyboxVertexShader.glsl",
             "../source/Cpps/Engine/Skybox/Shaders/skyboxFragmentShader.glsl"
     );
+    Shader simpleDemoShaders(
+            "../source/Cpps/Engine/Models/Shaders/SimpleDemoVertex.glsl",
+            "../source/Cpps/Engine/Models/Shaders/SimpleDemoFragment.glsl"
+    );
 
-    std::array<TerrainMesh, 2> terrainMeshes {
-            TerrainMesh("../res/heightmap.png", 100),
-            TerrainMesh("../res/heightmap2.png", 150),
-    };
+    TerrainMesh terrainMesh("../res/heightmap.png");
 
     Texture terrainTexture("../res/repeating_mud_texture.jpeg", 0);
 
@@ -116,10 +128,18 @@ int main() {
     std::array<Terrain, 9> terrains;
     for (int i = 0, index = 0; i < 3 && index < terrains.size(); ++i) {
         for (int j = 0; j < 3; ++j, ++index) {
-            terrains[index] = Terrain(terrainTexture, &terrainMeshes[0], i-1, j-1);
+            terrains[index] = Terrain(terrainTexture, &terrainMesh, i-1, j-1);
         }
     }
 
+    Input input(&window, &camera, &spheres, &terrains);
+
+
+    Entity worldBox("../res/container.obj"s, false, std::vector{"../res/wolf.jpg"s},
+                    glm::vec3(0), glm::vec3(0), glm::vec3(1));
+
+//    Entity plane("../res/container.obj"s, false, std::vector{"../res/human.jpg"s},
+//                    glm::vec3(0), glm::vec3(0), glm::vec3(1000, 0.0, 1000));
 
     LevelEditor editor(&window);
 
@@ -130,40 +150,67 @@ int main() {
 
         glClear(static_cast<unsigned int>(GL_COLOR_BUFFER_BIT) | static_cast<unsigned int>(GL_DEPTH_BUFFER_BIT));
 
-        player.movePlayer(entities, terrains);
+        static bool isSet = false;
+
+        if(Input::notCursor()) {
+            player.movePlayer(entities, terrains);
+            isSet = false;
+        }
+        else {
+            //std::cout << "Input::getMouseX(): " << Input::getMouseX() << ", Input::getMouseY(): " << Input::getMouseY() << '\n';
+            //std::cout << "worldBox.x: " << worldBox.getPos().x << ", worldBox.y: " << worldBox.getPos().y << ", worldBox.z: " << worldBox.getPos().z << '\n';
+            //std::cout << "camera.x: " << camera.getPos().x << ", camera.y: " << camera.getPos().y << ", camera.z: " << camera.getPos().z << '\n';
+            if(!isSet) {
+                camera.setPosition(spheres[0].getPos() + glm::vec3(1));
+                isSet = true;
+            }
+            SpacePartitionTree<8> tree;
+
+        }
 
         //render
         hdr.bind();
 
         //@todo get rid of polling to fix garbage like this:
-        terrainTexture.bind(entityShader);
+        terrainTexture.bind(simpleTerrainShader);
         terrainTexture.unbind();
 
         skybox.render(skyboxShader, camera);
 
-        //playerEntity.render(camera, entityShader, lightPos, lightColor);
+        if(Input::notCursor()) {
+            playerEntity.render(camera, normalMappedShader, lightPos, lightColor);
 
-        for (Entity &entity : entities) {
-            entity.render(camera, normalMappedShader, lightPos, lightColor);
+            for (Entity &entity : entities) {
+                entity.render(camera, normalMappedShader, lightPos, lightColor);
+            }
+        }
+        else {
+            for(int i = 0; i < spheres.size(); ++i) {
+                spheres[i].render(camera, simpleDemoShaders, (i == Input::get_g_selected_sphere()) /*if i == chosen circle*/);
+            }
+            if(Input::getPointOfIntersection().has_value()) {
+                std::cout << "has_value()\n";
+                worldBox.setPos(Input::getPointOfIntersection().value());
+            }
+            worldBox.render(camera, normalMappedShader, lightPos, lightColor);
+            //plane.render(camera, normalMappedShader, lightPos, lightColor);
         }
 
-        for(Terrain &terrain : terrains) {
-            terrain.render(camera, simpleTerrainShader, lightPos, lightColor);
-        }
+        Terrain &terrain = terrains[0];
+        //for (Terrain &terrain : terrains) {
+        terrain.render(camera, simpleTerrainShader, lightPos, lightColor);
+        //}
 
         hdr.render(entityShader, 1);
 
 
 
-        LevelEditor::update(terrainMeshes);
+        LevelEditor::update(terrainMesh);
 
 
         glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
     }
-
-    std::cout << "program closing\n";
-
 
     gSoloud.deinit(); // Clean up!
 

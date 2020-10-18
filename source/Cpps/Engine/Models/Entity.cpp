@@ -8,7 +8,7 @@ Entity::Entity(
         const glm::vec3 position,
         const glm::vec3 rotation,
         const glm::vec3 scale) noexcept
-: mesh(meshFilename, isNormalMapped), position(position), rotation(rotation), scale(scale)
+: mesh(meshFilename, isNormalMapped), transform(Transform{position, rotation, scale}), modelMatrix(createModelMatrix(transform))
 {
     if(textureUnits.has_value() && (textureFilenames.size() == textureUnits->size())) {
         for (int i = 0; i < textureFilenames.size(); ++i) {
@@ -20,7 +20,6 @@ Entity::Entity(
             textures.emplace_back(textureFilenames[i], i);
         }
     }
-    createModelMatrix();
     moveEntityPlanes(mesh.getVertices());
 }
 
@@ -73,9 +72,8 @@ Entity::Entity(
         const glm::vec3 position,
         const glm::vec3 rotation,
         const glm::vec3 scale) noexcept
-        : mesh(meshFilename, isNormalMapped), shader(shader), material(std::move(material)), position(position), rotation(rotation), scale(scale)
+        : mesh(meshFilename, isNormalMapped), shader(shader), material(std::move(material)), transform(Transform{position, rotation, scale}), modelMatrix(createModelMatrix(transform))
 {
-    createModelMatrix();
     moveEntityPlanes(mesh.getVertices());
 }
 
@@ -149,18 +147,8 @@ void Entity::render(const Camera &camera, const std::vector<PointLight> &pointLi
     Mesh::unbindVAO();
 }
 
-glm::mat4 Entity::createModelMatrix() noexcept {
-    modelMatrix = glm::mat4(1.0f);
-    modelMatrix = glm::translate(modelMatrix, position);
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.x), glm::vec3(1,0,0));
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.y), glm::vec3(0,1,0));
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.z), glm::vec3(0,0,1));
-    modelMatrix = glm::scale(modelMatrix, scale);
-    return modelMatrix;
-}
-
 glm::vec3 Entity::getPos() const noexcept {
-    return position;
+    return transform.pos;
 }
 
 [[nodiscard]] const std::vector<Plane>& Entity::getPlanes() const noexcept {
@@ -172,43 +160,43 @@ glm::vec3 Entity::getPos() const noexcept {
 }
 
 void Entity::setRotation(const glm::vec3 newRotation) noexcept {
-    rotation = newRotation;
-    createModelMatrix();
+    transform.rotation = newRotation;
+    modelMatrix = createModelMatrix(transform);
 }
 
 void Entity::setPos(const glm::vec3 newPos) noexcept {
-    position = newPos;
-    createModelMatrix();
+    transform.pos = newPos;
+    modelMatrix = createModelMatrix(transform);
 }
 
 void Entity::setPosY(const float newPosY) noexcept {
-    position.y = newPosY;
-    createModelMatrix();
+    transform.pos.y = newPosY;
+    modelMatrix = createModelMatrix(transform);
 }
 
 void Entity::rotate(const glm::vec3 rotationPar) noexcept {
-    rotation += rotationPar;
+    transform.rotation += rotationPar;
     limitRotation();
-    createModelMatrix();
+    modelMatrix = createModelMatrix(transform);
 }
 
 void Entity::translate(const glm::vec3 translation) noexcept {
-    position += translation;
-    createModelMatrix();
+    transform.pos += translation;
+    modelMatrix = createModelMatrix(transform);
 }
 
 void Entity::limitRotation() noexcept {
     for(int i = 0; i < glm::vec3::length(); ++i) {
-        if (rotation[i] > 360) {
-            rotation[i] -= 360;
-        } else if (rotation[i] < 0) {
-            rotation[i] += 360;
+        if (transform.rotation[i] > 360) {
+            transform.rotation[i] -= 360;
+        } else if (transform.rotation[i] < 0) {
+            transform.rotation[i] += 360;
         }
     }
 }
 
 glm::vec3 Entity::getScale() const noexcept {
-    return scale;
+    return transform.scale;
 }
 
 void Entity::moveEntityPlanes(const std::vector<glm::vec3> &vertices) noexcept {

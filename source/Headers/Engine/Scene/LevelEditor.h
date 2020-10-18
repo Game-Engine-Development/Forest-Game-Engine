@@ -112,7 +112,7 @@ public:
                 if (ImGui::MenuItem("Flag: NoResize",               "", (dockspace_flags & ImGuiDockNodeFlags_NoResize) != 0))                { dockspace_flags ^= ImGuiDockNodeFlags_NoResize; }
                 if (ImGui::MenuItem("Flag: NoDockingInCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_NoDockingInCentralNode) != 0))  { dockspace_flags ^= ImGuiDockNodeFlags_NoDockingInCentralNode; }
                 if (ImGui::MenuItem("Flag: AutoHideTabBar",         "", (dockspace_flags & ImGuiDockNodeFlags_AutoHideTabBar) != 0))          { dockspace_flags ^= ImGuiDockNodeFlags_AutoHideTabBar; }
-                if (ImGui::MenuItem("Flag: PassthruCentralNode",    "", (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) != 0, opt_fullscreen)) { dockspace_flags ^= ImGuiDockNodeFlags_PassthruCentralNode; }
+                //if (ImGui::MenuItem("Flag: PassthruCentralNode",    "", (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) != 0, opt_fullscreen)) { dockspace_flags ^= ImGuiDockNodeFlags_PassthruCentralNode; }
                 ImGui::Separator();
 
                 if (ImGui::MenuItem("Close", NULL, false, p_open != NULL))
@@ -126,7 +126,7 @@ public:
         ImGui::End();
     }
 
-    static void update(std::array<TerrainMesh, 2> &terrainMeshes) {
+    static void update(TerrainMesh &terrainMesh) {
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
@@ -144,7 +144,7 @@ public:
             static int value{};
             ImGui::SliderInt("value", &value, 0, 1000);
             if(oldValue != value) {
-                terrainMeshes[0] = TerrainMesh("../res/heightmap.png", value);
+                terrainMesh = TerrainMesh("../res/heightmap.png", value);
             }
             oldValue = value;
             ImGui::End();

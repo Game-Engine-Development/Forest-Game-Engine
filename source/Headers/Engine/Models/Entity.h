@@ -15,14 +15,16 @@
 #include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Collisions/Plane.h"
 #include "Headers/Engine/Graphics/Materials/Material.h"
-#include <Headers/Engine/Graphics/Lighting/PointLight.h>
+#include "Headers/Engine/Graphics/Lighting/PointLight.h"
+#include "Headers/Engine/Utils/CommonDeclarations.h"
+#include "Headers/Engine/Utils/MiscUtils.h"
 
 class Entity {
     Mesh mesh;
     std::vector<Texture> textures;
     Shader shader;
     std::optional<Material> material;
-    glm::vec3 rotation{}, position{}, scale{};
+    Transform transform;
     glm::mat4 modelMatrix{};
     std::vector<Plane> planes;
     double verticalOffset = 0;
@@ -100,8 +102,6 @@ public:
     void setRotation(glm::vec3 newRotation) noexcept;
     void rotate(glm::vec3 rotation) noexcept;
     void translate(glm::vec3 translation) noexcept;
-
-    glm::mat4 createModelMatrix() noexcept;
 };
 
 

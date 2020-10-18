@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include <array>
 
 #include <GLFW/glfw3.h>
@@ -8,9 +9,12 @@
 #include <soloud_wav.h>
 
 #include "Headers/Engine/Camera/Camera.h"
-#include "Headers/Game/Player/Player.h"
-#include "Window.h"
+#include "Headers/Engine/IO/Window.h"
+#include "Headers/Engine/Utils/Raycast.h"
 #include "Headers/Engine/Utils/MiscUtils.h"
+
+#include "Headers/Game/Player/Player.h"
+#include "Headers/Engine/Models/Sphere.h"
 
 class Input {
 public:
@@ -21,7 +25,9 @@ public:
 
     Input() noexcept = default;
 
-    Input(Window *window, Camera *camera) noexcept;
+    Input(Window *window, Camera *camera, std::vector<Sphere> *spheres, std::array<Terrain, 9> *terrains);
+
+    static int get_g_selected_sphere() noexcept;
 
     static bool isKeyDown(int key) noexcept;
     static bool isButtonDown(int button) noexcept;
@@ -32,20 +38,30 @@ public:
     static double getMouseY() noexcept;
     static double getMouseX() noexcept;
 
-    static bool isShouldShoot() noexcept;
-    static void setShouldShoot(bool value) noexcept;
+    static bool notCursor() noexcept;
 
-    static void processInput(Player &player, SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window) noexcept;
+    static std::optional<glm::vec3> getPointOfIntersection() {
+         return instance->pointOfIntersection;
+    }
+
+    static void processInput(Player &player, SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window);
 
 private:
-    void processInputImpl(Player &player, SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window) noexcept;
+    void processInputImpl(Player &player, SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window);
+    static void raycastPickSphere();
 
     static void mouse_callback([[maybe_unused]] GLFWwindow* window, double xpos, double ypos);
     static void scroll_callback([[maybe_unused]] GLFWwindow* window, double xoffset, double yoffset);
     static void cursor_enter_callback([[maybe_unused]] GLFWwindow* window, int entered);
 
-    GLFWwindow *m_window{};
+    Window *m_window{};
     Camera *m_camera{};
+
+    std::array<Terrain, 9> *terrains = nullptr;
+    std::optional<glm::vec3> pointOfIntersection = std::nullopt;
+
+    std::vector<Sphere> *spheres = nullptr;
+    int g_selected_sphere = -1;
 
     std::array<bool, GLFW_KEY_LAST> m_keys{};
     std::array<bool, GLFW_MOUSE_BUTTON_LAST> m_buttons{};
@@ -60,5 +76,6 @@ private:
     bool cursor = false;
     bool held = false;
     bool cursorHeld = false;
-    bool shouldShoot = false;
+
+    bool firstNotCursor = false;
 };

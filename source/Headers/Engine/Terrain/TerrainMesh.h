@@ -28,7 +28,12 @@ class TerrainMesh {
 
     static constexpr float multiplier = 50.f;
 
+    //x or z:
     int height{};
+
+    //y:
+    float minHeight{};
+    float maxHeight{};
 
     unsigned int VAO{}, VBO{}, EBO{}, texCoordBuffer{}, normalBuffer{}, numOfVertices{};
 
@@ -105,6 +110,9 @@ public:
     [[nodiscard]] glm::vec3 calculateNormal(int x, int z) const;
 
     [[nodiscard]] float getHeight(int x, int z) const;
+
+    [[nodiscard]] float getMinHeight() const;
+    [[nodiscard]] float getMaxHeight() const;
 
     ~TerrainMesh();
 };

@@ -7,7 +7,7 @@
 #include <cassert>
 #include <string>
 
-#include "Headers/Engine/Constants.h"
+#include "CommonDeclarations.h"
 
 //must be defined in header since it uses class template arguments
 template <typename Key, typename Value>

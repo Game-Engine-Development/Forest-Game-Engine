@@ -22,7 +22,7 @@ freely, subject to the following restrictions:
    distribution.
 */
 
-#include <string.h>
+#include <cstring>
 #include "soloud_internal.h"
 
 // Core "basic" operations - play, stop, etc
@@ -111,7 +111,7 @@ namespace SoLoud
 
 	handle Soloud::playClocked(time aSoundTime, AudioSource &aSound, float aVolume, float aPan, unsigned int aBus)
 	{
-		handle h = play(aSound, aVolume, aPan, 1, aBus);
+		handle h = play(aSound, aVolume, aPan, true, aBus);
 		lockAudioMutex_internal();
 		// mLastClockedTime is cleared to zero at start of every output buffer
 		time lasttime = mLastClockedTime;
@@ -126,7 +126,7 @@ namespace SoLoud
 		if (samples < 0 || samples > 2048)		
 			samples = 0;
 		setDelaySamples(h, samples);
-		setPause(h, 0);
+		setPause(h, false);
 		return h;
 	}
 

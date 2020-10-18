@@ -15,7 +15,7 @@ void Terrain::render(const Camera& camera, const Shader& shader, glm::vec3 light
     //terrainTextureMap.bind(shader);
     camera.setMatrices(shader);
     const int modelLoc = glGetUniformLocation(shader.ID, "model");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(createModelMatrix()));
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(createModelMatrixTerrain()));
     const int lightPosLoc = glGetUniformLocation(shader.ID, "lightPos");
     glUniform3fv(lightPosLoc, 1, glm::value_ptr(lightPos));
     const int lightColorLoc = glGetUniformLocation(shader.ID, "lightColor");
@@ -32,14 +32,14 @@ void Terrain::render(const Camera& camera, const Shader& shader, glm::vec3 light
     return position;
 }
 
-[[nodiscard]] glm::mat4 Terrain::createModelMatrix() const noexcept {
+[[nodiscard]] glm::mat4 Terrain::createModelMatrixTerrain() const noexcept {
     glm::mat4 modelMatrix = glm::mat4(1.0f);
     modelMatrix = glm::translate(modelMatrix, position);
     return modelMatrix;
 }
 
-float Terrain::getHeight(int vertexX, int vertexZ) const noexcept {
-    return terrainMesh->getHeight((float)vertexX, (float)vertexZ);
+[[nodiscard]] float Terrain::getHeight(const int vertexX, const int vertexZ) const noexcept {
+    return terrainMesh->getHeight(vertexX, vertexZ);
 }
 
 [[nodiscard]] float Terrain::getTerrainHeight(float worldX, float worldZ) const noexcept {
@@ -73,13 +73,10 @@ float Terrain::getAverageHeight(float terrainX, float terrainZ) const noexcept {
     while(z > 1) {
         --z;
     }
-    float height;
     if (x <= (1-z)) {
-        height = barryCentric(glm::vec3(0, bottomLeft, 0), glm::vec3(1, topLeft, 0), glm::vec3(0, bottomRight, 1), glm::vec2(x, z));
-    } else {
-        height = barryCentric(glm::vec3(1, topLeft, 0), glm::vec3(1, topRight, 1), glm::vec3(0, bottomRight, 1), glm::vec2(x, z));
+        return barryCentric(glm::vec3(0, bottomLeft, 0), glm::vec3(1, topLeft, 0), glm::vec3(0, bottomRight, 1), glm::vec2(x, z));
     }
-    return height;
+    return barryCentric(glm::vec3(1, topLeft, 0), glm::vec3(1, topRight, 1), glm::vec3(0, bottomRight, 1), glm::vec2(x, z));
 }
 
 [[nodiscard]] glm::vec3 Terrain::getTerrainNormal(const float worldX, const float worldZ) const noexcept {

@@ -12,14 +12,17 @@
 #include <glm/vec3.hpp>
 
 #include "Headers/Engine/IO/Window.h"
+#include "Headers/Engine/Utils/CommonDeclarations.h"
 
-float mathRound(float value);
+[[nodiscard]] float mathRound(float value) noexcept;
 
 bool isIntegral(char num);
 
 void reverse(unsigned char *start, std::size_t block_size, std::size_t numOfBlocks);
 
 void screenshot(const char *filename, const Window &window);
+
+glm::mat4 createModelMatrix(const Transform &transform) noexcept;
 
 template<typename T>
 bool future_is_ready(const std::future<T>& t);

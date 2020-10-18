@@ -15,15 +15,16 @@
 
 class Terrain {
     std::variant<TerrainTextureMap, Texture> terrainTextureMap;
-    TerrainMesh *terrainMesh{};
     glm::vec3 position{};
 
-    [[nodiscard]] glm::mat4 createModelMatrix() const noexcept;
+    [[nodiscard]] glm::mat4 createModelMatrixTerrain() const noexcept; //@todo fix this naming issue with ODR
     [[nodiscard]] float getHeight(int vertexX, int vertexZ) const noexcept;
     [[nodiscard]] float getAverageHeight(float terrainX, float terrainZ) const noexcept;
     static float barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos) noexcept;
 
 public:
+    TerrainMesh *terrainMesh{}; //make it public since Terrain doesn't own this pointer
+
     Terrain() noexcept = default;
 
     Terrain(std::variant<TerrainTextureMap, Texture> textureMap, TerrainMesh *terrainMesh, int gridX, int gridY) noexcept;

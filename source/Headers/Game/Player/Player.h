@@ -40,12 +40,14 @@ template<size_t N>
 void Player::movePlayer(std::vector<Entity> &entities, std::array<Terrain, N> &terrains) {
     glm::vec3 newRotation(0, -camera->getYaw(), 0);
     playerEntity->setRotation(newRotation);
+    //above two lines are optional and serve as a backup in case someone doesn't set the orientation in Input.cpp
+
     glm::vec3 finalMove = camera->getFront();
     finalMove.y = 0;
     finalMove = glm::normalize(finalMove);
     finalMove *= currentSpeed;
     finalMove += lateralSpeed * camera->getRight();
     handler.moveEntity(finalMove, entities, terrains);
-    camera->setPosition(playerEntity->getPos());
-    //camera->setPosition(glm::vec3(playerEntity->getPos().x, playerEntity->getPos().y + 20.f, playerEntity->getPos().z));
+    //camera->setPosition(playerEntity->getPos());
+    camera->setPosition(glm::vec3(playerEntity->getPos().x, playerEntity->getPos().y + 200.f, playerEntity->getPos().z));
 }

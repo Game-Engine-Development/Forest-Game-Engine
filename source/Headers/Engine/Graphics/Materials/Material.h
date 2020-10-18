@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Headers/Engine/Texture/Texture.h"
-#include "Headers/Engine/Constants.h"
+#include "Headers/Engine/Utils/CommonDeclarations.h"
 
 class Material {
     Texture albedo;

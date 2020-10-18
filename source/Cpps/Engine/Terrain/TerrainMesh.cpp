@@ -68,12 +68,9 @@ TerrainMesh::TerrainMesh(const char *const filename, const long seed) : noise(No
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     unbindVAO();
-
-    std::cout << "Construction VAO: " << VAO << '\n';
 }
 
 TerrainMesh::~TerrainMesh() {
-    std::cout << "Destruction VAO: " << VAO << '\n';
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &texCoordBuffer);
     glDeleteBuffers(1, &normalBuffer);
@@ -130,6 +127,15 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
             indices.push_back(bottomRight);
         }
     }
+
+
+    //possibly use std::min_max_element
+    const auto comp = [](const glm::vec3 a, const glm::vec3 b) { return a.y < b.y; };
+    const auto minmax = std::minmax_element(std::begin(vertices), std::end(vertices), comp);
+    minHeight = minmax.first->y;
+    std::cout << "minHeight: " << minHeight << '\n';
+    maxHeight = minmax.second->y;
+    std::cout << "maxHeight: " << maxHeight << '\n';
 }
 
 [[nodiscard]] float TerrainMesh::getHeightFromNoise(double x, double z) const {
@@ -155,7 +161,8 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
     const int clampedZ = std::clamp(z, 0, getWidth());
     const int index = clampedZ * height + clampedX;
     const float data = dataContainer->getData()[index];
-    const float ret = (data/127.5f - 1.0f) * MAX_HEIGHT;
+    const float ret = (data/128.f - 1.0f) * MAX_HEIGHT;
+    //std::cout << "ret: " << ret << '\n';
     return ret;
 }
 
@@ -174,4 +181,11 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
 
 [[nodiscard]] float TerrainMesh::getHeight(const int x, const int z) const {
     return (!noise.has_value()) ? getHeightFromHeightmap(x, z) : getHeightFromNoise(x, z);
+}
+
+[[nodiscard]] float TerrainMesh::getMinHeight() const {
+    return minHeight;
+}
+[[nodiscard]] float TerrainMesh::getMaxHeight() const {
+    return maxHeight;
 }
