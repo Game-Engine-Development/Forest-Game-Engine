@@ -20,6 +20,10 @@
 #include "Headers/Engine/Utils/MiscUtils.h"
 
 class Entity {
+    struct Transform {
+        glm::vec3 pos{}, rotation{}, scale{};
+    };
+
     Mesh mesh;
     std::vector<Texture> textures;
     Shader shader;

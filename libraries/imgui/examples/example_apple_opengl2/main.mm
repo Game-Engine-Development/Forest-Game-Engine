@@ -253,7 +253,7 @@
     ImGui::StyleColorsDark();
     //ImGui::StyleColorsClassic();
 
-    // Setup Platform/Renderer bindings
+    // Setup Platform/RenderSystem bindings
     ImGui_ImplOSX_Init();
     ImGui_ImplOpenGL2_Init();
 

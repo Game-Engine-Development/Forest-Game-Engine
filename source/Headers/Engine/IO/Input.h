@@ -44,10 +44,10 @@ public:
          return instance->pointOfIntersection;
     }
 
-    static void processInput(Player &player, SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window);
+    static void processInput(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window);
 
 private:
-    void processInputImpl(Player &player, SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window);
+    void processInputImpl(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window);
     static void raycastPickSphere();
 
     static void mouse_callback([[maybe_unused]] GLFWwindow* window, double xpos, double ypos);
@@ -76,6 +76,4 @@ private:
     bool cursor = false;
     bool held = false;
     bool cursorHeld = false;
-
-    bool firstNotCursor = false;
 };

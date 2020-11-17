@@ -42,37 +42,32 @@ void Terrain::render(const Camera& camera, const Shader& shader, glm::vec3 light
     return terrainMesh->getHeight(vertexX, vertexZ);
 }
 
-[[nodiscard]] float Terrain::getTerrainHeight(float worldX, float worldZ) const noexcept {
-    float x = worldX / TerrainMesh::SIZE * terrainMesh->getWidth();
-    while(x > terrainMesh->getWidth()) {
-        x -= terrainMesh->getWidth();
-    }
-    while(x < 0) {
-        x += terrainMesh->getWidth();
-    }
-    float z = worldZ / TerrainMesh::SIZE * terrainMesh->getWidth();
-    while(z > terrainMesh->getWidth()) {
-        z -= terrainMesh->getWidth();
-    }
-    while(z < 0) {
-        z += terrainMesh->getWidth();
-    }
-    return getAverageHeight(x, z);
+[[nodiscard]] float Terrain::getTerrainHeight(const float worldX, const float worldZ) const noexcept {
+    const auto getTerrainHeight1D = [](const TerrainMesh *const terrainMesh, const float worldN) {
+        const float x = (worldN / TerrainMesh::SIZE) * terrainMesh->getWidth();
+
+        float intX{};
+        const float decimal = std::modf(x, &intX);
+        const float clampedAbsX = std::abs(static_cast<int>(intX)) % terrainMesh->getWidth();
+        return ((x < 0) ? terrainMesh->getWidth() - clampedAbsX : clampedAbsX) + decimal;
+    };
+
+    return getAverageHeight(getTerrainHeight1D(terrainMesh, worldX), getTerrainHeight1D(terrainMesh, worldZ));
 }
 
-float Terrain::getAverageHeight(float terrainX, float terrainZ) const noexcept {
-    float bottomLeft = getHeight((int)terrainX, (int)terrainZ);
-    float bottomRight = getHeight((int)terrainX, (int)terrainZ + 1);
-    float topLeft = getHeight((int)terrainX + 1, (int)terrainZ);
-    float topRight = getHeight((int)terrainX + 1, (int)terrainZ + 1);
-    float x = terrainX;
-    float z = terrainZ;
-    while(x > 1) {
-        --x;
-    }
-    while(z > 1) {
-        --z;
-    }
+float Terrain::getAverageHeight(const float terrainX, const float terrainZ) const noexcept {
+    const auto getDecimal = [](const float value) {
+        float intValue{};
+        return std::modf(value, &intValue);
+    };
+
+    const float bottomLeft = getHeight((int)terrainX, (int)terrainZ);
+    const float bottomRight = getHeight((int)terrainX, (int)terrainZ + 1);
+    const float topLeft = getHeight((int)terrainX + 1, (int)terrainZ);
+    const float topRight = getHeight((int)terrainX + 1, (int)terrainZ + 1);
+
+    const float x = getDecimal(terrainX);
+    const float z = getDecimal(terrainZ);
     if (x <= (1-z)) {
         return barryCentric(glm::vec3(0, bottomLeft, 0), glm::vec3(1, topLeft, 0), glm::vec3(0, bottomRight, 1), glm::vec2(x, z));
     }
@@ -97,7 +92,7 @@ float Terrain::getAverageHeight(float terrainX, float terrainZ) const noexcept {
     return terrainMesh->calculateNormal(x, z);
 }
 
-float Terrain::barryCentric(glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec2 pos) noexcept {
+float Terrain::barryCentric(const glm::vec3 p1, const glm::vec3 p2, const glm::vec3 p3, const glm::vec2 pos) noexcept {
     const float det = (p2.z - p3.z) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.z - p3.z);
     const float l1 = ((p2.z - p3.z) * (pos.x - p3.x) + (p3.x - p2.x) * (pos.y - p3.z)) / det;
     const float l2 = ((p3.z - p1.z) * (pos.x - p3.x) + (p1.x - p3.x) * (pos.y - p3.z)) / det;

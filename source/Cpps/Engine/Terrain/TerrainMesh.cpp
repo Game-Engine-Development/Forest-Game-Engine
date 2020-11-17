@@ -176,7 +176,7 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
 }
 
 [[nodiscard]] int TerrainMesh::getWidth() const {
-    return height - 1;
+    return height;
 }
 
 [[nodiscard]] float TerrainMesh::getHeight(const int x, const int z) const {
@@ -188,4 +188,9 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
 }
 [[nodiscard]] float TerrainMesh::getMaxHeight() const {
     return maxHeight;
+}
+
+[[nodiscard]] glm::vec2 TerrainMesh::getX_Y_InWorldCoords(const float indexX, const float indexY) const noexcept {
+    const float sizeOfTile = SIZE/height;
+    return glm::vec2(indexX*sizeOfTile, indexY*sizeOfTile) + glm::vec2(0.5f*sizeOfTile);
 }

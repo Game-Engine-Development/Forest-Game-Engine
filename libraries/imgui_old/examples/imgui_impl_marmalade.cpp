@@ -1,10 +1,10 @@
-// dear imgui: Renderer + Platform Binding for Marmalade + IwGx
+// dear imgui: RenderSystem + Platform Binding for Marmalade + IwGx
 // Marmalade code: Copyright (C) 2015 by Giovanni Zito (this file is part of Dear ImGui)
 
 // Implemented features:
-//  [X] Renderer: User texture binding. Use 'CIwTexture*' as ImTextureID. Read the FAQ about ImTextureID!
+//  [X] RenderSystem: User texture binding. Use 'CIwTexture*' as ImTextureID. Read the FAQ about ImTextureID!
 // Missing features:
-//  [ ] Renderer: Clipping rectangles are not honored.
+//  [ ] RenderSystem: Clipping rectangles are not honored.
 
 // You can copy and use unmodified imgui_impl_* files in your project. See main.cpp for an example of using this.
 // If you are new to dear imgui, read examples/README.txt and read the documentation at the top of imgui.cpp.

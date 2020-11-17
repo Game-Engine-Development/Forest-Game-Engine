@@ -7,60 +7,82 @@
 namespace EnttWrapper {
     class Scene;
     class Entity {
-        entt::entity entityID{};
-        Scene *currentScene = nullptr;
+        const entt::entity entityID;
+        Scene *const currentScene;
 
     public:
-        Entity() = default;
-        Entity(const entt::entity entity, Scene *scene)
+        Entity() = delete; //this class should never be stored and only be for temporaries
+
+        constexpr Entity(const entt::entity entity, Scene *const scene)
                 : entityID(entity), currentScene(scene)
         {}
 
         template<typename T>
-        bool hasComponent();
+        [[nodiscard]] constexpr bool hasComponent() const;
 
         template<typename T>
-        T& getComponent();
+        [[nodiscard]] constexpr T& getComponent();
+
+        template<typename T>
+        [[nodiscard]] constexpr const T& getComponent() const;
 
         template<typename T, typename ...Args>
-        void addComponent(Args&& ...args);
+        constexpr Entity addComponent(Args&& ...args);
 
         template<typename T>
-        void removeComponent();
+        constexpr Entity removeComponent();
+
+        [[nodiscard]] constexpr entt::entity getID() const {
+            return entityID;
+        };
     };
 
     class Scene {
         friend class Entity;
-        entt::registry registry;
+        entt::registry registry{};
         //insert scene graph at some point
 
     public:
-        Entity createEntity() {
+        constexpr Scene() = default;
+
+        [[nodiscard]] Entity createEntity() {
             return Entity{registry.create(), this};
+        }
+
+        [[nodiscard]] constexpr Entity getEntity(const entt::entity id) {
+            return Entity{id, this};
         }
     };
 
 
     template<typename T>
-    bool Entity::hasComponent() {
+    [[nodiscard]] constexpr bool Entity::hasComponent() const {
         return currentScene->registry.template has<T>(entityID);
     }
 
     template<typename T>
-    T& Entity::getComponent() {
+    [[nodiscard]] constexpr T& Entity::getComponent() {
+        assert(hasComponent<T>());
+        return currentScene->registry.template get<T>(entityID);
+    }
+
+    template<typename T>
+    [[nodiscard]] constexpr const T& Entity::getComponent() const {
         assert(hasComponent<T>());
         return currentScene->registry.template get<T>(entityID);
     }
 
     template<typename T, typename ...Args>
-    void Entity::addComponent(Args&& ...args) {
+    constexpr Entity Entity::addComponent(Args&& ...args) {
         assert(!hasComponent<T>());
         currentScene->registry.template emplace<T>(entityID, std::forward<Args>(args)...);
+        return *this; //to allow chaining methods
     }
 
     template<typename T>
-    void Entity::removeComponent() {
+    constexpr Entity Entity::removeComponent() {
         assert(hasComponent<T>());
         currentScene->registry.template remove<T>(entityID);
+        return *this; //to allow chaining methods
     }
 }

@@ -1,6 +1,6 @@
 #include "Headers/Engine/Models/Sphere.h"
 
-Sphere::Sphere(const Transform &transform, Mesh mesh)
+Sphere::Sphere(const Component::PosRotationScale &transform, Mesh mesh)
 : transform(transform), sphereMesh(std::move(mesh)), modelMatrix(createModelMatrix(transform))
 {}
 
@@ -26,5 +26,5 @@ void Sphere::render(const Camera &camera, const Shader &shader, const bool blue)
 }
 
 glm::vec3 Sphere::getPos() const noexcept {
-    return transform.pos;
+    return transform.getPos();
 }

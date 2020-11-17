@@ -1,5 +1,5 @@
 // dear imgui: Platform Binding for OSX / Cocoa
-// This needs to be used along with a Renderer (e.g. OpenGL2, OpenGL3, Vulkan, Metal..)
+// This needs to be used along with a RenderSystem (e.g. OpenGL2, OpenGL3, Vulkan, Metal..)
 // [ALPHA] Early bindings, not well tested. If you want a portable application, prefer using the GLFW or SDL platform bindings on Mac.
 
 // Implemented features:

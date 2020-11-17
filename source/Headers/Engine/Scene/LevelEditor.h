@@ -39,7 +39,7 @@ public:
             style.Colors[ImGuiCol_WindowBg].w = 1.0f;
         }
 
-        // Setup Platform/Renderer bindings
+        // Setup Platform/RenderSystem bindings
         const char *const glsl_version = "#version 330 core";
         ImGui_ImplGlfw_InitForOpenGL(window->getWindow(), true);
         ImGui_ImplOpenGL3_Init(glsl_version);

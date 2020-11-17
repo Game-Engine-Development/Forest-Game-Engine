@@ -88,7 +88,7 @@ set(SOURCES "${SRC_DIR}/Cpps/Game/Loop/main.cpp" source/Headers/Engine/Shader/Sh
 
         #MEMORY EDITOR:
         temporary_lib/imgui_club/imgui_memory_editor/imgui_memory_editor.h
-        )
+        source/Headers/Engine/Scene/Components.h source/Headers/Engine/Graphics/RenderSystem/Renderer.h)
 
 # Executable definition and properties
 add_executable(${PROJECT_NAME} ${SOURCES})

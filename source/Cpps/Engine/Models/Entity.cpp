@@ -8,7 +8,7 @@ Entity::Entity(
         const glm::vec3 position,
         const glm::vec3 rotation,
         const glm::vec3 scale) noexcept
-: mesh(meshFilename, isNormalMapped), transform(Transform{position, rotation, scale}), modelMatrix(createModelMatrix(transform))
+: mesh(meshFilename, isNormalMapped), transform(Transform{position, rotation, scale}), modelMatrix()//createModelMatrix(transform))
 {
     if(textureUnits.has_value() && (textureFilenames.size() == textureUnits->size())) {
         for (int i = 0; i < textureFilenames.size(); ++i) {
@@ -72,7 +72,7 @@ Entity::Entity(
         const glm::vec3 position,
         const glm::vec3 rotation,
         const glm::vec3 scale) noexcept
-        : mesh(meshFilename, isNormalMapped), shader(shader), material(std::move(material)), transform(Transform{position, rotation, scale}), modelMatrix(createModelMatrix(transform))
+        : mesh(meshFilename, isNormalMapped), shader(shader), material(std::move(material)), transform(Transform{position, rotation, scale}), modelMatrix()//createModelMatrix(transform))
 {
     moveEntityPlanes(mesh.getVertices());
 }
@@ -161,28 +161,28 @@ glm::vec3 Entity::getPos() const noexcept {
 
 void Entity::setRotation(const glm::vec3 newRotation) noexcept {
     transform.rotation = newRotation;
-    modelMatrix = createModelMatrix(transform);
+    //modelMatrix = createModelMatrix(transform);
 }
 
 void Entity::setPos(const glm::vec3 newPos) noexcept {
     transform.pos = newPos;
-    modelMatrix = createModelMatrix(transform);
+    //modelMatrix = createModelMatrix(transform);
 }
 
 void Entity::setPosY(const float newPosY) noexcept {
     transform.pos.y = newPosY;
-    modelMatrix = createModelMatrix(transform);
+    //modelMatrix = createModelMatrix(transform);
 }
 
 void Entity::rotate(const glm::vec3 rotationPar) noexcept {
     transform.rotation += rotationPar;
     limitRotation();
-    modelMatrix = createModelMatrix(transform);
+    //modelMatrix = createModelMatrix(transform);
 }
 
 void Entity::translate(const glm::vec3 translation) noexcept {
     transform.pos += translation;
-    modelMatrix = createModelMatrix(transform);
+    //modelMatrix = createModelMatrix(transform);
 }
 
 void Entity::limitRotation() noexcept {

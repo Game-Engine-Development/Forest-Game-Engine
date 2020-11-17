@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <variant>
+#include <cmath>
 
 #include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Terrain/TerrainTextureMap.h"

@@ -12,9 +12,12 @@ struct BoundingBox {
     Coordinate center{};
     LengthVec3 halfWidths{};
 
-    [[nodiscard]] constexpr bool containsPoint(Coordinate point) const noexcept;
+    [[nodiscard]] bool containsPoint(Coordinate point) const noexcept;
 
-    [[nodiscard]] constexpr bool intersectsAABB(const BoundingBox &other) const noexcept;
+    [[nodiscard]] bool intersectsAABB(const BoundingBox &other) const noexcept;
+
+    [[nodiscard]] glm::vec3 get_vmin() const noexcept;
+    [[nodiscard]] glm::vec3 get_vmax() const noexcept;
 };
 
 

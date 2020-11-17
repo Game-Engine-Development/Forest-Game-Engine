@@ -46,7 +46,7 @@ class Texture {
     int textureUnit{};
     std::string shaderName;
 
-    static EntryType loadFromDisk(const std::string textureCacheKey);
+    static EntryType loadFromDisk(std::string textureCacheKey);
     void loadOnMain();
 
     void pollIsLoaded();

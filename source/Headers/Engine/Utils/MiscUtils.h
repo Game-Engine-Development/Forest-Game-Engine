@@ -22,12 +22,12 @@ void reverse(unsigned char *start, std::size_t block_size, std::size_t numOfBloc
 
 void screenshot(const char *filename, const Window &window);
 
-glm::mat4 createModelMatrix(const Transform &transform) noexcept;
+[[nodiscard]] Component::Transform createModelMatrix(const Component::PosRotationScale &transform) noexcept;
 
 template<typename T>
 bool future_is_ready(const std::future<T>& t);
 
-
+std::ostream& operator<<(std::ostream &stream, glm::vec3 data);
 
 
 

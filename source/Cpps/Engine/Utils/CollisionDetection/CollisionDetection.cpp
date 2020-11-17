@@ -1,7 +1,7 @@
 #include "Headers/Engine/Utils/CollisionDetection/CollisionDetection.h"
 
 
-[[nodiscard]] constexpr bool BoundingBox::containsPoint(const Coordinate point) const noexcept {
+[[nodiscard]] bool BoundingBox::containsPoint(const Coordinate point) const noexcept {
     const bool containsX = point.x < (center.x + halfWidths[0]) && point.x >= (center.x - halfWidths[0]);
     const bool containsY = point.y < (center.y + halfWidths[1]) && point.y >= (center.y - halfWidths[1]);
     const bool containsZ = point.z < (center.z + halfWidths[2]) && point.z >= (center.z - halfWidths[2]);
@@ -9,7 +9,7 @@
     return containsX && containsY && containsZ;
 }
 
-[[nodiscard]] constexpr bool BoundingBox::intersectsAABB(const BoundingBox &other) const noexcept {
+[[nodiscard]] bool BoundingBox::intersectsAABB(const BoundingBox &other) const noexcept {
     const bool edgeX = ((other.center.x - other.halfWidths[0]) <= (center.x + halfWidths[0]) && (other.center.x - other.halfWidths[0]) >= (center.x - halfWidths[0]))
                        || ((other.center.x + other.halfWidths[0]) >= (center.x - halfWidths[0]) && (other.center.x + other.halfWidths[0]) <= (center.x + halfWidths[0]));
 
@@ -26,6 +26,13 @@
 
 
     return ((edgeX || smallerX) && (edgeY || smallerY) && (edgeZ || smallerZ));
+}
+
+[[nodiscard]] glm::vec3 BoundingBox::get_vmin() const noexcept {
+    return center - halfWidths;
+}
+[[nodiscard]] glm::vec3 BoundingBox::get_vmax() const noexcept {
+    return center + halfWidths;
 }
 
 

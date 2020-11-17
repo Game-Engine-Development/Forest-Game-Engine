@@ -23,7 +23,7 @@ Input::Input(Window *const window, Camera *const camera, std::vector<Sphere> *sp
     glfwSetCursorEnterCallback(window->getWindow(), cursor_enter_callback);
 }
 
-void Input::processInputImpl(Player &player, SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window) { //@todo fix this code duplication and weird mutability
+void Input::processInputImpl(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window) { //@todo fix this code duplication and weird mutability
     for (int i = 0; i < GLFW_KEY_LAST; ++i) {
         instance->m_keys[i] = glfwGetKey(instance->m_window->getWindow(), i) == GLFW_PRESS;
     }
@@ -44,87 +44,48 @@ void Input::processInputImpl(Player &player, SoLoud::Soloud &gSoloud, SoLoud::Wa
     const bool onlyOnePressed = (glfwGetKey(m_window->getWindow(), GLFW_KEY_W) == GLFW_PRESS) ^ (glfwGetKey(m_window->getWindow(), GLFW_KEY_S) == GLFW_PRESS);
     const bool onlyOnePressed2 = (glfwGetKey(m_window->getWindow(), GLFW_KEY_D) == GLFW_PRESS) ^ (glfwGetKey(m_window->getWindow(), GLFW_KEY_A) == GLFW_PRESS);
 
-    if(!cursor) {
-        firstNotCursor = true;
+    const bool onlyOnePressed3 = (glfwGetKey(m_window->getWindow(), GLFW_KEY_UP) == GLFW_PRESS) ^ (glfwGetKey(m_window->getWindow(), GLFW_KEY_DOWN) == GLFW_PRESS);
 
-        constexpr float SPEED = 50.f;
+    constexpr float SIDE_SPEED = 0.3f;
+    constexpr float FORWARD_SPEED = 0.5f;
+    constexpr float UP_SPEED = 0.3f;
 
-        const float speedBoost = static_cast<float>((glfwGetKey(m_window->getWindow(), GLFW_KEY_B) == GLFW_PRESS)) * SPEED;
-
+    if(onlyOnePressed || onlyOnePressed2 || onlyOnePressed3) {
+        glm::vec3 finalMove = m_camera->getFront();
+        finalMove.y = 0;
+        finalMove = glm::normalize(finalMove);
         if (onlyOnePressed) {
             if (glfwGetKey(m_window->getWindow(), GLFW_KEY_W) == GLFW_PRESS) {
-                player.setSpeed(Player::SPEED + speedBoost);
+                finalMove *= FORWARD_SPEED;
             }
             if (glfwGetKey(m_window->getWindow(), GLFW_KEY_S) == GLFW_PRESS) {
-                player.setSpeed(-Player::SPEED - speedBoost);
+                finalMove *= -FORWARD_SPEED;
             }
-        } else {
-            player.setSpeed(0);
         }
-
+        else {
+            finalMove *= 0.f; //do not remove
+        }
         if (onlyOnePressed2) {
             if (glfwGetKey(m_window->getWindow(), GLFW_KEY_D) == GLFW_PRESS) {
-                player.setLateralSpeed(Player::LATERAL_SPEED + speedBoost);
+                finalMove += SIDE_SPEED * m_camera->getRight();
             }
             if (glfwGetKey(m_window->getWindow(), GLFW_KEY_A) == GLFW_PRESS) {
-                player.setLateralSpeed(-Player::LATERAL_SPEED - speedBoost);
+                finalMove += -SIDE_SPEED * m_camera->getRight();
             }
-        } else {
-            player.setLateralSpeed(0);
+        }
+        if (onlyOnePressed3) {
+            if (glfwGetKey(m_window->getWindow(), GLFW_KEY_UP) == GLFW_PRESS) {
+                finalMove.y = UP_SPEED;
+            }
+            if (glfwGetKey(m_window->getWindow(), GLFW_KEY_DOWN) == GLFW_PRESS) {
+                finalMove.y = -UP_SPEED;
+            }
         }
 
-        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS && !player.isInAir()) {
-            player.jump();
-        }
-    } else {
-        const bool onlyOnePressed3 = (glfwGetKey(m_window->getWindow(), GLFW_KEY_UP) == GLFW_PRESS) ^ (glfwGetKey(m_window->getWindow(), GLFW_KEY_DOWN) == GLFW_PRESS);
-
-        if(firstNotCursor) {
-            player.setSpeed(0);
-            player.setLateralSpeed(0);
-        }
-
-        firstNotCursor = false;
-
-        constexpr float SIDE_SPEED = 0.3f;
-        constexpr float FORWARD_SPEED = 0.5f;
-        constexpr float UP_SPEED = 0.3f;
-
-        if(onlyOnePressed || onlyOnePressed2 || onlyOnePressed3) {
-            glm::vec3 finalMove = m_camera->getFront();
-            finalMove.y = 0;
-            finalMove = glm::normalize(finalMove);
-            if (onlyOnePressed) {
-                if (glfwGetKey(m_window->getWindow(), GLFW_KEY_W) == GLFW_PRESS) {
-                    finalMove *= FORWARD_SPEED;
-                }
-                if (glfwGetKey(m_window->getWindow(), GLFW_KEY_S) == GLFW_PRESS) {
-                    finalMove *= -FORWARD_SPEED;
-                }
-            }
-            else {
-                finalMove *= 0.f; //do not remove
-            }
-            if (onlyOnePressed2) {
-                if (glfwGetKey(m_window->getWindow(), GLFW_KEY_D) == GLFW_PRESS) {
-                    finalMove += SIDE_SPEED * m_camera->getRight();
-                }
-                if (glfwGetKey(m_window->getWindow(), GLFW_KEY_A) == GLFW_PRESS) {
-                    finalMove += -SIDE_SPEED * m_camera->getRight();
-                }
-            }
-            if (onlyOnePressed3) {
-                if (glfwGetKey(m_window->getWindow(), GLFW_KEY_UP) == GLFW_PRESS) {
-                    finalMove.y = UP_SPEED;
-                }
-                if (glfwGetKey(m_window->getWindow(), GLFW_KEY_DOWN) == GLFW_PRESS) {
-                    finalMove.y = -UP_SPEED;
-                }
-            }
-
-            m_camera->setPosition(m_camera->getPosition() + finalMove);
-        }
+        m_camera->setPosition(m_camera->getPosition() + finalMove);
     }
+
+    raycastPickSphere();
 
     if(glfwGetKey(m_window->getWindow(), GLFW_KEY_C) == GLFW_PRESS) {
         if(cursor && !held) {
@@ -139,10 +100,6 @@ void Input::processInputImpl(Player &player, SoLoud::Soloud &gSoloud, SoLoud::Wa
     } else {
         held = false;
     }
-
-    raycastPickSphere();
-
-
 }
 
 void Input::raycastPickSphere() {
@@ -172,7 +129,7 @@ void Input::raycastPickSphere() {
     }
 }
 
-void Input::mouse_callback([[maybe_unused]] GLFWwindow* window, double xpos, double ypos) {
+void Input::mouse_callback([[maybe_unused]] GLFWwindow* window, const double xpos, const double ypos) {
     if (instance->firstMouse) {
         instance->lastX = static_cast<float>(xpos);
         instance->lastY = static_cast<float>(ypos);
@@ -228,6 +185,6 @@ bool Input::notCursor() noexcept {
     return !instance->cursor;
 }
 
-void Input::processInput(Player &player, SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window) {
-    instance->processInputImpl(player, gSoloud, gWave, window);
+void Input::processInput(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window) {
+    instance->processInputImpl(gSoloud, gWave, window);
 }

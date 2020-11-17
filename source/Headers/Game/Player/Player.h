@@ -49,5 +49,5 @@ void Player::movePlayer(std::vector<Entity> &entities, std::array<Terrain, N> &t
     finalMove += lateralSpeed * camera->getRight();
     handler.moveEntity(finalMove, entities, terrains);
     //camera->setPosition(playerEntity->getPos());
-    camera->setPosition(glm::vec3(playerEntity->getPos().x, playerEntity->getPos().y + 200.f, playerEntity->getPos().z));
+    camera->setPosition(glm::vec3(playerEntity->getPos().x, playerEntity->getPos().y + 20.f, playerEntity->getPos().z));
 }

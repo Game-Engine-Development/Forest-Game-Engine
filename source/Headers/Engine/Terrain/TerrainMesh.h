@@ -114,5 +114,7 @@ public:
     [[nodiscard]] float getMinHeight() const;
     [[nodiscard]] float getMaxHeight() const;
 
+    [[nodiscard]] glm::vec2 getX_Y_InWorldCoords(float indexX, float indexY) const noexcept;
+
     ~TerrainMesh();
 };

@@ -38,12 +38,17 @@ void screenshot(const char *const filename, const Window &window) {
     stbi_write_jpg(filename, static_cast<int>(window.getWidth()), static_cast<int>(window.getHeight()), NUM_OF_CHANNELS, pixels.get(), 100);
 }
 
-glm::mat4 createModelMatrix(const Transform &transform) noexcept {
-    glm::mat4 modelMatrix = glm::mat4(1.0f);
-    modelMatrix = glm::translate(modelMatrix, transform.pos);
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(transform.rotation.x), glm::vec3(1,0,0));
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(transform.rotation.y), glm::vec3(0,1,0));
-    modelMatrix = glm::rotate(modelMatrix, glm::radians(transform.rotation.z), glm::vec3(0,0,1));
-    modelMatrix = glm::scale(modelMatrix, transform.scale);
+[[nodiscard]] Component::Transform createModelMatrix(const Component::PosRotationScale &transform) noexcept {
+    Component::Transform modelMatrix = Component::Transform (1.0f);
+    modelMatrix = glm::translate(modelMatrix, transform.getPos());
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(transform.getRotation().x), glm::vec3(1,0,0));
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(transform.getRotation().y), glm::vec3(0,1,0));
+    modelMatrix = glm::rotate(modelMatrix, glm::radians(transform.getRotation().z), glm::vec3(0,0,1));
+    modelMatrix = glm::scale(modelMatrix, transform.getScale());
     return modelMatrix;
+}
+
+std::ostream& operator<<(std::ostream &stream, const glm::vec3 data) {
+    stream << '{' << data.x << ", " << data.y << ", " << data.z << '}';
+    return stream;
 }

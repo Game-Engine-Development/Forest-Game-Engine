@@ -10,12 +10,12 @@
 
 
 class Sphere {
-    const Transform transform{};
+    const Component::PosRotationScale transform{};
     Mesh sphereMesh;
     glm::mat4 modelMatrix{};
 
 public:
-    Sphere(const Transform &transform, Mesh mesh);
+    Sphere(const Component::PosRotationScale &transform, Mesh mesh);
     void render(const Camera &camera, const Shader &shader, bool blue) noexcept;
     [[nodiscard]] glm::vec3 getPos() const noexcept;
 };
