@@ -22,3 +22,15 @@
 [submodule "libraries/abseil-cpp"]
 	path = libraries/abseil-cpp
 	url = https://github.com/abseil/abseil-cpp.git
+[submodule "plf/plf_nanotimer"]
+	path = plf/plf_nanotimer
+	url = https://github.com/mattreecebentley/plf_nanotimer.git
+[submodule "plf/plf_stack"]
+	path = plf/plf_stack
+	url = https://github.com/mattreecebentley/plf_stack.git
+[submodule "plf/plf_list"]
+	path = plf/plf_list
+	url = https://github.com/mattreecebentley/plf_list.git
+[submodule "plf/plf_colony"]
+	path = plf/plf_colony
+	url = https://github.com/mattreecebentley/plf_colony.git
