@@ -19,11 +19,10 @@ Mesh::Mesh(const std::string &filename, const bool isNormalMapped)
     if(meshCache.count(meshCacheKey)) {
         meshCache.at(meshCacheKey).second += 1;
 
-        pollIsLoaded();
+        VAOCache = meshCache.at(meshCacheKey).first->getVAO();
+        numOfVerticesCache = meshCache.at(meshCacheKey).first->getNumOfVertices();
     }
     else {
-        addNullEntry();
-
         std::vector<glm::vec3> tangents, bitangents;
         loadOBJ(filename.c_str(), vertices, textureCoords, normals);
 
@@ -77,12 +76,8 @@ Mesh::Mesh(const std::string &filename, const bool isNormalMapped)
 
         VAOCache = VAO;
         numOfVerticesCache = numOfVertices;
-        meshCache.at(meshCacheKey).first = MeshResourceContainer(VAO, VBO, texCoordBuffer, normalBuffer, tangentBuffer, bitangentBuffer, numOfVertices);
+        meshCache.emplace(meshCacheKey, std::make_pair(std::optional(MeshResourceContainer(VAO, VBO, texCoordBuffer, normalBuffer, tangentBuffer, bitangentBuffer, numOfVertices)), 1u));
     }
-}
-
-void Mesh::addNullEntry() {
-    meshCache.emplace(std::string(meshCacheKey), std::make_pair<std::optional<MeshResourceContainer>, std::size_t>(std::nullopt, 1));
 }
 
 Mesh::Mesh(const Mesh &mesh)
@@ -226,7 +221,6 @@ void Mesh::CalculateTangentsAndBitangents(
 }
 
 void Mesh::bindVAO() {
-    pollIsLoaded();
     glBindVertexArray(VAOCache);
 }
 
@@ -243,16 +237,7 @@ Mesh::~Mesh() {
     }
 }
 
-void Mesh::pollIsLoaded() {
-    if(!isLoaded && meshCache.at(meshCacheKey).first.has_value()) {
-        VAOCache = meshCache.at(meshCacheKey).first->getVAO();
-        numOfVerticesCache = meshCache.at(meshCacheKey).first->getNumOfVertices();
-        isLoaded = true;
-    }
-}
-
 [[nodiscard]] unsigned int Mesh::getNumOfVertices() {
-    pollIsLoaded();
     return numOfVerticesCache;
 }
 [[nodiscard]] const std::vector<glm::vec3>& Mesh::getVertices() const noexcept {

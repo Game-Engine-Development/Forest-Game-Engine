@@ -49,6 +49,9 @@ int main() {
     std::vector<entt::entity> entities; //@todo move into Scene class until scenegraph is made
 
     using namespace std::string_literals;
+    Texture texture("../res/human.jpg"s, 0);
+
+    using namespace std::string_literals;
     auto plane = scene.createEntity();
     entities.push_back(plane.getID());
     plane.addComponent<Component::Drawable, Mesh, std::vector<Texture>, Component::Transform>(
@@ -56,10 +59,6 @@ int main() {
             {Texture("../res/human.jpg"s, 0)}, {})
          .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                  {glm::vec3(0), glm::vec3(0), glm::vec3(1000, 0.0, 1000)});
-
-    //using namespace std::string_literals;
-    //Entity plane("../res/container.obj"s, false, std::vector{"../res/human.jpg"s},
-    //             glm::vec3(0), glm::vec3(0), glm::vec3(1000, 0.0, 1000));
 
 
     std::vector<Sphere> spheres;
@@ -82,7 +81,6 @@ int main() {
     glm::vec3 lightPos(-3200, 3200, -3200);
     glm::vec3 lightColor(0.7);
 
-    //std::vector<Entity> entities;
 
     Shader entityShader(
             "../source/Cpps/Engine/Models/Shaders/vertexShader.glsl",
@@ -123,14 +121,7 @@ int main() {
                 .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                         {glm::vec3(7), glm::vec3(0), glm::vec3(1)});
 
-    //Entity playerEntity("../res/container.obj"s, false,
-    //                    std::vector<std::string>{"../res/human.jpg"s}
-    //);
-
     //@todo implement timestep to make fps have constant time between renders
-
-    //CollisionHandler playerCollider(&playerEntity);
-    //Player player(&camera, &playerEntity, playerCollider);
 
     std::array<Terrain, 9> terrains;
     for (int i = 0, index = 0; i < 3 && index < terrains.size(); ++i) {
@@ -141,15 +132,6 @@ int main() {
 
     Input input(&window, &camera, &spheres, &terrains);
 
-
-    //Entity worldBox("../res/container.obj"s, false, std::vector{"../res/wolf.jpg"s},
-    //                glm::vec3(0), glm::vec3(0), glm::vec3(1));
-
-    //auto worldBox = scene.createEntity();
-    //worldBox.addComponent<Mesh, std::string, bool>("../res/container.obj"s, false)
-    //        .addComponent<Texture, std::string, int>("../res/wolf.jpg"s, 0)
-    //        .addComponent<Transform, Transform>(
-    //                {glm::vec3(0), glm::vec3(0), glm::vec3(1)});
 
     const auto worldBox = scene.createEntity()
                         .addComponent<Component::Drawable, Mesh, std::vector<Texture>, Component::Transform>(
@@ -175,9 +157,6 @@ int main() {
                                 {terrain.getPos() + glm::vec3(TerrainMesh::SIZE/2.f, 0.f, TerrainMesh::SIZE/2.f),
                                  glm::vec3(0), glm::vec3(10)}).getID());
 
-    //entities.emplace_back(
-    //        Entity("../res/container.obj"s, false, std::vector{"../res/wolf.jpg"s},
-    //               terrain.getPos() + glm::vec3(TerrainMesh::SIZE/2.f, 0.f, TerrainMesh::SIZE/2.f), glm::vec3(0), glm::vec3(10)));
 
     std::cout << "width: " << terrain.terrainMesh->getWidth() << '\n';
 
@@ -189,9 +168,6 @@ int main() {
                 {terrains[0].getPos() + glm::vec3(0, 30, 0),
                  glm::vec3(0), glm::vec3(10)}).getID());
 
-    //entities.emplace_back(
-    //        Entity("../res/container.obj"s, false, std::vector{"../res/wolf.jpg"s},
-    //               terrains[0].getPos() + glm::vec3(0, 30, 0), glm::vec3(0), glm::vec3(10)));
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
@@ -202,19 +178,6 @@ int main() {
 
         glClear(static_cast<unsigned int>(GL_COLOR_BUFFER_BIT) | static_cast<unsigned int>(GL_DEPTH_BUFFER_BIT));
 
-        static bool isSet = false;
-
-        if(Input::notCursor()) {
-            //player.movePlayer(entities, terrains);
-            isSet = false;
-        }
-        else {
-            if(!isSet) {
-                camera.setPosition(spheres[0].getPos() + glm::vec3(1));
-                isSet = true;
-            }
-        }
-
         //render
         hdr.bind();
 
@@ -222,27 +185,17 @@ int main() {
         terrainTexture.bind(simpleTerrainShader);
         terrainTexture.unbind();
 
+        texture.bind(normalMappedShader);
+        texture.unbind();
+
         renderScene(scene, entities, camera, normalMappedShader, {{"lightPos", lightPos, "lightColor", lightColor}});
 
-        if(Input::notCursor()) {
-            //playerEntity.render(camera, normalMappedShader, lightPos, lightColor);
-
-            //for (Entity &entity : entities) {
-            //    entity.render(camera, normalMappedShader, lightPos, lightColor);
-            //}
-
-            //renderScene(scene, entities, camera, normalMappedShader, {{"lightPos", lightPos, "lightColor", lightColor}});
+        for(int i = 0; i < spheres.size(); ++i) {
+            spheres[i].render(camera, simpleDemoShaders, (i == Input::get_g_selected_sphere()) /*if i == chosen circle*/);
         }
-        else {
-            for(int i = 0; i < spheres.size(); ++i) {
-                spheres[i].render(camera, simpleDemoShaders, (i == Input::get_g_selected_sphere()) /*if i == chosen circle*/);
-            }
-            if(Input::getPointOfIntersection().has_value()) {
-                std::cout << "has_value()\n";
-                scene.getEntity(worldBox).getComponent<Component::PosRotationScale>().setPos(Input::getPointOfIntersection().value());
-                //worldBox.setPos(Input::getPointOfIntersection().value());
-            }
-            //worldBox.render(camera, normalMappedShader, lightPos, lightColor);
+        if(Input::getPointOfIntersection().has_value()) {
+            std::cout << "has_value()\n";
+            scene.getEntity(worldBox).getComponent<Component::PosRotationScale>().setPos(Input::getPointOfIntersection().value());
         }
 
         //terrain.render(camera, simpleTerrainShader, lightPos, lightColor);

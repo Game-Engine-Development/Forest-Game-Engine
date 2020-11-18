@@ -6,7 +6,6 @@
 #include <GLFW/glfw3.h>
 
 #include "Headers/Engine/IO/Window.h"
-#include "Headers/Engine/GUI/Quad.h"
 
 class HDR {
 public:
@@ -20,7 +19,7 @@ public:
     void bind() const;
     void render(Shader &entityShader, float exposure);
 
-    bool getHDRStatus() const;
+    [[nodiscard]] bool getHDRStatus() const;
     void setHDRStatus(bool hdr);
 
     ~HDR();

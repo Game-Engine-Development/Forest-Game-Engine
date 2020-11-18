@@ -26,11 +26,6 @@ class Mesh {
     unsigned int VAOCache{};
     std::size_t numOfVerticesCache{};
 
-    bool isLoaded = false;
-
-    std::mutex entryMutex;
-    std::optional<MeshResourceContainer> entry = std::nullopt;
-
     std::vector<glm::vec3> vertices, normals;
     std::vector<glm::vec2> textureCoords;
     bool normalMapped;
@@ -50,9 +45,6 @@ class Mesh {
             std::vector<glm::vec3> &bitangents
     );
     void updateCube(glm::vec3 &vertex) const;
-
-    void pollIsLoaded();
-    void addNullEntry();
 
 public:
     explicit Mesh(const std::string &filename, bool isNormalMapped);
@@ -87,5 +79,5 @@ struct Mesh::FilePointerWrapper {
     ~FilePointerWrapper();
 
 private:
-    FILE *file;
+    FILE *const file;
 };

@@ -50,7 +50,6 @@ void renderEntity(EnttWrapper::Scene &scene, const entt::entity id, const Camera
         for (Texture &texture : drawable.textures) {
             texture.unbind();
         }
-
         Mesh::unbindVAO();
     }
 }

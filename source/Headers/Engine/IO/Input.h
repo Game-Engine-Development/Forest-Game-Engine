@@ -8,12 +8,12 @@
 #include <glad/glad.h>
 #include <soloud_wav.h>
 
+#include "Headers/Engine/Terrain/Terrain.h"
 #include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/IO/Window.h"
 #include "Headers/Engine/Utils/Raycast.h"
 #include "Headers/Engine/Utils/MiscUtils.h"
 
-#include "Headers/Game/Player/Player.h"
 #include "Headers/Engine/Models/Sphere.h"
 
 class Input {
