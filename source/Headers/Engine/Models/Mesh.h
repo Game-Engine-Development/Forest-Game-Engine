@@ -55,10 +55,10 @@ public:
     Mesh& operator=(const Mesh &mesh);
     Mesh& operator=(Mesh &&oldMesh) noexcept;
 
-    void bindVAO();
+    void bindVAO() const;
     static void unbindVAO();
 
-    [[nodiscard]] unsigned int getNumOfVertices();
+    [[nodiscard]] unsigned int getNumOfVertices() const;
     [[nodiscard]] const std::vector<glm::vec3>& getVertices() const noexcept;
 
     ~Mesh();

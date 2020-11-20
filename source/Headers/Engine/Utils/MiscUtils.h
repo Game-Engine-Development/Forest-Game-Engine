@@ -37,3 +37,21 @@ bool future_is_ready(const std::future<T>& t) {
     if(!t.valid()) return false;
     return t.wait_for(std::chrono::seconds(0)) == std::future_status::ready;
 }
+
+
+
+struct FilePointerWrapper {
+    FilePointerWrapper(const FilePointerWrapper&) = delete;
+    FilePointerWrapper& operator=(const FilePointerWrapper&) = delete;
+    FilePointerWrapper(FilePointerWrapper&&) = delete;
+    FilePointerWrapper& operator=(FilePointerWrapper&&) = delete;
+
+    FilePointerWrapper(const char *filename, const char *modes);
+
+    [[nodiscard]] FILE* getFile() const noexcept;
+
+    ~FilePointerWrapper();
+
+private:
+    FILE *const file;
+};

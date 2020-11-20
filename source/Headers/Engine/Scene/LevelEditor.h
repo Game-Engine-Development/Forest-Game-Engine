@@ -1,6 +1,9 @@
 #pragma once
 
+#include "../../../../temporary_lib/imgui-node-editor/imgui_node_editor.h"
+# define IMGUI_DEFINE_MATH_OPERATORS
 #include <imgui.h>
+# include <imgui_internal.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
@@ -8,6 +11,10 @@
 #include "Headers/Engine/IO/Window.h"
 #include "Headers/Engine/Terrain/TerrainMesh.h"
 
+
+namespace ed = ax::NodeEditor;
+
+static ed::EditorContext* g_Context = nullptr;
 
 class LevelEditor {
     Window *window = nullptr;
@@ -39,10 +46,19 @@ public:
             style.Colors[ImGuiCol_WindowBg].w = 1.0f;
         }
 
+        ed::Config config;
+        config.SettingsFile = "Simple.json";
+        g_Context = ed::CreateEditor(&config);
+
         // Setup Platform/RenderSystem bindings
         const char *const glsl_version = "#version 330 core";
         ImGui_ImplGlfw_InitForOpenGL(window->getWindow(), true);
         ImGui_ImplOpenGL3_Init(glsl_version);
+    }
+
+    const char* Application_GetName()
+    {
+        return "Simple";
     }
 
     static void createDockspace(bool *const p_open) {
@@ -150,11 +166,51 @@ public:
             ImGui::End();
         }
 
+        auto& io = ImGui::GetIO();
+
+        ImGui::Text("FPS: %.2f (%.2gms)", io.Framerate, io.Framerate ? 1000.0f / io.Framerate : 0.0f);
+
+        ImGui::Separator();
+
+        ed::SetCurrentEditor(g_Context);
+
+        ed::Begin("My Editor", ImVec2(0.0, 0.0f));
+
+        int uniqueId = 1;
+        // Start drawing nodes.
+        ed::BeginNode(uniqueId++);
+        ImGui::Text("Node A");
+        ed::BeginPin(uniqueId++, ed::PinKind::Input);
+        ImGui::Text("-> In");
+        ed::EndPin();
+        ImGui::SameLine();
+        ed::BeginPin(uniqueId++, ed::PinKind::Output);
+        ImGui::Text("Out ->");
+        ed::EndPin();
+        ed::EndNode();
+
+        ed::BeginNode(uniqueId++);
+        ImGui::Text("Node B");
+        ed::BeginPin(uniqueId++, ed::PinKind::Input);
+        ImGui::Text("-> In");
+        ed::EndPin();
+        ImGui::SameLine();
+        ed::BeginPin(uniqueId++, ed::PinKind::Output);
+        ImGui::Text("Out ->");
+        ed::EndPin();
+        ed::EndNode();
+
+        ed::Link(7, 3, 6);
+
+        ed::End();
+
+        //ImGui::ShowMetricsWindow();
+
         // Rendering
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        ImGuiIO& io = ImGui::GetIO(); (void)io;
+        //ImGuiIO& io = ImGui::GetIO(); (void)io;
 
         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
         {
@@ -166,6 +222,8 @@ public:
     }
 
     ~LevelEditor() {
+        ed::DestroyEditor(g_Context);
+
         // IMGUI Cleanup
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();

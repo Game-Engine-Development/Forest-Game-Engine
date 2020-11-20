@@ -52,3 +52,17 @@ std::ostream& operator<<(std::ostream &stream, const glm::vec3 data) {
     stream << '{' << data.x << ", " << data.y << ", " << data.z << '}';
     return stream;
 }
+
+
+
+FilePointerWrapper::FilePointerWrapper(const char *filename, const char *modes)
+        : file(std::fopen(filename, modes))
+{}
+
+[[nodiscard]] FILE* FilePointerWrapper::getFile() const noexcept {
+    return file;
+}
+
+FilePointerWrapper::~FilePointerWrapper() {
+    std::fclose(file);
+}

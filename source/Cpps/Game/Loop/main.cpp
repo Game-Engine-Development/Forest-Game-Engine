@@ -38,26 +38,30 @@
 //@todo finish RTS style unit placement for Level Editor
 #include "Headers/Engine/Scene/ENTTWrapper.h"
 
+#include <assimp/Importer.hpp>      // C++ importer interface
+#include <assimp/scene.h>           // Output data structure
+#include <assimp/postprocess.h>     // Post processing flags
+#include <assimp/DefaultLogger.hpp>
+
+
 int main() {
     Camera camera;
     Window window(camera);
 
     EnttWrapper::Scene scene{};
 
-    //@todo fix textures
 
-    std::vector<entt::entity> entities; //@todo move into Scene class until scenegraph is made
+    //@todo fix textures
 
     using namespace std::string_literals;
     Texture texture("../res/human.jpg"s, 0);
 
+
     using namespace std::string_literals;
-    auto plane = scene.createEntity();
-    entities.push_back(plane.getID());
-    plane.addComponent<Component::Drawable, Mesh, std::vector<Texture>, Component::Transform>(
-            Mesh("../res/container.obj"s, false),
-            {Texture("../res/human.jpg"s, 0)}, {})
-         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
+    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Texture>>(
+            Component::MeshComponent("../res/container.obj"s, false),
+            {Texture("../res/human.jpg"s, 0)})
+                        .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                  {glm::vec3(0), glm::vec3(0), glm::vec3(1000, 0.0, 1000)});
 
 
@@ -114,11 +118,9 @@ int main() {
 
     Skybox skybox(CubeMapTexture(textures, 0));
 
-    auto playerEntity = scene.createEntity();
-    entities.push_back(playerEntity.getID());
-    playerEntity.addComponent<Component::Drawable, Mesh, std::vector<Texture>, Component::Transform>(
-            Mesh("../res/container.obj"s, false), {Texture("../res/human.jpg"s, 0)}, {})
-                .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
+    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Texture>>(
+            Component::MeshComponent("../res/container.obj"s, false), {Texture("../res/human.jpg"s, 0)})
+                        .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                         {glm::vec3(7), glm::vec3(0), glm::vec3(1)});
 
     //@todo implement timestep to make fps have constant time between renders
@@ -134,13 +136,12 @@ int main() {
 
 
     const auto worldBox = scene.createEntity()
-                        .addComponent<Component::Drawable, Mesh, std::vector<Texture>, Component::Transform>(
-                                Mesh("../res/container.obj"s, false),
-                                {Texture("../res/wolf.jpg"s, 0)}, {})
+                        .addComponent<Component::Drawable, Component::MeshComponent, std::vector<Texture>>(
+                                Component::MeshComponent("../res/container.obj"s, false),
+                                {Texture("../res/wolf.jpg"s, 0)})
                         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                                 {glm::vec3(0), glm::vec3(0), glm::vec3(1)}).getID();
 
-    entities.push_back(worldBox);
 
     LevelEditor editor(&window);
 
@@ -149,24 +150,23 @@ int main() {
 
     std::cout << "pos: " << terrain.getPos() << ' ';
 
-    entities.push_back(scene.createEntity()
-                        .addComponent<Component::Drawable, Mesh, std::vector<Texture>, Component::Transform>(
-                        Mesh("../res/container.obj"s, false),
-                        {Texture("../res/wolf.jpg"s, 0)}, {})
+    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Texture>>(
+                            Component::MeshComponent("../res/container.obj"s, false),
+                            {Texture("../res/wolf.jpg"s, 0)})
                         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
-                                {terrain.getPos() + glm::vec3(TerrainMesh::SIZE/2.f, 0.f, TerrainMesh::SIZE/2.f),
-                                 glm::vec3(0), glm::vec3(10)}).getID());
+                                {terrain.getPos() + glm::vec3(TerrainMesh::SIZE/2.f, 0.f,
+                                TerrainMesh::SIZE/2.f),glm::vec3(0), glm::vec3(10)});
 
 
     std::cout << "width: " << terrain.terrainMesh->getWidth() << '\n';
 
-    entities.push_back(scene.createEntity()
-        .addComponent<Component::Drawable, Mesh, std::vector<Texture>, Component::Transform>(
-                Mesh("../res/container.obj"s, false),
-                {Texture("../res/wolf.jpg"s, 0)}, {})
+    scene.createEntity()
+        .addComponent<Component::Drawable, Component::MeshComponent, std::vector<Texture>>(
+                Component::MeshComponent("../res/container.obj"s, false),
+                {Texture("../res/wolf.jpg"s, 0)})
         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                 {terrains[0].getPos() + glm::vec3(0, 30, 0),
-                 glm::vec3(0), glm::vec3(10)}).getID());
+                 glm::vec3(0), glm::vec3(10)});
 
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -188,7 +188,7 @@ int main() {
         texture.bind(normalMappedShader);
         texture.unbind();
 
-        renderScene(scene, entities, camera, normalMappedShader, {{"lightPos", lightPos, "lightColor", lightColor}});
+        renderScene(scene, camera, normalMappedShader, {{"lightPos", lightPos, "lightColor", lightColor}});
 
         for(int i = 0; i < spheres.size(); ++i) {
             spheres[i].render(camera, simpleDemoShaders, (i == Input::get_g_selected_sphere()) /*if i == chosen circle*/);
@@ -203,13 +203,13 @@ int main() {
         hdr.render(entityShader, 1);
 
 
-
         LevelEditor::update(terrainMesh);
 
 
         glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
     }
+
 
     gSoloud.deinit(); // Clean up!
 

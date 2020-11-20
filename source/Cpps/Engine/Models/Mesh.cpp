@@ -124,7 +124,7 @@ void Mesh::loadOBJ(const char *const filename, std::vector<glm::vec3>& finalVert
         std::vector<unsigned int> vertexIndices, textureIndices, normalIndices;
         while(true) {
             char lineHeader[128];
-            int res = std::fscanf(file.getFile(), "%s", lineHeader);
+            const int res = std::fscanf(file.getFile(), "%s", lineHeader);
             if(res == EOF){
                 break;
             }
@@ -143,7 +143,7 @@ void Mesh::loadOBJ(const char *const filename, std::vector<glm::vec3>& finalVert
             } else if(!std::strcmp(lineHeader, "f")) {
                 std::string vertex1, vertex2, vertex3;
                 unsigned int vertexIndex[3], textureIndex[3], normalIndex[3];
-                int matches = std::fscanf(file.getFile(), "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &textureIndex[0], &normalIndex[0], &vertexIndex[1], &textureIndex[1], &normalIndex[1], &vertexIndex[2], &textureIndex[2], &normalIndex[2]);
+                const int matches = std::fscanf(file.getFile(), "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &textureIndex[0], &normalIndex[0], &vertexIndex[1], &textureIndex[1], &normalIndex[1], &vertexIndex[2], &textureIndex[2], &normalIndex[2]);
                 if(matches != 9){
                     std::cerr << "Failed to load Model data at: " << filename << std::endl;
                     break;
@@ -156,17 +156,17 @@ void Mesh::loadOBJ(const char *const filename, std::vector<glm::vec3>& finalVert
             }
         }
         for(unsigned int i = 0; i < vertexIndices.size(); ++i) {
-            unsigned int vertexIndex = vertexIndices[i];
+            const unsigned int vertexIndex = vertexIndices[i];
             glm::vec3 vertex = verticesLocal[vertexIndex - 1];  //obj files are indexed starting at 1 not 0
             finalVertices.push_back(vertex);
             updateCube(vertex);
 
-            unsigned int textureIndex = textureIndices[i];
-            glm::vec2 textureCoord = textureCoordsLocal[textureIndex - 1];
+            const unsigned int textureIndex = textureIndices[i];
+            const glm::vec2 textureCoord = textureCoordsLocal[textureIndex - 1];
             finalTextureCoords.push_back(textureCoord);
 
-            unsigned int normalIndex = normalIndices[i];
-            glm::vec3 normal = normalsLocal[normalIndex - 1];
+            const unsigned int normalIndex = normalIndices[i];
+            const glm::vec3 normal = normalsLocal[normalIndex - 1];
             finalNormals.push_back(normal);
         }
     } else {
@@ -220,7 +220,7 @@ void Mesh::CalculateTangentsAndBitangents(
     }
 }
 
-void Mesh::bindVAO() {
+void Mesh::bindVAO() const {
     glBindVertexArray(VAOCache);
 }
 
@@ -237,7 +237,7 @@ Mesh::~Mesh() {
     }
 }
 
-[[nodiscard]] unsigned int Mesh::getNumOfVertices() {
+[[nodiscard]] unsigned int Mesh::getNumOfVertices() const {
     return numOfVerticesCache;
 }
 [[nodiscard]] const std::vector<glm::vec3>& Mesh::getVertices() const noexcept {

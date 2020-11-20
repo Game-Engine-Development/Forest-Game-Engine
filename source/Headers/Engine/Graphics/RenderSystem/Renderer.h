@@ -54,12 +54,10 @@ void renderEntity(EnttWrapper::Scene &scene, const entt::entity id, const Camera
     }
 }
 
-void renderScene(EnttWrapper::Scene &scene, const std::vector<entt::entity> &ids, const Camera &camera,
+void renderScene(EnttWrapper::Scene &scene, const Camera &camera,
                  const Shader &inputShader, const std::vector<Light> &lights)
 {
-    std::cout << "renderScene\n";
-    for(const auto id : ids) {
-        std::cout << "renderEntity\n";
+    for(const auto id : scene.getEntities()) {
         renderEntity(scene, id, camera, inputShader, lights);
     }
 }

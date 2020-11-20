@@ -75,5 +75,4 @@ private:
 
     bool cursor = false;
     bool held = false;
-    bool cursorHeld = false;
 };
