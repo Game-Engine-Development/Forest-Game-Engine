@@ -1,6 +1,6 @@
 #include "Headers/Engine/Models/Sphere.h"
 
-Sphere::Sphere(const Component::PosRotationScale &transform, Mesh mesh)
+Sphere::Sphere(const Component::PosRotationScale &transform, Component::MeshComponent mesh)
 : transform(transform), sphereMesh(std::move(mesh)), modelMatrix(createModelMatrix(transform))
 {}
 
@@ -11,8 +11,6 @@ void Sphere::render(const Camera &camera, const Shader &shader, const bool blue)
 
     camera.setMatrices(shader);
 
-    //std::cout << "render spheres\n";
-
     const int modelLoc = glGetUniformLocation(shader.ID, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
@@ -22,7 +20,7 @@ void Sphere::render(const Camera &camera, const Shader &shader, const bool blue)
 
     glDrawArrays(GL_TRIANGLES, 0, sphereMesh.getNumOfVertices());
 
-    Mesh::unbindVAO();
+    Component::MeshComponent::unbindVAO();
 }
 
 glm::vec3 Sphere::getPos() const noexcept {

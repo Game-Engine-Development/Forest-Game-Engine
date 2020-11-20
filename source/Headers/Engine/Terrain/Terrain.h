@@ -12,10 +12,9 @@
 #include "Headers/Engine/Terrain/TerrainTextureMap.h"
 #include "Headers/Engine/Terrain/TerrainMesh.h"
 #include "Headers/Engine/Shader/Shader.h"
-#include "Headers/Engine/Texture/Texture.h"
 
 class Terrain {
-    std::variant<TerrainTextureMap, Texture> terrainTextureMap;
+    std::variant<TerrainTextureMap, Component::TextureComponent> terrainTextureMap;
     glm::vec3 position{};
 
     [[nodiscard]] glm::mat4 createModelMatrixTerrain() const noexcept; //@todo fix this naming issue with ODR
@@ -28,7 +27,7 @@ public:
 
     Terrain() noexcept = default;
 
-    Terrain(std::variant<TerrainTextureMap, Texture> textureMap, TerrainMesh *terrainMesh, int gridX, int gridY) noexcept;
+    Terrain(std::variant<TerrainTextureMap, Component::TextureComponent> textureMap, TerrainMesh *terrainMesh, int gridX, int gridY) noexcept;
 
     void render(const Camera& camera, const Shader& shader, glm::vec3 lightPos, glm::vec3 lightColor);
 

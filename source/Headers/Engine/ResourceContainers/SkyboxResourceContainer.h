@@ -12,6 +12,8 @@ public:
     SkyboxResourceContainer(SkyboxResourceContainer&&) = delete;
     SkyboxResourceContainer& operator=(SkyboxResourceContainer&&) = delete;
 
+    SkyboxResourceContainer() = delete;
+
     SkyboxResourceContainer(unsigned int VAOPar, unsigned int VBOPar) noexcept;
 
     [[nodiscard]] unsigned int getVAO() const noexcept;

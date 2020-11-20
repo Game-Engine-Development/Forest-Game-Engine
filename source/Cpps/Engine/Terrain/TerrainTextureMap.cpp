@@ -12,13 +12,13 @@ TerrainTextureMap::TerrainTextureMap(const char *const map, const char *const te
 }
 
 void TerrainTextureMap::bind(const Shader &shader) {
-    for(Texture &texture : textures) {
+    for(Component::TextureComponent &texture : textures) {
         texture.bind(shader);
     }
 }
 
 void TerrainTextureMap::unbind() {
-    for(Texture &texture : textures) {
+    for(Component::TextureComponent &texture : textures) {
         texture.unbind();
     }
 }

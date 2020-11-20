@@ -36,7 +36,7 @@ public:
         return *this;
     }
 
-    MeshResourceContainer() = default;
+    MeshResourceContainer() = delete;
 
     MeshResourceContainer(
             unsigned int VAOPar,

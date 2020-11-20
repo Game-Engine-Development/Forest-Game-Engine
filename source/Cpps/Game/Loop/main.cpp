@@ -18,7 +18,6 @@
 
 #include "Headers/Engine/Shader/Shader.h"
 #include "Headers/Engine/Camera/Camera.h"
-//#include "Headers/Engine/Models/Entity.h"
 #include "Headers/Engine/Terrain/Terrain.h"
 #include "Headers/Engine/IO/Input.h"
 #include "Headers/Engine/Skybox/Skybox.h"
@@ -51,16 +50,10 @@ int main() {
     EnttWrapper::Scene scene{};
 
 
-    //@todo fix textures
-
     using namespace std::string_literals;
-    Texture texture("../res/human.jpg"s, 0);
-
-
-    using namespace std::string_literals;
-    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Texture>>(
+    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>>(
             Component::MeshComponent("../res/container.obj"s, false),
-            {Texture("../res/human.jpg"s, 0)})
+            {Component::TextureComponent("../res/human.jpg"s, 0)})
                         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                  {glm::vec3(0), glm::vec3(0), glm::vec3(1000, 0.0, 1000)});
 
@@ -68,7 +61,7 @@ int main() {
     std::vector<Sphere> spheres;
     spheres.reserve(5);
     for(int i = 0; i < 5; ++i) {
-        spheres.emplace_back(Component::PosRotationScale{glm::vec3(i*10), glm::vec3(0), glm::vec3(1)}, Mesh("../res/Sphere.obj"s, false));
+        spheres.emplace_back(Component::PosRotationScale{glm::vec3(i*10), glm::vec3(0), glm::vec3(1)}, Component::MeshComponent("../res/Sphere.obj"s, false));
     }
 
 
@@ -105,7 +98,7 @@ int main() {
 
     TerrainMesh terrainMesh("../res/heightmap.png");
 
-    Texture terrainTexture("../res/repeating_mud_texture.jpeg", 0);
+    Component::TextureComponent terrainTexture("../res/repeating_mud_texture.jpeg", 0);
 
     std::array<const char*, 6> textures {
             "../res/Standard-Cube-Map2/px.bmp",
@@ -118,8 +111,8 @@ int main() {
 
     Skybox skybox(CubeMapTexture(textures, 0));
 
-    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Texture>>(
-            Component::MeshComponent("../res/container.obj"s, false), {Texture("../res/human.jpg"s, 0)})
+    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>>(
+            Component::MeshComponent("../res/container.obj"s, false), {Component::TextureComponent("../res/human.jpg"s, 0)})
                         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                         {glm::vec3(7), glm::vec3(0), glm::vec3(1)});
 
@@ -136,9 +129,9 @@ int main() {
 
 
     const auto worldBox = scene.createEntity()
-                        .addComponent<Component::Drawable, Component::MeshComponent, std::vector<Texture>>(
+                        .addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>>(
                                 Component::MeshComponent("../res/container.obj"s, false),
-                                {Texture("../res/wolf.jpg"s, 0)})
+                                {Component::TextureComponent("../res/wolf.jpg"s, 0)})
                         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                                 {glm::vec3(0), glm::vec3(0), glm::vec3(1)}).getID();
 
@@ -150,9 +143,9 @@ int main() {
 
     std::cout << "pos: " << terrain.getPos() << ' ';
 
-    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Texture>>(
+    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>>(
                             Component::MeshComponent("../res/container.obj"s, false),
-                            {Texture("../res/wolf.jpg"s, 0)})
+                            {Component::TextureComponent("../res/wolf.jpg"s, 0)})
                         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                                 {terrain.getPos() + glm::vec3(TerrainMesh::SIZE/2.f, 0.f,
                                 TerrainMesh::SIZE/2.f),glm::vec3(0), glm::vec3(10)});
@@ -161,9 +154,9 @@ int main() {
     std::cout << "width: " << terrain.terrainMesh->getWidth() << '\n';
 
     scene.createEntity()
-        .addComponent<Component::Drawable, Component::MeshComponent, std::vector<Texture>>(
+        .addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>>(
                 Component::MeshComponent("../res/container.obj"s, false),
-                {Texture("../res/wolf.jpg"s, 0)})
+                {Component::TextureComponent("../res/wolf.jpg"s, 0)})
         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                 {terrains[0].getPos() + glm::vec3(0, 30, 0),
                  glm::vec3(0), glm::vec3(10)});
@@ -180,13 +173,6 @@ int main() {
 
         //render
         hdr.bind();
-
-        //@todo get rid of polling to fix garbage like this:
-        terrainTexture.bind(simpleTerrainShader);
-        terrainTexture.unbind();
-
-        texture.bind(normalMappedShader);
-        texture.unbind();
 
         renderScene(scene, camera, normalMappedShader, {{"lightPos", lightPos, "lightColor", lightColor}});
 

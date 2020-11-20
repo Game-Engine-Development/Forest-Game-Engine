@@ -27,6 +27,8 @@ public:
         return *this;
     }
 
+    stb_PointerContainer() = delete;
+
     explicit stb_PointerContainer(unsigned char *image, int imageWidth, int imageHeight, int imageChannels) noexcept;
 
     [[nodiscard]] const unsigned char* getData() const noexcept;

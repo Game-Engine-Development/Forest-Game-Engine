@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Headers/Engine/Texture/Texture.h"
+#include "Headers/Engine/Scene/Components.h"
 #include "Headers/Engine/Utils/CommonDeclarations.h"
 
 class Material {
-    Texture albedo;
-    Texture ao;
-    Texture metallic;
-    Texture normal;
-    Texture roughness;
+    Component::TextureComponent albedo;
+    Component::TextureComponent ao;
+    Component::TextureComponent metallic;
+    Component::TextureComponent normal;
+    Component::TextureComponent roughness;
 
     static std::string typeToString(ImageType type);
 public:
@@ -16,9 +16,9 @@ public:
     Material(const char* directory, ImageType type);
 
     //@todo fix escaping references
-    [[nodiscard]] Texture& getAlbedo();
-    [[nodiscard]] Texture& getAo();
-    [[nodiscard]] Texture& getMetallic();
-    [[nodiscard]] Texture& getNormal();
-    [[nodiscard]] Texture& getRoughness();
+    [[nodiscard]] Component::TextureComponent& getAlbedo();
+    [[nodiscard]] Component::TextureComponent& getAo();
+    [[nodiscard]] Component::TextureComponent& getMetallic();
+    [[nodiscard]] Component::TextureComponent& getNormal();
+    [[nodiscard]] Component::TextureComponent& getRoughness();
 };

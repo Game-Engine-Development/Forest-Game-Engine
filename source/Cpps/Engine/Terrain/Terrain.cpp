@@ -1,6 +1,6 @@
 #include "Headers/Engine/Terrain/Terrain.h"
 
-Terrain::Terrain(std::variant<TerrainTextureMap, Texture> textureMap, TerrainMesh *const mesh, const int gridX, const int gridZ) noexcept {
+Terrain::Terrain(std::variant<TerrainTextureMap, Component::TextureComponent> textureMap, TerrainMesh *const mesh, const int gridX, const int gridZ) noexcept {
     const float x = static_cast<float>(gridX) * TerrainMesh::SIZE;
     const float z = static_cast<float>(gridZ) * TerrainMesh::SIZE;
     terrainMesh = mesh;

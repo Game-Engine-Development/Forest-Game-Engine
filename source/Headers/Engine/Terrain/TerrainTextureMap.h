@@ -1,7 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "Headers/Engine/Texture/Texture.h"
+
+#include "Headers/Engine/Scene/Components.h"
 #include "Headers/Engine/Shader/Shader.h"
 
 class TerrainTextureMap {
@@ -13,5 +14,5 @@ public:
 
     void unbind();
 private:
-    std::vector<Texture> textures;
+    std::vector<Component::TextureComponent> textures;
 };

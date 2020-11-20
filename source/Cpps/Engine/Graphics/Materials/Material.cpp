@@ -13,22 +13,22 @@ normal(((std::string(directory) + std::string("/normal.")) + typeToString(type))
 roughness(((std::string(directory) + std::string("/roughness.")) + typeToString(type)) , 4, "roughness")
 {}
 
-Texture& Material::getAlbedo() {
+Component::TextureComponent& Material::getAlbedo() {
     return albedo;
 }
 
-Texture& Material::getAo() {
+Component::TextureComponent& Material::getAo() {
     return ao;
 }
 
-Texture& Material::getMetallic() {
+Component::TextureComponent& Material::getMetallic() {
     return metallic;
 }
 
-Texture& Material::getNormal() {
+Component::TextureComponent& Material::getNormal() {
     return normal;
 }
 
-Texture& Material::getRoughness() {
+Component::TextureComponent& Material::getRoughness() {
     return roughness;
 }

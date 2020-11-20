@@ -20,7 +20,7 @@ void renderEntity(EnttWrapper::Scene &scene, const entt::entity id, const Camera
         auto &drawable = entity.getComponent<Component::Drawable>();
 
         drawable.mesh.bindVAO();
-        for(Texture &texture : drawable.textures) {
+        for(Component::TextureComponent &texture : drawable.textures) {
             texture.bind(inputShader);
         }
 
@@ -47,10 +47,10 @@ void renderEntity(EnttWrapper::Scene &scene, const entt::entity id, const Camera
 
         glDrawArrays(GL_TRIANGLES, 0, drawable.mesh.getNumOfVertices());
 
-        for (Texture &texture : drawable.textures) {
+        for (Component::TextureComponent &texture : drawable.textures) {
             texture.unbind();
         }
-        Mesh::unbindVAO();
+        Component::MeshComponent::unbindVAO();
     }
 }
 

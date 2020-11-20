@@ -25,7 +25,7 @@ public: //only movable (for putting into containers), no copies allowed
         return *this;
     }
 
-    TextureResourceContainer() = default;
+    TextureResourceContainer() = delete;
 
     explicit TextureResourceContainer(unsigned int IDPar) noexcept;
 

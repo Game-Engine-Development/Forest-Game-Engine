@@ -14,7 +14,6 @@ Component::MeshComponent::MeshComponent(const std::string &filename, const bool 
     }
     else {
         std::vector<glm::vec3> tangents, bitangents;
-        std::cout << "loadObj()\n";
         loadOBJ(filename.c_str(), vertices, textureCoords, normals);
 
         const std::size_t numOfVertices = vertices.size();
@@ -77,7 +76,7 @@ Component::MeshComponent::MeshComponent(const Component::MeshComponent &mesh)
           normals(mesh.normals), textureCoords(mesh.textureCoords),
           normalMapped(mesh.normalMapped), greatest(mesh.greatest), smallest(mesh.smallest)
 {
-    LookupTables::MeshCache[meshCacheKey].second += 1;
+    LookupTables::MeshCache.at(meshCacheKey).second += 1;
 }
 Component::MeshComponent::MeshComponent(Component::MeshComponent && oldMesh) noexcept
           : meshCacheKey(std::move(oldMesh.meshCacheKey)), VAOCache(oldMesh.VAOCache),
@@ -118,10 +117,10 @@ void Component::MeshComponent::unbindVAO() {
 
 Component::MeshComponent::~MeshComponent() {
     if(LookupTables::MeshCache.count(meshCacheKey)) {
-        LookupTables::MeshCache[meshCacheKey].second -= 1;
+        LookupTables::MeshCache.at(meshCacheKey).second -= 1;
 
         //if the refcount drops to 0, delete the element
-        if(!LookupTables::MeshCache[meshCacheKey].second) LookupTables::MeshCache.erase(meshCacheKey);
+        if(!LookupTables::MeshCache.at(meshCacheKey).second) LookupTables::MeshCache.erase(meshCacheKey);
     }
 }
 
@@ -130,5 +129,73 @@ Component::MeshComponent::~MeshComponent() {
 }
 [[nodiscard]] const std::vector<glm::vec3>& Component::MeshComponent::getVertices() const noexcept {
     return vertices;
+}
+
+
+
+Component::TextureComponent::TextureComponent(const std::string& filename, const int unit, const std::optional<std::string>& nameInShader)
+        : textureCacheKey(filename), textureUnit(unit)
+{
+    shaderName = nameInShader.value_or(std::string("texture") + std::to_string(unit));
+
+    if(LookupTables::TextureCache.count(filename)) {
+        LookupTables::TextureCache.at(filename).second += 1;
+        IDCache = LookupTables::TextureCache.at(textureCacheKey).first.getID();
+    }
+    else {
+        IDCache = loadOnMain(loadFromDisk(textureCacheKey), textureUnit);
+        LookupTables::TextureCache.emplace(std::string(textureCacheKey), std::make_pair<TextureResourceContainer, std::size_t>(
+                TextureResourceContainer(IDCache), 1));
+    }
+}
+
+Component::TextureComponent::TextureComponent(const Component::TextureComponent &tex)
+        : textureCacheKey(tex.textureCacheKey), IDCache(tex.IDCache),
+          textureUnit(tex.textureUnit), shaderName(tex.shaderName)
+{
+    LookupTables::TextureCache.at(textureCacheKey).second += 1;
+}
+Component::TextureComponent::TextureComponent(Component::TextureComponent &&oldTexture) noexcept
+        : textureCacheKey(std::move(oldTexture.textureCacheKey)), IDCache(oldTexture.IDCache),
+          textureUnit(oldTexture.textureUnit), shaderName(std::move(oldTexture.shaderName))
+{
+    oldTexture.textureCacheKey.clear();
+    oldTexture.IDCache = 0;
+    oldTexture.textureUnit = 0;
+    oldTexture.shaderName.clear();
+}
+
+Component::TextureComponent& Component::TextureComponent::operator=(const Component::TextureComponent &tex) {
+    Component::TextureComponent copy(tex);
+    swap(*this, copy);
+    return *this;
+}
+Component::TextureComponent& Component::TextureComponent::operator=(Component::TextureComponent &&oldTexture) noexcept {
+    Component::TextureComponent move(std::move(oldTexture));
+    swap(*this, move);
+    return *this;
+}
+
+void Component::TextureComponent::bind(const Shader &shader) const {
+    glActiveTexture(GL_TEXTURE0 + textureUnit);
+    glBindTexture(GL_TEXTURE_2D, IDCache);
+    const int textureLoc = glGetUniformLocation(shader.ID, shaderName.c_str());
+    glUniform1i(textureLoc, textureUnit);
+}
+
+void Component::TextureComponent::unbind() const {
+    glActiveTexture(GL_TEXTURE0 + textureUnit);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+Component::TextureComponent::~TextureComponent() {
+    if(LookupTables::TextureCache.count(textureCacheKey)) {
+        LookupTables::TextureCache.at(textureCacheKey).second -= 1;
+
+        //if the refcount drops to 0, delete the element
+        if(!LookupTables::TextureCache.at(textureCacheKey).second) {
+            LookupTables::TextureCache.erase(textureCacheKey);
+        }
+    }
 }
 

@@ -2,11 +2,16 @@
 
 #include <string>
 
-#include <unordered_map> //@deprecated
+//remove:
+#include <unordered_map>
 
 #include "Headers/Engine/ResourceContainers/MeshResourceContainer.h"
+#include "Headers/Engine/ResourceContainers/TextureResourceContainer.h"
 
 namespace LookupTables {
-    //@deprecated
+    [[deprecated]]
     inline std::unordered_map<std::string, std::pair<MeshResourceContainer, std::size_t>> MeshCache;
+
+    [[deprecated]]
+    inline std::unordered_map<std::string, std::pair<TextureResourceContainer, std::size_t>> TextureCache;
 }
