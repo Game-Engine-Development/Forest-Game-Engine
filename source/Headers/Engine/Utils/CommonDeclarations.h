@@ -1,5 +1,7 @@
 #pragma once
 
+#include <variant>
+
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 
@@ -12,6 +14,12 @@ enum struct ImageType {
     RGBA_IMG = 0,
     RGB_IMG = 1,
 };
+
+struct Uniform {
+    std::string name;
+    std::variant<float, glm::vec2, glm::vec3, glm::vec4> data;
+};
+
 
 struct Light {
     std::string lightPosName;

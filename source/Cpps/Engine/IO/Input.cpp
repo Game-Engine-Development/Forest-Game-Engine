@@ -2,12 +2,11 @@
 
 std::unique_ptr<Input> Input::instance;
 
-Input::Input(Window *const window, Camera *const camera, std::vector<Sphere> *spheres, std::array<Terrain, 9> *terrains) {
+Input::Input(Window *const window, Camera *const camera, /*std::vector<Sphere> *spheres,*/ std::array<Terrain, 9> *terrains) {
     instance = std::make_unique<Input>();
 
     instance->m_window = window;
     instance->m_camera = camera;
-    instance->spheres = spheres;
     instance->terrains = terrains;
 
     instance->firstMouse = true;
@@ -23,7 +22,7 @@ Input::Input(Window *const window, Camera *const camera, std::vector<Sphere> *sp
     glfwSetCursorEnterCallback(window->getWindow(), cursor_enter_callback);
 }
 
-void Input::processInputImpl(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window) { //@todo fix this code duplication and weird mutability
+void Input::processInputImpl(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window, EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres) { //@todo fix this code duplication and weird mutability
     for (int i = 0; i < GLFW_KEY_LAST; ++i) {
         instance->m_keys[i] = glfwGetKey(instance->m_window->getWindow(), i) == GLFW_PRESS;
     }
@@ -85,7 +84,7 @@ void Input::processInputImpl(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window
         m_camera->setPosition(m_camera->getPosition() + finalMove);
     }
 
-    raycastPickSphere();
+    raycastPickSphere(scene, startIndex, numberOfSpheres);
 
     if(glfwGetKey(m_window->getWindow(), GLFW_KEY_C) == GLFW_PRESS) {
         if(cursor && !held) {
@@ -102,7 +101,7 @@ void Input::processInputImpl(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window
     }
 }
 
-void Input::raycastPickSphere() {
+void Input::raycastPickSphere(EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres) {
     // Note: could query if window has lost focus here
     if ((Input::isButtonDown(GLFW_MOUSE_BUTTON_LEFT) || Input::isButtonDown(GLFW_MOUSE_BUTTON_RIGHT)) && instance->cursor) {
         double xposLocal, yposLocal;
@@ -113,10 +112,10 @@ void Input::raycastPickSphere() {
         // check ray against all spheres in scene
         int closest_sphere_clicked = -1;
         float closest_intersection = 0.0f;
-        for (int i = 0; i < instance->spheres->size(); i++) {
+        for (int i = startIndex; i < /*instance->spheres->size()*/ startIndex+numberOfSpheres; i++) {
             float t_dist = 0.0f;
             constexpr float sphere_radius = 1.0f; //temporary @todo change
-            if (ray_sphere(instance->m_camera->getPos(), ray_wor, /*sphere_pos_wor[i]*/ instance->spheres->at(i).getPos(), sphere_radius, t_dist)) {
+            if (ray_sphere(instance->m_camera->getPos(), ray_wor, /*sphere_pos_wor[i]*/ /*instance->spheres->at(i).getPos()*/ scene.getEntity(scene.getEntities().at(i)).getComponent<Component::PosRotationScale>().getPos(), sphere_radius, t_dist)) {
                 // if more than one sphere is in path of ray, only use the closest one
                 if (-1 == closest_sphere_clicked || t_dist < closest_intersection) {
                     closest_sphere_clicked = i;
@@ -185,6 +184,6 @@ bool Input::notCursor() noexcept {
     return !instance->cursor;
 }
 
-void Input::processInput(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window) {
-    instance->processInputImpl(gSoloud, gWave, window);
+void Input::processInput(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window, EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres) {
+    instance->processInputImpl(gSoloud, gWave, window, scene, startIndex, numberOfSpheres);
 }

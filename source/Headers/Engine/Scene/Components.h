@@ -11,6 +11,7 @@
 #include "Headers/Engine/Scene/LookUpTables.h"
 #include "Headers/Engine/Models/VertexSystems.h"
 #include "Headers/Engine/Texture/TextureSystems.h"
+#include "Headers/Engine/Utils/CommonDeclarations.h"
 
 namespace Component {
     struct MeshComponent {
@@ -86,12 +87,35 @@ namespace Component {
         std::string shaderName;
     };
 
-    struct Drawable {
-        Drawable(Component::MeshComponent mesh, std::vector<Component::TextureComponent> textures) : mesh(std::move(mesh)), textures(std::move(textures))
+    struct Drawable { //@todo rewrite this
+        Drawable(Component::MeshComponent mesh, std::vector<Component::TextureComponent> textures, const Shader &shader, std::vector<Uniform> uniforms)
+        : mesh(std::move(mesh)), textures(std::move(textures)), shader(shader), uniforms(std::move(uniforms))
         {}
+
+        Drawable(Component::MeshComponent mesh, std::vector<Component::TextureComponent> textures, const Shader &shader)
+                : Drawable(std::move(mesh), std::move(textures), shader, {})
+        {}
+
+        Shader shader; //@todo change this
 
         Component::MeshComponent mesh;
         std::vector<Component::TextureComponent> textures;
+
+        std::vector<Uniform> uniforms;
+
+        decltype(uniforms.end()->data)& getUniformData(const int index) {
+            return uniforms.at(index).data;
+        }
+        const decltype(uniforms.end()->data)& getUniformData(const int index) const {
+            return uniforms.at(index).data;
+        }
+        decltype(uniforms.end()->name)& getUniformName(const int index) {
+            return uniforms.at(index).name;
+        }
+        const decltype(uniforms.end()->name)& getUniformName(const int index) const {
+            return uniforms.at(index).name;
+        }
+
 
         Transform modelMatrix{};
     };

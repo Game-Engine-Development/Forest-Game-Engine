@@ -14,7 +14,7 @@
 #include "Headers/Engine/Utils/Raycast.h"
 #include "Headers/Engine/Utils/MiscUtils.h"
 
-#include "Headers/Engine/Models/Sphere.h"
+#include "Headers/Engine/Scene/ENTTWrapper.h"
 
 class Input {
 public:
@@ -25,7 +25,7 @@ public:
 
     Input() noexcept = default;
 
-    Input(Window *window, Camera *camera, std::vector<Sphere> *spheres, std::array<Terrain, 9> *terrains);
+    Input(Window *window, Camera *camera, /*std::vector<Sphere> *spheres,*/ std::array<Terrain, 9> *terrains);
 
     static int get_g_selected_sphere() noexcept;
 
@@ -44,11 +44,11 @@ public:
          return instance->pointOfIntersection;
     }
 
-    static void processInput(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window);
+    static void processInput(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window, EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres);
 
 private:
-    void processInputImpl(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window);
-    static void raycastPickSphere();
+    void processInputImpl(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window, EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres);
+    static void raycastPickSphere(EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres);
 
     static void mouse_callback([[maybe_unused]] GLFWwindow* window, double xpos, double ypos);
     static void scroll_callback([[maybe_unused]] GLFWwindow* window, double xoffset, double yoffset);
@@ -60,7 +60,6 @@ private:
     std::array<Terrain, 9> *terrains = nullptr;
     std::optional<glm::vec3> pointOfIntersection = std::nullopt;
 
-    std::vector<Sphere> *spheres = nullptr;
     int g_selected_sphere = -1;
 
     std::array<bool, GLFW_KEY_LAST> m_keys{};

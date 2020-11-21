@@ -55,6 +55,10 @@ namespace EnttWrapper {
             return Entity{id, this};
         }
 
+        [[nodiscard]] Entity getEntityFromIndex(const int index) {
+            return Entity{entities.at(index), this};
+        }
+
         [[nodiscard]] constexpr const std::vector<entt::entity>& getEntities() const {
             return entities;
         }

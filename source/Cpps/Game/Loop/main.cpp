@@ -31,8 +31,6 @@
 
 #include "Headers/Engine/Graphics/RenderSystem/Renderer.h"
 
-#include "Headers/Engine/Models/Sphere.h"
-
 #include "Headers/Engine/Utils/DataStructures/Ntree.h" //@todo finish implementing efficient Octree and custom memory allocators
 //@todo finish RTS style unit placement for Level Editor
 #include "Headers/Engine/Scene/ENTTWrapper.h"
@@ -51,33 +49,6 @@ int main() {
 
 
     using namespace std::string_literals;
-    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>>(
-            Component::MeshComponent("../res/container.obj"s, false),
-            {Component::TextureComponent("../res/human.jpg"s, 0)})
-                        .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
-                 {glm::vec3(0), glm::vec3(0), glm::vec3(1000, 0.0, 1000)});
-
-
-    std::vector<Sphere> spheres;
-    spheres.reserve(5);
-    for(int i = 0; i < 5; ++i) {
-        spheres.emplace_back(Component::PosRotationScale{glm::vec3(i*10), glm::vec3(0), glm::vec3(1)}, Component::MeshComponent("../res/Sphere.obj"s, false));
-    }
-
-
-    SoLoud::Soloud gSoloud; // SoLoud engine
-    SoLoud::Wav gWave;      // One wave file
-
-    HDR hdr(window);
-
-
-    gSoloud.init(); // Initialize SoLoud
-
-    gWave.load("../res/DuskHowl.wav"); // Load a wave
-
-    glm::vec3 lightPos(-3200, 3200, -3200);
-    glm::vec3 lightColor(0.7);
-
 
     Shader entityShader(
             "../source/Cpps/Engine/Models/Shaders/vertexShader.glsl",
@@ -96,6 +67,37 @@ int main() {
             "../source/Cpps/Engine/Models/Shaders/SimpleDemoFragment.glsl"
     );
 
+    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>, Shader>(
+            Component::MeshComponent("../res/container.obj"s, false),
+            {Component::TextureComponent("../res/human.jpg"s, 0)}, Shader(normalMappedShader))
+                        .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
+                 {glm::vec3(0, -10, 0), glm::vec3(0), glm::vec3(1000, 0.0, 1000)});
+
+
+    for(int i = 0; i < 5; ++i) {
+        scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent,
+        std::vector<Component::TextureComponent>, Shader, std::vector<Uniform>>(
+                Component::MeshComponent("../res/Sphere.obj"s, false), {}, Shader(simpleDemoShaders), {Uniform{"blue"s, 0.f}})
+                .addComponent<Component::PosRotationScale>(
+                Component::PosRotationScale{glm::vec3(i*10), glm::vec3(0), glm::vec3(1)});
+    }
+
+
+    SoLoud::Soloud gSoloud; // SoLoud engine
+    SoLoud::Wav gWave;      // One wave file
+
+    HDR hdr(window);
+
+
+    gSoloud.init(); // Initialize SoLoud
+
+    gWave.load("../res/DuskHowl.wav"); // Load a wave
+
+    const Light light {
+            "lightPos", glm::vec3(-3200, 3200, -3200),
+            "lightColor", glm::vec3(0.7)
+    };
+
     TerrainMesh terrainMesh("../res/heightmap.png");
 
     Component::TextureComponent terrainTexture("../res/repeating_mud_texture.jpeg", 0);
@@ -111,8 +113,8 @@ int main() {
 
     Skybox skybox(CubeMapTexture(textures, 0));
 
-    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>>(
-            Component::MeshComponent("../res/container.obj"s, false), {Component::TextureComponent("../res/human.jpg"s, 0)})
+    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>, Shader>(
+            Component::MeshComponent("../res/container.obj"s, false), {Component::TextureComponent("../res/human.jpg"s, 0)}, Shader(normalMappedShader))
                         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                         {glm::vec3(7), glm::vec3(0), glm::vec3(1)});
 
@@ -125,15 +127,18 @@ int main() {
         }
     }
 
-    Input input(&window, &camera, &spheres, &terrains);
+    //Input input(&window, &camera, &spheres, &terrains);
+
+    Input input(&window, &camera, &terrains);
+
 
 
     const auto worldBox = scene.createEntity()
-                        .addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>>(
+                        .addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>, Shader>(
                                 Component::MeshComponent("../res/container.obj"s, false),
-                                {Component::TextureComponent("../res/wolf.jpg"s, 0)})
+                                {Component::TextureComponent("../res/wolf.jpg"s, 0)}, Shader(normalMappedShader))
                         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
-                                {glm::vec3(0), glm::vec3(0), glm::vec3(1)}).getID();
+                                {glm::vec3(0, -10, 0), glm::vec3(0), glm::vec3(1)}).getID();
 
 
     LevelEditor editor(&window);
@@ -143,9 +148,9 @@ int main() {
 
     std::cout << "pos: " << terrain.getPos() << ' ';
 
-    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>>(
+    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>, Shader>(
                             Component::MeshComponent("../res/container.obj"s, false),
-                            {Component::TextureComponent("../res/wolf.jpg"s, 0)})
+                            {Component::TextureComponent("../res/wolf.jpg"s, 0)}, Shader(normalMappedShader))
                         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                                 {terrain.getPos() + glm::vec3(TerrainMesh::SIZE/2.f, 0.f,
                                 TerrainMesh::SIZE/2.f),glm::vec3(0), glm::vec3(10)});
@@ -154,9 +159,9 @@ int main() {
     std::cout << "width: " << terrain.terrainMesh->getWidth() << '\n';
 
     scene.createEntity()
-        .addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>>(
+        .addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>, Shader>(
                 Component::MeshComponent("../res/container.obj"s, false),
-                {Component::TextureComponent("../res/wolf.jpg"s, 0)})
+                {Component::TextureComponent("../res/wolf.jpg"s, 0)}, Shader(normalMappedShader))
         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                 {terrains[0].getPos() + glm::vec3(0, 30, 0),
                  glm::vec3(0), glm::vec3(10)});
@@ -167,17 +172,22 @@ int main() {
     //SmallVector<Foo> tree;
 
     while (!glfwWindowShouldClose(window.getWindow())) {
-        Input::processInput(gSoloud, gWave, window);
+        Input::processInput(gSoloud, gWave, window, scene, 1, 5);
 
         glClear(static_cast<unsigned int>(GL_COLOR_BUFFER_BIT) | static_cast<unsigned int>(GL_DEPTH_BUFFER_BIT));
 
         //render
         hdr.bind();
 
-        renderScene(scene, camera, normalMappedShader, {{"lightPos", lightPos, "lightColor", lightColor}});
+        renderScene(scene, camera, {light});
 
-        for(int i = 0; i < spheres.size(); ++i) {
-            spheres[i].render(camera, simpleDemoShaders, (i == Input::get_g_selected_sphere()) /*if i == chosen circle*/);
+        //for(int i = 0; i < spheres.size(); ++i) {
+        //    spheres[i].render(camera, simpleDemoShaders, (i == Input::get_g_selected_sphere()) /*if i == chosen circle*/);
+        //}
+        for(int i = 1; i < 6; ++i) {
+            const float blueAsFloat = (i == Input::get_g_selected_sphere()) ? 1.0f : 0.0f;
+            auto &drawable = scene.getEntityFromIndex(i).getComponent<Component::Drawable>();
+            drawable.getUniformData(0) = blueAsFloat;
         }
         if(Input::getPointOfIntersection().has_value()) {
             std::cout << "has_value()\n";
