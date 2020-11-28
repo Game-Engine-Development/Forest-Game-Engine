@@ -3,8 +3,9 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "../../../../libraries/stb_image_write.h"
 
-[[nodiscard]] float mathRound(const float value) noexcept {
-    return std::round(value * 1000.0f) / 1000.0f;
+[[nodiscard]] float mathRound(const float value, const std::int32_t numberOfDigits) noexcept {
+    const float baseOf10 = std::pow(10.f, static_cast<float>(numberOfDigits));
+    return std::round(value * baseOf10) / baseOf10;
 }
 
 bool isIntegral(const char num) {
@@ -49,8 +50,12 @@ void screenshot(const char *const filename, const Window &window) {
 }
 
 std::ostream& operator<<(std::ostream &stream, const glm::vec3 data) {
-    stream << '{' << data.x << ", " << data.y << ", " << data.z << '}';
+    stream << '{' << mathRound(data.x, 5) << ", " << mathRound(data.y, 5) << ", " << mathRound(data.z, 5) << '}';
     return stream;
+}
+
+std::int8_t boolToSign(const bool b) {
+    return b ? 1 : -1;
 }
 
 

@@ -21,8 +21,8 @@
 
 [[nodiscard]] std::optional<float> get_ray_plane_intersection_t(const glm::vec3 origin, const glm::vec3 ray, const float planeHeight) noexcept{
     //the ray is parallel to plane
-    if (mathRound(ray.y) == 0.f) {
-        if (mathRound(origin.y) != mathRound(planeHeight)) return std::nullopt;
+    if (mathRound(ray.y, 3) == 0.f) {
+        if (mathRound(origin.y, 3) != mathRound(planeHeight, 3)) return std::nullopt;
 
         //else, the plane and ray have infintely many points of intersection, feel free to return `std::nullopt` instead
         return 0.f;

@@ -5,6 +5,8 @@
 
 #include <glm/glm.hpp>
 
+#include "Headers/Engine/Utils/MiscUtils.h"
+
 using Coordinate = glm::vec3;
 using LengthVec3 = glm::vec3;
 
@@ -31,5 +33,4 @@ struct BoundingSphere {
     [[nodiscard]] bool intersectsOtherSphere(BoundingSphere other) const noexcept;
 
     [[nodiscard]] bool intersectWithBox(BoundingBox box) const noexcept;
-
 };

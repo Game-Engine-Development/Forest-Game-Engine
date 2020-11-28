@@ -124,7 +124,7 @@ void Input::raycastPickSphere(EnttWrapper::Scene &scene, int startIndex, int num
             }
         }
         instance->g_selected_sphere = closest_sphere_clicked;
-        printf("sphere %i was clicked\n", closest_sphere_clicked);
+        std::cout << "sphere " << closest_sphere_clicked << " was clicked\n";
     }
 }
 

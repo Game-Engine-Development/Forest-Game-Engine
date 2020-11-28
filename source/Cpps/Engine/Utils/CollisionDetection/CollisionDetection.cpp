@@ -2,9 +2,9 @@
 
 
 [[nodiscard]] bool BoundingBox::containsPoint(const Coordinate point) const noexcept {
-    const bool containsX = point.x < (center.x + halfWidths[0]) && point.x >= (center.x - halfWidths[0]);
-    const bool containsY = point.y < (center.y + halfWidths[1]) && point.y >= (center.y - halfWidths[1]);
-    const bool containsZ = point.z < (center.z + halfWidths[2]) && point.z >= (center.z - halfWidths[2]);
+    const bool containsX = mathRound(point.x, 5) < mathRound((center.x + halfWidths[0]), 5) && mathRound(point.x, 5) >= mathRound((center.x - halfWidths[0]), 5);
+    const bool containsY = mathRound(point.y, 5) < mathRound((center.y + halfWidths[1]), 5) && mathRound(point.y, 5) >= mathRound((center.y - halfWidths[1]), 5);
+    const bool containsZ = mathRound(point.z, 5) < mathRound((center.z + halfWidths[2]), 5) && mathRound(point.z, 5) >= mathRound((center.z - halfWidths[2]), 5);
 
     return containsX && containsY && containsZ;
 }

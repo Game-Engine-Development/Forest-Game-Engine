@@ -103,16 +103,16 @@ namespace Component {
 
         std::vector<Uniform> uniforms;
 
-        decltype(uniforms.end()->data)& getUniformData(const int index) {
+        [[nodiscard]] decltype(uniforms.end()->data)& getUniformData(const int index) {
             return uniforms.at(index).data;
         }
-        const decltype(uniforms.end()->data)& getUniformData(const int index) const {
+        [[nodiscard]] const decltype(uniforms.end()->data)& getUniformData(const int index) const {
             return uniforms.at(index).data;
         }
-        decltype(uniforms.end()->name)& getUniformName(const int index) {
+        [[nodiscard]] decltype(uniforms.end()->name)& getUniformName(const int index) {
             return uniforms.at(index).name;
         }
-        const decltype(uniforms.end()->name)& getUniformName(const int index) const {
+        [[nodiscard]] const decltype(uniforms.end()->name)& getUniformName(const int index) const {
             return uniforms.at(index).name;
         }
 

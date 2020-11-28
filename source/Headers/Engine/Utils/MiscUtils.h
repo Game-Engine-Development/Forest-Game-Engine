@@ -14,7 +14,7 @@
 #include "Headers/Engine/IO/Window.h"
 #include "Headers/Engine/Utils/CommonDeclarations.h"
 
-[[nodiscard]] float mathRound(float value) noexcept;
+[[nodiscard]] float mathRound(float value, std::int32_t numberOfDigits) noexcept;
 
 bool isIntegral(char num);
 
@@ -23,6 +23,9 @@ void reverse(unsigned char *start, std::size_t block_size, std::size_t numOfBloc
 void screenshot(const char *filename, const Window &window);
 
 [[nodiscard]] Component::Transform createModelMatrix(const Component::PosRotationScale &transform) noexcept;
+
+//true = 1, false = -1
+std::int8_t boolToSign(bool b);
 
 template<typename T>
 bool future_is_ready(const std::future<T>& t);

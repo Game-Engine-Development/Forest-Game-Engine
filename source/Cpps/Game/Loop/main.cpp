@@ -4,6 +4,8 @@
 #include <vector>
 #include <array>
 
+#include <random>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -31,7 +33,7 @@
 
 #include "Headers/Engine/Graphics/RenderSystem/Renderer.h"
 
-#include "Headers/Engine/Utils/DataStructures/Ntree.h" //@todo finish implementing efficient Octree and custom memory allocators
+#include "Headers/Engine/Utils/DataStructures/Octree.h" //@todo finish implementing efficient Octree and custom memory allocators
 //@todo finish RTS style unit placement for Level Editor
 #include "Headers/Engine/Scene/ENTTWrapper.h"
 
@@ -42,6 +44,11 @@
 
 
 int main() {
+    //make std::cout fast:
+    //std::ios_base::sync_with_stdio(false);
+    //std::cin.tie(nullptr);
+
+
     Camera camera;
     Window window(camera);
 
@@ -53,10 +60,6 @@ int main() {
     Shader entityShader(
             "../source/Cpps/Engine/Models/Shaders/vertexShader.glsl",
             "../source/Cpps/Engine/Models/Shaders/fragmentShader.glsl"
-    );
-    Shader simpleTerrainShader(
-            "../source/Cpps/Engine/Terrain/Shaders/terrainVertexShader.glsl",
-            "../source/Cpps/Engine/Terrain/Shaders/terrainFragmentShader.glsl"
     );
     Shader normalMappedShader(
             "../source/Cpps/Engine/Models/Shaders/normalMappedVertex.glsl",
@@ -77,7 +80,8 @@ int main() {
     for(int i = 0; i < 5; ++i) {
         scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent,
         std::vector<Component::TextureComponent>, Shader, std::vector<Uniform>>(
-                Component::MeshComponent("../res/Sphere.obj"s, false), {}, Shader(simpleDemoShaders), {Uniform{"blue"s, 0.f}})
+                Component::MeshComponent("../res/Sphere.obj"s, false), {},
+                Shader(simpleDemoShaders), {Uniform{"blue"s, 0.f}})
                 .addComponent<Component::PosRotationScale>(
                 Component::PosRotationScale{glm::vec3(i*10), glm::vec3(0), glm::vec3(1)});
     }
@@ -127,7 +131,6 @@ int main() {
         }
     }
 
-    //Input input(&window, &camera, &spheres, &terrains);
 
     Input input(&window, &camera, &terrains);
 
@@ -139,6 +142,7 @@ int main() {
                                 {Component::TextureComponent("../res/wolf.jpg"s, 0)}, Shader(normalMappedShader))
                         .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
                                 {glm::vec3(0, -10, 0), glm::vec3(0), glm::vec3(1)}).getID();
+
 
 
     LevelEditor editor(&window);
@@ -169,9 +173,25 @@ int main() {
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-    //SmallVector<Foo> tree;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0, 300'000);
 
-    while (!glfwWindowShouldClose(window.getWindow())) {
+    std::vector<glm::vec3> points;
+    points.reserve(50'000);
+    for(int i = 0; i < 50'000; ++i) {
+        points.emplace_back(dis(gen), dis(gen), dis(gen));
+    }
+    std::cout << "start\n";
+    const auto oldTime = std::chrono::steady_clock::now();;
+    DataStructures::Octree tree{BoundingBox{.center=glm::vec3(150'000), .halfWidths=glm::vec3(150'000)}, points};
+    const auto newTime = std::chrono::steady_clock::now();
+    std::cout << "end\n";
+    const auto duration = newTime - oldTime;
+    std::cout << "time passed: " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << '\n';
+    //std::cout << tree;
+
+    //while (!glfwWindowShouldClose(window.getWindow())) {
         Input::processInput(gSoloud, gWave, window, scene, 1, 5);
 
         glClear(static_cast<unsigned int>(GL_COLOR_BUFFER_BIT) | static_cast<unsigned int>(GL_DEPTH_BUFFER_BIT));
@@ -181,9 +201,6 @@ int main() {
 
         renderScene(scene, camera, {light});
 
-        //for(int i = 0; i < spheres.size(); ++i) {
-        //    spheres[i].render(camera, simpleDemoShaders, (i == Input::get_g_selected_sphere()) /*if i == chosen circle*/);
-        //}
         for(int i = 1; i < 6; ++i) {
             const float blueAsFloat = (i == Input::get_g_selected_sphere()) ? 1.0f : 0.0f;
             auto &drawable = scene.getEntityFromIndex(i).getComponent<Component::Drawable>();
@@ -191,7 +208,8 @@ int main() {
         }
         if(Input::getPointOfIntersection().has_value()) {
             std::cout << "has_value()\n";
-            scene.getEntity(worldBox).getComponent<Component::PosRotationScale>().setPos(Input::getPointOfIntersection().value());
+            auto &posRotScale = scene.getEntity(worldBox).getComponent<Component::PosRotationScale>();
+            posRotScale.setPos(Input::getPointOfIntersection().value());
         }
 
         //terrain.render(camera, simpleTerrainShader, lightPos, lightColor);
@@ -204,7 +222,7 @@ int main() {
 
         glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
-    }
+    //}
 
 
     gSoloud.deinit(); // Clean up!

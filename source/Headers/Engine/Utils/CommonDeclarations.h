@@ -17,6 +17,7 @@ enum struct ImageType {
 
 struct Uniform {
     std::string name;
+    //shader uniform id
     std::variant<float, glm::vec2, glm::vec3, glm::vec4> data;
 };
 

@@ -14,16 +14,16 @@ struct Visitor {
     Visitor() = delete;
     explicit Visitor(const int uniformId) : id(uniformId) {}
 
-    void operator()(float data) const {
+    void operator()(const float data) const {
         glUniform1f(id, data);
     }
-    void operator()(glm::vec2 data) const {
+    void operator()(const glm::vec2 data) const {
         glUniform2fv(id, 1, glm::value_ptr(data));
     }
-    void operator()(glm::vec3 data) const {
+    void operator()(const glm::vec3 data) const {
         glUniform3fv(id, 1, glm::value_ptr(data));
     }
-    void operator()(glm::vec4 data) const {
+    void operator()(const glm::vec4 data) const {
         glUniform4fv(id, 1, glm::value_ptr(data));
     }
 

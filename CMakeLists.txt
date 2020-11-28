@@ -4,7 +4,7 @@ project(opengl_game)
 
 # Source files
 set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/source")
-set(SOURCES "${SRC_DIR}/Cpps/Game/Loop/main.cpp" source/Headers/Engine/Shader/Shader.h source/Cpps/Engine/Shader/Shader.cpp source/Headers/Engine/Camera/Camera.h source/Cpps/Engine/Camera/Camera.cpp source/Cpps/Engine/Terrain/Terrain.cpp source/Headers/Engine/Terrain/Terrain.h source/Cpps/Engine/Terrain/TerrainMesh.cpp source/Headers/Engine/Terrain/TerrainMesh.h source/Cpps/Engine/Terrain/TerrainTextureMap.cpp source/Headers/Engine/Terrain/TerrainTextureMap.h source/Cpps/Engine/Skybox/CubeMapTexture.cpp source/Headers/Engine/Skybox/CubeMapTexture.h source/Cpps/Engine/Skybox/Skybox.cpp source/Headers/Engine/Skybox/Skybox.h source/Headers/Engine/IO/Window.h source/Cpps/Engine/IO/Window.cpp source/Headers/Engine/IO/Input.h source/Cpps/Engine/IO/Input.cpp source/Headers/Engine/Graphics/HDR.h source/Cpps/Engine/Graphics/HDR.cpp source/Headers/Engine/Utils/MiscUtils.h source/Cpps/Engine/Utils/MiscUtils.cpp source/Cpps/Engine/ResourceContainers/TextureResourceContainer.cpp source/Headers/Engine/ResourceContainers/TextureResourceContainer.h source/Cpps/Engine/Graphics/Lighting/IBL/HDRI.cpp source/Cpps/Engine/Graphics/Lighting/IBL/IBL.cpp source/Cpps/Engine/Graphics/Lighting/PointLight.cpp source/Cpps/Engine/Graphics/Materials/Material.cpp source/Headers/Engine/Graphics/Lighting/IBL/HDRI.h source/Headers/Engine/Graphics/Lighting/IBL/IBL.h source/Headers/Engine/Graphics/Lighting/PointLight.h source/Headers/Engine/Graphics/Materials/Material.h source/Cpps/Engine/Graphics/Materials/Material.cpp source/Cpps/Engine/ResourceContainers/stb_PointerContainer.cpp source/Headers/Engine/ResourceContainers/stb_PointerContainer.h source/Cpps/Engine/ResourceContainers/MeshResourceContainer.cpp source/Headers/Engine/ResourceContainers/MeshResourceContainer.h source/Cpps/Engine/ResourceContainers/SkyboxResourceContainer.cpp source/Headers/Engine/ResourceContainers/SkyboxResourceContainer.h source/Headers/Engine/Utils/CommonDeclarations.h source/Headers/Engine/Utils/DataStructures/Ntree.h source/Headers/Engine/Scene/ENTTWrapper.h source/Cpps/Engine/Scene/LevelEditor.cpp source/Headers/Engine/Scene/LevelEditor.h source/Headers/Engine/Utils/Raycast.h source/Cpps/Engine/Utils/Raycast.cpp source/Headers/Engine/Scene/Components.h source/Headers/Engine/Graphics/RenderSystem/Renderer.h source/Headers/Engine/Scene/LookUpTables.h source/Cpps/Engine/Scene/Components.cpp
+set(SOURCES "${SRC_DIR}/Cpps/Game/Loop/main.cpp" source/Headers/Engine/Shader/Shader.h source/Cpps/Engine/Shader/Shader.cpp source/Headers/Engine/Camera/Camera.h source/Cpps/Engine/Camera/Camera.cpp source/Cpps/Engine/Terrain/Terrain.cpp source/Headers/Engine/Terrain/Terrain.h source/Cpps/Engine/Terrain/TerrainMesh.cpp source/Headers/Engine/Terrain/TerrainMesh.h source/Cpps/Engine/Terrain/TerrainTextureMap.cpp source/Headers/Engine/Terrain/TerrainTextureMap.h source/Cpps/Engine/Skybox/CubeMapTexture.cpp source/Headers/Engine/Skybox/CubeMapTexture.h source/Cpps/Engine/Skybox/Skybox.cpp source/Headers/Engine/Skybox/Skybox.h source/Headers/Engine/IO/Window.h source/Cpps/Engine/IO/Window.cpp source/Headers/Engine/IO/Input.h source/Cpps/Engine/IO/Input.cpp source/Headers/Engine/Graphics/HDR.h source/Cpps/Engine/Graphics/HDR.cpp source/Headers/Engine/Utils/MiscUtils.h source/Cpps/Engine/Utils/MiscUtils.cpp source/Cpps/Engine/ResourceContainers/TextureResourceContainer.cpp source/Headers/Engine/ResourceContainers/TextureResourceContainer.h source/Cpps/Engine/Graphics/Lighting/IBL/HDRI.cpp source/Cpps/Engine/Graphics/Lighting/IBL/IBL.cpp source/Cpps/Engine/Graphics/Lighting/PointLight.cpp source/Cpps/Engine/Graphics/Materials/Material.cpp source/Headers/Engine/Graphics/Lighting/IBL/HDRI.h source/Headers/Engine/Graphics/Lighting/IBL/IBL.h source/Headers/Engine/Graphics/Lighting/PointLight.h source/Headers/Engine/Graphics/Materials/Material.h source/Cpps/Engine/Graphics/Materials/Material.cpp source/Cpps/Engine/ResourceContainers/stb_PointerContainer.cpp source/Headers/Engine/ResourceContainers/stb_PointerContainer.h source/Cpps/Engine/ResourceContainers/MeshResourceContainer.cpp source/Headers/Engine/ResourceContainers/MeshResourceContainer.h source/Cpps/Engine/ResourceContainers/SkyboxResourceContainer.cpp source/Headers/Engine/ResourceContainers/SkyboxResourceContainer.h source/Headers/Engine/Utils/CommonDeclarations.h source/Headers/Engine/Utils/DataStructures/Octree.h source/Headers/Engine/Scene/ENTTWrapper.h source/Cpps/Engine/Scene/LevelEditor.cpp source/Headers/Engine/Scene/LevelEditor.h source/Headers/Engine/Utils/Raycast.h source/Cpps/Engine/Utils/Raycast.cpp source/Headers/Engine/Scene/Components.h source/Headers/Engine/Graphics/RenderSystem/Renderer.h source/Headers/Engine/Scene/LookUpTables.h source/Cpps/Engine/Scene/Components.cpp source/Headers/Engine/Utils/CollisionDetection/CollisionDetection.h source/Cpps/Engine/Utils/CollisionDetection/CollisionDetection.cpp
 
         #IMGUI:
         libraries/imgui/imconfig.h libraries/imgui/imgui.h libraries/imgui/imgui.cpp libraries/imgui/imgui_demo.cpp libraries/imgui/imgui_draw.cpp libraries/imgui/imgui_widgets.cpp libraries/imgui/imgui_internal.h libraries/imgui/imstb_rectpack.h libraries/imgui/imstb_textedit.h libraries/imgui/imstb_truetype.h
@@ -106,7 +106,13 @@ set(SOURCES "${SRC_DIR}/Cpps/Game/Loop/main.cpp" source/Headers/Engine/Shader/Sh
 # Executable definition and properties
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE "${SRC_DIR}")
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package( Threads REQUIRED )
+message(${CMAKE_THREAD_LIBS_INIT}) #pthread library
+target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_THREAD_LIBS_INIT} PRIVATE util)
+
 
 #IMGUI includes:
 target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/libraries/imgui")
@@ -121,7 +127,7 @@ set(GLFW_BUILD_TESTS OFF CACHE INTERNAL "Build the GLFW test programs")
 set(GLFW_BUILD_DOCS OFF CACHE INTERNAL "Build the GLFW documentation")
 set(GLFW_INSTALL OFF CACHE INTERNAL "Generate installation target")
 add_subdirectory("${GLFW_DIR}")
-target_link_libraries(${PROJECT_NAME} "glfw" "${GLFW_LIBRARIES}")
+target_link_libraries(${PROJECT_NAME} PRIVATE "glfw" PRIVATE "${GLFW_LIBRARIES}")
 target_include_directories(${PROJECT_NAME} PRIVATE "${GLFW_DIR}/include")
 target_compile_definitions(${PROJECT_NAME} PRIVATE "GLFW_INCLUDE_NONE")
 
@@ -132,7 +138,7 @@ set(GLM_BUILD_TESTS OFF CACHE INTERNAL "Build the GLM test programs")
 set(GLM_BUILD_DOCS OFF CACHE INTERNAL "Build the GLM documentation")
 set(GLM_INTALL OFF CACHE INTERNAL "Generate installation target")
 add_subdirectory("${GLM_DIR}")
-target_link_libraries(${PROJECT_NAME} "glm" "${GLM_LIBRARIES}")   #this line can break on linux
+target_link_libraries(${PROJECT_NAME} PRIVATE "glm" PRIVATE "${GLM_LIBRARIES}")   #this line can break on linux
 target_include_directories(${PROJECT_NAME} PRIVATE "${GLM_DIR}/include")
 target_compile_definitions(${PROJECT_NAME} PRIVATE "GLM_INCLUDE_NONE")   #this line can break on linux
 
@@ -141,7 +147,7 @@ set(GLAD_DIR "${LIB_DIR}/glad")
 add_library("glad" "${GLAD_DIR}/src/glad.c")
 target_include_directories("glad" PRIVATE "${GLAD_DIR}/include")
 target_include_directories(${PROJECT_NAME} PRIVATE "${GLAD_DIR}/include")
-target_link_libraries(${PROJECT_NAME} "glad" "${CMAKE_DL_LIBS}")
+target_link_libraries(${PROJECT_NAME} PRIVATE "glad" PRIVATE "${CMAKE_DL_LIBS}")
 
 #SOLOUD:
 set(SOLOUD_DIR "${LIB_DIR}/soloud")
@@ -153,7 +159,5 @@ set(BUILD_SHARED_LIBS ON CACHE INTERNAL "Build package with shared libraries.")
 set(ASSIMP_HUNTER_ENABLED OFF CACHE INTERNAL "Turn Off ASSIMP Hunter")
 set(ASSIMP_BUILD_ZLIB TRUE CACHE INTERNAL "Build ZLib From Source")
 add_subdirectory("${ASSIMP_DIR}")
-target_link_libraries(${PROJECT_NAME} "assimp" ${target})
+target_link_libraries(${PROJECT_NAME} PRIVATE "assimp" PRIVATE ${target})
 target_include_directories(${PROJECT_NAME} PRIVATE ${ASSIMP_DIR}/include)
-
-
