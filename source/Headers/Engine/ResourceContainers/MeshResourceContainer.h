@@ -6,7 +6,7 @@
 class MeshResourceContainer {
     friend void swap(MeshResourceContainer &meshContainer1, MeshResourceContainer &meshContainer2);
 
-    unsigned int VAO{}, VBO{}, texCoordBuffer{}, normalBuffer{}, tangentBuffer{}, bitangentBuffer{};
+    unsigned int VAO{}, VBO{}, EBO{};
 
     std::size_t numOfVertices{}; //not RAII resource, is a normal integral value
 
@@ -15,18 +15,13 @@ public:
     MeshResourceContainer& operator=(const MeshResourceContainer&) = delete;
 
     MeshResourceContainer(MeshResourceContainer &&oldMesh) noexcept
-    : VAO(oldMesh.VAO), VBO(oldMesh.VBO), texCoordBuffer(oldMesh.texCoordBuffer),
-    normalBuffer(oldMesh.normalBuffer), tangentBuffer(oldMesh.tangentBuffer),
-    bitangentBuffer(oldMesh.bitangentBuffer),
+    : VAO(oldMesh.VAO), VBO(oldMesh.VBO), EBO(oldMesh.EBO),
 
     numOfVertices(oldMesh.numOfVertices)
     {
         oldMesh.VAO = 0;
         oldMesh.VBO = 0;
-        oldMesh.texCoordBuffer = 0;
-        oldMesh.normalBuffer = 0;
-        oldMesh.tangentBuffer = 0;
-        oldMesh.bitangentBuffer = 0;
+        oldMesh.EBO = 0;
 
         oldMesh.numOfVertices = 0;
     }
@@ -41,10 +36,7 @@ public:
     MeshResourceContainer(
             unsigned int VAOPar,
             unsigned int VBOPar,
-            unsigned int texCoordBufferPar,
-            unsigned int normalBufferPar,
-            unsigned int tangentBufferPar,
-            unsigned int bitangentBufferPar,
+            unsigned int EBOPar,
 
             std::size_t numOfVerticesPar
     ) noexcept;

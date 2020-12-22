@@ -25,7 +25,6 @@
 #include "Headers/Engine/Skybox/Skybox.h"
 #include "Headers/Engine/IO/Window.h"
 #include "Headers/Engine/Graphics/HDR.h"
-#include "Headers/Engine/Graphics/Materials/Material.h"
 #include "Headers/Engine/Scene/LevelEditor.h"
 #include "Headers/Engine/Utils/CommonDeclarations.h"
 
@@ -37,26 +36,43 @@
 //@todo finish RTS style unit placement for Level Editor
 #include "Headers/Engine/Scene/ENTTWrapper.h"
 
-#include <assimp/Importer.hpp>      // C++ importer interface
-#include <assimp/scene.h>           // Output data structure
-#include <assimp/postprocess.h>     // Post processing flags
-#include <assimp/DefaultLogger.hpp>
+#include "Headers/Engine/Utils/FactoriesAndUtils.h"
+
+#include "Headers/Engine/Utils/GarbageAndTemporary/TemporaryFunctions.h"
+
+struct AudioEngine {
+    SoLoud::Soloud gSoloud;
+    AudioEngine() {
+        gSoloud.init();
+    }
+    AudioEngine(const AudioEngine&) = delete;
+    AudioEngine& operator=(const AudioEngine&) = delete;
+    AudioEngine(AudioEngine&&) = delete;
+    AudioEngine& operator=(AudioEngine&&) = delete;
+    ~AudioEngine() {
+        gSoloud.deinit();
+    }
+};
 
 
 int main() {
     //make std::cout fast:
-    //std::ios_base::sync_with_stdio(false);
-    //std::cin.tie(nullptr);
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
 
 
+    //initialize essential subsystems
     Camera camera;
     Window window(camera);
+    Input input(&window, &camera);
+
 
     EnttWrapper::Scene scene{};
 
 
     using namespace std::string_literals;
 
+    //@todo do something to make dealing with Shaders easier and somehow integrate them with the Scene
     Shader entityShader(
             "../source/Cpps/Engine/Models/Shaders/vertexShader.glsl",
             "../source/Cpps/Engine/Models/Shaders/fragmentShader.glsl"
@@ -69,31 +85,28 @@ int main() {
             "../source/Cpps/Engine/Models/Shaders/SimpleDemoVertex.glsl",
             "../source/Cpps/Engine/Models/Shaders/SimpleDemoFragment.glsl"
     );
-
-    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>, Shader>(
-            Component::MeshComponent("../res/container.obj"s, false),
-            {Component::TextureComponent("../res/human.jpg"s, 0)}, Shader(normalMappedShader))
-                        .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
-                 {glm::vec3(0, -10, 0), glm::vec3(0), glm::vec3(1000, 0.0, 1000)});
+    Shader simpleTerrainShader(
+            "../source/Cpps/Engine/Terrain/Shaders/terrainVertexShader.glsl",
+            "../source/Cpps/Engine/Terrain/Shaders/simpleTerrainFragmentShader.glsl"
+    );
+    Shader skyboxShader(
+            "../source/Cpps/Engine/Skybox/Shaders/skyboxVertexShader.glsl",
+            "../source/Cpps/Engine/Skybox/Shaders/skyboxFragmentShader.glsl"
+    );
 
 
     for(int i = 0; i < 5; ++i) {
-        scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent,
-        std::vector<Component::TextureComponent>, Shader, std::vector<Uniform>>(
-                Component::MeshComponent("../res/Sphere.obj"s, false), {},
-                Shader(simpleDemoShaders), {Uniform{"blue"s, 0.f}})
-                .addComponent<Component::PosRotationScale>(
-                Component::PosRotationScale{glm::vec3(i*10), glm::vec3(0), glm::vec3(1)});
+        createBaseEntity(scene, "../res/Sphere.obj"s,
+                         simpleDemoShaders, {Uniform{"blue"s, 0.f}},
+                         {glm::vec3(i*10), glm::vec3(0), glm::vec3(1)});
     }
 
 
-    SoLoud::Soloud gSoloud; // SoLoud engine
+    AudioEngine audioEngine; // SoLoud engine
     SoLoud::Wav gWave;      // One wave file
 
     HDR hdr(window);
 
-
-    gSoloud.init(); // Initialize SoLoud
 
     gWave.load("../res/DuskHowl.wav"); // Load a wave
 
@@ -117,10 +130,9 @@ int main() {
 
     Skybox skybox(CubeMapTexture(textures, 0));
 
-    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>, Shader>(
-            Component::MeshComponent("../res/container.obj"s, false), {Component::TextureComponent("../res/human.jpg"s, 0)}, Shader(normalMappedShader))
-                        .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
-                        {glm::vec3(7), glm::vec3(0), glm::vec3(1)});
+    createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+                     {glm::vec3(7), glm::vec3(0), glm::vec3(1)});
+
 
     //@todo implement timestep to make fps have constant time between renders
 
@@ -132,17 +144,8 @@ int main() {
     }
 
 
-    Input input(&window, &camera, &terrains);
-
-
-
-    const auto worldBox = scene.createEntity()
-                        .addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>, Shader>(
-                                Component::MeshComponent("../res/container.obj"s, false),
-                                {Component::TextureComponent("../res/wolf.jpg"s, 0)}, Shader(normalMappedShader))
-                        .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
-                                {glm::vec3(0, -10, 0), glm::vec3(0), glm::vec3(1)}).getID();
-
+    const entt::entity worldBox = createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+                                  {glm::vec3(0, -10, 0), glm::vec3(0), glm::vec3(1)})->getID();
 
 
     LevelEditor editor(&window);
@@ -152,67 +155,60 @@ int main() {
 
     std::cout << "pos: " << terrain.getPos() << ' ';
 
-    scene.createEntity().addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>, Shader>(
-                            Component::MeshComponent("../res/container.obj"s, false),
-                            {Component::TextureComponent("../res/wolf.jpg"s, 0)}, Shader(normalMappedShader))
-                        .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
-                                {terrain.getPos() + glm::vec3(TerrainMesh::SIZE/2.f, 0.f,
-                                TerrainMesh::SIZE/2.f),glm::vec3(0), glm::vec3(10)});
+    for(int i = 0; i < terrain.terrainMesh->getWidth(); ++i) {
+        createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+                         {terrain.getPos() + glm::vec3(terrain.terrainMesh->getX_Y_InWorldCoords(i, i).x, terrain.terrainMesh->getHeight(i, i),
+                                                                                  terrain.terrainMesh->getX_Y_InWorldCoords(i, i).y),glm::vec3(0), glm::vec3(1)});
+    }
+
+    createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+                     {terrain.getPos() + glm::vec3(TerrainMesh::SIZE/2.f, 0.f,
+                                             TerrainMesh::SIZE/2.f),glm::vec3(0), glm::vec3(10)});
 
 
     std::cout << "width: " << terrain.terrainMesh->getWidth() << '\n';
 
-    scene.createEntity()
-        .addComponent<Component::Drawable, Component::MeshComponent, std::vector<Component::TextureComponent>, Shader>(
-                Component::MeshComponent("../res/container.obj"s, false),
-                {Component::TextureComponent("../res/wolf.jpg"s, 0)}, Shader(normalMappedShader))
-        .addComponent<Component::PosRotationScale, Component::PosRotationScale>(
-                {terrains[0].getPos() + glm::vec3(0, 30, 0),
-                 glm::vec3(0), glm::vec3(10)});
+    createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+                     {terrains[0].getPos() + glm::vec3(0, 30, 0),
+                                                 glm::vec3(0), glm::vec3(10)});
+
+
+    createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+                     {terrains[0].getPos(), glm::vec3(0), glm::vec3(10)});
 
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(0, 300'000);
+    EnttWrapper::Entity terrainEntity = createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+                     {glm::vec3(0), glm::vec3(0), glm::vec3(10)}).value();
 
-    std::vector<glm::vec3> points;
-    points.reserve(50'000);
-    for(int i = 0; i < 50'000; ++i) {
-        points.emplace_back(dis(gen), dis(gen), dis(gen));
-    }
-    std::cout << "start\n";
-    const auto oldTime = std::chrono::steady_clock::now();;
-    DataStructures::Octree tree{BoundingBox{.center=glm::vec3(150'000), .halfWidths=glm::vec3(150'000)}, points};
-    const auto newTime = std::chrono::steady_clock::now();
-    std::cout << "end\n";
-    const auto duration = newTime - oldTime;
-    std::cout << "time passed: " << std::chrono::duration_cast<std::chrono::milliseconds>(duration).count() << '\n';
-    //std::cout << tree;
 
-    //while (!glfwWindowShouldClose(window.getWindow())) {
-        Input::processInput(gSoloud, gWave, window, scene, 1, 5);
+    createBaseEntity(scene, "../res/pocillopora-eydouxi/source/Hawaii2015-P_Eydouxi/Coral32mesh-90.obj"s, normalMappedShader,
+                     {glm::vec3(30, 30, -30), glm::vec3(0), glm::vec3(10)});
+
+    auto tree = createTreeWithTerrain(terrain);
+    std::cout << "isInTree: " << tree.isInTree(glm::vec3{terrain.terrainMesh->getX_Y_InWorldCoords(0, 0).x, terrain.terrainMesh->getHeightFromHeightmap(0, 0), terrain.terrainMesh->getX_Y_InWorldCoords(0, 0).y} + terrain.getPos()) << '\n';
+
+    while (!glfwWindowShouldClose(window.getWindow())) {
+        Input::processInput(audioEngine.gSoloud, gWave, window, scene, 0, 5);
+
+        playMusic(window, audioEngine.gSoloud, gWave);
+        controlPlayer(window, camera);
 
         glClear(static_cast<unsigned int>(GL_COLOR_BUFFER_BIT) | static_cast<unsigned int>(GL_DEPTH_BUFFER_BIT));
 
         //render
         hdr.bind();
 
+        skybox.render(skyboxShader, camera);
+
         renderScene(scene, camera, {light});
 
-        for(int i = 1; i < 6; ++i) {
-            const float blueAsFloat = (i == Input::get_g_selected_sphere()) ? 1.0f : 0.0f;
-            auto &drawable = scene.getEntityFromIndex(i).getComponent<Component::Drawable>();
-            drawable.getUniformData(0) = blueAsFloat;
-        }
-        if(Input::getPointOfIntersection().has_value()) {
-            std::cout << "has_value()\n";
-            auto &posRotScale = scene.getEntity(worldBox).getComponent<Component::PosRotationScale>();
-            posRotScale.setPos(Input::getPointOfIntersection().value());
-        }
+        pickAndColorSpheres(scene, worldBox, window, camera, tree, terrainEntity);
 
-        //terrain.render(camera, simpleTerrainShader, lightPos, lightColor);
+        raycastPickSphere(window, camera, scene, 0, 5);
+
+        terrain.render(camera, simpleTerrainShader, light.lightPos, light.lightColor);
 
         hdr.render(entityShader, 1);
 
@@ -222,10 +218,8 @@ int main() {
 
         glfwSwapBuffers(window.getWindow());
         glfwPollEvents();
-    //}
+    }
 
-
-    gSoloud.deinit(); // Clean up!
 
     return 0;
 }

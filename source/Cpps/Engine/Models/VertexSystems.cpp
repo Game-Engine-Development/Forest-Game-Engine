@@ -1,114 +1,155 @@
 #include "Headers/Engine/Models/VertexSystems.h"
 
+#include "Headers/Engine/Scene/Components.h"
 
-void CalculateTangentsAndBitangents(
-        // inputs
-        std::vector<glm::vec3> &vertices,
-        std::vector<glm::vec2> &uvs,
-        std::vector<glm::vec3> &normals,
-        // outputs
-        std::vector<glm::vec3> &tangents,
-        std::vector<glm::vec3> &bitangents) {
+unsigned int generateMesh(const std::string &path, const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, const std::vector<Component::TextureComponent> &textures) {
+    unsigned int VAO{}, VBO{}, EBO{};
 
-    for (int i = 0; i < vertices.size(); i += 3) {
+    // create buffers/arrays
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
 
-        // Shortcuts for vertices
-        glm::vec3 &v0 = vertices[i + 0];
-        glm::vec3 &v1 = vertices[i + 1];
-        glm::vec3 &v2 = vertices[i + 2];
+    glBindVertexArray(VAO);
+    // load data into vertex buffers
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // A great thing about structs is that their memory layout is sequential for all its items.
+    // The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
+    // again translates to 3/2 floats which translates to a byte array.
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
-        // Shortcuts for UVs
-        glm::vec2 &uv0 = uvs[i + 0];
-        glm::vec2 &uv1 = uvs[i + 1];
-        glm::vec2 &uv2 = uvs[i + 2];
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
-        // Edges of the triangle : position delta
-        const glm::vec3 deltaPos1 = v1 - v0;
-        const glm::vec3 deltaPos2 = v2 - v0;
+    // set the vertex attribute pointers
+    // vertex Positions
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+    // vertex normals
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+    // vertex texture coords
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoords));
 
-        // UV delta
-        const glm::vec2 deltaUV1 = uv1 - uv0;
-        const glm::vec2 deltaUV2 = uv2 - uv0;
+    glBindVertexArray(0);
 
-        const float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
-        const glm::vec3 tangent = (deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y) * r;
-        const glm::vec3 bitangent = (deltaPos2 * deltaUV1.x - deltaPos1 * deltaUV2.x) * r;
+    LookupTables::ModelCache.at(path).first.meshes.push_back(Component::Mesh{VAO, indices.size(), vertices, indices, textures});
+    LookupTables::ModelCache.at(path).first.meshIDs.emplace_back(VAO, VBO, EBO, indices.size());
 
-        // Set the same tangent for all three vertices of the triangle.
-        // They will be merged later, in vboindexer.cpp
-        tangents.push_back(tangent);
-        tangents.push_back(tangent);
-        tangents.push_back(tangent);
+    return VAO;
+}
 
-        // Same thing for bitangents
-        bitangents.push_back(bitangent);
-        bitangents.push_back(bitangent);
-        bitangents.push_back(bitangent);
+std::vector<Component::TextureComponent> loadMaterialTextures(Component::Model &model, aiMaterial *mat, aiTextureType type, const std::string &typeName) {
+    std::vector<Component::TextureComponent> textures;
+    std::int32_t textureUnit = 0;
+    for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+    {
+        aiString str;
+        mat->GetTexture(type, i, &str);
+        std::cout << "texturePath: " << (model.path.substr(0, model.path.find_last_of('/')) + '/' + std::string(str.C_Str())) << '\n';
+        Component::TextureComponent texture(model.path.substr(0, model.path.find_last_of('/')) + '/' + std::string(str.C_Str()), textureUnit++, type, typeName);
+        textures.push_back(texture);
+    }
+    return textures;
+}
+
+Component::Mesh processMesh(Component::Model &model, aiMesh *mesh, const aiScene *scene)
+{
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+    std::vector<Component::TextureComponent> textures;
+
+    for(unsigned int i = 0; i < mesh->mNumVertices; i++)
+    {
+        Vertex vertex;
+        // process vertex positions, normals and texture coordinates
+        glm::vec3 vector;
+        vector.x = mesh->mVertices[i].x;
+        vector.y = mesh->mVertices[i].y;
+        vector.z = mesh->mVertices[i].z;
+        vertex.position = vector;
+
+        vector.x = mesh->mNormals[i].x;
+        vector.y = mesh->mNormals[i].y;
+        vector.z = mesh->mNormals[i].z;
+        vertex.normal = vector;
+
+        if(mesh->mTextureCoords[0]) //check is mesh contains texture coordinates
+        {
+            glm::vec2 vec;
+            vec.x = mesh->mTextureCoords[0][i].x;
+            vec.y = mesh->mTextureCoords[0][i].y;
+            vertex.texCoords = vec;
+        }
+        else {
+            vertex.texCoords = glm::vec2(0.0f, 0.0f);
+        }
+
+        vertices.push_back(vertex);
+    }
+
+    // process indices
+    for(unsigned int i = 0; i < mesh->mNumFaces; i++)
+    {
+        aiFace face = mesh->mFaces[i];
+        for(unsigned int j = 0; j < face.mNumIndices; j++)
+            indices.push_back(face.mIndices[j]);
+    }
+
+    // process material
+    if(mesh->mMaterialIndex >= 0)
+    {
+        aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+        std::vector<Component::TextureComponent> diffuseMaps = loadMaterialTextures(model, material,
+                                                           aiTextureType_DIFFUSE, "texture_diffuse");
+        textures.insert(std::end(textures), std::begin(diffuseMaps), std::end(diffuseMaps));
+        std::vector<Component::TextureComponent> specularMaps = loadMaterialTextures(model, material,
+                                                            aiTextureType_SPECULAR, "texture_specular");
+        textures.insert(std::end(textures), std::begin(specularMaps), std::end(specularMaps));
+    }
+
+    return Component::Mesh{generateMesh(model.path, vertices, indices, textures), indices.size(), vertices, indices, textures};
+}
+
+void processNode(Component::Model &model, aiNode *node, const aiScene *scene)
+{
+    // process all the node's meshes (if any)
+    for(unsigned int i = 0; i < node->mNumMeshes; i++)
+    {
+        aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
+        model.meshes.push_back(processMesh(model, mesh, scene));
+    }
+    // then do the same for each of its children
+    for(unsigned int i = 0; i < node->mNumChildren; i++)
+    {
+        processNode(model, node->mChildren[i], scene);
     }
 }
 
-void updateCube(glm::vec3 &vertex, const glm::vec3 greatest, const glm::vec3 smallest) {
-    for(int i = 0; i < glm::vec3::length(); ++i) {
-        vertex[i] = std::clamp(vertex[i], smallest[i], greatest[i]);
-    }
-}
-
-[[deprecated]]
-void loadOBJ(const char *const filename, std::vector<glm::vec3>& finalVertices, std::vector<glm::vec2>& finalTextureCoords, std::vector<glm::vec3>& finalNormals) {
-    FilePointerWrapper file(filename, "r"); //if premature exit, FILE* is still guaranteed to be closed
-    if(file.getFile() != nullptr) {
-        std::vector<glm::vec3> verticesLocal, normalsLocal, final;
-        std::vector<glm::vec2> textureCoordsLocal;
-        std::vector<unsigned int> vertexIndices, textureIndices, normalIndices;
-        while(true) {
-            char lineHeader[128];
-            const int res = std::fscanf(file.getFile(), "%s", lineHeader);
-            if(res == EOF){
-                break;
-            }
-            if(!std::strcmp(lineHeader, "v")) {
-                glm::vec3 newVertex;
-                std::fscanf(file.getFile(), "%f %f %f\n", &newVertex.x, &newVertex.y, &newVertex.z);
-                verticesLocal.push_back(newVertex);
-            } else if(!std::strcmp(lineHeader, "vt")) {
-                glm::vec2 newTextureCoord;
-                std::fscanf(file.getFile(), "%f %f\n", &newTextureCoord.x, &newTextureCoord.y);
-                textureCoordsLocal.push_back(newTextureCoord);
-            } else if(!std::strcmp(lineHeader, "vn")) {
-                glm::vec3 newNormal;
-                std::fscanf(file.getFile(), "%f %f %f\n", &newNormal.x, &newNormal.y, &newNormal.z);
-                normalsLocal.push_back(newNormal);
-            } else if(!std::strcmp(lineHeader, "f")) {
-                std::string vertex1, vertex2, vertex3;
-                unsigned int vertexIndex[3], textureIndex[3], normalIndex[3];
-                const int matches = std::fscanf(file.getFile(), "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &textureIndex[0], &normalIndex[0], &vertexIndex[1], &textureIndex[1], &normalIndex[1], &vertexIndex[2], &textureIndex[2], &normalIndex[2]);
-                if(matches != 9){
-                    std::cerr << "Failed to load Model data at: " << filename << std::endl;
-                    break;
-                }
-                for(int i = 0; i < 3; ++i) {
-                    vertexIndices.push_back(vertexIndex[i]);
-                    textureIndices.push_back(textureIndex[i]);
-                    normalIndices.push_back(normalIndex[i]);
-                }
-            }
-        }
-        for(unsigned int i = 0; i < vertexIndices.size(); ++i) {
-            const unsigned int vertexIndex = vertexIndices[i];
-            glm::vec3 vertex = verticesLocal[vertexIndex - 1];  //obj files are indexed starting at 1 not 0
-            finalVertices.push_back(vertex);
-            updateCube(vertex);
-
-            const unsigned int textureIndex = textureIndices[i];
-            const glm::vec2 textureCoord = textureCoordsLocal[textureIndex - 1];
-            finalTextureCoords.push_back(textureCoord);
-
-            const unsigned int normalIndex = normalIndices[i];
-            const glm::vec3 normal = normalsLocal[normalIndex - 1];
-            finalNormals.push_back(normal);
-        }
+std::optional<Component::Model> loadModel(const std::string &path)
+{
+    if(LookupTables::ModelCache.count(path)) {
+        LookupTables::ModelCache.at(path).second += 1u;
+        return Component::Model(LookupTables::ModelCache.at(path).first.meshes, path);
     } else {
-        std::cerr << "Failed to open " << filename << " model file!" << std::endl;
+        Assimp::Importer import;
+        const aiScene *scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+
+        if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+            std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << '\n';
+            return std::nullopt;
+        }
+
+        Component::Model model;
+
+        model.path = path;
+
+        //the loading system will just push_back into the meshes and meshIDs std::vectors
+        LookupTables::ModelCache.emplace(path, std::pair(ModelMeshesResourceContainer{{}, {}}, 1u));
+
+        processNode(model, scene->mRootNode, scene);
+
+        return model;
     }
 }
-

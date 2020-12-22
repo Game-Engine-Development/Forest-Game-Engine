@@ -1,9 +1,6 @@
 #include "Headers/Engine/Terrain/TerrainMesh.h"
 
 TerrainMesh::TerrainMesh(const char *const filename) : noise(std::nullopt) {
-    std::vector<glm::vec3> vertices, normals;
-    std::vector<glm::vec2> texCoords;
-    std::vector<unsigned int> indices;
     loadTerrain(vertices, normals, texCoords, indices, filename);
     numOfVertices = indices.size();
     glGenVertexArrays(1, &VAO);
@@ -36,9 +33,6 @@ TerrainMesh::TerrainMesh(const char *const filename) : noise(std::nullopt) {
 }
 
 TerrainMesh::TerrainMesh(const char *const filename, const long seed) : noise(Noise::OpenSimplex2S(seed)) {
-    std::vector<glm::vec3> vertices, normals;
-    std::vector<glm::vec2> texCoords;
-    std::vector<unsigned int> indices;
     loadTerrain(vertices, normals, texCoords, indices, filename);
     numOfVertices = indices.size();
     glGenVertexArrays(1, &VAO);
@@ -93,7 +87,7 @@ void TerrainMesh::unbindVAO() {
 void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm::vec3> &normals, std::vector<glm::vec2> &texCoords, std::vector<unsigned int> &indices, const char *const filename) {
     int width{}, nrchannels{};
     unsigned char *const data = stbi_load(filename, &width, &height, &nrchannels, 1);
-    dataContainer = std::make_shared<stb_PointerContainer>(data, width, height, nrchannels);
+    dataContainer = std::make_unique<stb_PointerContainer>(data, width, height, nrchannels);
 
     for(int i = 0; i < height; ++i) {
         for(int j = 0; j < height; ++j) {
@@ -129,7 +123,6 @@ void TerrainMesh::loadTerrain(std::vector<glm::vec3> &vertices, std::vector<glm:
     }
 
 
-    //possibly use std::min_max_element
     const auto comp = [](const glm::vec3 a, const glm::vec3 b) { return a.y < b.y; };
     const auto minmax = std::minmax_element(std::begin(vertices), std::end(vertices), comp);
     minHeight = minmax.first->y;

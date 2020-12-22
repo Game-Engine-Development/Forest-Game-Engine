@@ -29,7 +29,7 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
     vec3 specular = specularStrength * spec * lightColor;
 
-    vec4 color;
+    /*vec4 color;
     if(FragPos.y < 0.3) {
         color = vec4(0, 0, 255, 0);
     }
@@ -38,7 +38,9 @@ void main()
     }
     else {
         color = texture(texture0, texCoord);
-    }
+    }*/
+
+    vec4 color = texture(texture0, texCoord);
 
     vec4 result = vec4((ambient + diffuse + specular), 1.0) * color;
 

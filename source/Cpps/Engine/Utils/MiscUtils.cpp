@@ -49,6 +49,11 @@ void screenshot(const char *const filename, const Window &window) {
     return modelMatrix;
 }
 
+[[nodiscard]] float distSquared(const Coordinate point1, const Coordinate point2) {
+    const glm::vec3 distSquaredVec = (point2-point1)*(point2-point1);
+    return distSquaredVec.x + distSquaredVec.y + distSquaredVec.z;
+}
+
 std::ostream& operator<<(std::ostream &stream, const glm::vec3 data) {
     stream << '{' << mathRound(data.x, 5) << ", " << mathRound(data.y, 5) << ", " << mathRound(data.z, 5) << '}';
     return stream;

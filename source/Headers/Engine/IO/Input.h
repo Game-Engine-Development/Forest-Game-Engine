@@ -25,9 +25,7 @@ public:
 
     Input() noexcept = default;
 
-    Input(Window *window, Camera *camera, /*std::vector<Sphere> *spheres,*/ std::array<Terrain, 9> *terrains);
-
-    static int get_g_selected_sphere() noexcept;
+    Input(Window *window, Camera *camera);
 
     static bool isKeyDown(int key) noexcept;
     static bool isButtonDown(int button) noexcept;
@@ -38,17 +36,12 @@ public:
     static double getMouseY() noexcept;
     static double getMouseX() noexcept;
 
-    static bool notCursor() noexcept;
-
-    static std::optional<glm::vec3> getPointOfIntersection() {
-         return instance->pointOfIntersection;
-    }
+    static bool getCursor() noexcept;
 
     static void processInput(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window, EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres);
 
 private:
     void processInputImpl(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window, EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres);
-    static void raycastPickSphere(EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres);
 
     static void mouse_callback([[maybe_unused]] GLFWwindow* window, double xpos, double ypos);
     static void scroll_callback([[maybe_unused]] GLFWwindow* window, double xoffset, double yoffset);
@@ -56,11 +49,6 @@ private:
 
     Window *m_window{};
     Camera *m_camera{};
-
-    std::array<Terrain, 9> *terrains = nullptr;
-    std::optional<glm::vec3> pointOfIntersection = std::nullopt;
-
-    int g_selected_sphere = -1;
 
     std::array<bool, GLFW_KEY_LAST> m_keys{};
     std::array<bool, GLFW_MOUSE_BUTTON_LAST> m_buttons{};
@@ -70,7 +58,7 @@ private:
 
     bool firstMouse{};
 
-    static std::unique_ptr<Input> instance;
+    static inline std::unique_ptr<Input> instance = std::make_unique<Input>();
 
     bool cursor = false;
     bool held = false;

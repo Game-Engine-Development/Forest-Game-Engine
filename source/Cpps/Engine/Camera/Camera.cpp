@@ -70,9 +70,9 @@ void Camera::setMatrices(const Shader &shader) const noexcept {
     const glm::mat4 view = GetViewMatrix();
     const glm::mat4 projection = glm::perspective(glm::radians(Zoom), aspectRatio, 0.1f, 100000.0f);
 
-    const int viewLoc = glGetUniformLocation(shader.ID, "view");
+    const int viewLoc = glGetUniformLocation(*shader.ID, "view");
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-    const int projectionLoc = glGetUniformLocation(shader.ID, "projection");
+    const int projectionLoc = glGetUniformLocation(*shader.ID, "projection");
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 }
 
@@ -80,9 +80,9 @@ void Camera::setSkyboxMatrices(const Shader &shader) const noexcept {
     const glm::mat4 view = glm::mat4(glm::mat3(GetViewMatrix()));
     const glm::mat4 projection = glm::perspective(glm::radians(Zoom), aspectRatio, 0.1f, 100000.0f);
 
-    const int viewLoc = glGetUniformLocation(shader.ID, "view");
+    const int viewLoc = glGetUniformLocation(*shader.ID, "view");
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-    const int projectionLoc = glGetUniformLocation(shader.ID, "projection");
+    const int projectionLoc = glGetUniformLocation(*shader.ID, "projection");
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 }
 

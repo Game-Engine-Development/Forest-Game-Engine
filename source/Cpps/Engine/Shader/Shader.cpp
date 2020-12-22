@@ -2,8 +2,7 @@
 
 // constructor generates the shader on the fly
 // ------------------------------------------------------------------------
-Shader::Shader(const char* vertexPath, const char* fragmentPath)
-{
+Shader::Shader(const char *const vertexPath, const char *const fragmentPath) {
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
     std::string fragmentCode;
@@ -12,8 +11,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
     // ensure ifstream objects can throw exceptions:
     vShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
     fShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
-    try
-    {
+    try {
         // open files
         vShaderFile.open(vertexPath);
         fShaderFile.open(fragmentPath);
@@ -28,8 +26,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
         vertexCode   = vShaderStream.str();
         fragmentCode = fShaderStream.str();
     }
-    catch (const std::ifstream::failure& e)
-    {
+    catch (const std::ifstream::failure& e) {
         std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
     }
     const char* vShaderCode = vertexCode.c_str();
@@ -47,11 +44,17 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
     glCompileShader(fragment);
     checkCompileErrors(fragment, "FRAGMENT");
     // shader Program
-    Shader::ID = glCreateProgram();
-    glAttachShader(Shader::ID, vertex);
-    glAttachShader(Shader::ID, fragment);
-    glLinkProgram(Shader::ID);
-    checkCompileErrors(Shader::ID, "PROGRAM");
+
+    //You can't use std::make_shared with custom deleters unfortunately
+    ID = std::shared_ptr<unsigned int>(new unsigned int(glCreateProgram()), [](const unsigned int *const id) {
+        glDeleteProgram(*id);
+        delete id;
+    });
+
+    glAttachShader(*ID, vertex);
+    glAttachShader(*ID, fragment);
+    glLinkProgram(*ID);
+    checkCompileErrors(*ID, "PROGRAM");
     // delete the shaders as they're linked into our program now and no longer necessary
     glDeleteShader(vertex);
     glDeleteShader(fragment);
@@ -59,37 +62,36 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 // activate the shader
 // ------------------------------------------------------------------------
 
-Shader::Shader() = default;
-
 void Shader::use() const
 {
-    glUseProgram(Shader::ID);
+    glUseProgram(*ID);
 }
+
 // utility uniform functions
 // ------------------------------------------------------------------------
 void Shader::setBool(const std::string &name, bool value) const
 {
-    glUniform1i(glGetUniformLocation(Shader::ID, name.c_str()), (int)value);
+    glUniform1i(glGetUniformLocation(*ID, name.c_str()), (int)value);
 }
 // ------------------------------------------------------------------------
 void Shader::setInt(const std::string &name, int value) const
 {
-    glUniform1i(glGetUniformLocation(Shader::ID, name.c_str()), value);
+    glUniform1i(glGetUniformLocation(*ID, name.c_str()), value);
 }
 // ------------------------------------------------------------------------
 void Shader::setFloat(const std::string &name, float value) const
 {
-    glUniform1f(glGetUniformLocation(Shader::ID, name.c_str()), value);
+    glUniform1f(glGetUniformLocation(*ID, name.c_str()), value);
 }
 void Shader::setVec3(const std::string &name, glm::vec3 value) const {
-    glUniform3f(glGetUniformLocation(Shader::ID, name.c_str()), value.x, value.y, value.z);
+    glUniform3f(glGetUniformLocation(*ID, name.c_str()), value.x, value.y, value.z);
 }
 void Shader::setVec3(const std::string &name, float x, float y, float z) const {
-    glUniform3f(glGetUniformLocation(Shader::ID, name.c_str()), x, y, z);
+    glUniform3f(glGetUniformLocation(*ID, name.c_str()), x, y, z);
 }
 
 void Shader::setMat4(const std::string &name, glm::mat4 &mat) const {
-    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);;
+    glUniformMatrix4fv(glGetUniformLocation(*ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);;
 }
 
 // utility function for checking shader compilation/linking errors.

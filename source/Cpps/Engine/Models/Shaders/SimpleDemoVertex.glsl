@@ -8,6 +8,6 @@ uniform mat4 projection;
 out float dist;
 
 void main() {
-    gl_Position = projection * view * model * vec4 (vertex_position, 1.0);
-    dist = vertex_position.z; //1.0 - (-pos_eye.z / 10.0);
+    gl_Position = projection * view * model * vec4(vertex_position, 1.0);
+    dist = vertex_position.z;
 }

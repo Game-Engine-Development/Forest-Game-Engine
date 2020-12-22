@@ -10,6 +10,18 @@
 using Filename = std::string;
 using RefCount = std::size_t;
 
+using Coordinate = glm::vec3;
+using LengthVec3 = glm::vec3;
+
+struct Triangle {
+    std::int32_t indexes[3];
+};
+
+struct Vertex {
+    glm::vec3 position, normal;
+    glm::vec2 texCoords;
+};
+
 enum struct ImageType {
     RGBA_IMG = 0,
     RGB_IMG = 1,

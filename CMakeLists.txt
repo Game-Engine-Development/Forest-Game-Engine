@@ -4,7 +4,7 @@ project(opengl_game)
 
 # Source files
 set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/source")
-set(SOURCES "${SRC_DIR}/Cpps/Game/Loop/main.cpp" source/Headers/Engine/Shader/Shader.h source/Cpps/Engine/Shader/Shader.cpp source/Headers/Engine/Camera/Camera.h source/Cpps/Engine/Camera/Camera.cpp source/Cpps/Engine/Terrain/Terrain.cpp source/Headers/Engine/Terrain/Terrain.h source/Cpps/Engine/Terrain/TerrainMesh.cpp source/Headers/Engine/Terrain/TerrainMesh.h source/Cpps/Engine/Terrain/TerrainTextureMap.cpp source/Headers/Engine/Terrain/TerrainTextureMap.h source/Cpps/Engine/Skybox/CubeMapTexture.cpp source/Headers/Engine/Skybox/CubeMapTexture.h source/Cpps/Engine/Skybox/Skybox.cpp source/Headers/Engine/Skybox/Skybox.h source/Headers/Engine/IO/Window.h source/Cpps/Engine/IO/Window.cpp source/Headers/Engine/IO/Input.h source/Cpps/Engine/IO/Input.cpp source/Headers/Engine/Graphics/HDR.h source/Cpps/Engine/Graphics/HDR.cpp source/Headers/Engine/Utils/MiscUtils.h source/Cpps/Engine/Utils/MiscUtils.cpp source/Cpps/Engine/ResourceContainers/TextureResourceContainer.cpp source/Headers/Engine/ResourceContainers/TextureResourceContainer.h source/Cpps/Engine/Graphics/Lighting/IBL/HDRI.cpp source/Cpps/Engine/Graphics/Lighting/IBL/IBL.cpp source/Cpps/Engine/Graphics/Lighting/PointLight.cpp source/Cpps/Engine/Graphics/Materials/Material.cpp source/Headers/Engine/Graphics/Lighting/IBL/HDRI.h source/Headers/Engine/Graphics/Lighting/IBL/IBL.h source/Headers/Engine/Graphics/Lighting/PointLight.h source/Headers/Engine/Graphics/Materials/Material.h source/Cpps/Engine/Graphics/Materials/Material.cpp source/Cpps/Engine/ResourceContainers/stb_PointerContainer.cpp source/Headers/Engine/ResourceContainers/stb_PointerContainer.h source/Cpps/Engine/ResourceContainers/MeshResourceContainer.cpp source/Headers/Engine/ResourceContainers/MeshResourceContainer.h source/Cpps/Engine/ResourceContainers/SkyboxResourceContainer.cpp source/Headers/Engine/ResourceContainers/SkyboxResourceContainer.h source/Headers/Engine/Utils/CommonDeclarations.h source/Headers/Engine/Utils/DataStructures/Octree.h source/Headers/Engine/Scene/ENTTWrapper.h source/Cpps/Engine/Scene/LevelEditor.cpp source/Headers/Engine/Scene/LevelEditor.h source/Headers/Engine/Utils/Raycast.h source/Cpps/Engine/Utils/Raycast.cpp source/Headers/Engine/Scene/Components.h source/Headers/Engine/Graphics/RenderSystem/Renderer.h source/Headers/Engine/Scene/LookUpTables.h source/Cpps/Engine/Scene/Components.cpp source/Headers/Engine/Utils/CollisionDetection/CollisionDetection.h source/Cpps/Engine/Utils/CollisionDetection/CollisionDetection.cpp
+set(SOURCES "${SRC_DIR}/Cpps/Game/Loop/main.cpp" source/Headers/Engine/Shader/Shader.h source/Cpps/Engine/Shader/Shader.cpp source/Headers/Engine/Camera/Camera.h source/Cpps/Engine/Camera/Camera.cpp source/Cpps/Engine/Terrain/Terrain.cpp source/Headers/Engine/Terrain/Terrain.h source/Cpps/Engine/Terrain/TerrainMesh.cpp source/Headers/Engine/Terrain/TerrainMesh.h source/Cpps/Engine/Terrain/TerrainTextureMap.cpp source/Headers/Engine/Terrain/TerrainTextureMap.h source/Cpps/Engine/Skybox/CubeMapTexture.cpp source/Headers/Engine/Skybox/CubeMapTexture.h source/Cpps/Engine/Skybox/Skybox.cpp source/Headers/Engine/Skybox/Skybox.h source/Headers/Engine/IO/Window.h source/Cpps/Engine/IO/Window.cpp source/Headers/Engine/IO/Input.h source/Cpps/Engine/IO/Input.cpp source/Headers/Engine/Utils/MiscUtils.h source/Cpps/Engine/Utils/MiscUtils.cpp source/Cpps/Engine/ResourceContainers/TextureResourceContainer.cpp source/Headers/Engine/ResourceContainers/TextureResourceContainer.h source/Cpps/Engine/ResourceContainers/stb_PointerContainer.cpp source/Headers/Engine/ResourceContainers/stb_PointerContainer.h source/Cpps/Engine/ResourceContainers/MeshResourceContainer.cpp source/Headers/Engine/ResourceContainers/MeshResourceContainer.h source/Cpps/Engine/ResourceContainers/SkyboxResourceContainer.cpp source/Headers/Engine/ResourceContainers/SkyboxResourceContainer.h source/Headers/Engine/Utils/CommonDeclarations.h source/Headers/Engine/Utils/DataStructures/Octree.h source/Headers/Engine/Scene/ENTTWrapper.h source/Cpps/Engine/Scene/LevelEditor.cpp source/Headers/Engine/Scene/LevelEditor.h source/Headers/Engine/Utils/Raycast.h source/Cpps/Engine/Utils/Raycast.cpp source/Headers/Engine/Scene/Components.h source/Headers/Engine/Graphics/RenderSystem/Renderer.h source/Headers/Engine/Scene/LookUpTables.h source/Cpps/Engine/Scene/Components.cpp source/Headers/Engine/Utils/CollisionDetection/CollisionDetection.h source/Cpps/Engine/Utils/CollisionDetection/CollisionDetection.cpp source/Headers/Engine/Graphics/HDR.h source/Cpps/Engine/Graphics/HDR.cpp source/Headers/Engine/ResourceContainers/MeshResourceContainer.h
 
         #IMGUI:
         libraries/imgui/imconfig.h libraries/imgui/imgui.h libraries/imgui/imgui.cpp libraries/imgui/imgui_demo.cpp libraries/imgui/imgui_draw.cpp libraries/imgui/imgui_widgets.cpp libraries/imgui/imgui_internal.h libraries/imgui/imstb_rectpack.h libraries/imgui/imstb_textedit.h libraries/imgui/imstb_truetype.h
@@ -88,19 +88,19 @@ set(SOURCES "${SRC_DIR}/Cpps/Game/Loop/main.cpp" source/Headers/Engine/Shader/Sh
         temporary_lib/imgui_club/imgui_memory_editor/imgui_memory_editor.h
 
         #IMGUI-NODE-EDITOR:
-        temporary_lib/imgui-node-editor/crude_json.h
-        temporary_lib/imgui-node-editor/crude_json.cpp
-        temporary_lib/imgui-node-editor/imgui_bezier_math.h
-        temporary_lib/imgui-node-editor/imgui_bezier_math.inl
-        temporary_lib/imgui-node-editor/imgui_canvas.h
-        temporary_lib/imgui-node-editor/imgui_canvas.cpp
-        temporary_lib/imgui-node-editor/imgui_extra_math.h
-        temporary_lib/imgui-node-editor/imgui_extra_math.inl
-        temporary_lib/imgui-node-editor/imgui_node_editor.h
-        temporary_lib/imgui-node-editor/imgui_node_editor.cpp
-        temporary_lib/imgui-node-editor/imgui_node_editor_api.cpp
-        temporary_lib/imgui-node-editor/imgui_node_editor_internal.h
-        temporary_lib/imgui-node-editor/imgui_node_editor_internal.inl
+	temporary_lib/imgui-node-editor/crude_json.h
+	temporary_lib/imgui-node-editor/crude_json.cpp
+	temporary_lib/imgui-node-editor/imgui_bezier_math.h
+	temporary_lib/imgui-node-editor/imgui_bezier_math.inl
+	temporary_lib/imgui-node-editor/imgui_canvas.h
+	temporary_lib/imgui-node-editor/imgui_canvas.cpp
+	temporary_lib/imgui-node-editor/imgui_extra_math.h
+	temporary_lib/imgui-node-editor/imgui_extra_math.inl
+	temporary_lib/imgui-node-editor/imgui_node_editor.h
+	temporary_lib/imgui-node-editor/imgui_node_editor.cpp
+	temporary_lib/imgui-node-editor/imgui_node_editor_api.cpp
+	temporary_lib/imgui-node-editor/imgui_node_editor_internal.h
+	temporary_lib/imgui-node-editor/imgui_node_editor_internal.inl
         source/Cpps/Engine/Models/VertexSystems.cpp source/Headers/Engine/Models/VertexSystems.h source/Headers/Engine/Texture/TextureSystems.h source/Cpps/Engine/Texture/TextureSystems.cpp)
 
 # Executable definition and properties

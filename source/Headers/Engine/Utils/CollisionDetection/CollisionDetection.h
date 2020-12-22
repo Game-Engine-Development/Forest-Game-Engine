@@ -6,9 +6,8 @@
 #include <glm/glm.hpp>
 
 #include "Headers/Engine/Utils/MiscUtils.h"
+#include "Headers/Engine/Utils/CommonDeclarations.h"
 
-using Coordinate = glm::vec3;
-using LengthVec3 = glm::vec3;
 
 struct BoundingBox {
     Coordinate center{};
@@ -16,7 +15,15 @@ struct BoundingBox {
 
     [[nodiscard]] bool containsPoint(Coordinate point) const noexcept;
 
+    [[nodiscard]] bool containsTriangle(Triangle triangle) const noexcept;
+
+    [[nodiscard]] bool intersectsTriangle(Triangle triangle) const noexcept;
+
+    [[nodiscard]] bool touchesTriangle(Triangle triangle) const noexcept;
+
     [[nodiscard]] bool intersectsAABB(const BoundingBox &other) const noexcept;
+
+    [[nodiscard]] bool intersectsRay(Ray r) const noexcept;
 
     [[nodiscard]] glm::vec3 get_vmin() const noexcept;
     [[nodiscard]] glm::vec3 get_vmax() const noexcept;

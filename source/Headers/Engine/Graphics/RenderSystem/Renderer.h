@@ -41,44 +41,47 @@ void renderEntity(EnttWrapper::Scene &scene, const entt::entity id, const Camera
 
         drawable.shader.use();
 
-        drawable.mesh.bindVAO();
-        for(Component::TextureComponent &texture : drawable.textures) {
-            texture.bind(drawable.shader);
+        for(const auto &mesh : drawable.model.meshes) {
+            mesh.bindVAO();
+            for (const auto &texture : mesh.textures) {
+                texture.bind(drawable.shader);
+            }
+
+            camera.setMatrices(drawable.shader);
+
+            const int modelLoc = glGetUniformLocation(*drawable.shader.ID, "model"); //@todo cache this somewhere
+            auto &posRotScale = entity.getComponent<Component::PosRotationScale>();
+            if (!posRotScale.getTransformUpdated()) {
+                drawable.modelMatrix = createModelMatrix(posRotScale);
+                posRotScale.setTransformUpdated();
+            }
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(drawable.modelMatrix));
+
+            for (auto &e : lights) {
+                const int lightLoc = glGetUniformLocation(*drawable.shader.ID, e.lightPosName.c_str());
+                glUniform3fv(lightLoc, 1, glm::value_ptr(e.lightPos));
+
+                const int lightCol = glGetUniformLocation(*drawable.shader.ID, e.lightColorName.c_str());
+                glUniform3fv(lightCol, 1, glm::value_ptr(e.lightColor));
+            }
+
+            //float = 0, glm::vec2 = 1, glm::vec3 = 2, glm::vec4 = 3,
+            for (const auto &u : drawable.uniforms) {
+                const int f = glGetUniformLocation(*drawable.shader.ID, u.name.c_str());
+                std::visit(Visitor{f}, u.data);
+            }
+
+            const int viewLoc = glGetUniformLocation(*drawable.shader.ID, "viewPos"); //@todo cache this somewhere
+            glUniform3fv(viewLoc, 1, glm::value_ptr(camera.getPos()));
+
+            assert(mesh.numOfVertices == mesh.indices.size());
+            glDrawElements(GL_TRIANGLES, mesh.numOfVertices, GL_UNSIGNED_INT, nullptr);
+
+            for (const auto &texture : mesh.textures) {
+                texture.unbind();
+            }
+            Component::Mesh::unbindVAO();
         }
-
-        camera.setMatrices(drawable.shader);
-
-        const int modelLoc = glGetUniformLocation(drawable.shader.ID, "model"); //@todo cache this somewhere
-        auto &posRotScale = entity.getComponent<Component::PosRotationScale>();
-        if(!posRotScale.getTransformUpdated()) {
-            drawable.modelMatrix = createModelMatrix(posRotScale);
-            posRotScale.setTransformUpdated();
-        }
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(drawable.modelMatrix));
-
-        for(auto &e : lights) {
-            const int lightLoc = glGetUniformLocation(drawable.shader.ID, e.lightPosName.c_str());
-            glUniform3fv(lightLoc, 1, glm::value_ptr(e.lightPos));
-
-            const int lightCol = glGetUniformLocation(drawable.shader.ID, e.lightColorName.c_str());
-            glUniform3fv(lightCol, 1, glm::value_ptr(e.lightColor));
-        }
-
-        //float = 0, glm::vec2 = 1, glm::vec3 = 2, glm::vec4 = 3,
-        for(auto u : drawable.uniforms) {
-            const int f = glGetUniformLocation(drawable.shader.ID, u.name.c_str());
-            std::visit(Visitor{f}, u.data);
-        }
-
-        const int viewLoc = glGetUniformLocation(drawable.shader.ID, "viewPos"); //@todo cache this somewhere
-        glUniform3fv(viewLoc, 1, glm::value_ptr(camera.getPos()));
-
-        glDrawArrays(GL_TRIANGLES, 0, drawable.mesh.getNumOfVertices());
-
-        for (Component::TextureComponent &texture : drawable.textures) {
-            texture.unbind();
-        }
-        Component::MeshComponent::unbindVAO();
     }
 }
 

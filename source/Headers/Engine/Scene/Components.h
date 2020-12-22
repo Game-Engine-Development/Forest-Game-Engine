@@ -1,5 +1,6 @@
 #pragma once
 
+#include <utility>
 #include <vector>
 #include <string>
 #include <utility>
@@ -14,59 +15,24 @@
 #include "Headers/Engine/Utils/CommonDeclarations.h"
 
 namespace Component {
-    struct MeshComponent {
-        explicit MeshComponent(const std::string &filename, bool isNormalMapped);
-
-        MeshComponent(const MeshComponent &mesh);
-        MeshComponent(MeshComponent &&oldMesh) noexcept;
-
-        MeshComponent& operator=(const MeshComponent &mesh);
-        MeshComponent& operator=(MeshComponent &&oldMesh) noexcept;
-
-        void bindVAO() const;
-        static void unbindVAO();
-
-        [[nodiscard]] unsigned int getNumOfVertices() const;
-        [[nodiscard]] const std::vector<glm::vec3>& getVertices() const noexcept;
-
-        ~MeshComponent();
-
-
-    private:
-        friend void swap(Component::MeshComponent &mesh1, Component::MeshComponent &mesh2) {
-            std::swap(mesh1.meshCacheKey, mesh2.meshCacheKey);
-            std::swap(mesh1.VAOCache, mesh2.VAOCache);
-
-            std::swap(mesh1.numOfVerticesCache, mesh2.numOfVerticesCache);
-            std::swap(mesh1.vertices, mesh2.vertices);
-            std::swap(mesh1.normals, mesh2.normals);
-            std::swap(mesh1.textureCoords, mesh2.textureCoords);
-            std::swap(mesh1.normalMapped, mesh2.normalMapped);
-            std::swap(mesh1.greatest, mesh2.greatest);
-            std::swap(mesh1.smallest, mesh2.smallest);
-        }
-
-        std::string meshCacheKey;
-
-        unsigned int VAOCache{};
-        std::size_t numOfVerticesCache{};
-
-        std::vector<glm::vec3> vertices, normals;
-        std::vector<glm::vec2> textureCoords;
-        bool normalMapped;
-        glm::vec3 greatest{}, smallest{};
-    };
-
     struct TextureComponent {
-        explicit TextureComponent(const std::string& filename, int unit, const std::optional<std::string> &nameInShader = std::nullopt);
+        TextureComponent(const std::string &filename, int unit, aiTextureType type, std::string typeName,
+                         const std::optional<std::string> &nameInShader = std::nullopt);
+
+        TextureComponent(const std::string &filename, int unit,
+                         const std::optional<std::string> &nameInShader = std::nullopt)
+                         : TextureComponent(filename, unit, {}, {}, nameInShader) {}
 
         TextureComponent(const TextureComponent &tex);
+
         TextureComponent(TextureComponent &&oldTexture) noexcept;
 
-        TextureComponent& operator=(const TextureComponent &tex);
-        TextureComponent& operator=(TextureComponent &&oldTexture) noexcept;
+        TextureComponent &operator=(const TextureComponent &tex);
 
-        void bind(const Shader& shader) const;
+        TextureComponent &operator=(TextureComponent &&oldTexture) noexcept;
+
+        void bind(const Shader &shader) const;
+
         void unbind() const;
 
         ~TextureComponent();
@@ -85,21 +51,74 @@ namespace Component {
         unsigned int IDCache{}; //denormalized data from textureCache
         int textureUnit{};
         std::string shaderName;
+        aiTextureType textureType;
+        std::string textureTypename;
+    };
+
+    struct Mesh {
+        unsigned int VAO{}; //just a copy, DO NOT DELETE
+        std::size_t numOfVertices{};
+
+        std::vector<Vertex> vertices;
+        std::vector<unsigned int> indices;
+        std::vector<Component::TextureComponent> textures;
+
+        //@todo readd later
+        //bool normalMapped;
+        //glm::vec3 greatest{}, smallest{};
+
+        void bindVAO() const {
+            glBindVertexArray(VAO);
+        }
+
+        static void unbindVAO() {
+            glBindVertexArray(0);
+        }
+    };
+}
+
+struct ModelMeshesResourceContainer {
+    std::vector<MeshResourceContainer> meshIDs;
+    std::vector<Component::Mesh> meshes;
+};
+namespace LookupTables{
+    [[deprecated]]
+    inline std::unordered_map<std::string, std::pair<ModelMeshesResourceContainer, std::size_t>> ModelCache;
+}
+
+namespace Component {
+    struct Model {
+        Model() = default;
+        Model(std::vector<Mesh> meshes, std::string path);
+        Model(const Model &model);
+        Model(Model &&oldModel) noexcept;
+        Model& operator=(const Model &model);
+        Model& operator=(Model &&oldModel) noexcept;
+        ~Model();
+
+    private:
+        friend void swap(Model &model1, Model &model2) {
+            std::swap(model1.meshes, model2.meshes);
+            std::swap(model1.path, model2.path);
+        }
+
+    public:
+        std::vector<Mesh> meshes;
+        std::string path;
     };
 
     struct Drawable { //@todo rewrite this
-        Drawable(Component::MeshComponent mesh, std::vector<Component::TextureComponent> textures, const Shader &shader, std::vector<Uniform> uniforms)
-        : mesh(std::move(mesh)), textures(std::move(textures)), shader(shader), uniforms(std::move(uniforms))
+        Drawable(Component::Model model, Shader shader, std::vector<Uniform> uniforms)
+        : shader(std::move(shader)), model(std::move(model)), uniforms(std::move(uniforms))
         {}
 
-        Drawable(Component::MeshComponent mesh, std::vector<Component::TextureComponent> textures, const Shader &shader)
-                : Drawable(std::move(mesh), std::move(textures), shader, {})
+        Drawable(Component::Model model, const Shader &shader)
+                : Drawable(std::move(model), shader, {})
         {}
 
         Shader shader; //@todo change this
 
-        Component::MeshComponent mesh;
-        std::vector<Component::TextureComponent> textures;
+        Component::Model model;
 
         std::vector<Uniform> uniforms;
 

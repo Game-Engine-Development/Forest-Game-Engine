@@ -10,22 +10,42 @@
 }
 
 [[nodiscard]] bool BoundingBox::intersectsAABB(const BoundingBox &other) const noexcept {
-    const bool edgeX = ((other.center.x - other.halfWidths[0]) <= (center.x + halfWidths[0]) && (other.center.x - other.halfWidths[0]) >= (center.x - halfWidths[0]))
-                       || ((other.center.x + other.halfWidths[0]) >= (center.x - halfWidths[0]) && (other.center.x + other.halfWidths[0]) <= (center.x + halfWidths[0]));
+    const bool edgeX = (mathRound((other.center.x - other.halfWidths[0]), 5) <= mathRound((center.x + halfWidths[0]), 5) && mathRound((other.center.x - other.halfWidths[0]), 5) >= mathRound((center.x - halfWidths[0]), 5))
+                       || (mathRound((other.center.x + other.halfWidths[0]), 5) >= mathRound((center.x - halfWidths[0]), 5) && mathRound((other.center.x + other.halfWidths[0]), 5) <= mathRound((center.x + halfWidths[0]), 5));
 
-    const bool edgeY = ((other.center.y - other.halfWidths[1]) <= (center.y + halfWidths[1]) && (other.center.y - other.halfWidths[1]) >= (center.y - halfWidths[1]))
-                       || ((other.center.y + other.halfWidths[1]) >= (center.y - halfWidths[1]) && (other.center.y + other.halfWidths[1]) <= (center.y + halfWidths[1]));
+    const bool edgeY = (mathRound((other.center.y - other.halfWidths[1]), 5) <= mathRound((center.y + halfWidths[1]), 5) && mathRound((other.center.y - other.halfWidths[1]), 5) >= mathRound((center.y - halfWidths[1]), 5))
+                       || (mathRound((other.center.y + other.halfWidths[1]), 5) >= mathRound((center.y - halfWidths[1]), 5) && mathRound((other.center.y + other.halfWidths[1]), 5) <= mathRound((center.y + halfWidths[1]), 5));
 
-    const bool edgeZ = ((other.center.z - other.halfWidths[2]) <= (center.z + halfWidths[2]) && (other.center.z - other.halfWidths[2]) >= (center.z - halfWidths[2]))
-                       || ((other.center.z + other.halfWidths[2]) >= (center.z - halfWidths[2]) && (other.center.z + other.halfWidths[2]) <= (center.z + halfWidths[2]));
+    const bool edgeZ = (mathRound((other.center.z - other.halfWidths[2]), 5) <= mathRound((center.z + halfWidths[2]), 5) && mathRound((other.center.z - other.halfWidths[2]), 5) >= mathRound((center.z - halfWidths[2]), 5))
+                       || (mathRound((other.center.z + other.halfWidths[2]), 5) >= mathRound((center.z - halfWidths[2]), 5) && mathRound((other.center.z + other.halfWidths[2]), 5) <= mathRound((center.z + halfWidths[2]), 5));
 
 
-    const bool smallerX = ((other.center.x + other.halfWidths[0]) >= (center.x + halfWidths[0]) && (other.center.x - other.halfWidths[0]) <= (center.x - halfWidths[0]));
-    const bool smallerY = ((other.center.y + other.halfWidths[1]) >= (center.y + halfWidths[1]) && (other.center.y - other.halfWidths[1]) <= (center.y - halfWidths[1]));
-    const bool smallerZ = ((other.center.z + other.halfWidths[2]) >= (center.z + halfWidths[2]) && (other.center.z - other.halfWidths[2]) <= (center.z - halfWidths[2]));
+    const bool smallerX = (mathRound((other.center.x + other.halfWidths[0]), 5) >= mathRound((center.x + halfWidths[0]), 5) && mathRound((other.center.x - other.halfWidths[0]), 5) <= mathRound((center.x - halfWidths[0]), 5));
+    const bool smallerY = (mathRound((other.center.y + other.halfWidths[1]), 5) >= mathRound((center.y + halfWidths[1]), 5) && mathRound((other.center.y - other.halfWidths[1]), 5) <= mathRound((center.y - halfWidths[1]), 5));
+    const bool smallerZ = (mathRound((other.center.z + other.halfWidths[2]), 5) >= mathRound((center.z + halfWidths[2]), 5) && mathRound((other.center.z - other.halfWidths[2]), 5) <= mathRound((center.z - halfWidths[2]), 5));
 
 
     return ((edgeX || smallerX) && (edgeY || smallerY) && (edgeZ || smallerZ));
+}
+
+[[nodiscard]] bool BoundingBox::intersectsRay(const Ray r) const noexcept {
+    const glm::vec3 dir_inv = 1.0f/r.slope;
+
+    double t1 = (get_vmin()[0] - r.origin[0])*dir_inv[0];
+    double t2 = (get_vmax()[0] - r.origin[0])*dir_inv[0];
+
+    double tmin = std::min(t1, t2);
+    double tmax = std::max(t1, t2);
+
+    for (int i = 1; i < 3; ++i) {
+        t1 = (get_vmin()[i] - r.origin[i])*dir_inv[i];
+        t2 = (get_vmax()[i] - r.origin[i])*dir_inv[i];
+
+        tmin = std::max(tmin, std::min(std::min(t1, t2), tmax));
+        tmax = std::min(tmax, std::max(std::max(t1, t2), tmin));
+    }
+
+    return tmax > std::max(tmin, 0.0);
 }
 
 [[nodiscard]] glm::vec3 BoundingBox::get_vmin() const noexcept {

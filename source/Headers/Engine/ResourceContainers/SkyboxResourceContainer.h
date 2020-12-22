@@ -3,7 +3,6 @@
 #include <glad/glad.h>
 
 class SkyboxResourceContainer {
-private:
     const unsigned int VBO{}, VAO{};
 
 public:

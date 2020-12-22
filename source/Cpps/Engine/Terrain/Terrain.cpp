@@ -10,21 +10,29 @@ Terrain::Terrain(std::variant<TerrainTextureMap, Component::TextureComponent> te
 
 void Terrain::render(const Camera& camera, const Shader& shader, glm::vec3 lightPos, glm::vec3 lightColor) {
     shader.use();
+
     terrainMesh->bindVAO();
+
     std::visit([&](auto&& arg){arg.bind(shader);}, terrainTextureMap);
-    //terrainTextureMap.bind(shader);
+
     camera.setMatrices(shader);
-    const int modelLoc = glGetUniformLocation(shader.ID, "model");
+
+    const int modelLoc = glGetUniformLocation(*shader.ID, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(createModelMatrixTerrain()));
-    const int lightPosLoc = glGetUniformLocation(shader.ID, "lightPos");
+
+    const int lightPosLoc = glGetUniformLocation(*shader.ID, "lightPos");
     glUniform3fv(lightPosLoc, 1, glm::value_ptr(lightPos));
-    const int lightColorLoc = glGetUniformLocation(shader.ID, "lightColor");
+
+    const int lightColorLoc = glGetUniformLocation(*shader.ID, "lightColor");
     glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));
-    const int viewPosLoc = glGetUniformLocation(shader.ID, "viewPos");
+
+    const int viewPosLoc = glGetUniformLocation(*shader.ID, "viewPos");
     glUniform3fv(viewPosLoc, 1, glm::value_ptr(camera.getPos()));
+
     glDrawElements(GL_TRIANGLES, terrainMesh->getNumOfVertices(), GL_UNSIGNED_INT, nullptr);
+
     std::visit([&](auto&& arg){arg.unbind();}, terrainTextureMap);
-    //terrainTextureMap.unbind();
+
     TerrainMesh::unbindVAO();
 }
 

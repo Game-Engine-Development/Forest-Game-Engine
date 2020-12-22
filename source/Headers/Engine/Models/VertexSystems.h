@@ -2,26 +2,35 @@
 
 #include <vector>
 #include <iostream>
+#include <string>
+#include <optional>
 
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 
+#include <assimp/Importer.hpp>      // C++ importer interface
+#include <assimp/scene.h>           // Output data structure
+#include <assimp/postprocess.h>     // Post processing flags
+#include <assimp/DefaultLogger.hpp>
+
+#include "Headers/Engine/Utils/CommonDeclarations.h"
 #include "Headers/Engine/Utils/MiscUtils.h"
 
-void CalculateTangentsAndBitangents(
-        std::vector<glm::vec3> &vertices,
-        std::vector<glm::vec2> &uvs,
-        std::vector<glm::vec3> &normals,
-        std::vector<glm::vec3> &tangents,
-        std::vector<glm::vec3> &bitangents
-);
+namespace Component {
+    struct Model;
 
-void updateCube(glm::vec3 &vertex, glm::vec3 greatest = glm::vec3{}, glm::vec3 smallest = glm::vec3{});
+    //struct MeshComponent;
+    struct Mesh;
 
-[[deprecated]]
-void loadOBJ(
-        const char *filename,
-        std::vector<glm::vec3> &vertices,
-        std::vector<glm::vec2> &textureCoords,
-        std::vector<glm::vec3> &normals
-);
+    struct TextureComponent;
+}
+
+unsigned int generateMesh();
+
+std::vector<Component::TextureComponent> loadMaterialTextures(Component::Model &model, aiMaterial *mat, aiTextureType type, const std::string &typeName);
+
+Component::Mesh processMesh(Component::Model &model, aiMesh *mesh, const aiScene *scene);
+
+void processNode(Component::Model &model, aiNode *node, const aiScene *scene);
+
+std::optional<Component::Model> loadModel(const std::string &path);

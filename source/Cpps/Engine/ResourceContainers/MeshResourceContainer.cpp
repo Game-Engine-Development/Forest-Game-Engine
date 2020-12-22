@@ -3,24 +3,18 @@
 void swap(MeshResourceContainer &meshContainer1, MeshResourceContainer &meshContainer2) {
     std::swap(meshContainer1.VAO, meshContainer2.VAO);
     std::swap(meshContainer1.VBO, meshContainer2.VBO);
-    std::swap(meshContainer1.texCoordBuffer, meshContainer2.texCoordBuffer);
-    std::swap(meshContainer1.normalBuffer, meshContainer2.normalBuffer);
-    std::swap(meshContainer1.tangentBuffer, meshContainer2.tangentBuffer);
-    std::swap(meshContainer1.bitangentBuffer, meshContainer2.bitangentBuffer);
+    std::swap(meshContainer1.EBO, meshContainer2.EBO);
+
+    std::swap(meshContainer1.numOfVertices, meshContainer2.numOfVertices);
 }
 
 MeshResourceContainer::MeshResourceContainer(
         const unsigned int VAOPar,
         const unsigned int VBOPar,
-        const unsigned int texCoordBufferPar,
-        const unsigned int normalBufferPar,
-        const unsigned int tangentBufferPar,
-        const unsigned int bitangentBufferPar,
+        const unsigned int EBOPar,
 
         const std::size_t numOfVerticesPar) noexcept
-: VAO(VAOPar), VBO(VBOPar), texCoordBuffer(texCoordBufferPar),
-normalBuffer(normalBufferPar), tangentBuffer(tangentBufferPar),
-bitangentBuffer(bitangentBufferPar),
+: VAO(VAOPar), VBO(VBOPar), EBO(EBOPar),
 
 numOfVertices(numOfVerticesPar)
 {}
@@ -35,10 +29,7 @@ numOfVertices(numOfVerticesPar)
 
 MeshResourceContainer::~MeshResourceContainer() noexcept {
     glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &texCoordBuffer);
-    glDeleteBuffers(1, &normalBuffer);
-    glDeleteBuffers(1, &tangentBuffer);
-    glDeleteBuffers(1, &bitangentBuffer);
+    glDeleteBuffers(1, &EBO);
     glDeleteVertexArrays(1, &VAO);
 }
 

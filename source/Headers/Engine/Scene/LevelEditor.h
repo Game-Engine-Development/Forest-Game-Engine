@@ -120,8 +120,8 @@ public:
             {
                 // Disabling fullscreen would allow the window to be moved to the front of other windows,
                 // which we can't undo at the moment without finer window depth/z control.
-                ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen);
-                ImGui::MenuItem("Padding", NULL, &opt_padding);
+                ImGui::MenuItem("Fullscreen", nullptr, &opt_fullscreen);
+                ImGui::MenuItem("Padding", nullptr, &opt_padding);
                 ImGui::Separator();
 
                 if (ImGui::MenuItem("Flag: NoSplit",                "", (dockspace_flags & ImGuiDockNodeFlags_NoSplit) != 0))                 { dockspace_flags ^= ImGuiDockNodeFlags_NoSplit; }
@@ -131,7 +131,7 @@ public:
                 //if (ImGui::MenuItem("Flag: PassthruCentralNode",    "", (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) != 0, opt_fullscreen)) { dockspace_flags ^= ImGuiDockNodeFlags_PassthruCentralNode; }
                 ImGui::Separator();
 
-                if (ImGui::MenuItem("Close", NULL, false, p_open != NULL))
+                if (ImGui::MenuItem("Close", nullptr, false, p_open != nullptr))
                     *p_open = false;
                 ImGui::EndMenu();
             }

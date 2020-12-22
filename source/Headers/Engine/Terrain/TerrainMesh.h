@@ -22,7 +22,11 @@
 #endif
 
 class TerrainMesh {
-    std::shared_ptr<stb_PointerContainer> dataContainer = nullptr;
+    std::vector<glm::vec3> vertices, normals;
+    std::vector<glm::vec2> texCoords;
+    std::vector<unsigned int> indices;
+
+    std::unique_ptr<stb_PointerContainer> dataContainer = nullptr;
 
     std::optional<Noise::OpenSimplex2S> noise;
 
@@ -40,6 +44,11 @@ class TerrainMesh {
     void loadTerrain(std::vector<glm::vec3>& verticies, std::vector<glm::vec3>& normals, std::vector<glm::vec2>& texCoords, std::vector<unsigned int>& indices, const char* filename);
 
     friend void swap(TerrainMesh &terrainMesh1, TerrainMesh &terrainMesh2) {
+        std::swap(terrainMesh1.vertices, terrainMesh2.vertices);
+        std::swap(terrainMesh1.normals, terrainMesh2.normals);
+        std::swap(terrainMesh1.texCoords, terrainMesh2.texCoords);
+        std::swap(terrainMesh1.indices, terrainMesh2.indices);
+
         std::swap(terrainMesh1.dataContainer, terrainMesh2.dataContainer);
 
         std::swap(terrainMesh1.noise, terrainMesh2.noise);
@@ -57,9 +66,12 @@ class TerrainMesh {
 
 public:
     TerrainMesh(const TerrainMesh &terrainMeshObj) = delete;
-    //extremely temporary for demo:
     TerrainMesh(TerrainMesh &&oldTerrainMeshObj) noexcept
-    : dataContainer(std::move(oldTerrainMeshObj.dataContainer)),
+    : vertices(std::move(oldTerrainMeshObj.vertices)),
+    normals(std::move(oldTerrainMeshObj.normals)),
+    texCoords(std::move(oldTerrainMeshObj.texCoords)),
+    indices(std::move(oldTerrainMeshObj.indices)),
+    dataContainer(std::move(oldTerrainMeshObj.dataContainer)),
     noise(oldTerrainMeshObj.noise),
     height(oldTerrainMeshObj.height),
     VAO(oldTerrainMeshObj.VAO),
@@ -88,7 +100,6 @@ public:
     explicit TerrainMesh(const char* filename, long seed);
 
     TerrainMesh &operator=(const TerrainMesh &terrainMeshObj) = delete;
-    //extremely temporary for demo:
     TerrainMesh &operator=(TerrainMesh &&oldTerrainMeshObj) noexcept {
         TerrainMesh move(std::move(oldTerrainMeshObj));
         swap(*this, move);
