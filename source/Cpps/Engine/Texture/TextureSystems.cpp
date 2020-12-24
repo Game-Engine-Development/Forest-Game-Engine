@@ -6,7 +6,8 @@ FileInfo loadFromDisk(const std::string &textureCacheKey) {
 
     ImageType type{};
     if (std::regex_match(textureCacheKey, std::regex("(.+)(\\.png)")) ||
-        std::regex_match(textureCacheKey, std::regex("(.+)(\\.bmp)")))
+        std::regex_match(textureCacheKey, std::regex("(.+)(\\.bmp)")) ||
+        std::regex_match(textureCacheKey, std::regex("(.+)(\\.tga)")))
     {
         type = ImageType::RGBA_IMG;
         data = stbi_load(textureCacheKey.c_str(), &width, &height, &nrchannels, STBI_rgb_alpha);
@@ -19,7 +20,7 @@ FileInfo loadFromDisk(const std::string &textureCacheKey) {
         std::cerr << "Failed to load " << textureCacheKey << " texture!\n";
     }
 
-    return FileInfo { width, height, nrchannels, data, type };
+    return FileInfo {width, height, nrchannels, data, type};
 }
 
 unsigned int loadOnMain(const FileInfo &entry, const int textureUnit) {

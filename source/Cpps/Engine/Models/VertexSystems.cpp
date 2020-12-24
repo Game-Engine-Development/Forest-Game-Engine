@@ -24,7 +24,7 @@ unsigned int generateMesh(const std::string &path, const std::vector<Vertex> &ve
     // set the vertex attribute pointers
     // vertex Positions
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), nullptr);
     // vertex normals
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
@@ -40,14 +40,14 @@ unsigned int generateMesh(const std::string &path, const std::vector<Vertex> &ve
     return VAO;
 }
 
-std::vector<Component::TextureComponent> loadMaterialTextures(Component::Model &model, aiMaterial *mat, aiTextureType type, const std::string &typeName) {
+std::vector<Component::TextureComponent> loadMaterialTextures(Component::Model &model, aiMaterial *mat, aiTextureType type, const std::string &typeName, const bool reset) {
     std::vector<Component::TextureComponent> textures;
-    std::int32_t textureUnit = 0;
-    for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+    static std::int32_t textureUnit = 0;
+    if(reset) textureUnit = 0;
+    for(unsigned int i = 0; i < mat->GetTextureCount(type); ++i)
     {
         aiString str;
         mat->GetTexture(type, i, &str);
-        std::cout << "texturePath: " << (model.path.substr(0, model.path.find_last_of('/')) + '/' + std::string(str.C_Str())) << '\n';
         Component::TextureComponent texture(model.path.substr(0, model.path.find_last_of('/')) + '/' + std::string(str.C_Str()), textureUnit++, type, typeName);
         textures.push_back(texture);
     }
@@ -60,20 +60,25 @@ Component::Mesh processMesh(Component::Model &model, aiMesh *mesh, const aiScene
     std::vector<unsigned int> indices;
     std::vector<Component::TextureComponent> textures;
 
-    for(unsigned int i = 0; i < mesh->mNumVertices; i++)
+    for(unsigned int i = 0; i < mesh->mNumVertices; ++i)
     {
         Vertex vertex;
         // process vertex positions, normals and texture coordinates
         glm::vec3 vector;
+
+        assert(mesh->mVertices != nullptr);
         vector.x = mesh->mVertices[i].x;
         vector.y = mesh->mVertices[i].y;
         vector.z = mesh->mVertices[i].z;
         vertex.position = vector;
 
+        assert(mesh->mNormals != nullptr);
         vector.x = mesh->mNormals[i].x;
         vector.y = mesh->mNormals[i].y;
         vector.z = mesh->mNormals[i].z;
         vertex.normal = vector;
+
+        //std::cout << "normal: " << vertex.normal << '\n';
 
         if(mesh->mTextureCoords[0]) //check is mesh contains texture coordinates
         {
@@ -105,8 +110,14 @@ Component::Mesh processMesh(Component::Model &model, aiMesh *mesh, const aiScene
                                                            aiTextureType_DIFFUSE, "texture_diffuse");
         textures.insert(std::end(textures), std::begin(diffuseMaps), std::end(diffuseMaps));
         std::vector<Component::TextureComponent> specularMaps = loadMaterialTextures(model, material,
-                                                            aiTextureType_SPECULAR, "texture_specular");
+                                                            aiTextureType_SPECULAR, "texture_specular", false);
         textures.insert(std::end(textures), std::begin(specularMaps), std::end(specularMaps));
+
+        std::cout << "ModelName: " << model.path << '\n';
+        std::cout << "textures.size(): " << textures.size() << '\n';
+        for(const auto &tex : textures) {
+            std::cout << "filename: " << tex.textureCacheKey << ", shaderName: " << tex.shaderName << ", textureUnit: " << tex.textureUnit << '\n';
+        }
     }
 
     return Component::Mesh{generateMesh(model.path, vertices, indices, textures), indices.size(), vertices, indices, textures};

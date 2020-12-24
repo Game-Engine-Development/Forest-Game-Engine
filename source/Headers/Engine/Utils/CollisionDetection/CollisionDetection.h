@@ -9,17 +9,32 @@
 #include "Headers/Engine/Utils/CommonDeclarations.h"
 
 
+
+struct Projection {
+    glm::vec2 points; //x = min, y = max
+    [[nodiscard]] bool overlap(Projection other) const;
+};
+
+
+struct ConvexShape {
+    std::vector<Vertex> vertices;
+
+    //axis == normal
+    [[nodiscard]] Projection project(glm::vec3 axis) const;
+};
+
+//uses SAT (separating axis theorem)
+[[nodiscard]] bool convexShapeIntersection(const ConvexShape &convexShape1, const ConvexShape &convexShape2);
+
+
+
+
+
 struct BoundingBox {
     Coordinate center{};
     LengthVec3 halfWidths{};
 
     [[nodiscard]] bool containsPoint(Coordinate point) const noexcept;
-
-    [[nodiscard]] bool containsTriangle(Triangle triangle) const noexcept;
-
-    [[nodiscard]] bool intersectsTriangle(Triangle triangle) const noexcept;
-
-    [[nodiscard]] bool touchesTriangle(Triangle triangle) const noexcept;
 
     [[nodiscard]] bool intersectsAABB(const BoundingBox &other) const noexcept;
 

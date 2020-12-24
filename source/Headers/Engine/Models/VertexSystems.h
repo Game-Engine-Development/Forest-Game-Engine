@@ -27,7 +27,7 @@ namespace Component {
 
 unsigned int generateMesh();
 
-std::vector<Component::TextureComponent> loadMaterialTextures(Component::Model &model, aiMaterial *mat, aiTextureType type, const std::string &typeName);
+std::vector<Component::TextureComponent> loadMaterialTextures(Component::Model &model, aiMaterial *mat, aiTextureType type, const std::string &typeNameconst, bool reset = true);
 
 Component::Mesh processMesh(Component::Model &model, aiMesh *mesh, const aiScene *scene);
 

@@ -37,6 +37,11 @@ namespace Component {
 
         ~TextureComponent();
 
+        std::string textureCacheKey;
+
+        int textureUnit{};
+        std::string shaderName;
+
     private:
         friend void swap(Component::TextureComponent &tex1, Component::TextureComponent &tex2) {
             std::swap(tex1.textureCacheKey, tex2.textureCacheKey);
@@ -46,11 +51,11 @@ namespace Component {
             std::swap(tex1.shaderName, tex2.shaderName);
         }
 
-        std::string textureCacheKey;
+//        std::string textureCacheKey;
 
         unsigned int IDCache{}; //denormalized data from textureCache
-        int textureUnit{};
-        std::string shaderName;
+//        int textureUnit{};
+//        std::string shaderName;
         aiTextureType textureType;
         std::string textureTypename;
     };

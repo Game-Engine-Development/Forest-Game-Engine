@@ -6,19 +6,19 @@
 #include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Utils/FactoriesAndUtils.h"
 
-void pickAndColorSpheres(EnttWrapper::Scene &scene, const entt::entity worldBox, const Window &window, const Camera &camera, const DataStructures::Octree &tree, EnttWrapper::Entity terrainEntity) {
+void pickAndColorSpheres(EnttWrapper::Scene &scene, /*const entt::entity worldBox,*/ const Window &window, const Camera &camera) { //, const DataStructures::Octree &tree, EnttWrapper::Entity terrainEntity) {
     for(int i = 0; i < 5; ++i) {
         const float blueAsFloat = (i == g_selected_sphere) ? 1.0f : 0.0f;
         auto &drawable = scene.getEntityFromIndex(i).getComponent<Component::Drawable>();
         drawable.getUniformData(0) = blueAsFloat;
     }
 
-    const auto pointOfIntersection = getTerrainIntersection(window, camera, tree, terrainEntity);
-    if(pointOfIntersection.has_value()) {
-        auto &posRotScale = terrainEntity.getComponent<Component::PosRotationScale>();
-        posRotScale.setPos(pointOfIntersection.value());
-        std::cout << "pointOfIntersection: " << pointOfIntersection.value() << '\n';
-    }
+    //const auto pointOfIntersection = getTerrainIntersection(window, camera, tree, terrainEntity);
+    //if(pointOfIntersection.has_value()) {
+    //    auto &posRotScale = terrainEntity.getComponent<Component::PosRotationScale>();
+    //    posRotScale.setPos(pointOfIntersection.value());
+    //    std::cout << "pointOfIntersection: " << pointOfIntersection.value() << '\n';
+    //}
 }
 
 void playMusic(const Window &window, SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave) {
@@ -30,6 +30,9 @@ void playMusic(const Window &window, SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave
 }
 
 void controlPlayer(const Window &window, Camera &camera) {
+    const bool speedMode = (glfwGetKey(window.getWindow(), GLFW_KEY_B) == GLFW_PRESS);
+    float SUPER_SPEED = speedMode ? 100.f : 1.f;
+
     const bool onlyOnePressed = (glfwGetKey(window.getWindow(), GLFW_KEY_W) == GLFW_PRESS) ^ (glfwGetKey(window.getWindow(), GLFW_KEY_S) == GLFW_PRESS);
     const bool onlyOnePressed2 = (glfwGetKey(window.getWindow(), GLFW_KEY_D) == GLFW_PRESS) ^ (glfwGetKey(window.getWindow(), GLFW_KEY_A) == GLFW_PRESS);
 
@@ -45,10 +48,10 @@ void controlPlayer(const Window &window, Camera &camera) {
         finalMove = glm::normalize(finalMove);
         if (onlyOnePressed) {
             if (glfwGetKey(window.getWindow(), GLFW_KEY_W) == GLFW_PRESS) {
-                finalMove *= FORWARD_SPEED;
+                finalMove *= FORWARD_SPEED + SUPER_SPEED;
             }
             if (glfwGetKey(window.getWindow(), GLFW_KEY_S) == GLFW_PRESS) {
-                finalMove *= -FORWARD_SPEED;
+                finalMove *= -FORWARD_SPEED * SUPER_SPEED;
             }
         }
         else {
@@ -56,18 +59,18 @@ void controlPlayer(const Window &window, Camera &camera) {
         }
         if (onlyOnePressed2) {
             if (glfwGetKey(window.getWindow(), GLFW_KEY_D) == GLFW_PRESS) {
-                finalMove += SIDE_SPEED * camera.getRight();
+                finalMove += (SIDE_SPEED * SUPER_SPEED) * camera.getRight();
             }
             if (glfwGetKey(window.getWindow(), GLFW_KEY_A) == GLFW_PRESS) {
-                finalMove += -SIDE_SPEED * camera.getRight();
+                finalMove += -(SIDE_SPEED * SUPER_SPEED) * camera.getRight();
             }
         }
         if (onlyOnePressed3) {
             if (glfwGetKey(window.getWindow(), GLFW_KEY_UP) == GLFW_PRESS) {
-                finalMove.y = UP_SPEED;
+                finalMove.y = UP_SPEED * SUPER_SPEED;
             }
             if (glfwGetKey(window.getWindow(), GLFW_KEY_DOWN) == GLFW_PRESS) {
-                finalMove.y = -UP_SPEED;
+                finalMove.y = -UP_SPEED * SUPER_SPEED;
             }
         }
 

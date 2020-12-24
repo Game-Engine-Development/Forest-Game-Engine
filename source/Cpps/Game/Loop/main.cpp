@@ -94,13 +94,20 @@ int main() {
             "../source/Cpps/Engine/Skybox/Shaders/skyboxFragmentShader.glsl"
     );
 
+    Shader mainShader(
+            "../source/Cpps/Engine/Models/Shaders/MainShaders/mainVert.glsl",
+            "../source/Cpps/Engine/Models/Shaders/MainShaders/mainFrag.glsl"
+    );
+
 
     for(int i = 0; i < 5; ++i) {
-        createBaseEntity(scene, "../res/Sphere.obj"s,
+        createBaseEntity(scene, "../res/sphere.obj"s,
                          simpleDemoShaders, {Uniform{"blue"s, 0.f}},
-                         {glm::vec3(i*10), glm::vec3(0), glm::vec3(1)});
+                         {glm::vec3(i), glm::vec3(0), glm::vec3(1)});
     }
 
+    const bool intersection = convexShapeIntersection({scene.getEntityFromIndex(0).getComponent<Component::Drawable>().model.meshes.at(0).vertices}, {scene.getEntityFromIndex(1).getComponent<Component::Drawable>().model.meshes.at(0).vertices});
+    std::cout << "intersection: " << intersection << '\n';
 
     AudioEngine audioEngine; // SoLoud engine
     SoLoud::Wav gWave;      // One wave file
@@ -130,8 +137,8 @@ int main() {
 
     Skybox skybox(CubeMapTexture(textures, 0));
 
-    createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-                     {glm::vec3(7), glm::vec3(0), glm::vec3(1)});
+    //createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+    //                 {glm::vec3(7), glm::vec3(0), glm::vec3(1)});
 
 
     //@todo implement timestep to make fps have constant time between renders
@@ -144,50 +151,50 @@ int main() {
     }
 
 
-    const entt::entity worldBox = createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-                                  {glm::vec3(0, -10, 0), glm::vec3(0), glm::vec3(1)})->getID();
+    //const entt::entity worldBox = createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+    //                              {glm::vec3(0, -10, 0), glm::vec3(0), glm::vec3(1)})->getID();
 
 
     LevelEditor editor(&window);
 
 
-    Terrain &terrain = terrains[0];
+    //Terrain &terrain = terrains[0];
 
-    std::cout << "pos: " << terrain.getPos() << ' ';
+    //std::cout << "pos: " << terrain.getPos() << ' ';
 
-    for(int i = 0; i < terrain.terrainMesh->getWidth(); ++i) {
-        createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-                         {terrain.getPos() + glm::vec3(terrain.terrainMesh->getX_Y_InWorldCoords(i, i).x, terrain.terrainMesh->getHeight(i, i),
-                                                                                  terrain.terrainMesh->getX_Y_InWorldCoords(i, i).y),glm::vec3(0), glm::vec3(1)});
-    }
+    //for(int i = 0; i < terrain.terrainMesh->getWidth(); ++i) {
+        //createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+        //                 {terrain.getPos() + glm::vec3(terrain.terrainMesh->getX_Y_InWorldCoords(i, i).x, terrain.terrainMesh->getHeight(i, i),
+        //                                                                          terrain.terrainMesh->getX_Y_InWorldCoords(i, i).y),glm::vec3(0), glm::vec3(1)});
+    //}
 
-    createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-                     {terrain.getPos() + glm::vec3(TerrainMesh::SIZE/2.f, 0.f,
-                                             TerrainMesh::SIZE/2.f),glm::vec3(0), glm::vec3(10)});
-
-
-    std::cout << "width: " << terrain.terrainMesh->getWidth() << '\n';
-
-    createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-                     {terrains[0].getPos() + glm::vec3(0, 30, 0),
-                                                 glm::vec3(0), glm::vec3(10)});
+    //createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+    //                 {terrain.getPos() + glm::vec3(TerrainMesh::SIZE/2.f, 0.f,
+    //                                         TerrainMesh::SIZE/2.f),glm::vec3(0), glm::vec3(10)});
 
 
-    createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-                     {terrains[0].getPos(), glm::vec3(0), glm::vec3(10)});
+    //std::cout << "width: " << terrain.terrainMesh->getWidth() << '\n';
+
+    //createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+    //                 {terrains[0].getPos() + glm::vec3(0, 30, 0),
+    //                                             glm::vec3(0), glm::vec3(10)});
+
+
+    //createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+    //                 {terrains[0].getPos(), glm::vec3(0), glm::vec3(10)});
 
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-    EnttWrapper::Entity terrainEntity = createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-                     {glm::vec3(0), glm::vec3(0), glm::vec3(10)}).value();
+    //EnttWrapper::Entity terrainEntity = createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
+    //                 {glm::vec3(0), glm::vec3(0), glm::vec3(10)}).value();
 
 
-    createBaseEntity(scene, "../res/pocillopora-eydouxi/source/Hawaii2015-P_Eydouxi/Coral32mesh-90.obj"s, normalMappedShader,
-                     {glm::vec3(30, 30, -30), glm::vec3(0), glm::vec3(10)});
+    //createBaseEntity(scene, "../res/Sponza/sponza.obj"s, mainShader,
+    //                 {glm::vec3(150, 30, 150), glm::vec3(0, 0, 0), glm::vec3(0.1)});
 
-    auto tree = createTreeWithTerrain(terrain);
-    std::cout << "isInTree: " << tree.isInTree(glm::vec3{terrain.terrainMesh->getX_Y_InWorldCoords(0, 0).x, terrain.terrainMesh->getHeightFromHeightmap(0, 0), terrain.terrainMesh->getX_Y_InWorldCoords(0, 0).y} + terrain.getPos()) << '\n';
+    //auto tree = createTreeWithTerrain(terrain);
+    //std::cout << "isInTree: " << tree.isInTree(glm::vec3{terrain.terrainMesh->getX_Y_InWorldCoords(0, 0).x, terrain.terrainMesh->getHeightFromHeightmap(0, 0), terrain.terrainMesh->getX_Y_InWorldCoords(0, 0).y} + terrain.getPos()) << '\n';
 
     while (!glfwWindowShouldClose(window.getWindow())) {
         Input::processInput(audioEngine.gSoloud, gWave, window, scene, 0, 5);
@@ -204,11 +211,11 @@ int main() {
 
         renderScene(scene, camera, {light});
 
-        pickAndColorSpheres(scene, worldBox, window, camera, tree, terrainEntity);
+        pickAndColorSpheres(scene, /*worldBox,*/ window, camera); //, tree, terrainEntity);
 
         raycastPickSphere(window, camera, scene, 0, 5);
 
-        terrain.render(camera, simpleTerrainShader, light.lightPos, light.lightColor);
+        //terrain.render(camera, simpleTerrainShader, light.lightPos, light.lightColor);
 
         hdr.render(entityShader, 1);
 
