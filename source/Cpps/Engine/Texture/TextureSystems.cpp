@@ -46,7 +46,7 @@ unsigned int loadOnMain(const FileInfo &entry, const int textureUnit) {
         }
         glGenerateMipmap(GL_TEXTURE_2D);
     } else {
-        std::cerr << "Data passed to loadOnMain is null \n";
+        std::cerr << "Data passed to loadOnMain is null\n";
     }
     stbi_image_free(entry.data);
     glBindTexture(GL_TEXTURE_2D, 0);

@@ -62,7 +62,7 @@ private:
     glm::vec3 Front{0.0f, 0.0f, -1.0f};
     glm::vec3 Up{};
     glm::vec3 Right{};
-    glm::vec3 WorldUp;
+    const glm::vec3 WorldUp;
 
     // Euler Angles
     float Yaw;

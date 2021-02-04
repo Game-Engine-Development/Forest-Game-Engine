@@ -19,9 +19,7 @@ uniform vec3 lightColor;
 
 uniform vec3 viewPos;
 
-void main()
-{
-
+void main() {
     // obtain normal from normal map in range [0,1]
     vec3 normal = texture(texture2, texCoord).rgb;
     // transform normal vector to range [-1,1]  

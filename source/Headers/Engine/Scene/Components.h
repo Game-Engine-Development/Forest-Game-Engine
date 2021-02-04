@@ -49,6 +49,9 @@ namespace Component {
 
             std::swap(tex1.textureUnit, tex2.textureUnit);
             std::swap(tex1.shaderName, tex2.shaderName);
+            
+            std::swap(tex1.textureType, tex2.textureType);
+            std::swap(tex1.textureTypename, tex2.textureTypename);
         }
 
 //        std::string textureCacheKey;

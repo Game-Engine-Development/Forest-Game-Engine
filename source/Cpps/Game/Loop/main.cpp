@@ -77,10 +77,10 @@ int main() {
             "../source/Cpps/Engine/Models/Shaders/vertexShader.glsl",
             "../source/Cpps/Engine/Models/Shaders/fragmentShader.glsl"
     );
-    Shader normalMappedShader(
-            "../source/Cpps/Engine/Models/Shaders/normalMappedVertex.glsl",
-            "../source/Cpps/Engine/Models/Shaders/normalMappedFragment.glsl"
-    );
+    //Shader normalMappedShader(
+    //        "../source/Cpps/Engine/Models/Shaders/normalMappedVertex.glsl",
+    //        "../source/Cpps/Engine/Models/Shaders/normalMappedFragment.glsl"
+    //);
     Shader simpleDemoShaders(
             "../source/Cpps/Engine/Models/Shaders/SimpleDemoVertex.glsl",
             "../source/Cpps/Engine/Models/Shaders/SimpleDemoFragment.glsl"
@@ -99,15 +99,23 @@ int main() {
             "../source/Cpps/Engine/Models/Shaders/MainShaders/mainFrag.glsl"
     );
 
+    Shader testShader(
+            "../source/Cpps/Engine/Models/Shaders/testingVertex.glsl",
+            "../source/Cpps/Engine/Models/Shaders/testingFragment.glsl"
+    );
+
 
     for(int i = 0; i < 5; ++i) {
         createBaseEntity(scene, "../res/sphere.obj"s,
                          simpleDemoShaders, {Uniform{"blue"s, 0.f}},
-                         {glm::vec3(i), glm::vec3(0), glm::vec3(1)});
+                         {glm::vec3(10*i), glm::vec3(0), glm::vec3(1)});
     }
 
-    const bool intersection = convexShapeIntersection({scene.getEntityFromIndex(0).getComponent<Component::Drawable>().model.meshes.at(0).vertices}, {scene.getEntityFromIndex(1).getComponent<Component::Drawable>().model.meshes.at(0).vertices});
-    std::cout << "intersection: " << intersection << '\n';
+    //const bool intersection = convexShapeIntersection({scene.getEntityFromIndex(0).getComponent<Component::Drawable>().model.meshes.at(0).vertices}, {scene.getEntityFromIndex(1).getComponent<Component::Drawable>().model.meshes.at(0).vertices});
+    //std::cout << "intersection: " << intersection << '\n';
+
+    //const auto vertices = scene.getEntityFromIndex(0).getComponent<Component::Drawable>().model.meshes.at(0).vertices;
+
 
     AudioEngine audioEngine; // SoLoud engine
     SoLoud::Wav gWave;      // One wave file
@@ -137,8 +145,8 @@ int main() {
 
     Skybox skybox(CubeMapTexture(textures, 0));
 
-    //createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-    //                 {glm::vec3(7), glm::vec3(0), glm::vec3(1)});
+    createBaseEntity(scene, "../res/container.obj"s, testShader,
+                     {glm::vec3(7), glm::vec3(0), glm::vec3(1)});
 
 
     //@todo implement timestep to make fps have constant time between renders
@@ -151,53 +159,103 @@ int main() {
     }
 
 
-    //const entt::entity worldBox = createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-    //                              {glm::vec3(0, -10, 0), glm::vec3(0), glm::vec3(1)})->getID();
+    const entt::entity worldBox = createBaseEntity(scene, "../res/container.obj"s, testShader,
+                                  {glm::vec3(0, -10, 0), glm::vec3(0), glm::vec3(1)})->getID();
 
 
     LevelEditor editor(&window);
 
 
-    //Terrain &terrain = terrains[0];
+    Terrain &terrain = terrains[0];
 
-    //std::cout << "pos: " << terrain.getPos() << ' ';
+    std::cout << "pos: " << terrain.getPos() << ' ';
 
-    //for(int i = 0; i < terrain.terrainMesh->getWidth(); ++i) {
-        //createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-        //                 {terrain.getPos() + glm::vec3(terrain.terrainMesh->getX_Y_InWorldCoords(i, i).x, terrain.terrainMesh->getHeight(i, i),
-        //                                                                          terrain.terrainMesh->getX_Y_InWorldCoords(i, i).y),glm::vec3(0), glm::vec3(1)});
-    //}
+    for(int i = 0; i < terrain.terrainMesh->getWidth(); ++i) {
+        createBaseEntity(scene, "../res/container.obj"s, testShader,
+                         {terrain.getPos() + glm::vec3(terrain.terrainMesh->getX_Y_InWorldCoords(i, i).x, terrain.terrainMesh->getHeight(i, i),
+                                                                                  terrain.terrainMesh->getX_Y_InWorldCoords(i, i).y),glm::vec3(0), glm::vec3(1)});
+    }
 
-    //createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-    //                 {terrain.getPos() + glm::vec3(TerrainMesh::SIZE/2.f, 0.f,
-    //                                         TerrainMesh::SIZE/2.f),glm::vec3(0), glm::vec3(10)});
-
-
-    //std::cout << "width: " << terrain.terrainMesh->getWidth() << '\n';
-
-    //createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-    //                 {terrains[0].getPos() + glm::vec3(0, 30, 0),
-    //                                             glm::vec3(0), glm::vec3(10)});
+    createBaseEntity(scene, "../res/container.obj"s, testShader,
+                     {terrain.getPos() + glm::vec3(TerrainMesh::SIZE/2.f, 0.f,
+                                             TerrainMesh::SIZE/2.f),glm::vec3(0), glm::vec3(10)});
 
 
-    //createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-    //                 {terrains[0].getPos(), glm::vec3(0), glm::vec3(10)});
+    std::cout << "width: " << terrain.terrainMesh->getWidth() << '\n';
+
+    createBaseEntity(scene, "../res/container.obj"s, testShader,
+                     {terrains[0].getPos() + glm::vec3(0, 30, 0),
+                                                 glm::vec3(0), glm::vec3(10)});
+
+
+    auto box = createBaseEntity(scene, "../res/container.obj"s, testShader,
+                     {terrains[0].getPos(), glm::vec3(0), glm::vec3(10)});
+
+
+    const auto box2 = createBaseEntity(scene, "../res/container.obj"s, testShader,
+                                       {terrains[0].getPos() + glm::vec3(100.f), glm::vec3(0), glm::vec3(10)});
+
+
+    createBaseEntity(scene, "../res/PandemicPindownPlayingField.obj"s, testShader,
+                     {glm::vec3(1000, 0, 1000), glm::vec3(270, 0, 0), glm::vec3(1)});
 
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-    //EnttWrapper::Entity terrainEntity = createBaseEntity(scene, "../res/container.obj"s, normalMappedShader,
-    //                 {glm::vec3(0), glm::vec3(0), glm::vec3(10)}).value();
+    EnttWrapper::Entity terrainEntity = createBaseEntity(scene, "../res/container.obj"s, testShader,
+                     {glm::vec3(0), glm::vec3(0), glm::vec3(10)}).value();
 
 
-    //createBaseEntity(scene, "../res/Sponza/sponza.obj"s, mainShader,
-    //                 {glm::vec3(150, 30, 150), glm::vec3(0, 0, 0), glm::vec3(0.1)});
+    const auto sponza = createBaseEntity(scene, "../res/Sponza/sponza.obj"s, mainShader,
+                     {glm::vec3(150, 30, 150), glm::vec3(0, 0, 0), glm::vec3(0.1)});
 
-    //auto tree = createTreeWithTerrain(terrain);
-    //std::cout << "isInTree: " << tree.isInTree(glm::vec3{terrain.terrainMesh->getX_Y_InWorldCoords(0, 0).x, terrain.terrainMesh->getHeightFromHeightmap(0, 0), terrain.terrainMesh->getX_Y_InWorldCoords(0, 0).y} + terrain.getPos()) << '\n';
+    auto tree = createTreeWithTerrain(terrain);
+    std::cout << "isInTree: " << tree.isInTree(glm::vec3{terrain.terrainMesh->getX_Y_InWorldCoords(0, 0).x, terrain.terrainMesh->getHeightFromHeightmap(0, 0), terrain.terrainMesh->getX_Y_InWorldCoords(0, 0).y} + terrain.getPos()) << '\n';
+/*
+    std::cout << "\nintersects: " << testIntersection3D(convertToBoundaryRep(box->getComponent<Component::Drawable>().model.meshes.at(0)), convertToBoundaryRep(box2->getComponent<Component::Drawable>().model.meshes.at(0))) << '\n';
+
+    for(const auto &mesh : box->getComponent<Component::Drawable>().model.meshes) {
+        const auto boundaryRepMesh = convertToBoundaryRep(mesh);
+
+        std::cout << "\nmesh:\n";
+        std::cout << "vertex\n";
+        for(const GeometryVertex &vertex : boundaryRepMesh.vertices) {
+            std::cout << "\tpos: " << vertex.pos << '\n';
+
+            std::cout << "\tedges\n";
+            for(const std::uint32_t edge : vertex.edges) {
+                std::cout << '\t' << edge << '\n';
+            }
+        }
+        std::cout << "edge\n";
+        for(const Edge &edge : boundaryRepMesh.edges) {
+            std::cout << "\tvertices\n";
+            for(const std::uint32_t vertex : edge.vertices) {
+                std::cout << '\t' << vertex << '\n';
+            }
+
+            std::cout << "\tfaces\n";
+            for(const std::uint32_t face : edge.faces) {
+                std::cout << '\t' << face << '\n';
+            }
+        }
+        std::cout << "face\n";
+        for(const Face &face : boundaryRepMesh.faces) {
+            std::cout << "\tedges\n";
+            for(const std::uint32_t edge : face.edges) {
+                std::cout << '\t' << edge << '\n';
+            }
+        }
+        std::cout << '\n';
+    }
+*/
+    const auto &mesh = box->getComponent<Component::Drawable>().model.meshes.at(0);
+    for(const std::uint32_t index : mesh.indices) {
+        std::cout << mesh.vertices.at(index).position << '\n';
+    }
 
     while (!glfwWindowShouldClose(window.getWindow())) {
-        Input::processInput(audioEngine.gSoloud, gWave, window, scene, 0, 5);
+        Input::processInput();
 
         playMusic(window, audioEngine.gSoloud, gWave);
         controlPlayer(window, camera);
@@ -211,11 +269,11 @@ int main() {
 
         renderScene(scene, camera, {light});
 
-        pickAndColorSpheres(scene, /*worldBox,*/ window, camera); //, tree, terrainEntity);
-
         raycastPickSphere(window, camera, scene, 0, 5);
 
-        //terrain.render(camera, simpleTerrainShader, light.lightPos, light.lightColor);
+        pickAndColorSpheres(scene, window, camera, tree, terrainEntity);
+
+        terrain.render(camera, simpleTerrainShader, light.lightPos, light.lightColor);
 
         hdr.render(entityShader, 1);
 

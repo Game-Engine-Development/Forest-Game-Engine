@@ -1,58 +1,6 @@
 #include "Headers/Engine/Utils/CollisionDetection/CollisionDetection.h"
 
 
-[[nodiscard]] bool Projection::overlap(const Projection other) const {
-    return ((mathRound(points.x, 5) <= mathRound(other.points.x, 5)) && (mathRound(other.points.x, 5) <= mathRound(points.y, 5))) || ((mathRound(points.x, 5) <= mathRound(other.points.y, 5)) && (mathRound(other.points.y, 5) <= mathRound(points.y, 5)));
-}
-
-[[nodiscard]] Projection ConvexShape::project(const glm::vec3 axis) const {
-    double min = glm::dot(axis, vertices.at(0).position);
-    std::cout << "Starting Min: " << min << '\n';
-    double max = min;
-    for (int i = 1; i < vertices.size(); ++i) {
-        // NOTE: the axis must be normalized to get accurate projections
-        const double p = glm::dot(axis, vertices.at(i).position);
-        if (p < min) {
-            min = p;
-        } else if (p > max) {
-            max = p;
-        }
-    }
-    std::cout << glm::vec3{min, max, 0.f} << '\n';
-    return Projection{glm::vec2{min, max}};
-}
-
-[[nodiscard]] bool convexShapeIntersection(const ConvexShape &convexShape1, const ConvexShape &convexShape2) {
-    // loop over the axes1
-    for (int i = 0; i < convexShape1.vertices.size(); ++i) {
-        const glm::vec3 axis = convexShape1.vertices.at(i).normal;
-        // project both shapes onto the axis
-        Projection p1 = convexShape1.project(axis);
-        Projection p2 = convexShape2.project(axis);
-        // do the projections overlap?
-        if (!p1.overlap(p2)) {
-            std::cout << "p1 didn't overlap\n";
-            // then we can guarantee that the shapes do not overlap
-            return false;
-        }
-    }
-    // loop over the axes2
-    for (int i = 0; i < convexShape2.vertices.size(); ++i) {
-        const glm::vec3 axis = convexShape2.vertices.at(i).normal;
-        // project both shapes onto the axis
-        Projection p1 = convexShape1.project(axis);
-        Projection p2 = convexShape2.project(axis);
-        // do the projections overlap?
-        if (!p1.overlap(p2)) {
-            std::cout << "p2 didn't overlap\n";
-            // then we can guarantee that the shapes do not overlap
-            return false;
-        }
-    }
-    // if we get here then we know that every axis had overlap on it
-    // so we can guarantee an intersection
-    return true;
-}
 
 [[nodiscard]] bool BoundingBox::containsPoint(const Coordinate point) const noexcept {
     const bool containsX = mathRound(point.x, 5) < mathRound((center.x + halfWidths[0]), 5) && mathRound(point.x, 5) >= mathRound((center.x - halfWidths[0]), 5);

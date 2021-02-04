@@ -4,9 +4,9 @@
 
 
 Component::TextureComponent::TextureComponent(const std::string& filename, const int unit, const aiTextureType type, std::string typeName, const std::optional<std::string>& nameInShader)
-        : textureCacheKey(filename), textureUnit(unit), textureType(type), textureTypename(typeName)
+        : textureCacheKey(filename), textureUnit(unit), textureType(type), textureTypename(std::move(typeName)), shaderName(nameInShader.value_or(std::string("texture") + std::to_string(unit)))
 {
-    shaderName = nameInShader.value_or(std::string("texture") + std::to_string(unit));
+    std::cout << "filename: " << filename << '\n';
 
     if(LookupTables::TextureCache.count(filename)) {
         LookupTables::TextureCache.at(filename).second += 1;
@@ -20,19 +20,20 @@ Component::TextureComponent::TextureComponent(const std::string& filename, const
 }
 
 Component::TextureComponent::TextureComponent(const Component::TextureComponent &tex)
-        : textureCacheKey(tex.textureCacheKey), IDCache(tex.IDCache),
-          textureUnit(tex.textureUnit), shaderName(tex.shaderName)
+        : textureCacheKey(tex.textureCacheKey), IDCache(tex.IDCache), textureType(tex.textureType),
+          textureUnit(tex.textureUnit), shaderName(tex.shaderName), textureTypename(tex.textureTypename)
 {
     LookupTables::TextureCache.at(textureCacheKey).second += 1;
 }
 Component::TextureComponent::TextureComponent(Component::TextureComponent &&oldTexture) noexcept
-        : textureCacheKey(std::move(oldTexture.textureCacheKey)), IDCache(oldTexture.IDCache),
-          textureUnit(oldTexture.textureUnit), shaderName(std::move(oldTexture.shaderName))
+        : textureCacheKey(std::move(oldTexture.textureCacheKey)), IDCache(oldTexture.IDCache), textureType(oldTexture.textureType),
+          textureUnit(oldTexture.textureUnit), shaderName(std::move(oldTexture.shaderName)), textureTypename(std::move(oldTexture.textureTypename))
 {
     oldTexture.textureCacheKey.clear();
     oldTexture.IDCache = 0;
     oldTexture.textureUnit = 0;
     oldTexture.shaderName.clear();
+    oldTexture.textureTypename.clear();
 }
 
 Component::TextureComponent& Component::TextureComponent::operator=(const Component::TextureComponent &tex) {

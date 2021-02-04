@@ -6,19 +6,19 @@
 #include "Headers/Engine/Camera/Camera.h"
 #include "Headers/Engine/Utils/FactoriesAndUtils.h"
 
-void pickAndColorSpheres(EnttWrapper::Scene &scene, /*const entt::entity worldBox,*/ const Window &window, const Camera &camera) { //, const DataStructures::Octree &tree, EnttWrapper::Entity terrainEntity) {
+void pickAndColorSpheres(EnttWrapper::Scene &scene, const Window &window, const Camera &camera, const DataStructures::Octree &tree, EnttWrapper::Entity terrainEntity) {
     for(int i = 0; i < 5; ++i) {
         const float blueAsFloat = (i == g_selected_sphere) ? 1.0f : 0.0f;
         auto &drawable = scene.getEntityFromIndex(i).getComponent<Component::Drawable>();
         drawable.getUniformData(0) = blueAsFloat;
     }
 
-    //const auto pointOfIntersection = getTerrainIntersection(window, camera, tree, terrainEntity);
-    //if(pointOfIntersection.has_value()) {
-    //    auto &posRotScale = terrainEntity.getComponent<Component::PosRotationScale>();
-    //    posRotScale.setPos(pointOfIntersection.value());
-    //    std::cout << "pointOfIntersection: " << pointOfIntersection.value() << '\n';
-    //}
+    const auto pointOfIntersection = getTerrainIntersection(window, camera, tree, terrainEntity);
+    if(pointOfIntersection.has_value()) {
+        auto &posRotScale = terrainEntity.getComponent<Component::PosRotationScale>();
+        posRotScale.setPos(pointOfIntersection.value());
+        std::cout << "pointOfIntersection: " << pointOfIntersection.value() << '\n';
+    }
 }
 
 void playMusic(const Window &window, SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave) {

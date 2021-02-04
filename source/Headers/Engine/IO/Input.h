@@ -38,10 +38,10 @@ public:
 
     static bool getCursor() noexcept;
 
-    static void processInput(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window, EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres);
+    static void processInput();
 
 private:
-    void processInputImpl(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window, EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres);
+    void processInputImpl();
 
     static void mouse_callback([[maybe_unused]] GLFWwindow* window, double xpos, double ypos);
     static void scroll_callback([[maybe_unused]] GLFWwindow* window, double xoffset, double yoffset);

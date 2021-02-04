@@ -25,7 +25,7 @@ namespace Component {
     struct TextureComponent;
 }
 
-unsigned int generateMesh();
+unsigned int generateMesh(const std::string &path, const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, const std::vector<Component::TextureComponent> &textures);
 
 std::vector<Component::TextureComponent> loadMaterialTextures(Component::Model &model, aiMaterial *mat, aiTextureType type, const std::string &typeNameconst, bool reset = true);
 

@@ -17,7 +17,7 @@ Input::Input(Window *const window, Camera *const camera) {
     glfwSetCursorEnterCallback(window->getWindow(), cursor_enter_callback);
 }
 
-void Input::processInputImpl(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window, EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres) { //@todo fix this code duplication and weird mutability
+void Input::processInputImpl() {
     for (int i = 0; i < GLFW_KEY_LAST; ++i) {
         instance->m_keys[i] = glfwGetKey(instance->m_window->getWindow(), i) == GLFW_PRESS;
     }
@@ -59,11 +59,6 @@ void Input::mouse_callback([[maybe_unused]] GLFWwindow* window, const double xpo
     instance->lastY = static_cast<float>(ypos);
 
     instance->m_camera->ProcessMouseMovement(xoffset, yoffset, true);
-
-
-
-    //std::cout << "xoffset: " << xoffset << '\n';
-    //std::cout << "yoffset: " << yoffset << '\n';
 }
 
 void Input::scroll_callback([[maybe_unused]] GLFWwindow* window, double xoffset, double yoffset) {
@@ -97,6 +92,6 @@ bool Input::getCursor() noexcept {
     return instance->cursor;
 }
 
-void Input::processInput(SoLoud::Soloud &gSoloud, SoLoud::Wav &gWave, Window &window, EnttWrapper::Scene &scene, int startIndex, int numberOfSpheres) {
-    instance->processInputImpl(gSoloud, gWave, window, scene, startIndex, numberOfSpheres);
+void Input::processInput() {
+    instance->processInputImpl();
 }

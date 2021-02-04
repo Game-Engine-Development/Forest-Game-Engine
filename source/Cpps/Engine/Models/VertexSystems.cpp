@@ -44,8 +44,7 @@ std::vector<Component::TextureComponent> loadMaterialTextures(Component::Model &
     std::vector<Component::TextureComponent> textures;
     static std::int32_t textureUnit = 0;
     if(reset) textureUnit = 0;
-    for(unsigned int i = 0; i < mat->GetTextureCount(type); ++i)
-    {
+    for(unsigned int i = 0; i < mat->GetTextureCount(type); ++i) {
         aiString str;
         mat->GetTexture(type, i, &str);
         Component::TextureComponent texture(model.path.substr(0, model.path.find_last_of('/')) + '/' + std::string(str.C_Str()), textureUnit++, type, typeName);
@@ -54,14 +53,12 @@ std::vector<Component::TextureComponent> loadMaterialTextures(Component::Model &
     return textures;
 }
 
-Component::Mesh processMesh(Component::Model &model, aiMesh *mesh, const aiScene *scene)
-{
+Component::Mesh processMesh(Component::Model &model, aiMesh *mesh, const aiScene *scene) {
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<Component::TextureComponent> textures;
 
-    for(unsigned int i = 0; i < mesh->mNumVertices; ++i)
-    {
+    for(unsigned int i = 0; i < mesh->mNumVertices; ++i) {
         Vertex vertex;
         // process vertex positions, normals and texture coordinates
         glm::vec3 vector;
@@ -80,8 +77,7 @@ Component::Mesh processMesh(Component::Model &model, aiMesh *mesh, const aiScene
 
         //std::cout << "normal: " << vertex.normal << '\n';
 
-        if(mesh->mTextureCoords[0]) //check is mesh contains texture coordinates
-        {
+        if(mesh->mTextureCoords[0]) { //check is mesh contains texture coordinates
             glm::vec2 vec;
             vec.x = mesh->mTextureCoords[0][i].x;
             vec.y = mesh->mTextureCoords[0][i].y;
@@ -95,26 +91,33 @@ Component::Mesh processMesh(Component::Model &model, aiMesh *mesh, const aiScene
     }
 
     // process indices
-    for(unsigned int i = 0; i < mesh->mNumFaces; i++)
-    {
+    for(unsigned int i = 0; i < mesh->mNumFaces; i++) {
         aiFace face = mesh->mFaces[i];
-        for(unsigned int j = 0; j < face.mNumIndices; j++)
+        for(unsigned int j = 0; j < face.mNumIndices; j++) {
             indices.push_back(face.mIndices[j]);
+        }
     }
 
     // process material
-    if(mesh->mMaterialIndex >= 0)
-    {
+    if(mesh->mMaterialIndex >= 0) {
+        std::cout << "ModelName: " << model.path << '\n';
+
+        using namespace std::string_literals;
+
         aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
         std::vector<Component::TextureComponent> diffuseMaps = loadMaterialTextures(model, material,
-                                                           aiTextureType_DIFFUSE, "texture_diffuse");
+                                                           aiTextureType_DIFFUSE, "texture_diffuse"s);
         textures.insert(std::end(textures), std::begin(diffuseMaps), std::end(diffuseMaps));
         std::vector<Component::TextureComponent> specularMaps = loadMaterialTextures(model, material,
-                                                            aiTextureType_SPECULAR, "texture_specular", false);
+                                                            aiTextureType_SPECULAR, "texture_specular"s, false);
         textures.insert(std::end(textures), std::begin(specularMaps), std::end(specularMaps));
 
-        std::cout << "ModelName: " << model.path << '\n';
         std::cout << "textures.size(): " << textures.size() << '\n';
+
+        if(textures.empty()) {
+            textures.emplace_back("../res/missing_texture.png"s, 0);
+        }
+
         for(const auto &tex : textures) {
             std::cout << "filename: " << tex.textureCacheKey << ", shaderName: " << tex.shaderName << ", textureUnit: " << tex.textureUnit << '\n';
         }
@@ -123,23 +126,19 @@ Component::Mesh processMesh(Component::Model &model, aiMesh *mesh, const aiScene
     return Component::Mesh{generateMesh(model.path, vertices, indices, textures), indices.size(), vertices, indices, textures};
 }
 
-void processNode(Component::Model &model, aiNode *node, const aiScene *scene)
-{
+void processNode(Component::Model &model, aiNode *node, const aiScene *scene) {
     // process all the node's meshes (if any)
-    for(unsigned int i = 0; i < node->mNumMeshes; i++)
-    {
+    for(unsigned int i = 0; i < node->mNumMeshes; i++) {
         aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
         model.meshes.push_back(processMesh(model, mesh, scene));
     }
     // then do the same for each of its children
-    for(unsigned int i = 0; i < node->mNumChildren; i++)
-    {
+    for(unsigned int i = 0; i < node->mNumChildren; i++) {
         processNode(model, node->mChildren[i], scene);
     }
 }
 
-std::optional<Component::Model> loadModel(const std::string &path)
-{
+std::optional<Component::Model> loadModel(const std::string &path) {
     if(LookupTables::ModelCache.count(path)) {
         LookupTables::ModelCache.at(path).second += 1u;
         return Component::Model(LookupTables::ModelCache.at(path).first.meshes, path);

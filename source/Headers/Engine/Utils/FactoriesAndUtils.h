@@ -13,9 +13,9 @@ std::optional<EnttWrapper::Entity> createBaseEntity(EnttWrapper::Scene &scene, c
 
     if(!model.has_value()) return std::nullopt;
 
-    return scene.createEntity().addComponent<Component::Drawable, Component::Model,
-            Shader>(std::move(model.value()), std::move(shader))
-            .addComponent<Component::PosRotationScale>(posRotScale);
+    return scene.createEntity()
+                .addComponent<Component::Drawable, Component::Model, Shader>(std::move(model.value()), std::move(shader))
+                .addComponent<Component::PosRotationScale>(posRotScale);
 }
 
 std::optional<EnttWrapper::Entity> createBaseEntity(EnttWrapper::Scene &scene, const std::string &modelFilename, Shader shader, std::vector<Uniform> uniforms, Component::PosRotationScale posRotScale) {
@@ -23,9 +23,9 @@ std::optional<EnttWrapper::Entity> createBaseEntity(EnttWrapper::Scene &scene, c
 
     if(!model.has_value()) return std::nullopt;
 
-    return scene.createEntity().addComponent<Component::Drawable, Component::Model,
-            Shader, std::vector<Uniform>>(std::move(model.value()), std::move(shader), std::move(uniforms))
-            .addComponent<Component::PosRotationScale>(posRotScale);
+    return scene.createEntity()
+                .addComponent<Component::Drawable, Component::Model, Shader, std::vector<Uniform>>(std::move(model.value()), std::move(shader), std::move(uniforms))
+                .addComponent<Component::PosRotationScale>(posRotScale);
 }
 
 DataStructures::Octree createTreeWithTerrain(const Terrain &terrain) {
